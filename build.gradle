@@ -1,0 +1,20 @@
+// Gradle build script for the Acorus project
+
+plugins {
+    id 'base' // to add a "clean" task to the root project
+}
+
+subprojects {
+    apply from: rootProject.file('common.gradle')
+}
+
+// publishing tasks
+
+task('install') {
+    dependsOn ':AcorusLibrary:install'
+    description 'Installs Maven artifacts to the local repository.'
+}
+task('release') {
+    dependsOn ':AcorusLibrary:release'
+    description 'Stages Maven artifacts to Sonatype OSSRH.'
+}
