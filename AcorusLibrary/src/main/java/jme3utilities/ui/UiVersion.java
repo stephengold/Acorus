@@ -32,8 +32,7 @@ package jme3utilities.ui;
 import java.util.logging.Logger;
 
 /**
- * Version strings for the jme3-utilities-ui library. All methods should be
- * static.
+ * Version strings for the Acorus library. All methods should be static.
  *
  * @author Stephen Gold sgold@sonic.net
  */
