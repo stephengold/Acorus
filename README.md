@@ -19,7 +19,7 @@ Complete source code (in Java) is provided under
 
 <a name="build"/>
 
-## How to build Jme3-utilities from source
+## How to build Acorus from source
 
 1. Install a [Java Development Kit (JDK)][openJDK],
    if you don't already have one.
