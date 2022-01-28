@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2013-2021, Stephen Gold
+ Copyright (c) 2013-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -86,7 +86,7 @@ class DefaultInputMode extends InputMode {
         /*
          * Forward all actions to the ActionApplication subclass for processing.
          */
-        actionApplication.onAction(actionString, ongoing, tpf);
+        getActionApplication().onAction(actionString, ongoing, tpf);
     }
     // *************************************************************************
     // InputMode methods

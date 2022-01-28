@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2018-2020, Stephen Gold
+ Copyright (c) 2018-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -181,14 +181,16 @@ public class CameraOrbitAppState extends ActionAppState {
         super.update(tpf);
 
         float orbitAngle = 0f;
-        if (signals.test(ccwSignalName)) {
+        Signals uiSignals = getSignals();
+        if (uiSignals.test(ccwSignalName)) {
             orbitAngle += tpf;
         }
-        if (signals.test(cwSignalName)) {
+        if (uiSignals.test(cwSignalName)) {
             orbitAngle -= tpf;
         }
         if (orbitAngle != 0f) {
-            orbitAngle *= angularRate / actionApplication.speed();
+            float appSpeed = speed();
+            orbitAngle *= angularRate / appSpeed;
             orbitCamera(orbitAngle);
         }
     }

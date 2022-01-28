@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2013-2021, Stephen Gold
+ Copyright (c) 2013-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -441,9 +441,10 @@ abstract public class InputMode
      */
     void processCombos(int code, float tpf) {
         Map<Combo, String> map = comboBindings[code];
+        Signals uiSignals = getSignals();
         for (Map.Entry<Combo, String> entry : map.entrySet()) {
             Combo combo = entry.getKey();
-            if (combo.testAll(signals)) {
+            if (combo.testAll(uiSignals)) {
                 String actionString = entry.getValue();
                 boolean ongoing = true;
                 onAction(actionString, ongoing, tpf);
@@ -856,7 +857,9 @@ abstract public class InputMode
         assert words.length > 1 : MyString.quote(actionName);
         assert "signal".equals(words[0]);
         String signalName = words[1];
-        signals.add(signalName);
+
+        Signals uiSignals = getSignals();
+        uiSignals.add(signalName);
         /*
          * Append the decimal keyCode to ensure a unique action string.
          */
@@ -864,7 +867,7 @@ abstract public class InputMode
         int count = countBindings(actionString);
         boolean isUnique = (count == 0);
         assert isUnique : count;
-        inputManager.addListener(signals, actionString);
+        inputManager.addListener(uiSignals, actionString);
         /*
          * Add the mapping to the input manager.
          */

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2014-2021, Stephen Gold
+ Copyright (c) 2014-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -35,31 +35,19 @@ import java.util.logging.Logger;
 import jme3utilities.SimpleAppState;
 
 /**
- * A SimpleAppState with protected fields analogous to the private fields of
- * ActionApplication.
+ * A SimpleAppState in an ActionApplication.
  *
  * @author Stephen Gold sgold@sonic.net
  */
 public class ActionAppState extends SimpleAppState {
     // *************************************************************************
-    // constants
+    // constants and loggers
 
     /**
      * message logger for this class
      */
     final private static Logger logger
             = Logger.getLogger(ActionAppState.class.getName());
-    // *************************************************************************
-    // fields
-
-    /**
-     * action application instance: set by initialize() TODO privatize
-     */
-    protected ActionApplication actionApplication;
-    /**
-     * signal tracker: set by initialize() TODO privatize
-     */
-    protected Signals signals = null;
     // *************************************************************************
     // constructor
 
@@ -70,6 +58,41 @@ public class ActionAppState extends SimpleAppState {
      */
     public ActionAppState(boolean enabled) {
         super(enabled);
+    }
+    // *************************************************************************
+    // new methods exposed
+
+    /**
+     * Access the application. Allowed only if the AppState has been
+     * initialized.
+     *
+     * @return the pre-existing instance (not null)
+     */
+    ActionApplication getActionApplication() {
+        assert simpleApplication != null;
+        return (ActionApplication) simpleApplication;
+    }
+
+    /**
+     * Access the user-interface signals. Allowed only if the AppState has been
+     * initialized.
+     *
+     * @return the pre-existing instance
+     */
+    Signals getSignals() {
+        Signals result = getActionApplication().getSignals();
+        return result;
+    }
+
+    /**
+     * Determine the effective speed of physics and animations. Allowed only if
+     * the AppState has been initialized.
+     *
+     * @return the speed (&gt;0, standard speed &rarr; 1)
+     */
+    public float speed() {
+        float result = getActionApplication().speed();
+        return result;
     }
     // *************************************************************************
     // SimpleAppState methods
@@ -88,9 +111,5 @@ public class ActionAppState extends SimpleAppState {
         }
 
         super.initialize(sm, app);
-        actionApplication = (ActionApplication) app;
-
-        signals = actionApplication.getSignals();
-        assert signals != null;
     }
 }
