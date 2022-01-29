@@ -85,6 +85,7 @@ public class TestHotkeys extends ActionApplication {
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setTitle(applicationName);
         settings.setAudioRenderer(null);
+        settings.setUseJoysticks(true);
         application.setSettings(settings);
         /*
          * Invoke the JME startup code,
