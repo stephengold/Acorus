@@ -1,6 +1,21 @@
-# release log for the Acorus library
+# release log for the Acorus library and related examples
 
- + Acorus split off from the Jme3-utilities Project to a new GitHub repo.
+## Version 0.9.7 released on TBD
+
+ + Split off the UI library from the Jme3-utilities Project, renamed it
+   "Acorus", and moved it to a new GitHub repo. Added example apps from the
+   "test" subproject of Jme3-utilities.
+ + Re-designed `ActionAppState` to replace 2 protected fields with the
+   `getActionApplication()` and `getSignals()` methods. (API change)
+ + Made the `centerCgm()` and `setCgmHeight()` methods of `AbstractDemo`
+   static. (API change)
+ + De-publicized `Hotkey.initialize()` and added an argument. (API change)
+ + Finalized 3 utility classes. (API change)
+ + Removed the InputManager args from the `map()` and `unmap()` methods of the
+   `Combo` and `Hotkey` classes. (API change)
+ + Added joystick buttons to the `Hotkey` class.
+ + Skipped unavailable key codes when using LWJGL v3.
+ + Added a status display to the `TestHotkeys` app.
 
 ## Version 0.9.6 released on 23 January 2022
 
