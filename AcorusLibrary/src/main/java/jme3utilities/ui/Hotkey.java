@@ -669,6 +669,7 @@ final public class Hotkey {
 
     /**
      * Determine GLFW's layout-specific name for the specified keyboard key.
+     * TODO use GlfwKeyInput.getKeyName()
      *
      * @param jmeKeyCode a JMonkeyEngine key code
      * @return the name, or null if GLFW is unavailable OR the key is unknown to

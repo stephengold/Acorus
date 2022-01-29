@@ -148,7 +148,7 @@ abstract public class InputMode
      */
     final private Set<String> actionNames = new TreeSet<>();
     /**
-     * LIFO stack of suspended input modes
+     * LIFO stack of suspended input modes TODO use a Deque
      */
     final private static Stack<InputMode> suspendedModes = new Stack<>();
     /**
