@@ -37,6 +37,8 @@ import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.input.CameraInput;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
+import com.jme3.system.JmeSystem;
+import com.jme3.system.Platform;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.MyString;
@@ -105,8 +107,8 @@ class DefaultInputMode extends InputMode {
         bindSignal(CameraInput.FLYCAM_STRAFELEFT, KeyInput.KEY_A);
         bindSignal(CameraInput.FLYCAM_STRAFERIGHT, KeyInput.KEY_D);
 
-        String os = System.getProperty("os.name").toLowerCase(); // TODO use Platform
-        if (os.contains("linux")) {
+        Platform platform = JmeSystem.getPlatform();
+        if (platform.getOs() == Platform.Os.Linux) {
             bind("ScreenShot", KeyInput.KEY_SCROLL); // window mgr blocks SYSRQ
         } else {
             bind("ScreenShot", KeyInput.KEY_SYSRQ);
