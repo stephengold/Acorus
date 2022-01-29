@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2018-2021, Stephen Gold
+ Copyright (c) 2018-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -223,7 +223,7 @@ abstract public class AbstractDemo extends ActionApplication {
      *
      * @param cgModel (not null, modified)
      */
-    public void centerCgm(Spatial cgModel) {
+    public static void centerCgm(Spatial cgModel) {
         Validate.nonNull(cgModel, "model");
 
         Vector3f[] minMax = MySpatial.findMinMaxCoords(cgModel);
@@ -303,7 +303,7 @@ abstract public class AbstractDemo extends ActionApplication {
      * @param cgModel (not null, modified)
      * @param height the desired height (in world units, &gt;0)
      */
-    public void setCgmHeight(Spatial cgModel, float height) {
+    public static void setCgmHeight(Spatial cgModel, float height) {
         Validate.nonNull(cgModel, "model");
         Validate.positive(height, "height");
 
