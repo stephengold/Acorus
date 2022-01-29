@@ -69,15 +69,15 @@ final public class Hotkey {
     /**
      * universal code for the first mouse button
      */
-    final private static int firstButton = KeyInput.KEY_LAST + 1;
+    final private static int firstMouseButton = KeyInput.KEY_LAST + 1;
     /**
      * universal code for the last mouse button
      */
-    final private static int lastButton = KeyInput.KEY_LAST + 3;
+    final private static int lastMouseButton = KeyInput.KEY_LAST + maxMouseButtons;
     /**
      * universal code for the first joystick button
      */
-    final private static int firstJoystickButton = lastButton + 1;
+    final private static int firstJoystickButton = lastMouseButton + 1;
     /**
      * message logger for this class
      */
@@ -95,8 +95,8 @@ final public class Hotkey {
      * <p>
      * a JME key code (from {@link com.jme3.input.KeyInput}) or
      * <p>
-     * firstButton + a JME button code (from {@link com.jme3.input.MouseInput})
-     * or
+     * firstMouseButton + a JME button code (from
+     * {@link com.jme3.input.MouseInput}) or
      * <p>
      * {@code firstJoystickButton + maxButtonsPerJoystick * joystickIndex + buttonIndex}
      */
@@ -137,10 +137,7 @@ final public class Hotkey {
      * Instantiate a Hotkey with the specified universal code, local name, US
      * name, and trigger.
      *
-     * @param universalCode the desired universal code: either a key code (from
-     * {@link com.jme3.input.KeyInput}) or firstButton + a button code (from
-     * {@link com.jme3.input.MouseInput}) or joystick code (computed from a
-     * joystick index and a joystick-button index)
+     * @param universalCode the desired universal code
      * @param localName the desired local name (not null, not empty)
      * @param usName the desired US name (not null, not empty)
      * @param trigger the desired trigger (not null)
@@ -170,14 +167,15 @@ final public class Hotkey {
      */
     public int buttonCode() {
         int buttonCode;
-        if (universalCode < firstButton || universalCode > lastButton) {
+        if (universalCode < firstMouseButton
+                || universalCode > lastMouseButton) {
             buttonCode = -1;
         } else {
-            buttonCode = universalCode - firstButton;
+            buttonCode = universalCode - firstMouseButton;
         }
 
         assert buttonCode >= -1 : buttonCode;
-        assert buttonCode <= lastButton - firstButton : buttonCode;
+        assert buttonCode < maxMouseButtons : buttonCode;
         return buttonCode;
     }
 
@@ -194,29 +192,28 @@ final public class Hotkey {
     /**
      * Find a hotkey by its universal code.
      *
-     * @param code a universal code: either a key code (from
-     * {@link com.jme3.input.KeyInput}) or firstButton + a button code (from
-     * {@link com.jme3.input.MouseInput}) or joystick code (computed from a
-     * joystick index and a joystick-button index)
+     * @param universalCode a universal code: either a key code (from
+     * {@link com.jme3.input.KeyInput}) or firstMouseButton + a mouse-button
+     * code (from {@link com.jme3.input.MouseInput}) or joystick-button code
+     * (computed from a joystick index and a joystick-button index)
      * @return the pre-existing instance (or null if none)
      */
-    public static Hotkey find(int code) {
-        Validate.nonNegative(code, "code");
-        Hotkey result = byUniversalCode.get(code);
+    public static Hotkey find(int universalCode) {
+        Validate.nonNegative(universalCode, "universal code");
+        Hotkey result = byUniversalCode.get(universalCode);
         return result;
     }
 
     /**
-     * Find a hotkey by its button code.
+     * Find a mouse-button hotkey by its button code.
      *
      * @param buttonCode a JME button code from
      * {@link com.jme3.input.MouseInput}
      * @return the pre-existing instance (or null if none)
      */
     public static Hotkey findButton(int buttonCode) {
-        Validate.inRange(buttonCode, "button code",
-                0, lastButton - firstButton);
-        Hotkey result = find(firstButton + buttonCode);
+        Validate.inRange(buttonCode, "button code", 0, maxMouseButtons - 1);
+        Hotkey result = find(firstMouseButton + buttonCode);
         return result;
     }
 
@@ -267,172 +264,11 @@ final public class Hotkey {
         /*
          * mouse buttons
          */
-        addButton(MouseInput.BUTTON_LEFT, "LMB");
-        addButton(MouseInput.BUTTON_MIDDLE, "MMB");
-        addButton(MouseInput.BUTTON_RIGHT, "RMB");
-        /*
-         * mode keys
-         */
-        addKey(KeyInput.KEY_LCONTROL, "left ctrl");
-        addKey(KeyInput.KEY_LMENU, "left alt");
-        addKey(KeyInput.KEY_LMETA, "left meta");
-        addKey(KeyInput.KEY_LSHIFT, "left shift");
+        addMouseButton(MouseInput.BUTTON_LEFT, "LMB");
+        addMouseButton(MouseInput.BUTTON_MIDDLE, "MMB");
+        addMouseButton(MouseInput.BUTTON_RIGHT, "RMB");
 
-        addKey(KeyInput.KEY_RCONTROL, "right ctrl");
-        addKey(KeyInput.KEY_RMENU, "right alt");
-        addKey(KeyInput.KEY_RMETA, "right meta");
-        addKey(KeyInput.KEY_RSHIFT, "right shift");
-
-        addKey(KeyInput.KEY_CAPITAL, "caps lock");
-        /*
-         * main keyboard letters
-         */
-        addKey(KeyInput.KEY_A, "a");
-        addKey(KeyInput.KEY_B, "b");
-        addKey(KeyInput.KEY_C, "c");
-        addKey(KeyInput.KEY_D, "d");
-        addKey(KeyInput.KEY_E, "e");
-        addKey(KeyInput.KEY_F, "f");
-        addKey(KeyInput.KEY_G, "g");
-        addKey(KeyInput.KEY_H, "h");
-        addKey(KeyInput.KEY_I, "i");
-        addKey(KeyInput.KEY_J, "j");
-        addKey(KeyInput.KEY_K, "k");
-        addKey(KeyInput.KEY_L, "l");
-        addKey(KeyInput.KEY_M, "m");
-        addKey(KeyInput.KEY_N, "n");
-        addKey(KeyInput.KEY_O, "o");
-        addKey(KeyInput.KEY_P, "p");
-        addKey(KeyInput.KEY_Q, "q");
-        addKey(KeyInput.KEY_R, "r");
-        addKey(KeyInput.KEY_S, "s");
-        addKey(KeyInput.KEY_T, "t");
-        addKey(KeyInput.KEY_U, "u");
-        addKey(KeyInput.KEY_V, "v");
-        addKey(KeyInput.KEY_W, "w");
-        addKey(KeyInput.KEY_X, "x");
-        addKey(KeyInput.KEY_Y, "y");
-        addKey(KeyInput.KEY_Z, "z");
-        /*
-         * main keyboard digits
-         */
-        addKey(KeyInput.KEY_1, "1");
-        addKey(KeyInput.KEY_2, "2");
-        addKey(KeyInput.KEY_3, "3");
-        addKey(KeyInput.KEY_4, "4");
-        addKey(KeyInput.KEY_5, "5");
-        addKey(KeyInput.KEY_6, "6");
-        addKey(KeyInput.KEY_7, "7");
-        addKey(KeyInput.KEY_8, "8");
-        addKey(KeyInput.KEY_9, "9");
-        addKey(KeyInput.KEY_0, "0");
-        /*
-         * main keyboard punctuation
-         */
-        addKey(KeyInput.KEY_GRAVE, "backtick");
-        addKey(KeyInput.KEY_MINUS, "minus");
-        addKey(KeyInput.KEY_EQUALS, "equals");
-        addKey(KeyInput.KEY_LBRACKET, "left bracket");
-        addKey(KeyInput.KEY_RBRACKET, "right bracket");
-        addKey(KeyInput.KEY_BACKSLASH, "backslash");
-        addKey(KeyInput.KEY_SEMICOLON, "semicolon");
-        addKey(KeyInput.KEY_APOSTROPHE, "apostrophe");
-        addKey(KeyInput.KEY_COMMA, "comma");
-        addKey(KeyInput.KEY_PERIOD, "period");
-        addKey(KeyInput.KEY_SLASH, "slash");
-        /*
-         * ASCII control and whitespace keys
-         */
-        addKey(KeyInput.KEY_ESCAPE, "esc");
-        addKey(KeyInput.KEY_BACK, "backspace");
-        addKey(KeyInput.KEY_TAB, "tab");
-        addKey(KeyInput.KEY_RETURN, "enter");
-        addKey(KeyInput.KEY_SPACE, "space");
-        /*
-         * function keys
-         */
-        addKey(KeyInput.KEY_F1, "f1");
-        addKey(KeyInput.KEY_F2, "f2");
-        addKey(KeyInput.KEY_F3, "f3");
-        addKey(KeyInput.KEY_F4, "f4");
-        addKey(KeyInput.KEY_F5, "f5");
-        addKey(KeyInput.KEY_F6, "f6");
-        addKey(KeyInput.KEY_F7, "f7");
-        addKey(KeyInput.KEY_F8, "f8");
-        addKey(KeyInput.KEY_F9, "f9");
-        addKey(KeyInput.KEY_F10, "f10");
-        addKey(KeyInput.KEY_F11, "f11");
-        addKey(KeyInput.KEY_F12, "f12");
-        addKey(KeyInput.KEY_F13, "f13");
-        addKey(KeyInput.KEY_F14, "f14");
-        addKey(KeyInput.KEY_F15, "f15");
-        /*
-         * editing and arrow keys
-         */
-        addKey(KeyInput.KEY_INSERT, "insert");
-        addKey(KeyInput.KEY_HOME, "home");
-        addKey(KeyInput.KEY_PGUP, "page up");
-        addKey(KeyInput.KEY_DELETE, "delete");
-        addKey(KeyInput.KEY_END, "end");
-        addKey(KeyInput.KEY_PGDN, "page down");
-        addKey(KeyInput.KEY_UP, "up arrow");
-        addKey(KeyInput.KEY_LEFT, "left arrow");
-        addKey(KeyInput.KEY_DOWN, "down arrow");
-        addKey(KeyInput.KEY_RIGHT, "right arrow");
-        /*
-         * system keys
-         */
-        addKey(KeyInput.KEY_SYSRQ, "sys rq");
-        addKey(KeyInput.KEY_SCROLL, "scroll lock");
-        addKey(KeyInput.KEY_PAUSE, "pause");
-        addKey(KeyInput.KEY_PRTSCR, "prtscr");
-        /*
-         * the numeric keypad
-         */
-        addKey(KeyInput.KEY_NUMLOCK, "num lock");
-        addKey(KeyInput.KEY_DECIMAL, "numpad decimal");
-        addKey(KeyInput.KEY_DIVIDE, "numpad divide");
-        addKey(KeyInput.KEY_MULTIPLY, "numpad multiply");
-        addKey(KeyInput.KEY_NUMPAD7, "numpad 7");
-        addKey(KeyInput.KEY_NUMPAD8, "numpad 8");
-        addKey(KeyInput.KEY_NUMPAD9, "numpad 9");
-        addKey(KeyInput.KEY_ADD, "numpad add");
-        addKey(KeyInput.KEY_NUMPAD4, "numpad 4");
-        addKey(KeyInput.KEY_NUMPAD5, "numpad 5");
-        addKey(KeyInput.KEY_NUMPAD6, "numpad 6");
-        addKey(KeyInput.KEY_NUMPAD1, "numpad 1");
-        addKey(KeyInput.KEY_NUMPAD2, "numpad 2");
-        addKey(KeyInput.KEY_NUMPAD3, "numpad 3");
-        addKey(KeyInput.KEY_NUMPADENTER, "numpad enter");
-        addKey(KeyInput.KEY_NUMPAD0, "numpad 0");
-        addKey(KeyInput.KEY_NUMPADCOMMA, "numpad comma");
-        addKey(KeyInput.KEY_NUMPADEQUALS, "numpad equals");
-        addKey(KeyInput.KEY_SUBTRACT, "numpad subtract");
-        /*
-         * miscellaneous keys
-         *
-         * None of these are listed in GlfwKeyMap, so I believe they aren't
-         * needed for LWJGL v3.
-         */
-        String keyInputClassName = getKeyInput().getClass().getSimpleName();
-        boolean isV3KeyInput = keyInputClassName.equals("GlfwKeyInput");
-        if (!isV3KeyInput) {
-            addKey(KeyInput.KEY_APPS, "apps");
-            addKey(KeyInput.KEY_AT, "at sign");
-            addKey(KeyInput.KEY_AX, "ax");
-            addKey(KeyInput.KEY_CIRCUMFLEX, "circumflex");
-            addKey(KeyInput.KEY_COLON, "colon");
-            addKey(KeyInput.KEY_CONVERT, "convert");
-            addKey(KeyInput.KEY_KANA, "kana");
-            addKey(KeyInput.KEY_KANJI, "kanji");
-            addKey(KeyInput.KEY_NOCONVERT, "no convert");
-            addKey(KeyInput.KEY_POWER, "power");
-            addKey(KeyInput.KEY_SLEEP, "sleep");
-            addKey(KeyInput.KEY_STOP, "stop");
-            addKey(KeyInput.KEY_UNDERLINE, "underline");
-            addKey(KeyInput.KEY_UNLABELED, "unlabeled");
-            addKey(KeyInput.KEY_YEN, "yen");
-        }
+        initializeKeys();
         /*
          * joystick buttons, if any
          */
@@ -457,7 +293,7 @@ final public class Hotkey {
      */
     public int keyCode() {
         int keyCode;
-        if (universalCode < firstButton) {
+        if (universalCode < firstMouseButton) {
             keyCode = universalCode;
         } else {
             keyCode = -1;
@@ -476,10 +312,10 @@ final public class Hotkey {
     public static List<Hotkey> listAll() {
         Collection<Hotkey> all = byLocalName.values();
         int numInstances = all.size();
-        List<Hotkey> list = new ArrayList<>(numInstances);
-        list.addAll(all);
+        List<Hotkey> result = new ArrayList<>(numInstances);
+        result.addAll(all);
 
-        return list;
+        return result;
     }
 
     /**
@@ -538,33 +374,6 @@ final public class Hotkey {
     // private methods
 
     /**
-     * Add a new hotkey for a mouse button.
-     *
-     * @param buttonCode the JME button code (from
-     * {@link com.jme3.input.MouseInput}) that isn't already assigned to a
-     * hotkey
-     * @param name a name not already assigned (not null, not empty)
-     */
-    private static void addButton(int buttonCode, String name) {
-        assert buttonCode >= 0 : buttonCode;
-        assert buttonCode <= lastButton - firstButton : buttonCode;
-        assert name != null;
-        assert !name.isEmpty();
-        assert findButton(buttonCode) == null :
-                "button" + buttonCode + " is already assigned to a hotkey";
-        assert findLocal(name) == null;
-        assert findUs(name) == null;
-
-        int universalCode = buttonCode + firstButton;
-        Trigger trigger = new MouseButtonTrigger(buttonCode);
-        Hotkey instance = new Hotkey(universalCode, name, name, trigger);
-
-        byUniversalCode.put(universalCode, instance);
-        byLocalName.put(name, instance);
-        byUsName.put(name, instance);
-    }
-
-    /**
      * Add a new hotkey for a joystick button.
      *
      * @param joystickIndex the JME joystick index (&ge;0)
@@ -585,6 +394,33 @@ final public class Hotkey {
         assert findUs(name) == null;
 
         Trigger trigger = new JoyButtonTrigger(joystickIndex, buttonIndex);
+        Hotkey instance = new Hotkey(universalCode, name, name, trigger);
+
+        byUniversalCode.put(universalCode, instance);
+        byLocalName.put(name, instance);
+        byUsName.put(name, instance);
+    }
+
+    /**
+     * Add a new hotkey for a mouse button.
+     *
+     * @param buttonCode the JME mouse-button code (from
+     * {@link com.jme3.input.MouseInput}) that isn't already assigned to a
+     * hotkey
+     * @param name a name not already assigned (not null, not empty)
+     */
+    private static void addMouseButton(int buttonCode, String name) {
+        assert buttonCode >= 0 : buttonCode;
+        assert buttonCode < maxMouseButtons : buttonCode;
+        assert name != null;
+        assert !name.isEmpty();
+        assert findButton(buttonCode) == null :
+                "button" + buttonCode + " is already assigned to a hotkey";
+        assert findLocal(name) == null;
+        assert findUs(name) == null;
+
+        int universalCode = firstMouseButton + buttonCode;
+        Trigger trigger = new MouseButtonTrigger(buttonCode);
         Hotkey instance = new Hotkey(universalCode, name, name, trigger);
 
         byUniversalCode.put(universalCode, instance);
@@ -775,5 +611,174 @@ final public class Hotkey {
         }
 
         return result;
+    }
+
+    /**
+     * Instantiate hotkeys for all known keyboard keys.
+     */
+    private static void initializeKeys() {
+        /*
+         * mode keys
+         */
+        addKey(KeyInput.KEY_LCONTROL, "left ctrl");
+        addKey(KeyInput.KEY_LMENU, "left alt");
+        addKey(KeyInput.KEY_LMETA, "left meta");
+        addKey(KeyInput.KEY_LSHIFT, "left shift");
+
+        addKey(KeyInput.KEY_RCONTROL, "right ctrl");
+        addKey(KeyInput.KEY_RMENU, "right alt");
+        addKey(KeyInput.KEY_RMETA, "right meta");
+        addKey(KeyInput.KEY_RSHIFT, "right shift");
+
+        addKey(KeyInput.KEY_CAPITAL, "caps lock");
+        /*
+         * main keyboard letters
+         */
+        addKey(KeyInput.KEY_A, "a");
+        addKey(KeyInput.KEY_B, "b");
+        addKey(KeyInput.KEY_C, "c");
+        addKey(KeyInput.KEY_D, "d");
+        addKey(KeyInput.KEY_E, "e");
+        addKey(KeyInput.KEY_F, "f");
+        addKey(KeyInput.KEY_G, "g");
+        addKey(KeyInput.KEY_H, "h");
+        addKey(KeyInput.KEY_I, "i");
+        addKey(KeyInput.KEY_J, "j");
+        addKey(KeyInput.KEY_K, "k");
+        addKey(KeyInput.KEY_L, "l");
+        addKey(KeyInput.KEY_M, "m");
+        addKey(KeyInput.KEY_N, "n");
+        addKey(KeyInput.KEY_O, "o");
+        addKey(KeyInput.KEY_P, "p");
+        addKey(KeyInput.KEY_Q, "q");
+        addKey(KeyInput.KEY_R, "r");
+        addKey(KeyInput.KEY_S, "s");
+        addKey(KeyInput.KEY_T, "t");
+        addKey(KeyInput.KEY_U, "u");
+        addKey(KeyInput.KEY_V, "v");
+        addKey(KeyInput.KEY_W, "w");
+        addKey(KeyInput.KEY_X, "x");
+        addKey(KeyInput.KEY_Y, "y");
+        addKey(KeyInput.KEY_Z, "z");
+        /*
+         * main keyboard digits
+         */
+        addKey(KeyInput.KEY_1, "1");
+        addKey(KeyInput.KEY_2, "2");
+        addKey(KeyInput.KEY_3, "3");
+        addKey(KeyInput.KEY_4, "4");
+        addKey(KeyInput.KEY_5, "5");
+        addKey(KeyInput.KEY_6, "6");
+        addKey(KeyInput.KEY_7, "7");
+        addKey(KeyInput.KEY_8, "8");
+        addKey(KeyInput.KEY_9, "9");
+        addKey(KeyInput.KEY_0, "0");
+        /*
+         * main keyboard punctuation
+         */
+        addKey(KeyInput.KEY_GRAVE, "backtick");
+        addKey(KeyInput.KEY_MINUS, "minus");
+        addKey(KeyInput.KEY_EQUALS, "equals");
+        addKey(KeyInput.KEY_LBRACKET, "left bracket");
+        addKey(KeyInput.KEY_RBRACKET, "right bracket");
+        addKey(KeyInput.KEY_BACKSLASH, "backslash");
+        addKey(KeyInput.KEY_SEMICOLON, "semicolon");
+        addKey(KeyInput.KEY_APOSTROPHE, "apostrophe");
+        addKey(KeyInput.KEY_COMMA, "comma");
+        addKey(KeyInput.KEY_PERIOD, "period");
+        addKey(KeyInput.KEY_SLASH, "slash");
+        /*
+         * ASCII control and whitespace keys
+         */
+        addKey(KeyInput.KEY_ESCAPE, "esc");
+        addKey(KeyInput.KEY_BACK, "backspace");
+        addKey(KeyInput.KEY_TAB, "tab");
+        addKey(KeyInput.KEY_RETURN, "enter");
+        addKey(KeyInput.KEY_SPACE, "space");
+        /*
+         * function keys
+         */
+        addKey(KeyInput.KEY_F1, "f1");
+        addKey(KeyInput.KEY_F2, "f2");
+        addKey(KeyInput.KEY_F3, "f3");
+        addKey(KeyInput.KEY_F4, "f4");
+        addKey(KeyInput.KEY_F5, "f5");
+        addKey(KeyInput.KEY_F6, "f6");
+        addKey(KeyInput.KEY_F7, "f7");
+        addKey(KeyInput.KEY_F8, "f8");
+        addKey(KeyInput.KEY_F9, "f9");
+        addKey(KeyInput.KEY_F10, "f10");
+        addKey(KeyInput.KEY_F11, "f11");
+        addKey(KeyInput.KEY_F12, "f12");
+        addKey(KeyInput.KEY_F13, "f13");
+        addKey(KeyInput.KEY_F14, "f14");
+        addKey(KeyInput.KEY_F15, "f15");
+        /*
+         * editing and arrow keys
+         */
+        addKey(KeyInput.KEY_INSERT, "insert");
+        addKey(KeyInput.KEY_HOME, "home");
+        addKey(KeyInput.KEY_PGUP, "page up");
+        addKey(KeyInput.KEY_DELETE, "delete");
+        addKey(KeyInput.KEY_END, "end");
+        addKey(KeyInput.KEY_PGDN, "page down");
+        addKey(KeyInput.KEY_UP, "up arrow");
+        addKey(KeyInput.KEY_LEFT, "left arrow");
+        addKey(KeyInput.KEY_DOWN, "down arrow");
+        addKey(KeyInput.KEY_RIGHT, "right arrow");
+        /*
+         * system keys
+         */
+        addKey(KeyInput.KEY_SYSRQ, "sys rq");
+        addKey(KeyInput.KEY_SCROLL, "scroll lock");
+        addKey(KeyInput.KEY_PAUSE, "pause");
+        addKey(KeyInput.KEY_PRTSCR, "prtscr");
+        /*
+         * the numeric keypad
+         */
+        addKey(KeyInput.KEY_NUMLOCK, "num lock");
+        addKey(KeyInput.KEY_DECIMAL, "numpad decimal");
+        addKey(KeyInput.KEY_DIVIDE, "numpad divide");
+        addKey(KeyInput.KEY_MULTIPLY, "numpad multiply");
+        addKey(KeyInput.KEY_NUMPAD7, "numpad 7");
+        addKey(KeyInput.KEY_NUMPAD8, "numpad 8");
+        addKey(KeyInput.KEY_NUMPAD9, "numpad 9");
+        addKey(KeyInput.KEY_ADD, "numpad add");
+        addKey(KeyInput.KEY_NUMPAD4, "numpad 4");
+        addKey(KeyInput.KEY_NUMPAD5, "numpad 5");
+        addKey(KeyInput.KEY_NUMPAD6, "numpad 6");
+        addKey(KeyInput.KEY_NUMPAD1, "numpad 1");
+        addKey(KeyInput.KEY_NUMPAD2, "numpad 2");
+        addKey(KeyInput.KEY_NUMPAD3, "numpad 3");
+        addKey(KeyInput.KEY_NUMPADENTER, "numpad enter");
+        addKey(KeyInput.KEY_NUMPAD0, "numpad 0");
+        addKey(KeyInput.KEY_NUMPADCOMMA, "numpad comma");
+        addKey(KeyInput.KEY_NUMPADEQUALS, "numpad equals");
+        addKey(KeyInput.KEY_SUBTRACT, "numpad subtract");
+        /*
+         * miscellaneous keys
+         *
+         * None of these are listed in GlfwKeyMap, so I believe they aren't
+         * needed for LWJGL v3.
+         */
+        String keyInputClassName = getKeyInput().getClass().getSimpleName();
+        boolean isV3KeyInput = keyInputClassName.equals("GlfwKeyInput");
+        if (!isV3KeyInput) {
+            addKey(KeyInput.KEY_APPS, "apps");
+            addKey(KeyInput.KEY_AT, "at sign");
+            addKey(KeyInput.KEY_AX, "ax");
+            addKey(KeyInput.KEY_CIRCUMFLEX, "circumflex");
+            addKey(KeyInput.KEY_COLON, "colon");
+            addKey(KeyInput.KEY_CONVERT, "convert");
+            addKey(KeyInput.KEY_KANA, "kana");
+            addKey(KeyInput.KEY_KANJI, "kanji");
+            addKey(KeyInput.KEY_NOCONVERT, "no convert");
+            addKey(KeyInput.KEY_POWER, "power");
+            addKey(KeyInput.KEY_SLEEP, "sleep");
+            addKey(KeyInput.KEY_STOP, "stop");
+            addKey(KeyInput.KEY_UNDERLINE, "underline");
+            addKey(KeyInput.KEY_UNLABELED, "unlabeled");
+            addKey(KeyInput.KEY_YEN, "yen");
+        }
     }
 }
