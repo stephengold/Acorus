@@ -3,7 +3,12 @@
 [The Acorus Project][acorus] provides a user-interface library for
 [the jMonkeyEngine (JME) game engine][jme].
 
-Complete source code (in Java) is provided under
+It contains 2 sub-projects:
+
+ 1. AcorusLibrary: the Acorus runtime library (in Java)
+ 2. AcorusExamples: demos, examples, and non-automated test software (in Java)
+
+Complete source code is provided under
 [a 3-clause BSD license][license].
 
 
@@ -11,10 +16,19 @@ Complete source code (in Java) is provided under
 
 ## Contents of this document
 
++ [Important features](#features)
 + [How to build Acorus from source](#build)
++ [Downloads](#downloads)
 + [Conventions](#conventions)
 + [History](#history)
 + [Acknowledgments](#acks)
+
+
+<a name="features"></a>
+
+## Important features
+
+(documentation not yet written)
 
 
 <a name="build"></a>
@@ -24,18 +38,28 @@ Complete source code (in Java) is provided under
 1. Install a [Java Development Kit (JDK)][openJDK],
    if you don't already have one.
 2. Point the `JAVA_HOME` environment variable to your JDK installation:
-  + using Bash:  `export JAVA_HOME="` *path to installation* `"`
-  + using Windows Command Prompt:  `set JAVA_HOME="` *path to installation* `"`
+  + using Bash: `export JAVA_HOME="` *path to installation* `"`
+  + using Windows Command Prompt: `set JAVA_HOME="` *path to installation* `"`
   + using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
-3. Download and extract the Acorus source code from GitHub.
+3. Download and extract the Acorus source code from GitHub:
+  + using Git:
+    + `git clone https://github.com/stephengold/Acorus.git`
+    + `cd Acorus`
+    + `git checkout -b latest 0.9.7`
+  + using a web browser:
+    + browse to [the latest release][latest]
+    + follow the "Source code (zip)" link
+    + save the ZIP file
+    + extract the contents of the saved ZIP file
+    + `cd` to the extracted directory/folder
 4. Run the [Gradle] wrapper:
   + using Bash or PowerShell: `./gradlew build`
   + using Windows Command Prompt: `.\gradlew build`
 
 After a successful build,
-Maven artifacts will be found in `Acorus/build/libs`.
+Maven artifacts will be found in `AcorusLibrary/build/libs`.
 
-You can install the Maven artifacts to your local Maven repository:
+You can install the artifacts to your local Maven repository:
  + using Bash or PowerShell:  `./gradlew install`
  + using Windows Command Prompt:  `.\gradlew install`
 
@@ -46,9 +70,30 @@ You can restore the project to a pristine state:
 [Jump to table of contents](#toc)
 
 
+<a name="downloads"></a>
+
+## Downloads
+
+Newer releases (since v0.9.7) can be downloaded from
+[GitHub](https://github.com/stephengold/Acorus/releases).
+
+Old releases (through v0.9.6) can be downloaded from
+[the Jme3-utilities Project](https://github.com/stephengold/jme3-utilities/releases).
+
+Newer Maven artifacts (since v0.9.7) are available from
+[MavenCentral](https://search.maven.org/artifact/com.github.stephengold/Acorus).
+
+Old Maven artifacts (v0.9.2 through v0.9.6) are available from
+[MavenCentral](https://search.maven.org/artifact/com.github.stephengold/jme3-utilities-ui).
+
+[Jump to table of contents](#toc)
+
+
 <a name="conventions"></a>
 
 ## Conventions
+
+Package names begin with `jme3utilities.ui`
 
 The source code is compatible with JDK 7.
 The pre-built libraries are compatible with JDK 8.
@@ -63,10 +108,10 @@ The pre-built libraries are compatible with JDK 8.
 The evolution of this project is chronicled in
 [its release log][log].
 
-Prior to January 2022, Acorus was part of the "jme3-utilities-ui" library
-in the [Jme3-utilities Project][utilities].
+Prior to January 2022, Acorus was a sub-project of
+[the Jme3-utilities Project][utilities] named "jme3-utilities-ui".
 
-Since January 2022, the Acorus Project has been a separate project, hosted at
+Since January 2022, Acorus has been a separate project, hosted at
 [GitHub][acorus].
 
 [Jump to table of contents](#toc)
@@ -88,6 +133,7 @@ the following software:
     + the [Java] compiler, standard doclet, and virtual machine
     + [jMonkeyEngine][jme] and the jME3 Software Development Kit
     + the [Linux Mint][mint] operating system
+    + LWJGL, the Lightweight Java Game Library
     + the [Markdown] document-conversion tool
     + the [Meld] visual merge tool
     + Microsoft Windows

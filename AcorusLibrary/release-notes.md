@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 0.9.7 released on TBD
+## Version 0.9.7 released on 29 January 2022
 
  + Split off the UI library from the Jme3-utilities Project, renamed it
    "Acorus", and moved it to a new GitHub repo. Added example apps from the
