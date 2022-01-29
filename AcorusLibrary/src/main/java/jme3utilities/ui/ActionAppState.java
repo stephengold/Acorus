@@ -68,7 +68,7 @@ public class ActionAppState extends SimpleAppState {
      *
      * @return the pre-existing instance (not null)
      */
-    ActionApplication getActionApplication() {
+    public ActionApplication getActionApplication() {
         assert simpleApplication != null;
         return (ActionApplication) simpleApplication;
     }
@@ -79,7 +79,7 @@ public class ActionAppState extends SimpleAppState {
      *
      * @return the pre-existing instance
      */
-    Signals getSignals() {
+    public Signals getSignals() {
         Signals result = getActionApplication().getSignals();
         return result;
     }
