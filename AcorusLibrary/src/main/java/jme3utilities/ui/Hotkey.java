@@ -95,7 +95,9 @@ final public class Hotkey {
     /**
      * brief, descriptive name of this hotkey (not null, not empty) for use by
      * BindScreen and HelpUtils. On systems with Dvorak or non-US keyboards,
-     * this might differ from its US name.
+     * this might differ from its US name, but only if LWJGL v3 is used. When
+     * LWJGL v3 not used, localization doesn't take place and
+     * localName.equals(usName).
      */
     final private String localName;
     /**
@@ -535,11 +537,16 @@ final public class Hotkey {
         assert usName != null;
         assert !usName.isEmpty();
         /*
-         * Attempt to localize the name.
+         * Attempt to localize the name for HelpUtils and BindScreen.
          */
         String localName = usName;
         if (!usName.startsWith("numpad ")) { // not a numpad key
-            String glfwName = inputManager.getKeyName(keyCode);
+            String glfwName = null;
+            try {
+                glfwName = inputManager.getKeyName(keyCode);
+            } catch (UnsupportedOperationException exception) {
+                // probably using LWJGL v2
+            }
 
             if (glfwName != null) { // key is printable
                 localName = englishName(glfwName);
