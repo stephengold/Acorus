@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2021, Stephen Gold
+ Copyright (c) 2020-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -26,7 +26,10 @@
  */
 package jme3utilities.ui.test;
 
+import com.jme3.font.BitmapText;
 import com.jme3.system.AppSettings;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,6 +54,17 @@ public class TestHotkeys extends ActionApplication {
      */
     final private static String applicationName
             = TestHotkeys.class.getSimpleName();
+    // *************************************************************************
+    // fields
+
+    /**
+     * multi-line status displayed in the upper-left corner of the GUI node
+     */
+    private static BitmapText statusText;
+    /**
+     * list of active hotkeys
+     */
+    final private static Collection<Hotkey> activeHotkeys = new ArrayList<>(10);
     // *************************************************************************
     // new methods exposed
 
@@ -94,6 +108,12 @@ public class TestHotkeys extends ActionApplication {
          * Avert warnings about signals not added.
          */
         flyCam.setEnabled(false);
+        /*
+         * Instantiate the status text and attach it to the GUI.
+         */
+        statusText = new BitmapText(guiFont);
+        statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
+        guiNode.attachChild(statusText);
     }
 
     /**
@@ -105,15 +125,17 @@ public class TestHotkeys extends ActionApplication {
         InputMode dim = getDefaultInputMode();
         /*
          * Bind (or rebind) each hotkey so that its action indicates
-         * both its US name and its local name.
+         * its universal code, US name, and local name.
          *
-         * Such actions don't do anything when processed, but
          * DefaultInputMode.onAction() will log each time a hotkey
          * gets activated or deactivated.
+         *
+         * Since DefaultInputMode doesn't recoginze any of these actions,
+         * they are handled by the application's onAction() method.
          */
         for (Hotkey key : allKeys) {
-            String actionName = String.format("local=%s US=%s",
-                    key.localName(), key.usName());
+            String actionName = String.format("code(%d)  US(%s)  local(%s)",
+                    key.code(), key.usName(), key.localName());
             dim.bind(actionName, key);
         }
     }
@@ -127,7 +149,35 @@ public class TestHotkeys extends ActionApplication {
      */
     @Override
     public void onAction(String actionString, boolean ongoing, float tpf) {
-        // do nothing
-        // This avoids warnings about ongoing actions that aren't handled.
+        /*
+         * Parse the action string to determine
+         * which hotkey triggered the action.
+         */
+        int localIndex = actionString.indexOf("local(");
+        assert localIndex >= 0 : localIndex;
+        int beginIndex = localIndex + 6;
+
+        int closeIndex = actionString.indexOf(")", beginIndex);
+        assert closeIndex >= 0 : localIndex;
+
+        String localName = actionString.substring(beginIndex, closeIndex);
+        Hotkey hotkey = Hotkey.findLocal(localName);
+        /*
+         * Update the list of active keys.
+         */
+        if (ongoing) {
+            activeHotkeys.add(hotkey);
+        } else {
+            activeHotkeys.remove(hotkey);
+        }
+        /*
+         * Update the displayed status:  one line for each active hotkey.
+         */
+        String status = "";
+        for (Hotkey active : activeHotkeys) {
+            status += String.format("code(%d)  US(%s)  local(%s)\n",
+                    active.code(), active.usName(), active.localName());
+        }
+        statusText.setText(status);
     }
 }
