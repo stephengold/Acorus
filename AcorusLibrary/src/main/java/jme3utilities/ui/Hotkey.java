@@ -612,7 +612,7 @@ final public class Hotkey {
                 return "backslash";
             case "`":
                 return "backtick";
-            case "\u005E":
+            case "^":
                 return "circumflex";
             case ":":
                 return "colon";
@@ -626,7 +626,7 @@ final public class Hotkey {
                 return "equals";
             case "!":
                 return "exclaim";
-            case "\u00BD":
+            case "½":
                 return "half";
             case "#":
                 return "hash";
@@ -636,7 +636,7 @@ final public class Hotkey {
                 return "left bracket";
             case "(":
                 return "left paren";
-            case "\u00B5":
+            case "µ":
                 return "micro";
             case "-":
                 return "minus";
@@ -652,13 +652,13 @@ final public class Hotkey {
                 return "right bracket";
             case ")":
                 return "right paren";
-            case "\u00A7":
+            case "§":
                 return "section";
             case ";":
                 return "semicolon";
             case "/":
                 return "slash";
-            case "\u00B2":
+            case "²":
                 return "super2";
             case "\u0384":
                 return "tonos";
