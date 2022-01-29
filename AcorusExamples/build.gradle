@@ -1,0 +1,60 @@
+// Note: "common.gradle" in the root project contains additional initialization
+//   for this project. This initialization is applied in the "build.gradle"
+//   of the root project.
+
+description = 'demos, examples, and tests that do not generate reports'
+
+dependencies {
+    runtimeOnly 'org.jmonkeyengine:jme3-desktop:' + jme3Version
+    runtimeOnly 'org.jmonkeyengine:jme3-lwjgl3:' + jme3Version
+
+    // "AcorusExamples" doesn't use jme3-jogg nor jme3-plugins
+    //  -- they are included solely to avoid warnings from AssetConfig
+    runtimeOnly 'org.jmonkeyengine:jme3-jogg:' + jme3Version
+    runtimeOnly 'org.jmonkeyengine:jme3-plugins:' + jme3Version
+
+    implementation heartCoordinates
+
+    implementation project(':AcorusLibrary')
+}
+
+// cleanup tasks
+
+clean.dependsOn('cleanDLLs', 'cleanDyLibs', 'cleanLogs', 'cleanSOs', 'cleanWrittenAssets')
+
+task cleanDLLs(type: Delete) {
+    delete fileTree(dir: '.', include: '*.dll')
+}
+task cleanDyLibs(type: Delete) {
+    delete fileTree(dir: '.', include: '*.dylib')
+}
+task cleanLogs(type: Delete) {
+    delete fileTree(dir: '.', include: 'hs_err_pid*.log')
+}
+task cleanSOs(type: Delete) {
+    delete fileTree(dir: '.', include: '*.so')
+}
+task cleanWrittenAssets(type: Delete) {
+    delete 'Written Assets'
+}
+
+// tasks to run the test apps
+
+task testCaos(type: JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestCaos'
+}
+task testCombo(type: JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestCombo'
+}
+task testCursors(type: JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestCursors'
+}
+task testFlyCam(type: JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestFlyCam'
+}
+task testHotkeys(type: JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestHotkeys'
+}
+task testTwoModes(type: JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestTwoModes'
+}
