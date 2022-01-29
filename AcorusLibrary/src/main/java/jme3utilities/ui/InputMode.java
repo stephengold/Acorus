@@ -418,19 +418,7 @@ abstract public class InputMode
             return;
         }
 
-        try {
-            loadBindings(assetPath);
-
-        } catch (FileNotFoundException exception) {
-            logger.log(Level.SEVERE, "Didn''t find any hotkey bindings at {0}.",
-                    MyString.quote(assetPath));
-
-        } catch (IOException exception) {
-            logger.log(Level.SEVERE,
-                    "Input exception while loading hotkey bindings from {0}!",
-                    MyString.quote(assetPath));
-            throw new RuntimeException(exception);
-        }
+        loadBindings(assetPath);
     }
 
     /**
@@ -766,13 +754,6 @@ abstract public class InputMode
             hotkeyBindings.clear();
             defaultBindings();
 
-        } catch (IOException exception) {
-            logger.log(Level.SEVERE, "Input exception while loading hotkey "
-                    + "bindings from {0}!",
-                    MyString.quote(path));
-
-            hotkeyBindings.clear();
-            defaultBindings();
         }
     }
 
