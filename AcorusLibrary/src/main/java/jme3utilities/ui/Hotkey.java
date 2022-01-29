@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2013-2021, Stephen Gold
+ Copyright (c) 2013-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -563,19 +563,19 @@ final public class Hotkey {
         if (preexistingHotkey != null) {
             int preexistingCode = preexistingHotkey.keyCode();
             String nameQ = MyString.quote(usName);
-            Object[] args = new Object[]{keyCode, preexistingCode, nameQ};
-            if (!localName.equals(usName)) {
+            Object[] args = {keyCode, preexistingCode, nameQ};
+            if (localName.equals(usName)) {
+                logger.log(Level.INFO,
+                        "Ignore key{0} because pre-existing key{1} is "
+                                + "also named {2}.", args);
+                return;
+            } else {
                 logger.log(Level.INFO,
                         "Key{0} overrides pre-existing key{1} that was "
-                        + "also named {2}.", args);
+                                + "also named {2}.", args);
 
                 byLocalName.remove(localName);
                 byUniversalCode.remove(preexistingCode);
-            } else {
-                logger.log(Level.INFO,
-                        "Ignore key{0} because pre-existing key{1} is "
-                        + "also named {2}.", args);
-                return;
             }
         }
 
