@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2021, Stephen Gold
+ Copyright (c) 2020-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -158,15 +158,11 @@ public class Combo {
     }
 
     /**
-     * Map this Combo in an InputManager.
-     *
-     * @param inputManager the application's InputManager (not null)
+     * Map this Combo in the InputManager.
      */
-    void map(InputManager inputManager) {
-        assert inputManager != null;
-
+    void map() {
         String actionString = String.format("combo %d", hotkey.code());
-        hotkey.map(actionString, inputManager);
+        hotkey.map(actionString);
     }
 
     /**
@@ -244,15 +240,11 @@ public class Combo {
     }
 
     /**
-     * Unmap this Combo in an InputManager.
-     *
-     * @param inputManager the application's InputManager (not null)
+     * Unmap this Combo from the InputManager.
      */
-    void unmap(InputManager inputManager) {
-        assert inputManager != null;
-
+    void unmap() {
         String actionString = String.format("combo %d", hotkey.code());
-        hotkey.unmap(actionString, inputManager);
+        hotkey.unmap(actionString);
     }
     // *************************************************************************
     // Object methods

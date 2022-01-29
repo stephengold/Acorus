@@ -610,7 +610,7 @@ abstract public class InputMode
             if (!map.isEmpty()) {
                 String actionString = comboActionPrefix + code;
                 Hotkey hotkey = Hotkey.find(code);
-                hotkey.unmap(actionString, inputManager);
+                hotkey.unmap(actionString);
             }
         }
 
@@ -820,7 +820,7 @@ abstract public class InputMode
          * For a non-signal action, the action string is simply the name.
          * Add the mapping to the input manager.
          */
-        hotkey.map(actionName, inputManager);
+        hotkey.map(actionName);
     }
 
     /**
@@ -852,7 +852,7 @@ abstract public class InputMode
         /*
          * Add the mapping to the input manager.
          */
-        hotkey.map(actionString, inputManager);
+        hotkey.map(actionString);
     }
 
     /**
@@ -980,6 +980,6 @@ abstract public class InputMode
         /*
          * Delete the mapping, if it exists.
          */
-        hotkey.unmap(actionString, inputManager);
+        hotkey.unmap(actionString);
     }
 }

@@ -331,28 +331,23 @@ final public class Hotkey {
     }
 
     /**
-     * Map this hotkey to an action string in an input manager. Overrides any
+     * Map this hotkey to an action string in the input manager. Overrides any
      * previous mappings for the hotkey.
      *
      * @param actionString action string (not null)
-     * @param inputManager application's input manager (not null)
      */
-    void map(String actionString, InputManager inputManager) {
-        Validate.nonNull(actionString, "action");
-        Validate.nonNull(inputManager, "manager");
-
+    void map(String actionString) {
+        Validate.nonNull(actionString, "action string");
         inputManager.addMapping(actionString, trigger);
     }
 
     /**
-     * Unmap this hotkey in the specified input manager.
+     * Unmap this hotkey in the input manager.
      *
      * @param actionString action string (not null)
-     * @param inputManager which input manager (not null)
      */
-    void unmap(String actionString, InputManager inputManager) {
-        Validate.nonNull(actionString, "action");
-        Validate.nonNull(inputManager, "manager");
+    void unmap(String actionString) {
+        Validate.nonNull(actionString, "action string");
 
         if (inputManager.hasMapping(actionString)) {
             inputManager.deleteTrigger(actionString, trigger);
