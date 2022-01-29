@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020, Stephen Gold
+ Copyright (c) 2020-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -115,7 +115,7 @@ public class TestCursors extends ActionApplication {
         /*
          * Add the status text to the GUI.
          */
-        statusText = new BitmapText(guiFont, false);
+        statusText = new BitmapText(guiFont);
         statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
         guiNode.attachChild(statusText);
 

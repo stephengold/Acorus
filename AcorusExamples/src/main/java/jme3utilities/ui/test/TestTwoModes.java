@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2018-2021, Stephen Gold
+ Copyright (c) 2018-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -164,7 +164,7 @@ public class TestTwoModes extends ActionApplication {
         /*
          * Attach a status text to the GUI.
          */
-        statusText = new BitmapText(guiFont, false);
+        statusText = new BitmapText(guiFont);
         statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
         guiNode.attachChild(statusText);
         /*
