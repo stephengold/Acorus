@@ -30,8 +30,11 @@
 package jme3utilities.ui;
 
 import com.jme3.input.InputManager;
+import com.jme3.input.Joystick;
+import com.jme3.input.JoystickButton;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
+import com.jme3.input.controls.JoyButtonTrigger;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.input.controls.Trigger;
@@ -56,6 +59,14 @@ final public class Hotkey {
     // constants and loggers
 
     /**
+     * maximum number of buttons per joystick
+     */
+    final private static int maxButtonsPerJoystick = 12;
+    /**
+     * maximum number of buttons on the mouse
+     */
+    final private static int maxMouseButtons = 3;
+    /**
      * universal code for the first mouse button
      */
     final private static int firstButton = KeyInput.KEY_LAST + 1;
@@ -63,6 +74,10 @@ final public class Hotkey {
      * universal code for the last mouse button
      */
     final private static int lastButton = KeyInput.KEY_LAST + 3;
+    /**
+     * universal code for the first joystick button
+     */
+    final private static int firstJoystickButton = lastButton + 1;
     /**
      * message logger for this class
      */
@@ -76,9 +91,14 @@ final public class Hotkey {
      */
     private static InputManager inputManager;
     /**
-     * universal code of this hotkey: either a JME key code (from
-     * {@link com.jme3.input.KeyInput}) or buttonFirst + a JME button code (from
-     * {@link com.jme3.input.MouseInput}) TODO support joystick buttons
+     * universal code of this hotkey: either
+     * <p>
+     * a JME key code (from {@link com.jme3.input.KeyInput}) or
+     * <p>
+     * firstButton + a JME button code (from {@link com.jme3.input.MouseInput})
+     * or
+     * <p>
+     * {@code firstJoystickButton + maxButtonsPerJoystick * joystickIndex + buttonIndex}
      */
     final private int universalCode;
     /**
@@ -118,8 +138,9 @@ final public class Hotkey {
      * name, and trigger.
      *
      * @param universalCode the desired universal code: either a key code (from
-     * {@link com.jme3.input.KeyInput}) or buttonFirst + a button code (from
-     * {@link com.jme3.input.MouseInput})
+     * {@link com.jme3.input.KeyInput}) or firstButton + a button code (from
+     * {@link com.jme3.input.MouseInput}) or joystick code (computed from a
+     * joystick index and a joystick-button index)
      * @param localName the desired local name (not null, not empty)
      * @param usName the desired US name (not null, not empty)
      * @param trigger the desired trigger (not null)
@@ -127,7 +148,6 @@ final public class Hotkey {
     private Hotkey(int universalCode, String localName, String usName,
             Trigger trigger) {
         assert universalCode >= 0 : universalCode;
-        assert universalCode <= lastButton : universalCode;
         assert localName != null;
         assert !localName.isEmpty();
         assert usName != null;
@@ -143,14 +163,14 @@ final public class Hotkey {
     // new methods exposed
 
     /**
-     * Determine the button code of this hotkey.
+     * Determine the button code of this mouse-button hotkey.
      *
      * @return a JME button code (from {@link com.jme3.input.MouseInput}) or -1
      * if none
      */
     public int buttonCode() {
         int buttonCode;
-        if (universalCode < firstButton) {
+        if (universalCode < firstButton || universalCode > lastButton) {
             buttonCode = -1;
         } else {
             buttonCode = universalCode - firstButton;
@@ -164,11 +184,10 @@ final public class Hotkey {
     /**
      * Determine the universal code of this hotkey.
      *
-     * @return a universal code (&ge;0, &le;lastButton)
+     * @return a universal code (&ge;0)
      */
     public int code() {
         assert universalCode >= 0 : universalCode;
-        assert universalCode <= lastButton : universalCode;
         return universalCode;
     }
 
@@ -176,12 +195,13 @@ final public class Hotkey {
      * Find a hotkey by its universal code.
      *
      * @param code a universal code: either a key code (from
-     * {@link com.jme3.input.KeyInput}) or buttonFirst + a button code (from
-     * {@link com.jme3.input.MouseInput})
+     * {@link com.jme3.input.KeyInput}) or firstButton + a button code (from
+     * {@link com.jme3.input.MouseInput}) or joystick code (computed from a
+     * joystick index and a joystick-button index)
      * @return the pre-existing instance (or null if none)
      */
     public static Hotkey find(int code) {
-        Validate.inRange(code, "code", 0, lastButton);
+        Validate.nonNegative(code, "code");
         Hotkey result = byUniversalCode.get(code);
         return result;
     }
@@ -413,6 +433,20 @@ final public class Hotkey {
             addKey(KeyInput.KEY_UNLABELED, "unlabeled");
             addKey(KeyInput.KEY_YEN, "yen");
         }
+        /*
+         * joystick buttons, if any
+         */
+        Joystick[] sticks = inputManager.getJoysticks();
+        if (sticks != null) {
+            for (Joystick j : sticks) {
+                int joyIndex = j.getJoyId();
+                List<JoystickButton> butList = j.getButtons();
+                for (JoystickButton but : butList) {
+                    int buttonIndex = but.getButtonId();
+                    addJoystickButton(joyIndex, buttonIndex);
+                }
+            }
+        }
     }
 
     /**
@@ -523,6 +557,34 @@ final public class Hotkey {
 
         int universalCode = buttonCode + firstButton;
         Trigger trigger = new MouseButtonTrigger(buttonCode);
+        Hotkey instance = new Hotkey(universalCode, name, name, trigger);
+
+        byUniversalCode.put(universalCode, instance);
+        byLocalName.put(name, instance);
+        byUsName.put(name, instance);
+    }
+
+    /**
+     * Add a new hotkey for a joystick button.
+     *
+     * @param joystickIndex the JME joystick index (&ge;0)
+     * @param buttonIndex the JME button index within the joystick (&ge;0,
+     * &lt;12)
+     */
+    private static void addJoystickButton(int joystickIndex, int buttonIndex) {
+        assert joystickIndex >= 0 : joystickIndex;
+        assert buttonIndex >= 0 : buttonIndex;
+        assert buttonIndex < maxButtonsPerJoystick : buttonIndex;
+
+        String name = String.format("j%d.b%d", joystickIndex, buttonIndex);
+        int universalCode = firstJoystickButton
+                + maxButtonsPerJoystick * joystickIndex + buttonIndex;
+        assert find(universalCode) == null :
+                name + " is already assigned to a hotkey";
+        assert findLocal(name) == null;
+        assert findUs(name) == null;
+
+        Trigger trigger = new JoyButtonTrigger(joystickIndex, buttonIndex);
         Hotkey instance = new Hotkey(universalCode, name, name, trigger);
 
         byUniversalCode.put(universalCode, instance);
