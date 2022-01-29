@@ -36,21 +36,21 @@ import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
@@ -148,9 +148,10 @@ abstract public class InputMode
      */
     final private Set<String> actionNames = new TreeSet<>();
     /**
-     * LIFO stack of suspended input modes TODO use a Deque
+     * LIFO stack of suspended input modes
      */
-    final private static Stack<InputMode> suspendedModes = new Stack<>();
+    final private static Deque<InputMode> suspendedModes
+            = new ConcurrentLinkedDeque<>();
     /**
      * path to configuration asset for loading and saving hotkey bindings (or
      * null if not loadable/savable): set by #setConfigPath()
