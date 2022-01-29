@@ -35,6 +35,7 @@ import com.jme3.input.MouseInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.input.controls.Trigger;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -241,6 +242,7 @@ final public class Hotkey {
      * @param inputManager the application's input manager (not null)
      */
     static void initialize(InputManager inputManager) {
+        assert inputManager != null;
         Hotkey.inputManager = inputManager;
         /*
          * mouse buttons
@@ -388,22 +390,29 @@ final public class Hotkey {
         addKey(KeyInput.KEY_SUBTRACT, "numpad subtract");
         /*
          * miscellaneous keys
+         *
+         * None of these are listed in GlfwKeyMap, so I believe they aren't
+         * needed for LWJGL v3.
          */
-        addKey(KeyInput.KEY_APPS, "apps");
-        addKey(KeyInput.KEY_AT, "at sign");
-        addKey(KeyInput.KEY_AX, "ax");
-        addKey(KeyInput.KEY_CIRCUMFLEX, "circumflex");
-        addKey(KeyInput.KEY_COLON, "colon");
-        addKey(KeyInput.KEY_CONVERT, "convert");
-        addKey(KeyInput.KEY_KANA, "kana");
-        addKey(KeyInput.KEY_KANJI, "kanji");
-        addKey(KeyInput.KEY_NOCONVERT, "no convert");
-        addKey(KeyInput.KEY_POWER, "power");
-        addKey(KeyInput.KEY_SLEEP, "sleep");
-        addKey(KeyInput.KEY_STOP, "stop");
-        addKey(KeyInput.KEY_UNDERLINE, "underline");
-        addKey(KeyInput.KEY_UNLABELED, "unlabeled");
-        addKey(KeyInput.KEY_YEN, "yen");
+        String keyInputClassName = getKeyInput().getClass().getSimpleName();
+        boolean isV3KeyInput = keyInputClassName.equals("GlfwKeyInput");
+        if (!isV3KeyInput) {
+            addKey(KeyInput.KEY_APPS, "apps");
+            addKey(KeyInput.KEY_AT, "at sign");
+            addKey(KeyInput.KEY_AX, "ax");
+            addKey(KeyInput.KEY_CIRCUMFLEX, "circumflex");
+            addKey(KeyInput.KEY_COLON, "colon");
+            addKey(KeyInput.KEY_CONVERT, "convert");
+            addKey(KeyInput.KEY_KANA, "kana");
+            addKey(KeyInput.KEY_KANJI, "kanji");
+            addKey(KeyInput.KEY_NOCONVERT, "no convert");
+            addKey(KeyInput.KEY_POWER, "power");
+            addKey(KeyInput.KEY_SLEEP, "sleep");
+            addKey(KeyInput.KEY_STOP, "stop");
+            addKey(KeyInput.KEY_UNDERLINE, "underline");
+            addKey(KeyInput.KEY_UNLABELED, "unlabeled");
+            addKey(KeyInput.KEY_YEN, "yen");
+        }
     }
 
     /**
@@ -677,5 +686,32 @@ final public class Hotkey {
             default:
                 return glfwKeyName;
         }
+    }
+
+    /**
+     * Access the keyboard interface that's currently in use.
+     *
+     * @return the pre-existing instance
+     */
+    private static KeyInput getKeyInput() {
+        /*
+         * Use reflection to access the "keys" field of the input manager.
+         */
+        Field keyInputField;
+        try {
+            keyInputField = InputManager.class.getDeclaredField("keys");
+        } catch (NoSuchFieldException exception) {
+            throw new RuntimeException(exception);
+        }
+        keyInputField.setAccessible(true);
+
+        KeyInput result;
+        try {
+            result = (KeyInput) keyInputField.get(inputManager);
+        } catch (IllegalAccessException exception) {
+            throw new RuntimeException(exception);
+        }
+
+        return result;
     }
 }
