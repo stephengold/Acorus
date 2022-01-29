@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2020, Stephen Gold
+ Copyright (c) 2017-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -424,7 +424,7 @@ public class Locators {
         }
 
         for (int pathIndex = 0; pathIndex < numPaths; ++pathIndex) {
-            Class locatorType = locators.locatorTypes.get(pathIndex);
+            Class<?> locatorType = locators.locatorTypes.get(pathIndex);
             String typeName = locatorType.getSimpleName();
             if (typeName.endsWith("Locator")) {
                 typeName = MyString.removeSuffix(typeName, "Locator");
