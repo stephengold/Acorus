@@ -299,7 +299,7 @@ abstract public class InputMode
     public void bindSignal(String signalName, int... keyCodes) {
         Validate.nonNull(signalName, "action name");
 
-        String actionName = InputMode.signalActionPrefix + signalName;
+        String actionName = signalActionPrefix + signalName;
         bind(actionName, keyCodes);
     }
 
@@ -460,7 +460,7 @@ abstract public class InputMode
         int numSuspended = suspendedModes.size();
         assert numSuspended > 0 : numSuspended;
 
-        InputMode active = InputMode.getActiveMode();
+        InputMode active = getActiveMode();
         if (active != null) {
             active.setEnabled(false);
         }
@@ -529,7 +529,7 @@ abstract public class InputMode
      * @param newMode the desired input mode, or null for none
      */
     public static void suspendAndActivate(InputMode newMode) {
-        InputMode oldMode = InputMode.getActiveMode();
+        InputMode oldMode = getActiveMode();
         if (oldMode != null) {
             oldMode.suspend();
             suspendedModes.push(oldMode);
@@ -592,7 +592,7 @@ abstract public class InputMode
         for (int code = 0; code < numCodes; ++code) {
             Map<Combo, String> map = comboBindings[code];
             if (!map.isEmpty()) {
-                String actionName = comboActionPrefix + Integer.toString(code);
+                String actionName = comboActionPrefix + code;
                 Hotkey hotkey = Hotkey.find(code);
                 mapNonsignalHotkey(actionName, hotkey);
             }
@@ -619,8 +619,7 @@ abstract public class InputMode
         for (int code = 0; code < numCodes; ++code) {
             Map<Combo, String> map = comboBindings[code];
             if (!map.isEmpty()) {
-                String actionString
-                        = comboActionPrefix + Integer.toString(code);
+                String actionString = comboActionPrefix + code;
                 Hotkey hotkey = Hotkey.find(code);
                 hotkey.unmap(actionString, inputManager);
             }
@@ -782,7 +781,7 @@ abstract public class InputMode
      *
      * @param assetPath asset path (not null)
      */
-    private void loadBindings(String assetPath) throws IOException {
+    private void loadBindings(String assetPath) {
         assert assetPath != null;
 
         logger.log(Level.INFO, "Loading hotkey bindings from asset {0}.",
