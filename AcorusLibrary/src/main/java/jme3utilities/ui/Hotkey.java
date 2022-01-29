@@ -567,12 +567,12 @@ final public class Hotkey {
             if (localName.equals(usName)) {
                 logger.log(Level.INFO,
                         "Ignore key{0} because pre-existing key{1} is "
-                                + "also named {2}.", args);
+                        + "also named {2}.", args);
                 return;
             } else {
                 logger.log(Level.INFO,
                         "Key{0} overrides pre-existing key{1} that was "
-                                + "also named {2}.", args);
+                        + "also named {2}.", args);
 
                 byLocalName.remove(localName);
                 byUniversalCode.remove(preexistingCode);

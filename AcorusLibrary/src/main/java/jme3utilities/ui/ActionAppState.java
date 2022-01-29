@@ -77,7 +77,7 @@ public class ActionAppState extends SimpleAppState {
      * Access the user-interface signals. Allowed only if the AppState has been
      * initialized.
      *
-     * @return the pre-existing instance
+     * @return the pre-existing instance (not null)
      */
     public Signals getSignals() {
         Signals result = getActionApplication().getSignals();
