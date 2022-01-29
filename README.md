@@ -7,7 +7,7 @@ Complete source code (in Java) is provided under
 [a 3-clause BSD license][license].
 
 
-<a name="toc"/>
+<a name="toc"></a>
 
 ## Contents of this document
 
@@ -17,7 +17,7 @@ Complete source code (in Java) is provided under
 + [Acknowledgments](#acks)
 
 
-<a name="build"/>
+<a name="build"></a>
 
 ## How to build Acorus from source
 
@@ -46,7 +46,7 @@ You can restore the project to a pristine state:
 [Jump to table of contents](#toc)
 
 
-<a name="conventions"/>
+<a name="conventions"></a>
 
 ## Conventions
 
@@ -56,7 +56,7 @@ The pre-built libraries are compatible with JDK 8.
 [Jump to table of contents](#toc)
 
 
-<a name="history"/>
+<a name="history"></a>
 
 ## History
 
@@ -72,7 +72,7 @@ Since January 2022, the Acorus Project has been a separate project, hosted at
 [Jump to table of contents](#toc)
 
 
-<a name="acks"/>
+<a name="acks"></a>
 
 ## Acknowledgments
 
