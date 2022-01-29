@@ -52,7 +52,7 @@ import jme3utilities.Validate;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class Hotkey {
+final public class Hotkey {
     // *************************************************************************
     // constants and loggers
 

@@ -36,7 +36,7 @@ import java.util.logging.Logger;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class UiVersion {
+final public class UiVersion {
     // *************************************************************************
     // constants and loggers
 
