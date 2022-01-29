@@ -1,5 +1,9 @@
+*.dll
+*.dylib
+*.so
 /.gradle/
 /.idea/
 /.nb-gradle/
 /AcorusLibrary/build/
+/AcorusExamples/Written Assets/
 /AcorusExamples/build/
