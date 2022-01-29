@@ -35,8 +35,6 @@ import com.jme3.input.MouseInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.input.controls.Trigger;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -72,6 +70,10 @@ final public class Hotkey {
     // *************************************************************************
     // fields
 
+    /**
+     * input manager of the Application
+     */
+    private static InputManager inputManager;
     /**
      * universal code of this hotkey: either a JME key code (from
      * {@link com.jme3.input.KeyInput}) or buttonFirst + a JME button code (from
@@ -233,8 +235,11 @@ final public class Hotkey {
 
     /**
      * Instantiate all known hotkeys.
+     *
+     * @param inputManager the application's input manager (not null)
      */
-    public static void initialize() {
+    static void initialize(InputManager inputManager) {
+        Hotkey.inputManager = inputManager;
         /*
          * mouse buttons
          */
@@ -534,7 +539,7 @@ final public class Hotkey {
          */
         String localName = usName;
         if (!usName.startsWith("numpad ")) { // not a numpad key
-            String glfwName = glfwName(keyCode);
+            String glfwName = inputManager.getKeyName(keyCode);
 
             if (glfwName != null) { // key is printable
                 localName = englishName(glfwName);
@@ -665,53 +670,5 @@ final public class Hotkey {
             default:
                 return glfwKeyName;
         }
-    }
-
-    /**
-     * Determine GLFW's layout-specific name for the specified keyboard key.
-     * TODO use GlfwKeyInput.getKeyName()
-     *
-     * @param jmeKeyCode a JMonkeyEngine key code
-     * @return the name, or null if GLFW is unavailable OR the key is unknown to
-     * GLFW OR the key isn't printable
-     */
-    private static String glfwName(int jmeKeyCode) {
-        assert jmeKeyCode >= 0 : jmeKeyCode;
-        assert jmeKeyCode <= KeyInput.KEY_LAST : jmeKeyCode;
-        String result = null;
-
-        try {
-            /*
-             * Translate the JME code to a GLFW code.
-             */
-            Class<?> glfwKeyMapClass
-                    = Class.forName("com.jme3.input.lwjgl.GlfwKeyMap");
-            Method method = glfwKeyMapClass.getDeclaredMethod("fromJmeKeyCode",
-                    int.class);
-            method.setAccessible(true);
-            int glfwKeyCode = (int) method.invoke(null, jmeKeyCode);
-
-            if (glfwKeyCode != -1) {
-                /*
-                 * The key is known to GLFW.
-                 * Look up its name, assuming it's a printable key.
-                 */
-                Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-                method = glfwClass.getDeclaredMethod("glfwGetKeyName",
-                        int.class, int.class);
-                method.setAccessible(true);
-                result = (String) method.invoke(null, glfwKeyCode, 0);
-            }
-
-        } catch (ClassNotFoundException exception) {
-            // GLFW is unavailable, so ignore the exception and return null.
-
-        } catch (IllegalAccessException
-                | InvocationTargetException
-                | NoSuchMethodException exception) {
-            throw new RuntimeException(exception);
-        }
-
-        return result;
     }
 }

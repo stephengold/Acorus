@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2014-2021, Stephen Gold
+ Copyright (c) 2014-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -320,7 +320,7 @@ abstract public class ActionApplication
          * Initialize hotkeys and a signal tracker for modal hotkeys.
          */
         signals = new Signals();
-        Hotkey.initialize();
+        Hotkey.initialize(inputManager);
         /*
          * Attach and enable the default input mode.
          */
