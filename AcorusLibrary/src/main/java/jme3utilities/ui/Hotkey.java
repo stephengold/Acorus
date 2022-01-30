@@ -518,6 +518,8 @@ final public class Hotkey {
         switch (glfwKeyName) {
             case "\u00B4":
                 return "acute";
+            case "\u03B1":
+                return "alpha";
             case "&":
                 return "ampersand";
             case "'":
@@ -526,42 +528,80 @@ final public class Hotkey {
                 return "backslash";
             case "`":
                 return "backtick";
+            case "\u03B2":
+                return "beta";
+            case "\u03C7":
+                return "chi";
             case "^":
                 return "circumflex";
             case ":":
                 return "colon";
             case ",":
                 return "comma";
+            case "\u03B4":
+                return "delta";
             case "\u00A8":
                 return "diaeresis";
             case "$":
                 return "dollar";
+            case "\u03B5":
+                return "epsilon";
             case "=":
                 return "equals";
+            case "\u03B7":
+                return "eta";
             case "!":
                 return "exclaim";
+            case "\u03C2":
+                return "fin sigma";
+            case "\u03B3":
+                return "gamma";
             case "½":
                 return "half";
             case "#":
                 return "hash";
             case "\u00A1":
                 return "inv exclaim";
+            case "\u03B9":
+                return "iota";
+            case "\u03BA":
+                return "kappa";
+            case "\u03BB":
+                return "lambda";
             case "[":
                 return "left bracket";
             case "(":
                 return "left paren";
+            case "<":
+                return "less than";
             case "µ":
                 return "micro";
             case "-":
                 return "minus";
+            case "\u03BC":
+                return "mu";
+            case "\u03BD":
+                return "nu";
+            case "\u03C9":
+                return "omega";
+            case "\u03BF":
+                return "omicron";
             case "\u00BA":
                 return "ordinal";
             case ".":
                 return "period";
+            case "\u03C6":
+                return "phi";
+            case "\u03C0":
+                return "pi";
             case "+":
                 return "plus";
+            case "\u03C8":
+                return "psi";
             case "\"":
                 return "quote";
+            case "\u03C1":
+                return "rho";
             case "]":
                 return "right bracket";
             case ")":
@@ -570,12 +610,24 @@ final public class Hotkey {
                 return "section";
             case ";":
                 return "semicolon";
+            case "\u03C3":
+                return "sigma";
             case "/":
                 return "slash";
             case "²":
                 return "super2";
+            case "\u03C4":
+                return "tau";
+            case "\u03B8":
+                return "theta";
             case "\u0384":
                 return "tonos";
+            case "\u03C5":
+                return "upsilon";
+            case "\u03BE":
+                return "xi";
+            case "\u03B6":
+                return "zeta";
             default:
                 return glfwKeyName;
         }
