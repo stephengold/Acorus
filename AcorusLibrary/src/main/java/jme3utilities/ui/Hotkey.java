@@ -510,7 +510,7 @@ final public class Hotkey {
      *
      * @param glfwKeyName a key name obtained from GLFW (not null, typically a
      * single Unicode character)
-     * @return a brief, descriptive name for the hotkey (not null)
+     * @return a brief, descriptive name for the key (not null)
      */
     private static String englishName(String glfwKeyName) {
         assert glfwKeyName != null;
@@ -530,6 +530,8 @@ final public class Hotkey {
                 return "backtick";
             case "\u03B2":
                 return "beta";
+            case "\u0447":
+                return "che";
             case "\u03C7":
                 return "chi";
             case "^":
@@ -538,16 +540,26 @@ final public class Hotkey {
                 return "colon";
             case ",":
                 return "comma";
+            case "\u0434":
+                return "de";
             case "\u03B4":
                 return "delta";
             case "\u00A8":
                 return "diaeresis";
             case "$":
                 return "dollar";
+            case "\u0444":
+                return "ef";
             case "\u03B5":
                 return "epsilon";
             case "=":
                 return "equals";
+            case "\u043C":
+                return "em";
+            case "\u0440":
+                return "er";
+            case "\u0441":
+                return "es";
             case "\u03B7":
                 return "eta";
             case "!":
@@ -556,14 +568,26 @@ final public class Hotkey {
                 return "fin sigma";
             case "\u03B3":
                 return "gamma";
+            case "\u0433":
+                return "ghe";
+            case "\u0445":
+                return "ha";
             case "½":
                 return "half";
+            case "\u044A":
+                return "hard";
             case "#":
                 return "hash";
+            case "\u0435":
+                return "ie";
             case "\u00A1":
                 return "inv exclaim";
+            case "\u0451":
+                return "io";
             case "\u03B9":
                 return "iota";
+            case "\u043A":
+                return "ka";
             case "\u03BA":
                 return "kappa";
             case "\u03BB":
@@ -588,6 +612,8 @@ final public class Hotkey {
                 return "omicron";
             case "\u00BA":
                 return "ordinal";
+            case "\u043F":
+                return "pe";
             case ".":
                 return "period";
             case "\u03C6":
@@ -610,24 +636,46 @@ final public class Hotkey {
                 return "section";
             case ";":
                 return "semicolon";
+            case "\u0448":
+                return "sha";
+            case "\u0449":
+                return "shcha";
             case "\u03C3":
                 return "sigma";
             case "/":
                 return "slash";
+            case "\u044C":
+                return "soft";
             case "²":
                 return "super2";
             case "\u03C4":
                 return "tau";
+            case "\u0442":
+                return "te";
             case "\u03B8":
                 return "theta";
             case "\u0384":
                 return "tonos";
+            case "\u0446":
+                return "tse";
             case "\u03C5":
                 return "upsilon";
+            case "\u0432":
+                return "ve";
             case "\u03BE":
                 return "xi";
+            case "\u044F":
+                return "ya";
+            case "\u044B":
+                return "yeru";
+            case "\u044E":
+                return "yu";
+            case "\u0437":
+                return "ze";
             case "\u03B6":
                 return "zeta";
+            case "\u0436":
+                return "zhe";
             default:
                 return glfwKeyName;
         }
