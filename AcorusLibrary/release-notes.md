@@ -1,5 +1,11 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.8 released on TBD
+
+ + Added English names for Cyrillic and Greek keys.
+ + Added cases to handle headless contexts smoothly.
+ + Added a `TestHeadless` application.
+
 ## Version 0.9.7 released on 29 January 2022
 
  + Split off the UI library from the Jme3-utilities Project, renamed it
