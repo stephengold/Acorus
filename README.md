@@ -28,7 +28,23 @@ Complete source code is provided under
 
 ## Important features
 
-(documentation not yet written)
+Acorus is a user-interface library for JMonkeyEngine desktop applications
+that don't require graphical widgets such as checkboxes, menus, and dialogs.
+
+Acorus provides simple mechanisms to:
++ bind keyboard keys, mouse buttons, and joystick buttons (hotkeys)
+  to named actions
++ determine which actions are active (signals)
++ detect input combinations such as "Ctrl+C" (combos)
++ handle input differently in different contexts (input modes)
++ display on-screen UI help for an input mode,
+  localized for the system's keyboard layout (help nodes)
+
+Input modes can be configured dynamically and/or loaded from files.
+
+Acorus provides an `Application` implementation tailored for demos and
+a default input mode to emulate a `SimpleApplication`.
+It also provides simplified management of asset locators and display settings.
 
 
 <a name="build"></a>
