@@ -156,8 +156,8 @@ public class TestTwoModes extends ActionApplication {
         cam.setLocation(new Vector3f(-4f, 4f, 9f));
         cam.setRotation(new Quaternion(0.038f, 0.96148f, -0.1897f, 0.1951f));
 
-        ColorRGBA skyColor = new ColorRGBA(0.1f, 0.1f, 0.1f, 1f);
-        viewPort.setBackgroundColor(skyColor);
+        ColorRGBA bgColor = new ColorRGBA(0.1f, 0.1f, 0.1f, 1f); // grey
+        viewPort.setBackgroundColor(bgColor);
 
         addLighting();
         addBox();
@@ -187,7 +187,8 @@ public class TestTwoModes extends ActionApplication {
         InputMode dim = getDefaultInputMode();
         dim.bind("edit text", KeyInput.KEY_RETURN, KeyInput.KEY_TAB);
         /*
-         * Build and attach the help node for default mode.
+         * Build and attach the help node for default mode. 
+         * The help node can't be created until all hotkeys are bound.
          */
         defaultHelp = buildHelpNode(dim);
         guiNode.attachChild(defaultHelp);

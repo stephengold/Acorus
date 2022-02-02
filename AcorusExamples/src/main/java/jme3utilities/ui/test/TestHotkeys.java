@@ -39,6 +39,8 @@ import jme3utilities.ui.InputMode;
 
 /**
  * An ActionApplication to log all button/keyboard input (for testing).
+ *
+ * @author Stephen Gold sgold@sonic.net
  */
 public class TestHotkeys extends ActionApplication {
     // *************************************************************************

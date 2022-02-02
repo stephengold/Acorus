@@ -123,7 +123,7 @@ public class TestCursors extends ActionApplication {
     }
 
     /**
-     * Add application-specific hotkey bindings and override any existing ones.
+     * Add application-specific hotkey bindings and override existing ones.
      */
     @Override
     public void moreDefaultBindings() {

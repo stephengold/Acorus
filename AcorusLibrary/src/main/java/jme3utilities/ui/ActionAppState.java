@@ -56,7 +56,7 @@ public class ActionAppState extends SimpleAppState {
      *
      * @param enabled true &rarr; enabled, false &rarr; disabled
      */
-    public ActionAppState(boolean enabled) {
+    public ActionAppState(boolean enabled) { // TODO use InitialState enum
         super(enabled);
     }
     // *************************************************************************
