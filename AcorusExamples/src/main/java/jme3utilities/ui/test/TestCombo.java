@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2021, Stephen Gold
+ Copyright (c) 2020-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ public class TestCombo extends ActionApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the TestFlyCam application.
+     * Main entry point for the TestCombo application.
      *
      * @param ignored array of command-line arguments (not null)
      */
