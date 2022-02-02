@@ -50,7 +50,7 @@ public class TestHeadless extends ActionApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the BatsV2 asset converter.
+     * Main entry point for the TestHeadless application.
      *
      * @param ignored array of command-line arguments (not null)
      */
