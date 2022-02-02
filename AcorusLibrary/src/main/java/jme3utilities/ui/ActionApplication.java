@@ -31,6 +31,7 @@ package jme3utilities.ui;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
+import com.jme3.app.state.AppState;
 import com.jme3.app.state.ScreenshotAppState;
 import com.jme3.asset.plugins.ClasspathLocator;
 import com.jme3.input.CameraInput;
@@ -74,6 +75,31 @@ abstract public class ActionApplication
         CameraInput.FLYCAM_STRAFELEFT,
         CameraInput.FLYCAM_STRAFERIGHT
     };
+    // *************************************************************************
+    // constructors
+
+    /**
+     * Instantiate an application with the appstates favored by
+     * SimpleApplication (AudioListenerState, ConstantVerifierState,
+     * DebugKeysAppState, FlyCamAppState, and StatsAppState) preattached.
+     *
+     * A DefaultInputMode and a ScreenshotAppState will be attached during
+     * initialization.
+     */
+    public ActionApplication() {
+    }
+
+    /**
+     * Instantiate an application with the specified appstates preattached. A
+     * DefaultInputMode and a ScreenshotAppState will be attached during
+     * initialization.
+     *
+     * @param initialAppStates the appstates to be preattached (may be null,
+     * unaffected)
+     */
+    public ActionApplication(AppState... initialAppStates) {
+        super(initialAppStates);
+    }
     // *************************************************************************
     // fields
 
@@ -317,16 +343,20 @@ abstract public class ActionApplication
          */
         assetManager.registerLoader(PropertiesLoader.class, "properties");
         /*
-         * Initialize hotkeys and a signal tracker for modal hotkeys.
+         * Initialize hotkeys and a signal tracker for hotkeys.
          */
         signals = new Signals();
         Hotkey.initialize(inputManager);
-        /*
-         * Attach and enable the default input mode.
-         */
-        defaultInputMode = new DefaultInputMode();
-        stateManager.attach(defaultInputMode);
-        defaultInputMode.setEnabled(true);
+
+        defaultInputMode = stateManager.getState(DefaultInputMode.class);
+        if (defaultInputMode == null) {
+            /*
+             * Attach and enable the default input mode.
+             */
+            defaultInputMode = new DefaultInputMode();
+            stateManager.attach(defaultInputMode);
+            defaultInputMode.setEnabled(true);
+        }
         /*
          * Capture a screenshot each time KEY_SYSRQ
          * (the PrtSc key) is pressed.
