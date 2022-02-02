@@ -682,7 +682,8 @@ final public class Hotkey {
     }
 
     /**
-     * Access the keyboard interface that's currently in use.
+     * Access the keyboard interface that's currently in use. TODO move to Heart
+     * library
      *
      * @return the pre-existing instance
      */
@@ -712,6 +713,10 @@ final public class Hotkey {
      * Instantiate hotkeys for all known keyboard keys.
      */
     private static void initializeKeys() {
+        String keyInputClassName = getKeyInput().getClass().getSimpleName();
+        if (keyInputClassName.equals("DummyKeyInput")) {
+            return; // probably in a Headless context
+        }
         /*
          * mode keys
          */
@@ -856,7 +861,6 @@ final public class Hotkey {
          * None of these are listed in GlfwKeyMap, so I believe they aren't
          * needed for LWJGL v3.
          */
-        String keyInputClassName = getKeyInput().getClass().getSimpleName();
         boolean isV3KeyInput = keyInputClassName.equals("GlfwKeyInput");
         if (!isV3KeyInput) {
             addKey(KeyInput.KEY_APPS, "apps");

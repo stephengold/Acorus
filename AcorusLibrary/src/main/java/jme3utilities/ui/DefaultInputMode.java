@@ -100,6 +100,12 @@ class DefaultInputMode extends InputMode {
      */
     @Override
     protected void defaultBindings() {
+        if (Hotkey.findKey(KeyInput.KEY_A) == null) {
+            logger.log(Level.WARNING, "Missing hotkeys. "
+                    + "Probably in a headless context. Bindings skipped.");
+            return;
+        }
+
         bindSignal(CameraInput.FLYCAM_BACKWARD, KeyInput.KEY_S);
         bindSignal(CameraInput.FLYCAM_FORWARD, KeyInput.KEY_W);
         bindSignal(CameraInput.FLYCAM_LOWER, KeyInput.KEY_Z);
