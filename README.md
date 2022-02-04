@@ -229,21 +229,21 @@ Like most projects, Acorus builds on the work of many who
 have gone before.  I therefore acknowledge the creators of (and contributors to)
 the following software:
 
-    + the [Ant] and [Gradle] build tools
-    + the [FindBugs] source-code analyzer
-    + the [Firefox] and [Google Chrome][chrome] web browsers
-    + the [Git] and Subversion revision-control systems
-    + the [IntelliJ IDEA][idea] and [NetBeans] integrated development environments
-    + the [Java] compiler, standard doclet, and virtual machine
-    + [jMonkeyEngine][jme] and the jME3 Software Development Kit
-    + the [Linux Mint][mint] operating system
-    + LWJGL, the Lightweight Java Game Library
-    + the [Markdown] document-conversion tool
-    + the [Meld] visual merge tool
-    + Microsoft Windows
-    + the PMD source-code analyzer
-    + the RealWorld Cursor Editor
-    + the [WinMerge] differencing and merging tool
++ the [Ant] and [Gradle] build tools
++ the [FindBugs] source-code analyzer
++ the [Firefox] and [Google Chrome][chrome] web browsers
++ the [Git] and Subversion revision-control systems
++ the [IntelliJ IDEA][idea] and [NetBeans] integrated development environments
++ the [Java] compiler, standard doclet, and virtual machine
++ [jMonkeyEngine][jme] and the jME3 Software Development Kit
++ the [Linux Mint][mint] operating system
++ LWJGL, the Lightweight Java Game Library
++ the [Markdown] document-conversion tool
++ the [Meld] visual merge tool
++ Microsoft Windows
++ the PMD source-code analyzer
++ the RealWorld Cursor Editor
++ the [WinMerge] differencing and merging tool
 
 I am grateful to [GitHub], [Sonatype], and [JFrog]
 for providing free hosting for this project
