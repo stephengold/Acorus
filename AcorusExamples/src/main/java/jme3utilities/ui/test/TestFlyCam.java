@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2018-2020, Stephen Gold
+ Copyright (c) 2018-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -27,21 +27,11 @@
 package jme3utilities.ui.test;
 
 import com.jme3.font.Rectangle;
-import com.jme3.light.AmbientLight;
-import com.jme3.light.DirectionalLight;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
-import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
-import jme3utilities.MyAsset;
 import jme3utilities.ui.ActionApplication;
 import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
@@ -108,16 +98,7 @@ public class TestFlyCam extends ActionApplication {
      */
     @Override
     public void actionInitializeApplication() {
-        flyCam.setDragToRotate(true);
-        flyCam.setMoveSpeed(5f);
-        cam.setLocation(new Vector3f(-4f, 4f, 9f));
-        cam.setRotation(new Quaternion(0.038f, 0.96148f, -0.1897f, 0.1951f));
-
-        ColorRGBA skyColor = new ColorRGBA(0.1f, 0.1f, 0.1f, 1f);
-        viewPort.setBackgroundColor(skyColor);
-
-        addLighting();
-        addBox();
+        DemoScene.setup(this);
     }
 
     /**
@@ -139,34 +120,5 @@ public class TestFlyCam extends ActionApplication {
         float space = 20f;
         Node helpNode = HelpUtils.buildNode(dim, bounds, guiFont, space);
         guiNode.attachChild(helpNode);
-    }
-    // *************************************************************************
-    // private methods
-
-    /**
-     * Add a mysterious green box at the origin.
-     */
-    private void addBox() {
-        float halfExtent = 1f; // mesh units
-        Mesh boxMesh = new Box(halfExtent, halfExtent, halfExtent);
-        Geometry box = new Geometry("box", boxMesh);
-        rootNode.attachChild(box);
-
-        ColorRGBA color = new ColorRGBA(0f, 0.3f, 0f, 1f);
-        Material material = MyAsset.createShadedMaterial(assetManager, color);
-        box.setMaterial(material);
-    }
-
-    /**
-     * Add lighting to the scene.
-     */
-    private void addLighting() {
-        ColorRGBA ambientColor = new ColorRGBA(0.1f, 0.1f, 0.1f, 1f);
-        AmbientLight ambient = new AmbientLight(ambientColor);
-        rootNode.addLight(ambient);
-
-        Vector3f direction = new Vector3f(1f, -2f, -3f).normalizeLocal();
-        DirectionalLight sun = new DirectionalLight(direction);
-        rootNode.addLight(sun);
     }
 }
