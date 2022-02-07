@@ -49,7 +49,7 @@ import jme3utilities.MyString;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-class DefaultInputMode extends InputMode {
+public class DefaultInputMode extends InputMode {
     // *************************************************************************
     // constants and loggers
 
@@ -70,6 +70,33 @@ class DefaultInputMode extends InputMode {
      */
     DefaultInputMode() {
         super("default");
+    }
+    // *************************************************************************
+    // new methods exposed
+
+    /**
+     * Update the bindings to reflect the state of the FlyByCamera, if any.
+     */
+    public void updateBindings() {
+        if (Hotkey.findKey(KeyInput.KEY_A) == null) {
+            return;
+        }
+        if (isEnabled()) {
+            unmapAll();
+        }
+
+        unbind(KeyInput.KEY_S);
+        unbind(KeyInput.KEY_W);
+        unbind(KeyInput.KEY_Z);
+        unbind(KeyInput.KEY_Q);
+        unbind(KeyInput.KEY_A);
+        unbind(KeyInput.KEY_D);
+
+        bindFlyKeys();
+
+        if (isEnabled()) {
+            mapAll();
+        }
     }
     // *************************************************************************
     // InputMode methods
