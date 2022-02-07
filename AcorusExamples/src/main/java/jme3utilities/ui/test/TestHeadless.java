@@ -36,13 +36,13 @@ import jme3utilities.Heart;
 import jme3utilities.ui.ActionApplication;
 
 /**
- * Test a headless ActionApplication.
+ * Test a headless ActionApplication, one without graphics or sound.
  *
  * @author Stephen Gold sgold@sonic.net
  */
 public class TestHeadless extends ActionApplication {
     // *************************************************************************
-    // constants
+    // constants and loggers
 
     /**
      * message logger for this class
@@ -62,18 +62,21 @@ public class TestHeadless extends ActionApplication {
          * Mute the chatty loggers in certain packages.
          */
         Heart.setLoggingLevels(Level.WARNING);
-
-        TestHeadless application = new TestHeadless();
-        application.start(JmeContext.Type.Headless);
         /*
-         * ... and onward to TestHeadless.actionInitializeApplication()!
+         * Instantiate the application.
          */
+        TestHeadless application = new TestHeadless();
+        /*
+         * Invoke the JME startup code,
+         * which in turn invokes actionInitializeApplication().
+         */
+        application.start(JmeContext.Type.Headless);
     }
     // *************************************************************************
     // ActionApplication methods
 
     /**
-     * Initialize this Application.
+     * Initialize this application.
      */
     @Override
     public void actionInitializeApplication() {

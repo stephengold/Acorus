@@ -32,6 +32,7 @@ package jme3utilities.ui.test;
 import com.jme3.font.Rectangle;
 import com.jme3.input.CameraInput;
 import com.jme3.input.KeyInput;
+import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.logging.Level;
@@ -44,8 +45,8 @@ import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * An ActionApplication to test/demonstrate the CameraOrbitAppState and the
- * help-node toggle.
+ * An ActionApplication to test/demonstrate the CameraOrbitAppState and 
+ * help-node toggling.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -140,10 +141,11 @@ public class TestCaos extends ActionApplication {
         /*
          * Build and attach the help node.
          */
+        Camera guiCamera = guiViewPort.getCamera();
         float x = 10f;
-        float y = cam.getHeight() - 10f;
-        float width = cam.getWidth() - 20f;
-        float height = cam.getHeight() - 20f;
+        float y = guiCamera.getHeight() - 10f;
+        float width = guiCamera.getWidth() - 20f;
+        float height = guiCamera.getHeight() - 20f;
         Rectangle bounds = new Rectangle(x, y, width, height);
 
         attachHelpNode(bounds);

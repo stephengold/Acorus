@@ -34,6 +34,7 @@ import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.font.BitmapText;
 import com.jme3.font.Rectangle;
 import com.jme3.input.KeyInput;
+import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.logging.Level;
@@ -141,10 +142,11 @@ public class TestCursors extends ActionApplication {
         /*
          * Build and attach the help node.
          */
+        Camera guiCamera = guiViewPort.getCamera();
         float x = 10f;
-        float y = cam.getHeight() - 30f;
-        float width = cam.getWidth() - 20f;
-        float height = cam.getHeight() - 20f;
+        float y = guiCamera.getHeight() - 30f; // leave room for status
+        float width = guiCamera.getWidth() - 20f;
+        float height = guiCamera.getHeight() - 20f;
         Rectangle bounds = new Rectangle(x, y, width, height);
 
         float space = 20f;

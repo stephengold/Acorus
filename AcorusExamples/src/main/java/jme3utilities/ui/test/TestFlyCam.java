@@ -30,6 +30,7 @@
 package jme3utilities.ui.test;
 
 import com.jme3.font.Rectangle;
+import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.logging.Level;
@@ -79,7 +80,8 @@ public class TestFlyCam extends ActionApplication {
         /*
          * Customize the window's title bar.
          */
-        AppSettings settings = new AppSettings(true);
+        boolean loadDefaults = true;
+        AppSettings settings = new AppSettings(loadDefaults);
         settings.setTitle(applicationName);
 
         settings.setAudioRenderer(null);
@@ -113,10 +115,11 @@ public class TestFlyCam extends ActionApplication {
         /*
          * Build and attach the help node.
          */
+        Camera guiCamera = guiViewPort.getCamera();
         float x = 10f;
-        float y = cam.getHeight() - 10f;
-        float width = cam.getWidth() - 20f;
-        float height = cam.getHeight() - 20f;
+        float y = guiCamera.getHeight() - 10f;
+        float width = guiCamera.getWidth() - 20f;
+        float height = guiCamera.getHeight() - 20f;
         Rectangle bounds = new Rectangle(x, y, width, height);
 
         InputMode dim = getDefaultInputMode();

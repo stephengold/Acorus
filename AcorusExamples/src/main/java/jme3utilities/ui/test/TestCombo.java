@@ -32,6 +32,7 @@ package jme3utilities.ui.test;
 import com.jme3.app.SimpleApplication;
 import com.jme3.font.Rectangle;
 import com.jme3.input.KeyInput;
+import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.Collection;
@@ -83,7 +84,8 @@ public class TestCombo extends ActionApplication {
         /*
          * Customize the window's title bar.
          */
-        AppSettings settings = new AppSettings(true);
+        boolean loadDefaults = true;
+        AppSettings settings = new AppSettings(loadDefaults);
         settings.setTitle(applicationName);
 
         settings.setAudioRenderer(null);
@@ -135,10 +137,11 @@ public class TestCombo extends ActionApplication {
         /*
          * Build and attach the help node.
          */
+        Camera guiCamera = guiViewPort.getCamera();
         float x = 10f;
-        float y = cam.getHeight() - 10f;
-        float width = cam.getWidth() - 20f;
-        float height = cam.getHeight() - 20f;
+        float y = guiCamera.getHeight() - 10f;
+        float width = guiCamera.getWidth() - 20f;
+        float height = guiCamera.getHeight() - 20f;
         Rectangle bounds = new Rectangle(x, y, width, height);
 
         float space = 20f;
@@ -158,23 +161,45 @@ public class TestCombo extends ActionApplication {
         if (ongoing) {
             switch (actionString) {
                 case "hint":
-                    InputMode dim = getDefaultInputMode();
-                    Collection<Combo> quitCombos = dim.listCombos(
-                            SimpleApplication.INPUT_MAPPING_EXIT);
-                    Combo[] array = new Combo[quitCombos.size()];
-                    quitCombos.toArray(array);
-                    String qc0 = array[0].toStringLocal();
-                    String qc1 = array[1].toStringLocal();
-                    String qc2 = array[2].toStringLocal();
-
-                    System.out.println();
-                    System.out.println("Use " + qc0 + ", " + qc1 + ", or "
-                            + qc2 + " to quit.");
-                    System.out.println();
+                    printQuitHint();
                     return;
             }
         }
 
         super.onAction(actionString, ongoing, tpf);
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Enumerate all the quit alternatives to System.out.
+     */
+    private void printQuitHint() {
+        InputMode dim = getDefaultInputMode();
+        Collection<Combo> quitCombos
+                = dim.listCombos(SimpleApplication.INPUT_MAPPING_EXIT);
+        int numCombos = quitCombos.size();
+        assert numCombos > 0 : numCombos;
+        Combo[] array = new Combo[numCombos];
+        quitCombos.toArray(array);
+        int lastIndex = numCombos - 1;
+
+        System.out.println();
+        System.out.print("Use ");
+        for (int arrayIndex = 0; arrayIndex < numCombos; ++arrayIndex) {
+            String comboName = array[arrayIndex].toStringLocal();
+            System.out.print(comboName);
+            if (arrayIndex != lastIndex) {
+                if (numCombos > 2) {
+                    System.out.print(',');
+                }
+                System.out.print(' ');
+                if (arrayIndex == lastIndex - 1) {
+                    System.out.print("or ");
+                }
+            }
+        }
+        System.out.println(" to quit.");
+        System.out.println();
     }
 }
