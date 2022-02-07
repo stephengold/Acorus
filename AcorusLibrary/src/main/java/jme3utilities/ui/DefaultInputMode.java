@@ -72,26 +72,6 @@ class DefaultInputMode extends InputMode {
         super("default");
     }
     // *************************************************************************
-    // ActionListener methods
-
-    /**
-     * Process an action from the keyboard or mouse.
-     *
-     * @param actionString textual description of the action (not null)
-     * @param ongoing true if the action is ongoing, otherwise false
-     * @param tpf time interval between frames (in seconds, &ge;0)
-     */
-    @Override
-    public void onAction(String actionString, boolean ongoing, float tpf) {
-        logger.log(Level.INFO, "Got action {0} ongoing={1}", new Object[]{
-            MyString.quote(actionString), ongoing
-        });
-        /*
-         * Forward all actions to the ActionApplication subclass for processing.
-         */
-        getActionApplication().onAction(actionString, ongoing, tpf);
-    }
-    // *************************************************************************
     // InputMode methods
 
     /**
@@ -161,6 +141,24 @@ class DefaultInputMode extends InputMode {
         deleteAnyMapping(im, SimpleApplication.INPUT_MAPPING_MEMORY);
 
         super.initialize(stateManager, application);
+    }
+
+    /**
+     * Process an action from the keyboard or mouse.
+     *
+     * @param actionString textual description of the action (not null)
+     * @param ongoing true if the action is ongoing, otherwise false
+     * @param tpf time interval between frames (in seconds, &ge;0)
+     */
+    @Override
+    public void onAction(String actionString, boolean ongoing, float tpf) {
+        logger.log(Level.INFO, "Got action {0} ongoing={1}", new Object[]{
+            MyString.quote(actionString), ongoing
+        });
+        /*
+         * Forward all actions to the ActionApplication subclass for processing.
+         */
+        getActionApplication().onAction(actionString, ongoing, tpf);
     }
     // *************************************************************************
     // private methods
