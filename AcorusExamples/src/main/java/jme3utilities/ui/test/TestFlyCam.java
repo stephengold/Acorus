@@ -97,7 +97,7 @@ public class TestFlyCam extends ActionApplication {
     // ActionApplication methods
 
     /**
-     * Initialize this Application.
+     * Initialize this application.
      */
     @Override
     public void actionInitializeApplication() {

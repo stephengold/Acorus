@@ -115,7 +115,7 @@ public class TestHotkeys extends ActionApplication {
          */
         flyCam.setEnabled(false);
         /*
-         * Instantiate the status text and attach it to the GUI.
+         * Instantiate the status text and attach it to the GUI node.
          */
         statusText = new BitmapText(guiFont);
         statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
@@ -123,7 +123,8 @@ public class TestHotkeys extends ActionApplication {
     }
 
     /**
-     * Add application-specific hotkey bindings and override any existing ones.
+     * Callback invoked immediately after initializing the hotkey bindings of
+     * the default input mode.
      */
     @Override
     public void moreDefaultBindings() {
@@ -147,11 +148,11 @@ public class TestHotkeys extends ActionApplication {
     }
 
     /**
-     * Process an action that wasn't handled by the active input mode.
+     * Process an action that wasn't handled by the active InputMode.
      *
      * @param actionString textual description of the action (not null)
      * @param ongoing true if the action is ongoing, otherwise false
-     * @param tpf time interval between frames (in seconds, &ge;0)
+     * @param tpf the time interval between frames (in seconds, &ge;0)
      */
     @Override
     public void onAction(String actionString, boolean ongoing, float tpf) {

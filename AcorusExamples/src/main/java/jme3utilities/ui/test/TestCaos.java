@@ -46,6 +46,8 @@ import jme3utilities.ui.InputMode;
 /**
  * An ActionApplication to test/demonstrate the CameraOrbitAppState and the
  * help-node toggle.
+ *
+ * @author Stephen Gold sgold@sonic.net
  */
 public class TestCaos extends ActionApplication {
     // *************************************************************************
@@ -123,7 +125,8 @@ public class TestCaos extends ActionApplication {
     }
 
     /**
-     * Attach a help node to the GUI node.
+     * Callback invoked immediately after initializing the hotkey bindings of
+     * the default input mode.
      */
     @Override
     public void moreDefaultBindings() {
@@ -134,7 +137,9 @@ public class TestCaos extends ActionApplication {
         dim.bindSignal("orbitLeft", KeyInput.KEY_LEFT);
         dim.bindSignal("orbitRight", KeyInput.KEY_RIGHT);
         dim.bind("toggle help", KeyInput.KEY_H);
-
+        /*
+         * Build and attach the help node.
+         */
         float x = 10f;
         float y = cam.getHeight() - 10f;
         float width = cam.getWidth() - 20f;

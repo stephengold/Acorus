@@ -44,7 +44,9 @@ import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * An ActionApplication to test the built-in cursors.
+ * An ActionApplication to test/demonstrate the built-in cursors.
+ *
+ * @author Stephen Gold sgold@sonic.net
  */
 public class TestCursors extends ActionApplication {
     // *************************************************************************
@@ -116,7 +118,7 @@ public class TestCursors extends ActionApplication {
          */
         stateManager.getState(StatsAppState.class).toggleStats();
         /*
-         * Add the status text to the GUI.
+         * Instantiate the status text and attach it to the GUI node.
          */
         statusText = new BitmapText(guiFont);
         statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
@@ -126,7 +128,8 @@ public class TestCursors extends ActionApplication {
     }
 
     /**
-     * Add application-specific hotkey bindings and override existing ones.
+     * Callback invoked immediately after initializing the hotkey bindings of
+     * the default input mode.
      */
     @Override
     public void moreDefaultBindings() {
@@ -135,7 +138,9 @@ public class TestCursors extends ActionApplication {
         dim.bind("cursor dialog", KeyInput.KEY_2, KeyInput.KEY_F2);
         dim.bind("cursor green", KeyInput.KEY_3, KeyInput.KEY_F3);
         dim.bind("cursor menu", KeyInput.KEY_4, KeyInput.KEY_F4);
-
+        /*
+         * Build and attach the help node.
+         */
         float x = 10f;
         float y = cam.getHeight() - 30f;
         float width = cam.getWidth() - 20f;
@@ -148,11 +153,11 @@ public class TestCursors extends ActionApplication {
     }
 
     /**
-     * Process an action that wasn't handled by the active input mode.
+     * Process an action that wasn't handled by the active InputMode.
      *
      * @param actionString textual description of the action (not null)
      * @param ongoing true if the action is ongoing, otherwise false
-     * @param tpf time interval between frames (in seconds, &ge;0)
+     * @param tpf the time interval between frames (in seconds, &ge;0)
      */
     @Override
     public void onAction(String actionString, boolean ongoing, float tpf) {

@@ -44,6 +44,8 @@ import jme3utilities.ui.InputMode;
 
 /**
  * An ActionApplication to test/demonstrate multiple input modes.
+ *
+ * @author Stephen Gold sgold@sonic.net
  */
 public class TestTwoModes extends ActionApplication {
     // *************************************************************************
@@ -146,7 +148,7 @@ public class TestTwoModes extends ActionApplication {
     public void actionInitializeApplication() {
         DemoScene.setup(this);
         /*
-         * Attach a status text to the GUI.
+         * Instantiate the status text and attach it to the GUI node.
          */
         statusText = new BitmapText(guiFont);
         statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
@@ -171,7 +173,7 @@ public class TestTwoModes extends ActionApplication {
         InputMode dim = getDefaultInputMode();
         dim.bind("edit text", KeyInput.KEY_RETURN, KeyInput.KEY_TAB);
         /*
-         * Build and attach the help node for default mode. 
+         * Build and attach the help node for default mode.
          * The help node can't be created until all hotkeys are bound.
          */
         defaultHelp = buildHelpNode(dim);
@@ -179,11 +181,11 @@ public class TestTwoModes extends ActionApplication {
     }
 
     /**
-     * Process an action that wasn't handled by the active input mode.
+     * Process an action that wasn't handled by the active InputMode.
      *
      * @param actionString textual description of the action (not null)
      * @param ongoing true if the action is ongoing, otherwise false
-     * @param tpf time interval between frames (in seconds, &ge;0)
+     * @param tpf the time interval between frames (in seconds, &ge;0)
      */
     @Override
     public void onAction(String actionString, boolean ongoing, float tpf) {
