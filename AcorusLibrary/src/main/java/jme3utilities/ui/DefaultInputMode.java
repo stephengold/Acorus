@@ -31,6 +31,7 @@ package jme3utilities.ui;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
+import com.jme3.app.StatsAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.cursors.plugins.JmeCursor;
@@ -106,12 +107,14 @@ class DefaultInputMode extends InputMode {
             return;
         }
 
-        bindSignal(CameraInput.FLYCAM_BACKWARD, KeyInput.KEY_S);
-        bindSignal(CameraInput.FLYCAM_FORWARD, KeyInput.KEY_W);
-        bindSignal(CameraInput.FLYCAM_LOWER, KeyInput.KEY_Z);
-        bindSignal(CameraInput.FLYCAM_RISE, KeyInput.KEY_Q);
-        bindSignal(CameraInput.FLYCAM_STRAFELEFT, KeyInput.KEY_A);
-        bindSignal(CameraInput.FLYCAM_STRAFERIGHT, KeyInput.KEY_D);
+        if (flyCam != null && flyCam.isEnabled()) {
+            bindSignal(CameraInput.FLYCAM_BACKWARD, KeyInput.KEY_S);
+            bindSignal(CameraInput.FLYCAM_FORWARD, KeyInput.KEY_W);
+            bindSignal(CameraInput.FLYCAM_LOWER, KeyInput.KEY_Z);
+            bindSignal(CameraInput.FLYCAM_RISE, KeyInput.KEY_Q);
+            bindSignal(CameraInput.FLYCAM_STRAFELEFT, KeyInput.KEY_A);
+            bindSignal(CameraInput.FLYCAM_STRAFERIGHT, KeyInput.KEY_D);
+        }
 
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.Linux) {
@@ -120,9 +123,14 @@ class DefaultInputMode extends InputMode {
             bind("ScreenShot", KeyInput.KEY_SYSRQ);
         }
 
+        AppStateManager manager = simpleApplication.getStateManager();
+        StatsAppState statsAppState = manager.getState(StatsAppState.class);
+        if (statsAppState != null) {
+            bind(SimpleApplication.INPUT_MAPPING_HIDE_STATS, KeyInput.KEY_F5);
+        }
+
         bind(SimpleApplication.INPUT_MAPPING_CAMERA_POS, KeyInput.KEY_C);
         bind(SimpleApplication.INPUT_MAPPING_EXIT, KeyInput.KEY_ESCAPE);
-        bind(SimpleApplication.INPUT_MAPPING_HIDE_STATS, KeyInput.KEY_F5);
         bind(SimpleApplication.INPUT_MAPPING_MEMORY, KeyInput.KEY_M);
     }
 
