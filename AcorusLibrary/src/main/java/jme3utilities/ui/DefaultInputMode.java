@@ -87,14 +87,7 @@ class DefaultInputMode extends InputMode {
             return;
         }
 
-        if (flyCam != null && flyCam.isEnabled()) {
-            bindSignal(CameraInput.FLYCAM_BACKWARD, KeyInput.KEY_S);
-            bindSignal(CameraInput.FLYCAM_FORWARD, KeyInput.KEY_W);
-            bindSignal(CameraInput.FLYCAM_LOWER, KeyInput.KEY_Z);
-            bindSignal(CameraInput.FLYCAM_RISE, KeyInput.KEY_Q);
-            bindSignal(CameraInput.FLYCAM_STRAFELEFT, KeyInput.KEY_A);
-            bindSignal(CameraInput.FLYCAM_STRAFERIGHT, KeyInput.KEY_D);
-        }
+        bindFlyKeys();
 
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.Linux) {
@@ -162,6 +155,20 @@ class DefaultInputMode extends InputMode {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * If the FlyByCamera is enabled, add its hotkey bindings.
+     */
+    private void bindFlyKeys() {
+        if (flyCam != null && flyCam.isEnabled()) {
+            bindSignal(CameraInput.FLYCAM_BACKWARD, KeyInput.KEY_S);
+            bindSignal(CameraInput.FLYCAM_FORWARD, KeyInput.KEY_W);
+            bindSignal(CameraInput.FLYCAM_LOWER, KeyInput.KEY_Z);
+            bindSignal(CameraInput.FLYCAM_RISE, KeyInput.KEY_Q);
+            bindSignal(CameraInput.FLYCAM_STRAFELEFT, KeyInput.KEY_A);
+            bindSignal(CameraInput.FLYCAM_STRAFERIGHT, KeyInput.KEY_D);
+        }
+    }
 
     /**
      * Delete any mapping of the specified action string in the specified input
