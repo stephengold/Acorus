@@ -122,6 +122,31 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
+     * Advance an integer selection by the specified (cyclic) amount.
+     *
+     * @param valuesArray an array of values in ascending order (not null,
+     * unaffected)
+     * @param startValue the starting value (found in values[])
+     * @param amount the number of values to advance (may be negative)
+     * @return the new (advanced) value
+     */
+    public static int advanceInt(int[] valuesArray, int startValue,
+            int amount) {
+        int index = Arrays.binarySearch(valuesArray, startValue);
+
+        int result;
+        if (index < 0) {
+            result = valuesArray[0];
+        } else {
+            assert valuesArray[index] == startValue;
+            index = MyMath.modulo(index + amount, valuesArray.length);
+            result = valuesArray[index];
+        }
+
+        return result;
+    }
+
+    /**
      * Advance a String selection by the specified (cyclic) amount.
      *
      * @param valuesArray an array of values in ascending order (not null,
