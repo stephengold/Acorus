@@ -567,6 +567,29 @@ abstract public class InputMode
             inputManager.setMouseCursor(cursor);
             inputManager.setCursorVisible(true);
         }
+        mapAll();
+    }
+
+    /**
+     * Deactivate this mode.
+     */
+    protected void deactivate() {
+        setActiveMode(null);
+        inputManager.setCursorVisible(false);
+        unmapAll();
+        inputManager.removeListener(this);
+    }
+
+    /**
+     * Add the default hotkey bindings. The bindings to be used if no custom
+     * bindings are found.
+     */
+    abstract protected void defaultBindings();
+
+    /**
+     * Map all Hotkey and Combo actions.
+     */
+    protected void mapAll() {
         /*
          * Map all bound hotkeys to their actions.
          */
@@ -589,11 +612,9 @@ abstract public class InputMode
     }
 
     /**
-     * Deactivate this mode.
+     * Unmap all Hotkey and Combo actions.
      */
-    protected void deactivate() {
-        setActiveMode(null);
-        inputManager.setCursorVisible(false);
+    protected void unmapAll() {
         /*
          * Unmap all Hotkey actions.
          */
@@ -613,15 +634,7 @@ abstract public class InputMode
                 hotkey.unmap(actionString);
             }
         }
-
-        inputManager.removeListener(this);
     }
-
-    /**
-     * Add the default hotkey bindings. The bindings to be used if no custom
-     * bindings are found.
-     */
-    abstract protected void defaultBindings();
     // *************************************************************************
     // ActionAppState methods
 
