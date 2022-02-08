@@ -38,7 +38,6 @@ import com.jme3.input.controls.JoyButtonTrigger;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.input.controls.Trigger;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -46,6 +45,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
 
@@ -682,38 +682,11 @@ final public class Hotkey {
     }
 
     /**
-     * Access the keyboard interface that's currently in use. TODO move to Heart
-     * library
-     *
-     * @return the pre-existing instance
-     */
-    private static KeyInput getKeyInput() {
-        /*
-         * Use reflection to access the "keys" field of the input manager.
-         */
-        Field keyInputField;
-        try {
-            keyInputField = InputManager.class.getDeclaredField("keys");
-        } catch (NoSuchFieldException exception) {
-            throw new RuntimeException(exception);
-        }
-        keyInputField.setAccessible(true);
-
-        KeyInput result;
-        try {
-            result = (KeyInput) keyInputField.get(inputManager);
-        } catch (IllegalAccessException exception) {
-            throw new RuntimeException(exception);
-        }
-
-        return result;
-    }
-
-    /**
      * Instantiate hotkeys for all known keyboard keys.
      */
     private static void initializeKeys() {
-        String keyInputClassName = getKeyInput().getClass().getSimpleName();
+        KeyInput keyInput = Heart.getKeyInput(inputManager);
+        String keyInputClassName = keyInput.getClass().getSimpleName();
         if (keyInputClassName.equals("DummyKeyInput")) {
             return; // probably in a Headless context
         }
