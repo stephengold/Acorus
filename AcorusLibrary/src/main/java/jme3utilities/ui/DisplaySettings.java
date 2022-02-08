@@ -79,7 +79,7 @@ public class DisplaySettings {
      * true&rarr;force startup to show the settings dialog, false&rarr; show the
      * dialog only if persistent settings are missing
      */
-    private boolean forceDialog = false;
+    private boolean forceDialog = false; // TODO getter
     /**
      * display-size limits (not null)
      */

@@ -127,7 +127,7 @@ abstract public class InputMode
     /**
      * appearance of the mouse pointer/cursor in this mode (null means hidden)
      */
-    private JmeCursor cursor = null;
+    private JmeCursor cursor = null; // TODO getter
     /**
      * map combos to action names for each universal code
      */
@@ -478,7 +478,7 @@ abstract public class InputMode
             logger.log(Level.SEVERE,
                     "Output exception while saving hotkey bindings to {0}!",
                     MyString.quote(assetPath));
-            throw new RuntimeException(exception);
+            throw new RuntimeException(exception); // TODO
         }
     }
 

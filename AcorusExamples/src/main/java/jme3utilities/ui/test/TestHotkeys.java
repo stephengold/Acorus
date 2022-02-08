@@ -180,7 +180,7 @@ public class TestHotkeys extends ActionApplication {
         /*
          * Update the displayed status:  one line for each active hotkey.
          */
-        String status = "";
+        String status = ""; // TODO reusable StringBuffer
         for (Hotkey active : activeHotkeys) {
             status += String.format("code(%d)  US(%s)  local(%s)\n",
                     active.code(), active.usName(), active.localName());

@@ -75,7 +75,7 @@ abstract public class AbstractDemo extends ActionApplication {
     final public static String asTogglePause = "toggle pause";
     final public static String asToggleWorldAxes = "toggle worldAxes";
     // *************************************************************************
-    // fields
+    // fields TODO add constructors
 
     /**
      * visualizer for the world axes
