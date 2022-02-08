@@ -109,16 +109,14 @@ public class Combo {
         int flagsLength = flags.length;
         Validate.require(numSignals == flagsLength, "equal-length arrays");
 
-        Set<String> set = new TreeSet<>();
-        for (String signalName : names) {
-            set.add(signalName);
-        }
-        Validate.require(numSignals == set.size(), "distinct signal names");
+        Collection<String> nameSet = new TreeSet<>();
+        Collections.addAll(nameSet, names);
+        Validate.require(numSignals == nameSet.size(), "distinct signal names");
 
         this.hotkey = hotkey;
 
         signalNames = new String[numSignals];
-        set.toArray(signalNames);
+        nameSet.toArray(signalNames);
 
         positiveFlags = new boolean[numSignals];
         for (int sortedI = 0; sortedI < numSignals; ++sortedI) {
