@@ -274,11 +274,11 @@ final public class Hotkey {
          */
         Joystick[] sticks = inputManager.getJoysticks();
         if (sticks != null) {
-            for (Joystick j : sticks) {
-                int joyIndex = j.getJoyId();
-                List<JoystickButton> butList = j.getButtons();
-                for (JoystickButton but : butList) {
-                    int buttonIndex = but.getButtonId();
+            for (Joystick joystick : sticks) {
+                int joyIndex = joystick.getJoyId();
+                List<JoystickButton> buttons = joystick.getButtons();
+                for (JoystickButton button : buttons) {
+                    int buttonIndex = button.getButtonId();
                     addJoystickButton(joyIndex, buttonIndex);
                 }
             }
