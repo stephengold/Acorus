@@ -980,7 +980,7 @@ abstract public class InputMode
      * @param actionName name of the mapped action (not null)
      * @param hotkey (not null)
      */
-    private void unmapHotkey(String actionName, Hotkey hotkey) {
+    private static void unmapHotkey(String actionName, Hotkey hotkey) {
         assert hotkey != null;
         /*
          * Reconstruct the action string.
