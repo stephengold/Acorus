@@ -33,6 +33,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import java.util.logging.Logger;
+import jme3utilities.InitialState;
 import jme3utilities.Validate;
 import jme3utilities.math.ReadXZ;
 import jme3utilities.math.VectorXZ;
@@ -93,7 +94,7 @@ public class CameraOrbitAppState extends ActionAppState {
      */
     public CameraOrbitAppState(Camera camera, String ccwSignalName,
             String cwSignalName) {
-        super(true);
+        super(InitialState.Enabled);
         Validate.nonNull(camera, "camera");
         Validate.nonEmpty(ccwSignalName, "counter-clockwise signal name");
         Validate.nonEmpty(cwSignalName, "clockwise signal name");

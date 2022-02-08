@@ -54,6 +54,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
+import jme3utilities.InitialState;
 import jme3utilities.MyString;
 import jme3utilities.UncachedKey;
 import jme3utilities.Validate;
@@ -170,7 +171,7 @@ abstract public class InputMode
      * @param shortName terse name for the mode (not null)
      */
     public InputMode(String shortName) {
-        super(false);
+        super(InitialState.Disabled);
 
         Validate.nonNull(shortName, "name");
         this.shortName = shortName;
