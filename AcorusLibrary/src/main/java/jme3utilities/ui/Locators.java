@@ -167,7 +167,7 @@ public class Locators {
      *
      * @param specList a list of URL specifications (not null, unaffected)
      */
-    public static void register(List<String> specList) {
+    public static void register(Iterable<String> specList) {
         Validate.nonNull(specList, "spec list");
 
         for (String specifier : specList) {
