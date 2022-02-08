@@ -117,23 +117,23 @@ public class TestCombo extends ActionApplication {
         dim.bindSignal("ctrl", KeyInput.KEY_LCONTROL, KeyInput.KEY_RCONTROL);
         dim.bindSignal("shift", KeyInput.KEY_LSHIFT, KeyInput.KEY_RSHIFT);
 
-        Hotkey e = Hotkey.find(KeyInput.KEY_E);
-        Combo ctrl_e = new Combo(e, "ctrl", true);
-        Combo noctrl_e = new Combo(e, "ctrl", false);
-        dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, ctrl_e);
-        dim.bind("hint", noctrl_e);
+        Hotkey eKey = Hotkey.find(KeyInput.KEY_E);
+        Combo ctrlE = new Combo(eKey, "ctrl", true);
+        Combo noCtrlE = new Combo(eKey, "ctrl", false);
+        dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, ctrlE);
+        dim.bind("hint", noCtrlE);
 
-        Hotkey r = Hotkey.find(KeyInput.KEY_R);
-        Combo shift_r = new Combo(r, "shift", true);
-        Combo noshift_r = new Combo(r, "shift", false);
-        dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, shift_r);
-        dim.bind("hint", noshift_r);
+        Hotkey rKey = Hotkey.find(KeyInput.KEY_R);
+        Combo shiftR = new Combo(rKey, "shift", true);
+        Combo noShiftR = new Combo(rKey, "shift", false);
+        dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, shiftR);
+        dim.bind("hint", noShiftR);
 
         Hotkey yKey = Hotkey.find(KeyInput.KEY_Y);
-        Combo shift_y = new Combo(yKey, "shift", true);
-        Combo noshift_y = new Combo(yKey, "shift", false);
-        dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, noshift_y);
-        dim.bind("hint", shift_y);
+        Combo shiftY = new Combo(yKey, "shift", true);
+        Combo noShiftY = new Combo(yKey, "shift", false);
+        dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, noShiftY);
+        dim.bind("hint", shiftY);
         /*
          * Build and attach the help node.
          */
