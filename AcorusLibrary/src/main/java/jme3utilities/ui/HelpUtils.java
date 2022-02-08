@@ -117,8 +117,8 @@ final public class HelpUtils {
         Node result = new Node("help node");
         float x = bounds.x;
         float y = bounds.y;
-        float maxX = x + 1;
-        float minY = y - 1;
+        float maxX = x + 1f;
+        float minY = y - 1f;
 
         for (Map.Entry<String, String> entry : actionToList.entrySet()) {
             BitmapText spatial = new BitmapText(font);
