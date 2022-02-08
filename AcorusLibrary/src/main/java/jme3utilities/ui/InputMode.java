@@ -657,13 +657,13 @@ abstract public class InputMode
          */
         initializeHotkeyBindings();
 
-        ActionApplication aa = (ActionApplication) application;
-        if (this == aa.getDefaultInputMode()) {
+        ActionApplication actionApplication = (ActionApplication) application;
+        if (this == actionApplication.getDefaultInputMode()) {
             /*
              * Give the application an opportunity to override the
              * initial bindings.
              */
-            aa.moreDefaultBindings();
+            actionApplication.moreDefaultBindings();
         }
 
         setEnabled(startEnabled);
