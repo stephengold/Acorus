@@ -53,7 +53,7 @@ import jme3utilities.MyAsset;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class DemoScene {
+final public class DemoScene {
     // *************************************************************************
     // constants and loggers
 
