@@ -137,7 +137,7 @@ public class TestHotkeys extends ActionApplication {
          * DefaultInputMode.onAction() will log each time a hotkey
          * gets activated or deactivated.
          *
-         * Since DefaultInputMode doesn't recoginze any of these actions,
+         * Since DefaultInputMode doesn't recognize any of these actions,
          * they are handled by the application's onAction() method.
          */
         for (Hotkey key : allKeys) {

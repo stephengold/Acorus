@@ -81,7 +81,7 @@ abstract public class ActionApplication
     /**
      * Instantiate an application with the appstates favored by
      * SimpleApplication (AudioListenerState, ConstantVerifierState,
-     * DebugKeysAppState, FlyCamAppState, and StatsAppState) preattached.
+     * DebugKeysAppState, FlyCamAppState, and StatsAppState) pre-attached.
      *
      * A DefaultInputMode and a ScreenshotAppState will be attached during
      * initialization.
@@ -90,11 +90,11 @@ abstract public class ActionApplication
     }
 
     /**
-     * Instantiate an application with the specified appstates preattached. A
+     * Instantiate an application with the specified appstates pre-attached. A
      * DefaultInputMode and a ScreenshotAppState will be attached during
      * initialization.
      *
-     * @param initialAppStates the appstates to be preattached (may be null,
+     * @param initialAppStates the appstates to be pre-attached (may be null,
      * unaffected)
      */
     protected ActionApplication(AppState... initialAppStates) {
