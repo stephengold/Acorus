@@ -170,7 +170,7 @@ abstract public class InputMode
      *
      * @param shortName terse name for the mode (not null)
      */
-    public InputMode(String shortName) {
+    protected InputMode(String shortName) {
         super(InitialState.Disabled);
 
         Validate.nonNull(shortName, "name");

@@ -86,7 +86,7 @@ abstract public class ActionApplication
      * A DefaultInputMode and a ScreenshotAppState will be attached during
      * initialization.
      */
-    public ActionApplication() {
+    protected ActionApplication() {
     }
 
     /**
@@ -97,7 +97,7 @@ abstract public class ActionApplication
      * @param initialAppStates the appstates to be preattached (may be null,
      * unaffected)
      */
-    public ActionApplication(AppState... initialAppStates) {
+    protected ActionApplication(AppState... initialAppStates) {
         super(initialAppStates);
     }
     // *************************************************************************
