@@ -32,6 +32,7 @@ package jme3utilities.ui;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import java.util.logging.Logger;
+import jme3utilities.InitialState;
 import jme3utilities.SimpleAppState;
 
 /**
@@ -56,8 +57,17 @@ public class ActionAppState extends SimpleAppState {
      *
      * @param enabled true &rarr; enabled, false &rarr; disabled
      */
-    public ActionAppState(boolean enabled) { // TODO use InitialState enum
+    public ActionAppState(boolean enabled) {
         super(enabled);
+    }
+
+    /**
+     * Instantiate an uninitialized state.
+     *
+     * @param initialState Enabled or Disabled (null means disabled)
+     */
+    public ActionAppState(InitialState initialState) {
+        super(initialState);
     }
     // *************************************************************************
     // new methods exposed
