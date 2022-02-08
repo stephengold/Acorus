@@ -164,7 +164,7 @@ public class TestHotkeys extends ActionApplication {
         assert localIndex >= 0 : localIndex;
         int beginIndex = localIndex + 6;
 
-        int closeIndex = actionString.indexOf(")", beginIndex);
+        int closeIndex = actionString.indexOf(')', beginIndex);
         assert closeIndex >= 0 : localIndex;
 
         String localName = actionString.substring(beginIndex, closeIndex);
