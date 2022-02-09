@@ -857,21 +857,18 @@ abstract public class InputMode
      * @param hotkey (not null)
      */
     private void mapSignalHotkey(String actionName, Hotkey hotkey) {
+        assert actionName != null;
         assert hotkey != null;
-        /*
-         * The second word of the action name is the signal name.
-         */
-        String[] words = actionName.split("\\s+");
-        assert words.length > 1 : MyString.quote(actionName);
-        assert "signal".equals(words[0]);
-        String signalName = words[1];
 
+        String signalName
+                = MyString.remainder(actionName, InputMode.signalActionPrefix);
         Signals uiSignals = getSignals();
         uiSignals.add(signalName);
         /*
          * Append the decimal keyCode to ensure a unique action string.
          */
         String actionString = signalActionString(actionName, hotkey);
+
         int count = countBindings(actionString);
         boolean isUnique = (count == 0);
         assert isUnique : count;
