@@ -470,15 +470,17 @@ abstract public class InputMode
 
     /**
      * Save all hotkey bindings to the configuration asset.
+     *
+     * @return true if successful, otherwise false
      */
-    public void saveBindings() {
+    public boolean saveBindings() {
         assert isInitialized();
 
         String assetPath = configPath();
         if (assetPath == null) {
             logger.log(Level.WARNING,
                     "Hotkey bindings not saved: config path not set");
-            return;
+            return false;
         }
 
         try {
@@ -487,8 +489,10 @@ abstract public class InputMode
             logger.log(Level.SEVERE,
                     "Output exception while saving hotkey bindings to {0}!",
                     MyString.quote(assetPath));
-            throw new RuntimeException(exception); // TODO
+            return false;
         }
+
+        return true;
     }
 
     /**
