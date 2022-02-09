@@ -127,7 +127,7 @@ abstract public class InputMode
     /**
      * appearance of the mouse pointer/cursor in this mode (null means hidden)
      */
-    private JmeCursor cursor = null; // TODO getter
+    private JmeCursor cursor = null;
     /**
      * map combos to action names for each universal code
      */
@@ -347,6 +347,15 @@ abstract public class InputMode
      */
     public static InputMode getActiveMode() {
         return activeMode;
+    }
+
+    /**
+     * Access the cursor for this mode, if any.
+     *
+     * @return the pre-existing instance (or null if hidden)
+     */
+    public JmeCursor getCursor() {
+        return cursor;
     }
 
     /**
