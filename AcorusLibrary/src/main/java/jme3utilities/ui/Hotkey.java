@@ -520,8 +520,12 @@ final public class Hotkey {
                 return "a";
             case "\u00B4":
                 return "acute";
+            case "\u05D0":
+                return "alef";
             case "\u03B1":
                 return "alpha";
+            case "\u05E2":
+                return "ayin";
             case "&":
                 return "ampersand";
             case "'":
@@ -532,6 +536,8 @@ final public class Hotkey {
                 return "backtick";
             case "\u0431":
                 return "be";
+            case "\u05D1":
+                return "bet";
             case "β":
                 return "beta";
             case "\u0447":
@@ -544,6 +550,8 @@ final public class Hotkey {
                 return "colon";
             case ",":
                 return "comma";
+            case "\u05D3":
+                return "dalet";
             case "\u0434":
                 return "de";
             case "δ":
@@ -574,12 +582,26 @@ final public class Hotkey {
                 return "eta";
             case "!":
                 return "exclaim";
+            case "\u05DA":
+                return "fin kaf";
+            case "\u05DD":
+                return "fin mem";
+            case "\u05DF":
+                return "fin nun";
+            case "\u05E3":
+                return "fin pe";
             case "\u03C2":
                 return "fin sigma";
+            case "\u03EA":
+                return "fin tav";
+            case "\u05E5":
+                return "fin tsadi";
             case "\u03B3":
                 return "gamma";
             case "\u0433":
                 return "ghe";
+            case "\u05D2":
+                return "gimel";
             case "\u0445":
                 return "ha";
             case "½":
@@ -588,6 +610,10 @@ final public class Hotkey {
                 return "hard";
             case "#":
                 return "hash";
+            case "\u05D4":
+                return "he";
+            case "\u05D7":
+                return "het";
             case "\u0438":
                 return "i";
             case "\u0435":
@@ -600,16 +626,22 @@ final public class Hotkey {
                 return "iota";
             case "\u043A":
                 return "ka";
+            case "\u05DB":
+                return "kaf";
             case "\u03BA":
                 return "kappa";
             case "λ":
                 return "lambda";
+            case "\u05DC":
+                return "lamed";
             case "[":
                 return "left bracket";
             case "(":
                 return "left paren";
             case "<":
                 return "less than";
+            case "\u05DE":
+                return "mem";
             case "µ":
                 return "micro";
             case "-":
@@ -618,6 +650,8 @@ final public class Hotkey {
                 return "mu";
             case "\u03BD":
                 return "nu";
+            case "\u05E0":
+                return "nun";
             case "\u043E":
                 return "o";
             case "ω":
@@ -627,6 +661,7 @@ final public class Hotkey {
             case "\u00BA":
                 return "ordinal";
             case "\u043F":
+            case "\u05E4":
                 return "pe";
             case ".":
                 return "period";
@@ -638,14 +673,20 @@ final public class Hotkey {
                 return "plus";
             case "ψ":
                 return "psi";
+            case "\u05E7":
+                return "qof";
             case "\"":
                 return "quote";
+            case "\u05E8":
+                return "resh";
             case "\u03C1":
                 return "rho";
             case "]":
                 return "right bracket";
             case ")":
                 return "right paren";
+            case "\u05E1":
+                return "samekh";
             case "§":
                 return "section";
             case ";":
@@ -654,6 +695,8 @@ final public class Hotkey {
                 return "sha";
             case "\u0449":
                 return "shcha";
+            case "\u05E9":
+                return "shin";
             case "\u0439":
                 return "short i";
             case "σ":
@@ -666,18 +709,26 @@ final public class Hotkey {
                 return "super2";
             case "\u03C4":
                 return "tau";
+            case "\u05EA":
+                return "tav";
             case "\u0442":
                 return "te";
+            case "\u05D8":
+                return "tet";
             case "θ":
                 return "theta";
             case "\u0384":
                 return "tonos";
+            case "\u05E6":
+                return "tsadi";
             case "\u0446":
                 return "tse";
             case "\u0443":
                 return "u";
             case "\u03C5":
                 return "upsilon";
+            case "\u05D5":
+                return "vav";
             case "\u0432":
                 return "ve";
             case "ξ":
@@ -686,8 +737,12 @@ final public class Hotkey {
                 return "ya";
             case "\u044B":
                 return "yeru";
+            case "\u05D9":
+                return "yod";
             case "\u044E":
                 return "yu";
+            case "\u05D6":
+                return "zayin";
             case "\u0437":
                 return "ze";
             case "\u03B6":
