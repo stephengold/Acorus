@@ -516,6 +516,8 @@ final public class Hotkey {
         assert glfwKeyName != null;
 
         switch (glfwKeyName) {
+            case "\u0430":
+                return "a";
             case "\u00B4":
                 return "acute";
             case "\u03B1":
@@ -528,6 +530,8 @@ final public class Hotkey {
                 return "backslash";
             case "`":
                 return "backtick";
+            case "\u0431":
+                return "be";
             case "β":
                 return "beta";
             case "\u0447":
@@ -548,14 +552,20 @@ final public class Hotkey {
                 return "diaeresis";
             case "$":
                 return "dollar";
+            case "\u044D":
+                return "e";
             case "\u0444":
                 return "ef";
+            case "\u043B":
+                return "el";
+            case "\u043C":
+                return "em";
+            case "\u043D":
+                return "en";
             case "ε":
                 return "epsilon";
             case "=":
                 return "equals";
-            case "\u043C":
-                return "em";
             case "\u0440":
                 return "er";
             case "\u0441":
@@ -578,6 +588,8 @@ final public class Hotkey {
                 return "hard";
             case "#":
                 return "hash";
+            case "\u0438":
+                return "i";
             case "\u0435":
                 return "ie";
             case "\u00A1":
@@ -606,6 +618,8 @@ final public class Hotkey {
                 return "mu";
             case "\u03BD":
                 return "nu";
+            case "\u043E":
+                return "o";
             case "ω":
                 return "omega";
             case "\u03BF":
@@ -640,6 +654,8 @@ final public class Hotkey {
                 return "sha";
             case "\u0449":
                 return "shcha";
+            case "\u0439":
+                return "short i";
             case "σ":
                 return "sigma";
             case "/":
@@ -658,6 +674,8 @@ final public class Hotkey {
                 return "tonos";
             case "\u0446":
                 return "tse";
+            case "\u0443":
+                return "u";
             case "\u03C5":
                 return "upsilon";
             case "\u0432":
