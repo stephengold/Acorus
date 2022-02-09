@@ -29,7 +29,11 @@
  */
 package jme3utilities.ui;
 
-import java.util.*; // TODO expand
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
