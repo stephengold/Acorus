@@ -1,5 +1,24 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.9 released on TBD
+
+ + Bugfix:  DefaultInputMode assumes flycam and StatsAppState exist
+ + Weakened the argument of the `Locators.register(List<String>)` method.
+ + Added a return value to the `InputMode.saveBindings()` method.
+ + Publicized the `DefaultInputMode` class.
+ + Added constructors for the `AbstractDemo`, `ActionApplication`,
+   and `ActionAppState` classes.
+ + Added library methods:
+   + `AbstractDemo.advanceInt()`
+   + `DisplaySettings.isForceDialog()`
+   + `InputMode.getCursor()`
+   + `InputMode.mapAll()`
+   + `InputMode.unmapAll()`
+   + `DefaultInputMode.updateBindings()`
+ + Added English names for Hebrew keys and also for more Cyrillic keys.
+ + Added the `TestBareBones` and `TestToggleFly` example applications.
+ + Based on version 7.3.0 of the Heart Library.
+
 ## Version 0.9.8 released on 2 February 2022
 
  + Added English names for Cyrillic and Greek keys.
