@@ -29,6 +29,7 @@
  */
 package jme3utilities.ui;
 
+import com.jme3.app.state.AppState;
 import com.jme3.font.Rectangle;
 import com.jme3.input.KeyInput;
 import com.jme3.material.Material;
@@ -75,7 +76,32 @@ abstract public class AbstractDemo extends ActionApplication {
     final public static String asTogglePause = "toggle pause";
     final public static String asToggleWorldAxes = "toggle worldAxes";
     // *************************************************************************
-    // fields TODO add constructors
+    // constructors
+
+    /**
+     * Instantiate a demo with the appstates favored by SimpleApplication
+     * (AudioListenerState, ConstantVerifierState, DebugKeysAppState,
+     * FlyCamAppState, and StatsAppState) pre-attached.
+     *
+     * A DefaultInputMode and a ScreenshotAppState will be attached during
+     * initialization.
+     */
+    protected AbstractDemo() {
+    }
+
+    /**
+     * Instantiate a demo with the specified appstates pre-attached. A
+     * DefaultInputMode and a ScreenshotAppState will be attached during
+     * initialization.
+     *
+     * @param initialAppStates the appstates to be pre-attached (may be null,
+     * unaffected)
+     */
+    protected AbstractDemo(AppState... initialAppStates) {
+        super(initialAppStates);
+    }
+    // *************************************************************************
+    // fields
 
     /**
      * visualizer for the world axes
