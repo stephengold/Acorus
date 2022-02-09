@@ -79,7 +79,7 @@ public class DisplaySettings {
      * true&rarr;force startup to show the settings dialog, false&rarr; show the
      * dialog only if persistent settings are missing
      */
-    private boolean forceDialog = false; // TODO getter
+    private boolean forceDialog = false;
     /**
      * display-size limits (not null)
      */
@@ -332,6 +332,15 @@ public class DisplaySettings {
         clone.copyFrom(cachedSettings);
 
         return clone;
+    }
+
+    /**
+     * Test whether the settings dialog is shown when persistenc settings exist.
+     *
+     * @return true if shown, otherwise false
+     */
+    public boolean isForceDialog() {
+        return forceDialog;
     }
 
     /**
