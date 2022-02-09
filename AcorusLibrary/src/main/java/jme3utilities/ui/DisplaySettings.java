@@ -335,7 +335,7 @@ public class DisplaySettings {
     }
 
     /**
-     * Test whether the settings dialog is shown when persistenc settings exist.
+     * Test whether the settings dialog is shown when persistent settings exist.
      *
      * @return true if shown, otherwise false
      */
