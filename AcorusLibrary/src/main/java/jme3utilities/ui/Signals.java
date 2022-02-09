@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2013-2020, Stephen Gold
+ Copyright (c) 2013-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -52,10 +52,6 @@ public class Signals
      */
     final private static Logger logger2
             = Logger.getLogger(Signals.class.getName());
-    /**
-     * required prefix for action strings
-     */
-    final private static String requiredPrefix = "signal ";
     // *************************************************************************
     // ActionListener methods
 
@@ -73,9 +69,9 @@ public class Signals
         /*
          * Parse the action string.
          */
-        boolean hasPrefix = actionString.startsWith(requiredPrefix);
+        boolean hasPrefix = actionString.startsWith(InputMode.signalActionPrefix);
         Validate.require(hasPrefix, "the required action prefix");
-        String args = MyString.remainder(actionString, requiredPrefix);
+        String args = MyString.remainder(actionString, InputMode.signalActionPrefix);
         Validate.require(args.contains(" "), "a source index");
 
         int spacePosition = args.lastIndexOf(' ');
