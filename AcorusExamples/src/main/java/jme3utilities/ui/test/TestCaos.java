@@ -45,7 +45,7 @@ import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * An ActionApplication to test/demonstrate the CameraOrbitAppState and 
+ * An ActionApplication to test/demonstrate the CameraOrbitAppState and
  * help-node toggling.
  *
  * @author Stephen Gold sgold@sonic.net
