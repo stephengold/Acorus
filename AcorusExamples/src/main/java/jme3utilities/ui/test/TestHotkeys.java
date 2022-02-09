@@ -70,6 +70,10 @@ public class TestHotkeys extends ActionApplication {
      * list of active hotkeys
      */
     final private static Collection<Hotkey> activeHotkeys = new ArrayList<>(10);
+    /**
+     * reusable StringBuffer
+     */
+    final private static StringBuffer statusBuffer = new StringBuffer(200);
     // *************************************************************************
     // new methods exposed
 
@@ -180,11 +184,19 @@ public class TestHotkeys extends ActionApplication {
         /*
          * Update the displayed status:  one line for each active hotkey.
          */
-        String status = ""; // TODO reusable StringBuffer
+        statusBuffer.setLength(0);
         for (Hotkey active : activeHotkeys) {
-            status += String.format("code(%d)  US(%s)  local(%s)\n",
-                    active.code(), active.usName(), active.localName());
+            statusBuffer.append("code(");
+            int scancode = active.code();
+            statusBuffer.append(scancode);
+            statusBuffer.append(")  US( ");
+            String usName = active.usName();
+            statusBuffer.append(usName);
+            statusBuffer.append(" )  local( ");
+            String local = active.localName();
+            statusBuffer.append(local);
+            statusBuffer.append(" )\n");
         }
-        statusText.setText(status);
+        statusText.setText(statusBuffer);
     }
 }
