@@ -1,8 +1,8 @@
 # release log for the Acorus library and related examples
 
-## Version 0.9.9 released on TBD
+## Version 0.9.9 released on 9 February 2022
 
- + Bugfix:  DefaultInputMode assumes flycam and StatsAppState exist
+ + Bugfix:  `DefaultInputMode` assumes `FlyByCamera` and `StatsAppState` exist
  + Weakened the argument of the `Locators.register(List<String>)` method.
  + Added a return value to the `InputMode.saveBindings()` method.
  + Publicized the `DefaultInputMode` class.
