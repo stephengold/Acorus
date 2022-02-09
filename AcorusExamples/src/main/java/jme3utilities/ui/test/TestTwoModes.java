@@ -225,7 +225,7 @@ public class TestTwoModes extends ActionApplication {
         if (editMode.isEnabled()) { // fake a blinking text cursor
             long now = System.nanoTime() % 1_000_000_000L;
             if (now > 500_000_000L) {
-                text = text + "_";
+                text += "_";
             }
         }
         statusText.setText("Text: " + text);
