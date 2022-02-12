@@ -8,7 +8,6 @@ plugins {
     id 'signing'
 }
 
-description = 'An action-oriented user-interface library for jMonkeyEngine.'
 ext {
     artifact = 'Acorus'
     version = acorusVersion
