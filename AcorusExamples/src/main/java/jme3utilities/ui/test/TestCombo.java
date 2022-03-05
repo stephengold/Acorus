@@ -36,7 +36,6 @@ import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.Collection;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.ui.ActionApplication;
@@ -74,7 +73,7 @@ public class TestCombo extends ActionApplication {
      */
     public static void main(String[] arguments) {
         TestCombo application = new TestCombo();
-        Heart.setLoggingLevels(Level.WARNING);
+        Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);

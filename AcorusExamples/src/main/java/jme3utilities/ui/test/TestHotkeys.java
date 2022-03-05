@@ -36,6 +36,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jme3utilities.Heart;
 import jme3utilities.ui.ActionApplication;
 import jme3utilities.ui.Hotkey;
 import jme3utilities.ui.InputMode;
@@ -84,6 +85,7 @@ public class TestHotkeys extends ActionApplication {
      */
     public static void main(String[] arguments) {
         TestHotkeys application = new TestHotkeys();
+        Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);

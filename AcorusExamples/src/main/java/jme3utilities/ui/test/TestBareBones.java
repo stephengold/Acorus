@@ -34,7 +34,6 @@ import com.jme3.font.Rectangle;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.ui.ActionApplication;
@@ -80,7 +79,7 @@ public class TestBareBones extends ActionApplication {
      */
     public static void main(String[] arguments) {
         TestBareBones application = new TestBareBones();
-        Heart.setLoggingLevels(Level.WARNING);
+        Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);
