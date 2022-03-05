@@ -62,7 +62,8 @@ a simple matter of adding it to the classpath.
 
 Acorus comes pre-built as a single library
 that depends on [the Heart Library][heart],
-which in turn depends on the standard jme3-core library from jMonkeyEngine.
+which in turn depends on
+the standard "jme3-core" library from jMonkeyEngine.
 
 For projects built using Maven or [Gradle], it is sufficient to specify the
 dependency on the Acorus Library.  The build tools should automatically
@@ -143,7 +144,7 @@ Open the project's properties in the IDE (JME 3.2 SDK or NetBeans 8.2):
 1. Install a [Java Development Kit (JDK)][openJDK],
    if you don't already have one.
 2. Point the `JAVA_HOME` environment variable to your JDK installation:
-  + using Bash: `export JAVA_HOME="` *path to installation* `"`
+  + using Bash or Zsh: `export JAVA_HOME="` *path to installation* `"`
   + using Windows Command Prompt: `set JAVA_HOME="` *path to installation* `"`
   + using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
 3. Download and extract the Acorus source code from GitHub:
@@ -158,18 +159,18 @@ Open the project's properties in the IDE (JME 3.2 SDK or NetBeans 8.2):
     + extract the contents of the saved ZIP file
     + `cd` to the extracted directory/folder
 4. Run the [Gradle] wrapper:
-  + using Bash or PowerShell: `./gradlew build`
+  + using Bash or PowerShell or Zsh: `./gradlew build`
   + using Windows Command Prompt: `.\gradlew build`
 
 After a successful build,
 Maven artifacts will be found in `AcorusLibrary/build/libs`.
 
 You can install the artifacts to your local Maven repository:
-+ using Bash or PowerShell: `./gradlew install`
++ using Bash or PowerShell or Zsh: `./gradlew install`
 + using Windows Command Prompt: `.\gradlew install`
 
 You can restore the project to a pristine state:
-+ using Bash or PowerShell: `./gradlew clean`
++ using Bash or PowerShell or Zsh: `./gradlew clean`
 + using Windows Command Prompt: `.\gradlew clean`
 
 [Jump to table of contents](#toc)
