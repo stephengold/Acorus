@@ -69,11 +69,20 @@ abstract public class AbstractDemo extends ActionApplication {
     final public static Logger loggerA
             = Logger.getLogger(AbstractDemo.class.getName());
     /**
-     * action strings that onAction() recognizes
+     * action string to request JVM garbage collection
      */
     final public static String asCollectGarbage = "collect garbage";
+    /**
+     * action to toggle the state of the help node
+     */
     final public static String asToggleHelp = "toggle help";
+    /**
+     * action to toggle animation and physics simulation: paused/running
+     */
     final public static String asTogglePause = "toggle pause";
+    /**
+     * action to toggle visualization of world axes
+     */
     final public static String asToggleWorldAxes = "toggle worldAxes";
     // *************************************************************************
     // constructors
