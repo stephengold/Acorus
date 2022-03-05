@@ -141,7 +141,7 @@ Open the project's properties in the IDE (JME 3.2 SDK or NetBeans 8.2):
 
 ## How to build Acorus from source
 
-1. Install a [Java Development Kit (JDK)][openJDK],
+1. Install a [Java Development Kit (JDK)][adoptium],
    if you don't already have one.
 2. Point the `JAVA_HOME` environment variable to your JDK installation:
    (The path might be something like "C:\Program Files\Java\jre1.8.0_301"
@@ -290,6 +290,7 @@ correct the situation: sgold@sonic.net
 
 
 [acorus]: https://github.com/stephengold/Acorus "Acorus Project"
+[adoptium]: https://adoptium.net/releases.html "Adoptium Project"
 [ant]: https://ant.apache.org "Apache Ant Project"
 [chrome]: https://www.google.com/chrome "Chrome"
 [findbugs]: http://findbugs.sourceforge.net "FindBugs Project"
@@ -309,7 +310,6 @@ correct the situation: sgold@sonic.net
 [meld]: https://meldmerge.org/ "Meld Project"
 [mint]: https://linuxmint.com "Linux Mint Project"
 [netbeans]: https://netbeans.org "NetBeans Project"
-[openJDK]: https://openjdk.java.net "OpenJDK Project"
 [sonatype]: https://www.sonatype.com "Sonatype"
 [utilities]: https://github.com/stephengold/jme3-utilities "Jme3-utilities Project"
 [winmerge]: https://winmerge.org "WinMerge Project"
