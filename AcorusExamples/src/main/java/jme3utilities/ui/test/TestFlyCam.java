@@ -73,6 +73,7 @@ public class TestFlyCam extends ActionApplication {
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
+        settings.setRenderer(AppSettings.LWJGL_OPENGL32);
         settings.setSamples(4); // anti-aliasing
         settings.setTitle(applicationName); // Customize the window's title bar.
         application.setSettings(settings);
