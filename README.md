@@ -21,6 +21,7 @@ Complete source code (in Java) is provided under
 + [How to build Acorus from source](#build)
 + [Downloads](#downloads)
 + [Conventions](#conventions)
++ [An overview of the example applications](#examples)
 + [History](#history)
 + [Acknowledgments](#acks)
 
@@ -205,6 +206,33 @@ The pre-built libraries are compatible with JDK 8.
 [Jump to table of contents](#toc)
 
 
+<a name="examples"></a>
+
+## An overview of the example applications
+
+(under construction)
+
+### TestBareBones
+
+### TestHotkeys
+
+### TestCombo
+
+### TestFlyCam
+
+### TestCaos
+
+### TestToggleFly
+
+### TestTwoModes
+
+### TestCursors
+
+### TestHeadless
+
+[Jump to table of contents](#toc)
+
+
 <a name="history"></a>
 
 ## History
@@ -274,7 +302,7 @@ correct the situation: sgold@sonic.net
 [license]: https://github.com/stephengold/Acorus/blob/master/LICENSE "Acorus license"
 [log]: https://github.com/stephengold/Acorus/blob/master/AcorusLibrary/release-notes.md "release log"
 [markdown]: https://daringfireball.net/projects/markdown "Markdown Project"
-[meld]: https://meldmerge.org/ "Meld Tool"
+[meld]: https://meldmerge.org/ "Meld Project"
 [mint]: https://linuxmint.com "Linux Mint Project"
 [netbeans]: https://netbeans.org "NetBeans Project"
 [openJDK]: https://openjdk.java.net "OpenJDK Project"
