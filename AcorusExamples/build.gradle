@@ -16,6 +16,7 @@ dependencies {
 
     implementation heartCoordinates
 
+    //implementation 'com.github.stephengold:Acorus:' + acorusVersion
     implementation project(':AcorusLibrary')
 }
 
@@ -39,23 +40,32 @@ task cleanWrittenAssets(type: Delete) {
     delete 'Written Assets'
 }
 
-// tasks to run the test apps
+// tasks to run the sample apps
 
-task testCaos(type: JavaExec) {
+task TestBareBones(type: JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestBareBones'
+}
+task TestCaos(type: JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestCaos'
 }
-task testCombo(type: JavaExec) {
+task TestCombo(type: JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestCombo'
 }
-task testCursors(type: JavaExec) {
+task TestCursors(type: JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestCursors'
 }
-task testFlyCam(type: JavaExec) {
+task TestFlyCam(type: JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestFlyCam'
 }
-task testHotkeys(type: JavaExec) {
+task TestHeadless(type: JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestHeadless'
+}
+task TestHotkeys(type: JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestHotkeys'
 }
-task testTwoModes(type: JavaExec) {
+task TestToggleFly(type: JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestToggleFly'
+}
+task TestTwoModes(type: JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestTwoModes'
 }
