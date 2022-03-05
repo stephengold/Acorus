@@ -41,7 +41,7 @@ import jme3utilities.ui.Hotkey;
 import jme3utilities.ui.InputMode;
 
 /**
- * An ActionApplication to log all button/keyboard input (for testing).
+ * Log all button/keyboard input (for identification and testing).
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -80,26 +80,18 @@ public class TestHotkeys extends ActionApplication {
     /**
      * Main entry point for the TestHotKeys application.
      *
-     * @param ignored array of command-line arguments (not null)
+     * @param arguments array of command-line arguments (not null)
      */
-    public static void main(String[] ignored) {
-        /*
-         * Instantiate the application.
-         */
+    public static void main(String[] arguments) {
         TestHotkeys application = new TestHotkeys();
-        /*
-         * Customize the window's title bar.
-         */
+
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);
-        settings.setTitle(applicationName);
         settings.setAudioRenderer(null);
         settings.setUseJoysticks(true);
+        settings.setTitle(applicationName); // Customize the window's title bar.
         application.setSettings(settings);
-        /*
-         * Invoke the JME startup code,
-         * which in turn invokes actionInitializeApplication().
-         */
+
         application.start();
     }
     // *************************************************************************

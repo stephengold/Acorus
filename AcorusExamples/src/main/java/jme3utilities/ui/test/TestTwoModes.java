@@ -99,32 +99,21 @@ public class TestTwoModes extends ActionApplication {
     /**
      * Main entry point for the TestTwoModes application.
      *
-     * @param ignored array of command-line arguments (not null)
+     * @param arguments array of command-line arguments (not null)
      */
-    public static void main(String[] ignored) {
-        /*
-         * Mute the chatty loggers in certain packages.
-         */
-        Heart.setLoggingLevels(Level.WARNING);
-        /*
-         * Instantiate the application.
-         */
+    public static void main(String[] arguments) {
         TestTwoModes application = new TestTwoModes();
-        /*
-         * Customize the window's title bar.
-         */
-        AppSettings settings = new AppSettings(true);
-        settings.setTitle(applicationName);
+        Heart.setLoggingLevels(Level.WARNING);
 
+        boolean loadDefaults = true;
+        AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
         settings.setGammaCorrection(true);
         settings.setSamples(4); // anti-aliasing
+        settings.setTitle(applicationName); // Customize the window's title bar.
         settings.setVSync(true);
         application.setSettings(settings);
-        /*
-         * Invoke the JME startup code,
-         * which in turn invokes actionInitializeApplication().
-         */
+
         application.start();
     }
 

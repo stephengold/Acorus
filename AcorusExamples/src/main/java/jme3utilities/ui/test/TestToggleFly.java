@@ -43,8 +43,8 @@ import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * An ActionApplication to test/demonstrate how the default hotkey bindings
- * change when the FlyByCamera is enabled/disabled.
+ * Test/demonstrate how the default hotkey bindings change when the FlyByCamera
+ * is enabled/disabled.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -83,33 +83,21 @@ public class TestToggleFly extends ActionApplication {
     /**
      * Main entry point for the TestToggleFly application.
      *
-     * @param ignored array of command-line arguments (not null)
+     * @param arguments array of command-line arguments (not null)
      */
-    public static void main(String[] ignored) {
-        /*
-         * Mute the chatty loggers in certain packages.
-         */
-        Heart.setLoggingLevels(Level.WARNING);
-        /*
-         * Instantiate the application.
-         */
+    public static void main(String[] arguments) {
         TestToggleFly application = new TestToggleFly();
-        /*
-         * Customize the window's title bar.
-         */
+        Heart.setLoggingLevels(Level.WARNING);
+
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);
-        settings.setTitle(applicationName);
-
         settings.setAudioRenderer(null);
         settings.setGammaCorrection(true);
         settings.setSamples(4); // anti-aliasing
+        settings.setTitle(applicationName); // Customize the window's title bar.
         settings.setVSync(true);
         application.setSettings(settings);
-        /*
-         * Invoke the JME startup code,
-         * which in turn invokes actionInitializeApplication().
-         */
+
         application.start();
     }
     // *************************************************************************
