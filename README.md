@@ -131,7 +131,7 @@ Open the project's properties in the IDE (JME 3.2 SDK or NetBeans 8.2):
   + Select the "Heart-7.3.0-sources.jar" file.
   + Click on the "Open" button again.
   + Click on the "OK" button to close the "Edit Jar Reference" dialog.
-7. Similarly, add the `Acorus` jar(s).
+7. Similarly, add the Acorus jar(s).
 8. Click on the "OK" button to exit the "Project Properties" dialog.
 
 [Jump to table of contents](#toc)
