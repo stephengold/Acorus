@@ -166,7 +166,7 @@ Open the project's properties in the IDE (JME 3.2 SDK or NetBeans 8.2):
   + using Windows Command Prompt: `.\gradlew build`
 
 After a successful build,
-Maven artifacts will be found in `AcorusLibrary/build/libs`.
+Maven artifacts will be found in "AcorusLibrary/build/libs".
 
 You can install the artifacts to your local Maven repository:
 + using Bash or PowerShell or Zsh: `./gradlew install`
