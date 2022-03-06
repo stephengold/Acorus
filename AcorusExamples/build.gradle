@@ -3,13 +3,14 @@
 //   of the root project.
 
 dependencies {
+    implementation heartCoordinates
     runtimeOnly 'org.jmonkeyengine:jme3-desktop:' + jme3Version
 
     // select one version of LWJGL:
     //runtimeOnly 'org.jmonkeyengine:jme3-lwjgl:' + jme3Version  // LWJGL 2.x
     runtimeOnly 'org.jmonkeyengine:jme3-lwjgl3:' + jme3Version // LWJGL 3.x
 
-    // "AcorusExamples" doesn't use jme3-jogg nor jme3-plugins
+    // AcorusExamples doesn't use jme3-jogg nor jme3-plugins
     //  -- they are included solely to avoid warnings from AssetConfig
     runtimeOnly 'org.jmonkeyengine:jme3-jogg:' + jme3Version
     runtimeOnly 'org.jmonkeyengine:jme3-plugins:' + jme3Version
@@ -21,8 +22,6 @@ dependencies {
     runtimeOnly 'org.lwjgl:lwjgl-openal:' + lwjgl3Version + ':natives-macos-arm64'
     runtimeOnly 'org.lwjgl:lwjgl-opengl:' + lwjgl3Version + ':natives-macos-arm64'
 
-    implementation heartCoordinates
-
     //implementation 'com.github.stephengold:Acorus:' + acorusVersion
     implementation project(':AcorusLibrary')
 }
@@ -31,23 +30,23 @@ dependencies {
 
 clean.dependsOn('cleanDLLs', 'cleanDyLibs', 'cleanLogs', 'cleanSOs', 'cleanWrittenAssets')
 
-task cleanDLLs(type: Delete) {
+task cleanDLLs(type: Delete) { // Windows native libraries
     delete fileTree(dir: '.', include: '*.dll')
 }
-task cleanDyLibs(type: Delete) {
+task cleanDyLibs(type: Delete) { // macOSX native libraries
     delete fileTree(dir: '.', include: '*.dylib')
 }
-task cleanLogs(type: Delete) {
+task cleanLogs(type: Delete) { // JVM crash logs
     delete fileTree(dir: '.', include: 'hs_err_pid*.log')
 }
-task cleanSOs(type: Delete) {
+task cleanSOs(type: Delete) { // Linux and Android native libraries
     delete fileTree(dir: '.', include: '*.so')
 }
-task cleanWrittenAssets(type: Delete) {
+task cleanWrittenAssets(type: Delete) { // Acorus output directory
     delete 'Written Assets'
 }
 
-// tasks to run the sample apps
+// tasks to run the example apps
 
 task TestBareBones(type: JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestBareBones'
