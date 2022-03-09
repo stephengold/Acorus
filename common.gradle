@@ -3,9 +3,6 @@
 apply plugin: 'java'
 
 ext {
-    group = 'com.github.stephengold'
-    websiteUrl = 'https://github.com/stephengold/Acorus'
-
     // module coordinates of dependencies:
     heartCoordinates = 'com.github.stephengold:Heart:7.4.1'
 

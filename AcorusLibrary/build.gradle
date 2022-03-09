@@ -9,9 +9,11 @@ plugins {
 }
 
 ext {
+    group = 'com.github.stephengold'
     artifact = 'Acorus'
     version = acorusVersion
-    baseName = "${artifact}-${version}" // for POM and class JAR
+    baseName = "${artifact}-${version}" // for artifacts
+    websiteUrl = 'https://github.com/stephengold/Acorus'
 }
 
 dependencies {
