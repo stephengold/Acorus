@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 0.9.10 released on TBD
+## Version 0.9.10 released on 9 March 2022
 
  + Added a 3rd option for displaying the settings dialog. (API change)
  + Privatized the `sizeLimits` field in the `DisplaySettings` class.
