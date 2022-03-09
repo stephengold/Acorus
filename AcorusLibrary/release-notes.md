@@ -1,5 +1,16 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.10 released on TBD
+
+ + Added a 3rd option for displaying the settings dialog. (API change)
+ + Privatized the `sizeLimits` field in the `DisplaySettings` class.
+ + Bugfix:  signal names containing spaces aren't mapped properly
+ + Improved the examples:
+   + Added command-line arguments to adjust the logging level
+     and bypass the settings dialog (for portability)
+   + Added LWJGL natives for MacOSX_ARM64 (for portability)
+ + Based on version 7.4.1 of the Heart Library.
+
 ## Version 0.9.9 released on 9 February 2022
 
  + Bugfix:  `DefaultInputMode` assumes `FlyByCamera` and `StatsAppState` exist
