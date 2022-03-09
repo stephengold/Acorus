@@ -84,11 +84,11 @@ public class DisplaySettings {
      */
     private ShowDialog showDialog = ShowDialog.FirstTime;
     /**
-     * application name for the window's title bar, which is also the key for
-     * loading/saving app settings from Java's user preferences (not null) TODO
-     * append command-line arguments in the title bar
+     * the name of the application, which is the key for loading/saving app
+     * settings from Java's user preferences and also (by default) displayed in
+     * the application's title bar (not null)
      */
-    final private String title;
+    final private String applicationName;
     // *************************************************************************
     // constructors
 
@@ -96,18 +96,18 @@ public class DisplaySettings {
      * Instantiate settings for the specified ActionApplication.
      *
      * @param app the current application instance (not null, alias created)
-     * @param windowTitle (not null)
-     * @param dsl display-size limits (not null)
+     * @param appName the name of the application (not null)
+     * @param dsl the display-size limits (not null)
      */
-    public DisplaySettings(ActionApplication app, String windowTitle,
+    public DisplaySettings(ActionApplication app, String appName,
             DisplaySizeLimits dsl) {
         Validate.nonNull(app, "application");
-        Validate.nonNull(windowTitle, "window title");
+        Validate.nonNull(appName, "application name");
         Validate.nonNull(dsl, "display-size limits");
 
-        application = app;
-        title = windowTitle;
-        sizeLimits = dsl;
+        this.application = app;
+        this.applicationName = appName;
+        this.sizeLimits = dsl;
     }
     // *************************************************************************
     // new methods exposed
@@ -297,8 +297,8 @@ public class DisplaySettings {
          */
         boolean loadedFromStore = false;
         try {
-            if (Preferences.userRoot().nodeExists(title)) {
-                cachedSettings.load(title);
+            if (Preferences.userRoot().nodeExists(applicationName)) {
+                cachedSettings.load(applicationName);
                 loadedFromStore = true;
             }
         } catch (BackingStoreException e) {
@@ -411,7 +411,7 @@ public class DisplaySettings {
      */
     public void save() {
         try {
-            cachedSettings.save(title);
+            cachedSettings.save(applicationName);
             areSaved = true;
         } catch (BackingStoreException e) {
             String message = "Display settings were not saved.";
@@ -596,7 +596,7 @@ public class DisplaySettings {
         settings.setMinWidth(minWidth);
 
         settings.setResizable(false);
-        settings.setTitle(title);
+        settings.setTitle(applicationName);
     }
 
     /**
