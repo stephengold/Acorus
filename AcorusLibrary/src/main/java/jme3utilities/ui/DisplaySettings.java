@@ -78,7 +78,7 @@ public class DisplaySettings {
     /**
      * display-size limits (not null)
      */
-    final public DisplaySizeLimits sizeLimits;
+    final private DisplaySizeLimits sizeLimits;
     /**
      * how often the JME settings dialog should be shown during initialize()
      */
@@ -272,6 +272,15 @@ public class DisplaySettings {
         }
 
         return "";
+    }
+
+    /**
+     * Access the max/min display size.
+     *
+     * @return the pre-existing instance (not null)
+     */
+    public DisplaySizeLimits getSizeLimits() {
+        return sizeLimits;
     }
 
     /**
