@@ -462,9 +462,11 @@ final public class Hotkey {
                         localQ += String.format("    (\"\\u%04x\": %s)",
                                 ch, unicodeName);
                     }
-                    logger.log(Level.INFO,
-                            "localizing the hotkey name for key{0}: {1} -> {2}",
-                            new Object[]{keyCode, usQ, localQ});
+                    if (logger.isLoggable(Level.INFO)) {
+                        logger.log(Level.INFO,
+                                "localizing hotkey name for key{0}: {1} -> {2}",
+                                new Object[]{keyCode, usQ, localQ});
+                    }
                 }
             }
         }
@@ -479,14 +481,18 @@ final public class Hotkey {
             String nameQ = MyString.quote(usName);
             Object[] args = {keyCode, preexistingCode, nameQ};
             if (localName.equals(usName)) {
-                logger.log(Level.INFO,
-                        "Ignore key{0} because pre-existing key{1} is "
-                        + "also named {2}.", args);
+                if (logger.isLoggable(Level.INFO)) {
+                    logger.log(Level.INFO,
+                            "Ignore key{0} because pre-existing key{1} is "
+                            + "also named {2}.", args);
+                }
                 return;
             } else {
-                logger.log(Level.INFO,
-                        "Key{0} overrides pre-existing key{1} that was "
-                        + "also named {2}.", args);
+                if (logger.isLoggable(Level.INFO)) {
+                    logger.log(Level.INFO,
+                            "Key{0} overrides pre-existing key{1} that was "
+                            + "also named {2}.", args);
+                }
 
                 byLocalName.remove(localName);
                 byUniversalCode.remove(preexistingCode);

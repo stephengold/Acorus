@@ -689,9 +689,11 @@ abstract public class InputMode
      */
     @Override
     public void setEnabled(boolean newState) {
-        logger.log(Level.FINE, "mode={0} newState={1}", new Object[]{
-            shortName, newState
-        });
+        if (logger.isLoggable(Level.FINE)) {
+            logger.log(Level.FINE, "mode={0} newState={1}", new Object[]{
+                shortName, newState
+            });
+        }
         assert !isSuspended;
         if (!isInitialized()) {
             startEnabled = newState;
@@ -776,8 +778,10 @@ abstract public class InputMode
             loadBindings(path);
 
         } catch (AssetNotFoundException exception) {
-            logger.log(Level.INFO, "Didn''t find hotkey bindings at {0}.",
-                    MyString.quote(path));
+            if (logger.isLoggable(Level.INFO)) {
+                logger.log(Level.INFO, "Didn''t find hotkey bindings at {0}.",
+                        MyString.quote(path));
+            }
 
             hotkeyBindings.clear();
             defaultBindings();
@@ -793,8 +797,10 @@ abstract public class InputMode
     private void loadBindings(String assetPath) {
         assert assetPath != null;
 
-        logger.log(Level.INFO, "Loading hotkey bindings from asset {0}.",
-                MyString.quote(assetPath));
+        if (logger.isLoggable(Level.INFO)) {
+            logger.log(Level.INFO, "Loading hotkey bindings from asset {0}.",
+                    MyString.quote(assetPath));
+        }
 
         UncachedKey key = new UncachedKey(assetPath);
         hotkeyBindings = (Properties) assetManager.loadAsset(key);
@@ -911,8 +917,10 @@ abstract public class InputMode
     private void saveBindings(String assetPath) throws IOException {
         assert assetPath != null;
 
-        logger.log(Level.INFO, "Saving hotkey bindings to asset {0}.",
-                MyString.quote(assetPath));
+        if (logger.isLoggable(Level.INFO)) {
+            logger.log(Level.INFO, "Saving hotkey bindings to asset {0}.",
+                    MyString.quote(assetPath));
+        }
 
         FileOutputStream stream = null;
         String filePath = ActionApplication.filePath(assetPath);

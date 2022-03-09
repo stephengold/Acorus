@@ -172,9 +172,11 @@ public class DefaultInputMode extends InputMode {
      */
     @Override
     public void onAction(String actionString, boolean ongoing, float tpf) {
-        logger.log(Level.INFO, "Got action {0} ongoing={1}", new Object[]{
-            MyString.quote(actionString), ongoing
-        });
+        if (logger.isLoggable(Level.INFO)) {
+            logger.log(Level.INFO, "Got action {0} ongoing={1}", new Object[]{
+                MyString.quote(actionString), ongoing
+            });
+        }
         /*
          * Forward all actions to the ActionApplication subclass for processing.
          */
