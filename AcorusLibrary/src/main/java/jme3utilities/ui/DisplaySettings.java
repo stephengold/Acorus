@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2021, Stephen Gold
+ Copyright (c) 2017-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -76,14 +76,13 @@ public class DisplaySettings {
      */
     private boolean areSaved = false;
     /**
-     * true&rarr;force startup to show the settings dialog, false&rarr; show the
-     * dialog only if persistent settings are missing
-     */
-    private boolean forceDialog = false;
-    /**
      * display-size limits (not null)
      */
     final public DisplaySizeLimits sizeLimits;
+    /**
+     * how often the JME settings dialog should be shown during initialize()
+     */
+    private ShowDialog showDialog = ShowDialog.FirstTime;
     /**
      * application name for the window's title bar, which is also the key for
      * loading/saving app settings from Java's user preferences (not null) TODO
@@ -309,7 +308,26 @@ public class DisplaySettings {
          */
         applyOverrides(cachedSettings);
 
-        if (!loadedFromStore || forceDialog) {
+        boolean show;
+        switch (showDialog) {
+            case Always:
+                show = true;
+                break;
+
+            case FirstTime:
+                show = !loadedFromStore;
+                break;
+
+            case Never:
+                show = false;
+                break;
+
+            default:
+                String message = "dialogOption = " + showDialog;
+                throw new IllegalStateException(message);
+        }
+
+        if (show) {
             /*
              * Show JME's settings dialog.
              */
@@ -332,15 +350,6 @@ public class DisplaySettings {
         clone.copyFrom(cachedSettings);
 
         return clone;
-    }
-
-    /**
-     * Test whether the settings dialog is shown when persistent settings exist.
-     *
-     * @return true if shown, otherwise false
-     */
-    public boolean isForceDialog() {
-        return forceDialog;
     }
 
     /**
@@ -450,16 +459,6 @@ public class DisplaySettings {
     }
 
     /**
-     * Alter whether initialize() must show the JME settings dialog.
-     *
-     * @param newSetting true&rarr;force initialize() to show the dialog,
-     * false&rarr; show the dialog only if persistent settings are missing
-     */
-    public void setForceDialog(boolean newSetting) {
-        forceDialog = newSetting;
-    }
-
-    /**
      * Enable or disable full-screen mode.
      *
      * @param newSetting true&rarr;full screen, false&rarr; windowed
@@ -534,6 +533,17 @@ public class DisplaySettings {
     }
 
     /**
+     * Alter how often the JME settings dialog should be shown during
+     * initialize().
+     *
+     * @param newSetting the desired option (not null)
+     */
+    public void setShowDialog(ShowDialog newSetting) {
+        Validate.nonNull(newSetting, "new setting");
+        this.showDialog = newSetting;
+    }
+
+    /**
      * Enable or disable VSync mode.
      *
      * @param newSetting true&rarr;synchronize, false&rarr; don't synchronize
@@ -545,6 +555,16 @@ public class DisplaySettings {
             areApplied = false;
             areSaved = false;
         }
+    }
+
+    /**
+     * Determine how often the JME settings dialog should be shown during
+     * initialize().
+     *
+     * @return an enum value
+     */
+    public ShowDialog showDialog() {
+        return showDialog;
     }
 
     /**
