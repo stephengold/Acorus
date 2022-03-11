@@ -11,7 +11,7 @@ dependencies {
     runtimeOnly 'org.jmonkeyengine:jme3-lwjgl3:' + jme3Version // LWJGL 3.x
 
     // AcorusExamples doesn't use jme3-jogg nor jme3-plugins
-    //  -- they are included solely to avoid warnings from AssetConfig
+    //  -- they are included solely to avoid warnings from AssetConfig.
     runtimeOnly 'org.jmonkeyengine:jme3-jogg:' + jme3Version
     runtimeOnly 'org.jmonkeyengine:jme3-plugins:' + jme3Version
 
@@ -26,7 +26,7 @@ dependencies {
     implementation project(':AcorusLibrary')
 }
 
-// cleanup tasks
+// cleanup tasks:
 
 clean.dependsOn('cleanDLLs', 'cleanDyLibs', 'cleanLogs', 'cleanSOs', 'cleanWrittenAssets')
 
@@ -36,7 +36,7 @@ task cleanDLLs(type: Delete) { // extracted Windows native libraries
 task cleanDyLibs(type: Delete) { // extracted macOSX native libraries
     delete fileTree(dir: '.', include: '*.dylib')
 }
-task cleanLogs(type: Delete) { // extracted JVM crash logs
+task cleanLogs(type: Delete) { // JVM crash logs
     delete fileTree(dir: '.', include: 'hs_err_pid*.log')
 }
 task cleanSOs(type: Delete) { // extracted Linux and Android native libraries
@@ -46,7 +46,7 @@ task cleanWrittenAssets(type: Delete) { // Acorus output directory
     delete 'Written Assets'
 }
 
-// tasks to run the example apps
+// tasks to run the example apps:
 
 task TestBareBones(type: JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestBareBones'
