@@ -8,8 +8,7 @@ ext {
 
     // current versions of libraries:
     acorusVersion = '0.9.11-SNAPSHOT'
-    jme3Version = '3.5.0-stable'
-    lwjgl3Version = '3.3.0'
+    jme3Version = '3.5.1-stable'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_7
