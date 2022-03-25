@@ -377,11 +377,32 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
+     * Toggle between the full help node and the minimal one.
+     */
+    public void toggleHelp() {
+        if (helpNode.getParent() == null) {
+            minHelpNode.removeFromParent();
+            guiNode.attachChild(helpNode);
+        } else {
+            helpNode.removeFromParent();
+            guiNode.attachChild(minHelpNode);
+        }
+    }
+
+    /**
      * Toggle the animation and physics simulation: paused/running.
      */
     public void togglePause() {
         float newSpeed = isPaused() ? 1f : pausedSpeed;
         setSpeed(newSpeed);
+    }
+
+    /**
+     * Toggle visualization of world axes.
+     */
+    public void toggleWorldAxes() {
+        boolean enabled = worldAxes.isEnabled();
+        worldAxes.setEnabled(!enabled);
     }
     // *************************************************************************
     // ActionApplication methods
@@ -412,28 +433,5 @@ abstract public class AbstractDemo extends ActionApplication {
             }
         }
         super.onAction(actionString, ongoing, tpf);
-    }
-    // *************************************************************************
-    // private methods
-
-    /**
-     * Toggle between the full help node and the minimal one.
-     */
-    private void toggleHelp() {
-        if (helpNode.getParent() == null) {
-            minHelpNode.removeFromParent();
-            guiNode.attachChild(helpNode);
-        } else {
-            helpNode.removeFromParent();
-            guiNode.attachChild(minHelpNode);
-        }
-    }
-
-    /**
-     * Toggle visualization of world axes.
-     */
-    private void toggleWorldAxes() {
-        boolean enabled = worldAxes.isEnabled();
-        worldAxes.setEnabled(!enabled);
     }
 }
