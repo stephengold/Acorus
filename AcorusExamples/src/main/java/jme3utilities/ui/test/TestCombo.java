@@ -38,6 +38,7 @@ import com.jme3.system.AppSettings;
 import java.util.Collection;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
+import jme3utilities.MyString;
 import jme3utilities.ui.ActionApplication;
 import jme3utilities.ui.Combo;
 import jme3utilities.ui.HelpUtils;
@@ -72,6 +73,7 @@ public class TestCombo extends ActionApplication {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        String title = applicationName + " " + MyString.join(arguments);
         TestCombo application = new TestCombo();
         Heart.parseAppArgs(application, arguments);
 
@@ -79,7 +81,7 @@ public class TestCombo extends ActionApplication {
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
         settings.setRenderer(AppSettings.LWJGL_OPENGL32);
-        settings.setTitle(applicationName); // Customize the window's title bar.
+        settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
 
         application.start();

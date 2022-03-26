@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
+import jme3utilities.MyString;
 import jme3utilities.ui.ActionApplication;
 import jme3utilities.ui.Hotkey;
 import jme3utilities.ui.InputMode;
@@ -84,6 +85,7 @@ public class TestHotkeys extends ActionApplication {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        String title = applicationName + " " + MyString.join(arguments);
         TestHotkeys application = new TestHotkeys();
         Heart.parseAppArgs(application, arguments);
 
@@ -92,7 +94,7 @@ public class TestHotkeys extends ActionApplication {
         settings.setAudioRenderer(null);
         settings.setRenderer(AppSettings.LWJGL_OPENGL32);
         settings.setUseJoysticks(true);
-        settings.setTitle(applicationName); // Customize the window's title bar.
+        settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
 
         application.start();

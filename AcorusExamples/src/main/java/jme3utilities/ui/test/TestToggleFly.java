@@ -36,6 +36,7 @@ import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
+import jme3utilities.MyString;
 import jme3utilities.ui.ActionApplication;
 import jme3utilities.ui.DefaultInputMode;
 import jme3utilities.ui.HelpUtils;
@@ -85,6 +86,7 @@ public class TestToggleFly extends ActionApplication {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        String title = applicationName + " " + MyString.join(arguments);
         TestToggleFly application = new TestToggleFly();
         Heart.parseAppArgs(application, arguments);
 
@@ -93,7 +95,7 @@ public class TestToggleFly extends ActionApplication {
         settings.setAudioRenderer(null);
         settings.setRenderer(AppSettings.LWJGL_OPENGL32);
         settings.setSamples(4); // anti-aliasing
-        settings.setTitle(applicationName); // Customize the window's title bar.
+        settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
 
         application.start();
