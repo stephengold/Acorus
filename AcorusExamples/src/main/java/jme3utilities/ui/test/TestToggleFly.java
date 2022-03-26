@@ -119,7 +119,7 @@ public class TestToggleFly extends ActionApplication {
     @Override
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
-        dim.bind(asToggleFlyCam, KeyInput.KEY_T);
+        dim.bind(asToggleFlyCam, KeyInput.KEY_T, KeyInput.KEY_TAB);
         /*
          * Build and attach the help node.
          */
