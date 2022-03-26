@@ -957,10 +957,20 @@ abstract public class InputMode
     private static void setActiveMode(InputMode mode) {
         if (mode != null && activeMode != null) {
             String message = String.format(
-                    "tried to activate %s input mode while %s mode was active",
+                    "tried to activate %s input mode while %s was active",
                     MyString.quote(mode.shortName),
                     MyString.quote(activeMode.shortName));
             throw new IllegalStateException(message);
+        }
+
+        ActionApplication app = null;
+        if (mode != null) {
+            app = mode.getActionApplication();
+        } else if (activeMode != null) {
+            app = activeMode.getActionApplication();
+        }
+        if (app != null) {
+            app.inputModeChange(activeMode, mode);
         }
 
         activeMode = mode;

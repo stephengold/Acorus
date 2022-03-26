@@ -184,6 +184,17 @@ abstract public class ActionApplication
     }
 
     /**
+     * Callback invoked when the active InputMode changes. Meant to be
+     * overridden.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+        // do nothing
+    }
+
+    /**
      * Callback invoked immediately after initializing the hotkey bindings of
      * the default input mode. Meant to be overridden. Can be used to add action
      * names and/or override those bindings.
