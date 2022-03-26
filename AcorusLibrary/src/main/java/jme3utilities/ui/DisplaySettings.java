@@ -425,6 +425,27 @@ public class DisplaySettings {
     }
 
     /**
+     * Update the dimensions of a resizable viewport, assuming the change has
+     * already been applied.
+     *
+     * @param newWidth (in pixels, &gt;0)
+     * @param newHeight (in pixels, &gt;0)
+     */
+    public void resize(int newWidth, int newHeight) {
+        int oldWidth = width();
+        if (newWidth != oldWidth) {
+            cachedSettings.setWidth(newWidth);
+            areSaved = false;
+        }
+
+        int oldHeight = height();
+        if (newHeight != oldHeight) {
+            cachedSettings.setHeight(newHeight);
+            areSaved = false;
+        }
+    }
+
+    /**
      * Write the cached settings to persistent storage, so they will take effect
      * the next time the application is launched.
      */
