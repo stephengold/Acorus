@@ -113,6 +113,16 @@ public class DisplaySettings {
     // new methods exposed
 
     /**
+     * Return the name of the application whose settings are being edited.
+     *
+     * @return the name (not null)
+     */
+    public String applicationName() {
+        assert applicationName != null;
+        return applicationName;
+    }
+
+    /**
      * Apply the cached settings to the application context and restart the
      * context to put them into effect.
      */
