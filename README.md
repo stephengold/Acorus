@@ -218,21 +218,77 @@ The pre-built libraries are compatible with JDK 8.
 
 ### TestBareBones
 
+This is an example of a minimal `ActionApplication`:
+one without a `FlyByCamera` or a `StatsAppState`.
+
+There is a single `InputMode`, which binds 4 hotkeys to 4 different actions.
+The bindings emulate the behavior of a `SimpleApplication`.
+
+A help node is displayed. It indicates which hotkey is bound to each action.
+
 ### TestHotkeys
+
+This example displays all hotkey input,
+which is convenient for identifying hotkeys.
+
+Hotkeys include not only keyboard keys
+but also mouse buttons and joystick buttons.
+Each `Hotkey` is identified three ways:
+ + by its code (integer value)
+ + by its US name (String value), and
+ + by its localized name (String value).
+
+On systems with "US" (QWERTY) keyboards,
+the US name and the localized name will identical.
 
 ### TestCombo
 
+This example binds combos to actions.
+
+A `Combo` consists of a hotkey plus positive and/or negative signals.
+
+Help nodes indicate combos much as they do hotkeys.
+
+When multiple combos or hotkeys are bound to the same action,
+the help node separates the alternatives with a slash.
+
 ### TestFlyCam
+
+This example adds a `FlyByCamera` and a `StatsAppState` to `TestBareBones`.
 
 ### TestCaos
 
+This example adds a `CameraOrbitAppState` to `TestFlyCam`.
+The left- and right-arrow keys
+cause the camera to orbit around the center of the scene.
+
+The example also adds an action to toggle the help node between 2 versions:
+detailed and minimal.
+
 ### TestToggleFly
+
+This example extends `TestFlyCam`
+with an action to toggle the state of the `FlyByCamera`.
+
+Notice how the hotkey bindings change
+when camera controller is enabled and disabled.
 
 ### TestTwoModes
 
+This example demonstrates an `ActionApplication` with 2 input modes:
+The initial mode enables `FlyByCamera`.
+The other mode allows you to type a line of text.
+
 ### TestCursors
 
+To help user tell which `InputMode` is active,
+you can give each mode its own cursor.
+
+This example demonstrates 4 input modes, each with its own cursor.
+
 ### TestHeadless
+
+This is a simple example of a headless `ActionApplication`.
 
 [Jump to table of contents](#toc)
 
