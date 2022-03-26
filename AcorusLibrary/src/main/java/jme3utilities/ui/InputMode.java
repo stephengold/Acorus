@@ -595,7 +595,7 @@ abstract public class InputMode
     }
 
     /**
-     * Add the default hotkey bindings. The bindings to be used if no custom
+     * Add the default hotkey bindings: the bindings to be used if no custom
      * bindings are found.
      */
     abstract protected void defaultBindings();
