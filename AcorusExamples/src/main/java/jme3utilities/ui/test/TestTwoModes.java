@@ -44,7 +44,7 @@ import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * An ActionApplication to test/demonstrate multiple input modes.
+ * Test/demonstrate multiple input modes in a single application.
  *
  * @author Stephen Gold sgold@sonic.net
  */

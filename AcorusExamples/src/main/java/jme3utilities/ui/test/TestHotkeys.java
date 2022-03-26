@@ -43,7 +43,7 @@ import jme3utilities.ui.Hotkey;
 import jme3utilities.ui.InputMode;
 
 /**
- * Log all button/keyboard input (for identification and testing).
+ * Continuously display all hotkey input (for identification and testing).
  *
  * @author Stephen Gold sgold@sonic.net
  */
