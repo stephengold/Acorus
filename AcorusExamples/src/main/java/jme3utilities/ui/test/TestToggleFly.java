@@ -63,7 +63,7 @@ public class TestToggleFly extends ActionApplication {
     final private static String applicationName
             = TestToggleFly.class.getSimpleName();
     /**
-     * action string that onAction() recognizes
+     * action string to toggle the state of the FlyByCamera
      */
     final private static String asToggleFlyCam = "toggle flyCam";
     // *************************************************************************
