@@ -134,14 +134,16 @@ abstract public class AbstractDemo extends ActionApplication {
     /**
      * Advance a float selection by the specified (cyclic) amount.
      *
-     * @param valuesArray an array of values in ascending order (not null,
-     * unaffected)
+     * @param valuesArray an array of values in ascending order (not null, not
+     * empty, unaffected)
      * @param startValue the starting value (found in values[])
      * @param amount the number of values to advance (may be negative)
      * @return the new (advanced) value
      */
     public static float advanceFloat(float[] valuesArray, float startValue,
             int amount) {
+        Validate.nonEmpty(valuesArray, "values array");
+
         int index = Arrays.binarySearch(valuesArray, startValue);
 
         float result;
@@ -159,14 +161,17 @@ abstract public class AbstractDemo extends ActionApplication {
     /**
      * Advance an integer selection by the specified (cyclic) amount.
      *
-     * @param valuesArray an array of values in ascending order (not null,
-     * unaffected)
+     * @param valuesArray an array of values in ascending order (not null, not
+     * empty, unaffected)
      * @param startValue the starting value (found in values[])
      * @param amount the number of values to advance (may be negative)
      * @return the new (advanced) value
      */
     public static int advanceInt(int[] valuesArray, int startValue,
             int amount) {
+        Validate.nonNull(valuesArray, "values array"); // TODO nonEmpty
+        Validate.require(valuesArray.length > 0, "non-empty values array");
+
         int index = Arrays.binarySearch(valuesArray, startValue);
 
         int result;
@@ -184,14 +189,16 @@ abstract public class AbstractDemo extends ActionApplication {
     /**
      * Advance a String selection by the specified (cyclic) amount.
      *
-     * @param valuesArray an array of values in ascending order (not null,
-     * unaffected)
+     * @param valuesArray an array of values in ascending order (not null, not
+     * empty, unaffected)
      * @param startValue the starting value (found in values[])
      * @param amount the number of values to advance (may be negative)
      * @return the new (advanced) value
      */
     public static String advanceString(String[] valuesArray, String startValue,
             int amount) {
+        Validate.nonEmpty(valuesArray, "values array");
+
         int index = Arrays.binarySearch(valuesArray, startValue);
 
         String result;
