@@ -223,8 +223,8 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Generate full and minimal versions of the hotkey help. Attach the minimal
-     * one to the GUI scene.
+     * Generate (or re-generate) detailed and minimal versions of hotkey help.
+     * Attach the minimal one to the GUI scene.
      *
      * @param bounds the desired screen coordinates (not null, unaffected)
      */
@@ -232,29 +232,7 @@ abstract public class AbstractDemo extends ActionApplication {
         Validate.nonNull(bounds, "bounds");
 
         InputMode inputMode = getDefaultInputMode();
-        float extraSpace = 20f;
-        helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, extraSpace);
-        helpNode.move(0f, 0f, 1f); // move (slightly) to the front
-
-        InputMode dummyMode = new InputMode("dummy") {
-            @Override
-            protected void defaultBindings() {
-            }
-
-            @Override
-            public void onAction(String s, boolean b, float f) {
-            }
-        };
-        dummyMode.bind(asToggleHelp, KeyInput.KEY_H);
-
-        float width = 100f; // in pixels
-        float height = bounds.height;
-        float x = bounds.x + bounds.width - width;
-        float y = bounds.y;
-        Rectangle dummyBounds = new Rectangle(x, y, width, height);
-
-        minHelpNode = HelpUtils.buildNode(dummyMode, dummyBounds, guiFont, 0f);
-        guiNode.attachChild(minHelpNode);
+        updateHelpNodes(inputMode, bounds, HelpVersion.Minimal);
     }
 
     /**
@@ -377,7 +355,7 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Toggle between the full help node and the minimal one.
+     * Toggle between the detailed help node and the minimal one.
      */
     public void toggleHelp() {
         if (helpNode.getParent() == null) {
@@ -403,6 +381,60 @@ abstract public class AbstractDemo extends ActionApplication {
     public void toggleWorldAxes() {
         boolean enabled = worldAxes.isEnabled();
         worldAxes.setEnabled(!enabled);
+    }
+
+    /**
+     * Generate (or re-generate) detailed and minimal versions of hotkey help
+     * for the specified input mode and bounds. Attach as specified.
+     *
+     * @param inputMode for which input mode (not null, unaffected)
+     * @param bounds the desired screen coordinates (not null, unaffected)
+     * @param attachVersion which version to attach (not null)
+     */
+    public void updateHelpNodes(InputMode inputMode, Rectangle bounds,
+            HelpVersion attachVersion) {
+        Validate.nonNull(inputMode, "input mode");
+        Validate.nonNull(bounds, "bounds");
+        Validate.nonNull(attachVersion, "attach version");
+
+        Node detailedParent;
+        Node minimalParent;
+        switch (attachVersion) {
+            case Detailed:
+                detailedParent = guiNode;
+                minimalParent = null;
+                break;
+
+            case Minimal:
+                detailedParent = null;
+                minimalParent = guiNode;
+                break;
+
+            default:
+                String message = "showVersion = " + attachVersion;
+                throw new IllegalArgumentException(message);
+        }
+        /*
+         * If help nodes already exist, note where they are attached
+         * and then detach them.
+         */
+        if (helpNode != null) {
+            detailedParent = helpNode.getParent();
+            helpNode.removeFromParent();
+        }
+
+        if (minHelpNode != null) {
+            minimalParent = minHelpNode.getParent();
+            minHelpNode.removeFromParent();
+        }
+        /*
+         * Build and attach the detailed version.
+         */
+        generateDetailedHelp(inputMode, bounds, detailedParent);
+        /*
+         * Build and attach the minimal version.
+         */
+        generateMinimalHelp(bounds, minimalParent);
     }
     // *************************************************************************
     // ActionApplication methods
@@ -433,5 +465,70 @@ abstract public class AbstractDemo extends ActionApplication {
             }
         }
         super.onAction(actionString, ongoing, tpf);
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Generate (or re-generate) the detailed help node for the specified input
+     * mode and bounds and attach it to the specified parent.
+     *
+     * @param inputMode the input mode (not null, unaffected)
+     * @param bounds the desired screen coordinates (not null, unaffected)
+     * @param parent where to attach, or null to leave detached
+     */
+    private void generateDetailedHelp(InputMode inputMode, Rectangle bounds,
+            Node parent) {
+        float extraSpace = 20f;
+        helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, extraSpace);
+
+        helpNode.setLocalTranslation(0f, 0f, 1f); // move to the front
+
+        if (parent != null) {
+            parent.attachChild(helpNode);
+        }
+    }
+
+    /**
+     * Generate (or re-generate) the minimal help node for the specified bounds
+     * and attach it to the specified parent.
+     *
+     * @param bounds the desired screen coordinates (not null, unaffected)
+     * @param parent where to attach, or null to leave detached
+     */
+    private void generateMinimalHelp(Rectangle bounds, Node parent) {
+        /*
+         * Create a temporary InputMode with just a single binding.
+         */
+        InputMode tmpInputMode = new InputMode("dummy") {
+            @Override
+            protected void defaultBindings() {
+                // do nothing
+            }
+
+            @Override
+            public void onAction(String s, boolean b, float f) {
+                // do nothing
+            }
+        };
+        tmpInputMode.bind(asToggleHelp, KeyInput.KEY_H);
+        /*
+         * Narrow the bounds to just the upper right corner.
+         */
+        float width = 100f; // in pixels
+        float x = bounds.x + bounds.width - width;
+        float y = bounds.y;
+        float height = bounds.height;
+        Rectangle narrowBounds = new Rectangle(x, y, width, height);
+
+        float extraSpace = 0f;
+        minHelpNode = HelpUtils.buildNode(
+                tmpInputMode, narrowBounds, guiFont, extraSpace);
+
+        minHelpNode.setLocalTranslation(0f, 0f, 1f); // move to the front
+
+        if (parent != null) {
+            parent.attachChild(minHelpNode);
+        }
     }
 }
