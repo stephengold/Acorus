@@ -36,19 +36,20 @@ that don't require graphical widgets such as checkboxes, menus, and dialogs.
 Acorus provides simple mechanisms to:
 + bind keyboard keys, mouse buttons, and joystick buttons (hotkeys)
   to names that are meaningful to the application (actions)
-+ determine which actions are active (signals)
++ determine which hotkeys are active (signals)
 + detect input combinations such as "Ctrl+C" (combos)
-+ use different hotkey binding in different contexts (input modes)
++ use different hotkey bindings in different contexts (input modes)
 + display on-screen UI help for an input mode,
   localized for the system's keyboard layout (help nodes)
 
 Input modes can be configured dynamically and/or loaded from files.
 
-Acorus provides an `Application` implementation tailored for demos and
-a default input mode to emulate a `SimpleApplication`.
-It also provides simplified management of:
-+ asset locators (for asset editors) and
-+ display settings (for settings dialogs).
+Acorus provides:
++ 2 `Application` implementations tailored for demos
++ a default input mode for emulating a `SimpleApplication`
++ classes to simplify management of:
+  + asset locators (for asset editors) and
+  + display settings (for settings dialogs).
 
 [Jump to table of contents](#toc)
 
