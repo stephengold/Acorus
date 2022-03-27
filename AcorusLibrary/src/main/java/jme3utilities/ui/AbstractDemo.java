@@ -35,6 +35,7 @@ import com.jme3.input.KeyInput;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import java.util.Arrays;
@@ -322,6 +323,23 @@ abstract public class AbstractDemo extends ActionApplication {
         ColorRGBA green = new ColorRGBA(0f, 0.12f, 0f, 1f);
         Material platform = MyAsset.createShadedMaterial(assetManager, green);
         registerMaterial("platform", platform);
+    }
+
+    /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    @Override
+    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+        if (newMode != null) {
+            Camera guiCamera = guiViewPort.getCamera();
+            int viewPortWidth = guiCamera.getWidth();
+            int viewPortHeight = guiCamera.getHeight();
+            updateHelpNodes(newMode, viewPortWidth, viewPortHeight,
+                    HelpVersion.Detailed);
+        }
     }
 
     /**
