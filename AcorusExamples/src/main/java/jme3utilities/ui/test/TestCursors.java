@@ -119,6 +119,19 @@ public class TestCursors extends ActionApplication {
     }
 
     /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    @Override
+    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+        if (newMode != null) {
+            attachHelpNode(newMode);
+        }
+    }
+
+    /**
      * Callback invoked immediately after initializing the hotkey bindings of
      * the default input mode.
      */
@@ -129,19 +142,6 @@ public class TestCursors extends ActionApplication {
         dim.bind("cursor dialog", KeyInput.KEY_2, KeyInput.KEY_F2);
         dim.bind("cursor green", KeyInput.KEY_3, KeyInput.KEY_F3);
         dim.bind("cursor menu", KeyInput.KEY_4, KeyInput.KEY_F4);
-        /*
-         * Build and attach the help node.
-         */
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 30f; // leave room for status
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f;
-        Node helpNode = HelpUtils.buildNode(dim, bounds, guiFont, space);
-        guiNode.attachChild(helpNode);
     }
 
     /**
@@ -173,6 +173,24 @@ public class TestCursors extends ActionApplication {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Build and attach the help node for the specified InputMode.
+     *
+     * @param inputMode (not null, unaffected)
+     */
+    private void attachHelpNode(InputMode inputMode) {
+        Camera guiCamera = guiViewPort.getCamera();
+        float x = 10f;
+        float y = guiCamera.getHeight() - 30f; // leave room for status
+        float width = guiCamera.getWidth() - 20f;
+        float height = guiCamera.getHeight() - 20f;
+        Rectangle bounds = new Rectangle(x, y, width, height);
+
+        float space = 20f;
+        Node helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
+        guiNode.attachChild(helpNode);
+    }
 
     private void setCursor(String cursorName) {
         String message = "cursor = " + cursorName;

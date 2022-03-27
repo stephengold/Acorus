@@ -70,31 +70,11 @@ public class TestTwoModes extends ActionApplication {
      */
     private BitmapText statusText;
     /**
-     * help for the default input mode
+     * help node for the current input mode
      */
     private Node defaultHelp;
     // *************************************************************************
     // new methods exposed
-
-    /**
-     * Build the help node for the specified mode.
-     *
-     * @param mode the input mode (not null)
-     * @return a new orphan Node, suitable for attachment to the GUI node
-     */
-    Node buildHelpNode(InputMode mode) {
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 30f; // leave room for status
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f;
-        Node result = HelpUtils.buildNode(mode, bounds, guiFont, space);
-
-        return result;
-    }
 
     /**
      * Main entry point for the TestTwoModes application.
@@ -126,8 +106,6 @@ public class TestTwoModes extends ActionApplication {
 
         editMode.setEnabled(false);
         dim.setEnabled(true);
-
-        guiNode.attachChild(defaultHelp);
     }
     // *************************************************************************
     // ActionApplication methods
@@ -156,6 +134,22 @@ public class TestTwoModes extends ActionApplication {
     }
 
     /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    @Override
+    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+        if (newMode != null) {
+            if (defaultHelp != null) {
+                defaultHelp.removeFromParent();
+            }
+            defaultHelp = attachHelpNode(newMode);
+        }
+    }
+
+    /**
      * Callback invoked immediately after initializing the hotkey bindings of
      * the default input mode.
      */
@@ -163,12 +157,6 @@ public class TestTwoModes extends ActionApplication {
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
         dim.bind("edit text", KeyInput.KEY_RETURN, KeyInput.KEY_TAB);
-        /*
-         * Build and attach the help node for default mode.
-         * The help node can't be created until all hotkeys are bound.
-         */
-        defaultHelp = buildHelpNode(dim);
-        guiNode.attachChild(defaultHelp);
     }
 
     /**
@@ -189,8 +177,6 @@ public class TestTwoModes extends ActionApplication {
 
             dim.setEnabled(false);
             editMode.setEnabled(true);
-
-            defaultHelp.removeFromParent();
             return;
         }
 
@@ -218,5 +204,28 @@ public class TestTwoModes extends ActionApplication {
             }
         }
         statusText.setText("Text: " + text);
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Build and attach the help node for the specified InputMode.
+     *
+     * @param inputMode (not null, unaffected)
+     * @return the new node
+     */
+    private Node attachHelpNode(InputMode inputMode) {
+        Camera guiCamera = guiViewPort.getCamera();
+        float x = 10f;
+        float y = guiCamera.getHeight() - 30f; // leave room for status
+        float width = guiCamera.getWidth() - 20f;
+        float height = guiCamera.getHeight() - 20f;
+        Rectangle bounds = new Rectangle(x, y, width, height);
+
+        float space = 20f;
+        Node helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
+        guiNode.attachChild(helpNode);
+
+        return helpNode;
     }
 }

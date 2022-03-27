@@ -124,19 +124,19 @@ public class TestCombo extends ActionApplication {
         Combo noShiftY = new Combo(yKey, "shift", false);
         dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, noShiftY);
         dim.bind("hint", shiftY);
-        /*
-         * Build and attach the help node.
-         */
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
+    }
 
-        float space = 20f;
-        Node helpNode = HelpUtils.buildNode(dim, bounds, guiFont, space);
-        guiNode.attachChild(helpNode);
+    /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    @Override
+    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+        if (newMode != null) {
+            attachHelpNode(newMode);
+        }
     }
 
     /**
@@ -160,6 +160,24 @@ public class TestCombo extends ActionApplication {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Build and attach the help node for the specified InputMode.
+     *
+     * @param inputMode (not null, unaffected)
+     */
+    private void attachHelpNode(InputMode inputMode) {
+        Camera guiCamera = guiViewPort.getCamera();
+        float x = 10f;
+        float y = guiCamera.getHeight() - 10f;
+        float width = guiCamera.getWidth() - 20f;
+        float height = guiCamera.getHeight() - 20f;
+        Rectangle bounds = new Rectangle(x, y, width, height);
+
+        float space = 20f;
+        Node helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
+        guiNode.attachChild(helpNode);
+    }
 
     /**
      * Enumerate all the quit alternatives to System.out.

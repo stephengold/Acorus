@@ -38,14 +38,13 @@ import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.Validate;
 import jme3utilities.ui.ActionApplication;
 import jme3utilities.ui.CameraOrbitAppState;
 import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * Test/demonstrate the CameraOrbitAppState and help-node toggling.
+ * Test/demonstrate the CameraOrbitAppState. TODO rename TestCoas
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -113,6 +112,19 @@ public class TestCaos extends ActionApplication {
     }
 
     /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    @Override
+    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+        if (newMode != null) {
+            attachHelpNodes(newMode);
+        }
+    }
+
+    /**
      * Callback invoked immediately after initializing the hotkey bindings of
      * the default input mode.
      */
@@ -125,17 +137,6 @@ public class TestCaos extends ActionApplication {
         dim.bindSignal("orbitLeft", KeyInput.KEY_LEFT);
         dim.bindSignal("orbitRight", KeyInput.KEY_RIGHT);
         dim.bind("toggle help", KeyInput.KEY_H);
-        /*
-         * Build and attach the help node.
-         */
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        attachHelpNode(bounds);
     }
 
     /**
@@ -160,15 +161,19 @@ public class TestCaos extends ActionApplication {
     // private methods
 
     /**
-     * Generate full and minimal versions of the hotkey help. Attach the minimal
-     * one to the GUI scene.
+     * Generate both versions of the help node for the specified InputMode.
+     * Attach the minimal one to the GUI scene.
      *
-     * @param bounds the desired screen coordinates (not null, unaffected)
+     * @param inputMode (not null, unaffected)
      */
-    private void attachHelpNode(Rectangle bounds) {
-        Validate.nonNull(bounds, "bounds");
+    private void attachHelpNodes(InputMode inputMode) {
+        Camera guiCamera = guiViewPort.getCamera();
+        float x = 10f;
+        float y = guiCamera.getHeight() - 10f;
+        float width = guiCamera.getWidth() - 20f;
+        float height = guiCamera.getHeight() - 20f;
+        Rectangle bounds = new Rectangle(x, y, width, height);
 
-        InputMode inputMode = getDefaultInputMode();
         float extraSpace = 20f;
         helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, extraSpace);
         helpNode.move(0f, 0f, 1f); // move (slightly) to the front
@@ -184,10 +189,8 @@ public class TestCaos extends ActionApplication {
         };
         dummyMode.bind("toggle help", KeyInput.KEY_H);
 
-        float width = 100f; // in pixels
-        float height = bounds.height;
-        float x = bounds.x + bounds.width - width;
-        float y = bounds.y;
+        width = 100f; // in pixels
+        x = guiCamera.getWidth() - 110f;
         Rectangle dummyBounds = new Rectangle(x, y, width, height);
 
         minHelpNode = HelpUtils.buildNode(dummyMode, dummyBounds, guiFont, 0f);

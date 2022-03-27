@@ -113,6 +113,19 @@ public class TestToggleFly extends ActionApplication {
     }
 
     /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    @Override
+    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+        if (newMode != null) {
+            updateHelpNode(newMode);
+        }
+    }
+
+    /**
      * Callback invoked immediately after initializing the hotkey bindings of
      * the default input mode.
      */
@@ -120,17 +133,6 @@ public class TestToggleFly extends ActionApplication {
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
         dim.bind(asToggleFlyCam, KeyInput.KEY_T, KeyInput.KEY_TAB);
-        /*
-         * Build and attach the help node.
-         */
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        helpBounds = new Rectangle(x, y, width, height);
-
-        updateHelpNode();
     }
 
     /**
@@ -162,19 +164,25 @@ public class TestToggleFly extends ActionApplication {
         boolean isEnabled = flyCam.isEnabled();
         flyCam.setEnabled(!isEnabled);
 
-        updateHelpNode();
+        DefaultInputMode dim = (DefaultInputMode) getDefaultInputMode();
+        dim.updateBindings();
+        updateHelpNode(dim);
     }
 
     /**
      * Update the help node.
      */
-    private void updateHelpNode() {
+    private void updateHelpNode(InputMode dim) {
         if (helpNode != null) {
             helpNode.removeFromParent();
         }
 
-        DefaultInputMode dim = (DefaultInputMode) getDefaultInputMode();
-        dim.updateBindings();
+        Camera guiCamera = guiViewPort.getCamera();
+        float x = 10f;
+        float y = guiCamera.getHeight() - 10f;
+        float width = guiCamera.getWidth() - 20f;
+        float height = guiCamera.getHeight() - 20f;
+        helpBounds = new Rectangle(x, y, width, height);
 
         float whiteSpace = 20f; // in pixels
         helpNode = HelpUtils.buildNode(dim, helpBounds, guiFont, whiteSpace);
