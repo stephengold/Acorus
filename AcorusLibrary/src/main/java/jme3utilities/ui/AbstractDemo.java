@@ -37,7 +37,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.texture.Texture;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
@@ -323,14 +322,6 @@ abstract public class AbstractDemo extends ActionApplication {
         ColorRGBA green = new ColorRGBA(0f, 0.12f, 0f, 1f);
         Material platform = MyAsset.createShadedMaterial(assetManager, green);
         registerMaterial("platform", platform);
-
-        Texture texture = MyAsset.loadTexture(assetManager,
-                "Textures/greenTile.png", true);
-        texture.setMinFilter(Texture.MinFilter.Trilinear);
-        texture.setWrap(Texture.WrapMode.Repeat);
-        Material greenTile
-                = MyAsset.createShadedMaterial(assetManager, texture);
-        registerMaterial("greenTile", greenTile);
     }
 
     /**
