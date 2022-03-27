@@ -220,12 +220,12 @@ The pre-built libraries are compatible with JDK 8.
 ## An overview of the example applications
 
 Applications have been created to illustrate key concepts of Acorus.
-The following demos are found in the AcorusExamples sub-project:
+The following example apps are found in the AcorusExamples sub-project:
 
 ### TestBareBones
 
 This is an example of a minimal `ActionApplication`:
-one without a `FlyByCamera` or a `StatsAppState`.
+one without a `StatsAppState`, a `DebugKeysAppState`, or a `FlyByCamera`.
 
 A help node is displayed.
 It indicates which hotkey is bound to each action.
@@ -240,37 +240,53 @@ it attaches one.
 
 ### TestHotkeys
 
-This example displays all hotkey input,
-which is convenient for identifying hotkeys.
+This example displays continuously-updated list active hotkeys,
+making it a convenient tool for identifying hotkeys.
 
 Hotkeys include not only keyboard keys
 but also mouse buttons and joystick buttons.
-Each `Hotkey` is identified three ways:
- + by its code (integer value)
+Each `Hotkey` is identified in 3 ways:
+ + by its "universal code" (integer value)
  + by its US name (String value), and
  + by its localized name (String value).
 
 On systems with "US" QWERTY keyboards,
-the US name and the localized name will identical.
+the US name and the localized name are identical.
 
 ### TestBind
 
-(example not yet written)
+This example binds 12 hotkeys to 4 custom actions in the default input mode.
+The actions cause squares to appear on (or disappear from) the display.
 
-If multiple hotkeys are bound to the same action,
-the help node separates the alternatives with a slash.
+An input mode's bindings don't become effective (mapped)
+until the mode is activated (enabled).
+Acorus activates the default mode during initialization,
+just after invoking the `moreDefaultBindings()` callback,
+so that's a good place to add bindings to the default mode.
+
+When a bound hotkey is pressed, Acorus invokes the input mode's action handler.
+In the example, the mode's handler doesn't handle the action,
+so it falls through to the application's handler.
+
+NOTE:  When multiple hotkeys are bound to the same action (as here),
+the help node separates the alternatives with slashes.
 
 ### TestSignal
 
-(example not yet written)
-
+Just as hotkeys can be bound to actions, they can also be bound to signals.
 Signals are used to keep track of which hotkeys are active.
+
+This example binds 12 hotkeys to 4 custom signals in the default input mode.
+The signals cause squares to appear on (or disappear from) the display.
+
+NOTE:  When multiple hotkeys are bound to the same signal (as here),
+the signal remains active as long as one or more of the hotkeys is active.
 
 ### TestCombo
 
-This example binds combos to actions.
-
 A `Combo` consists of a hotkey plus positive and/or negative signals.
+
+This example binds combos to actions.
 
 Help nodes indicate combo bindings alongside ordinary hotkey bindings:
 + "shift+y" mean pressing the "y" key while the "shift" signal is active
@@ -301,6 +317,9 @@ This example adds an action to toggle the help node between 2 versions:
 detailed and minimal.
 
 ### TestCoas
+
+`FlyByCamera` is a powerful camera control,
+but it's not convenient for studying a 3-D object from all sides.
 
 This example adds a `CameraOrbitAppState` to `TestFlyCam`.
 The left- and right-arrow keys
