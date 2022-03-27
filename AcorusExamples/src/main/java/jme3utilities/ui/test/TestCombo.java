@@ -97,6 +97,19 @@ public class TestCombo extends ActionApplication {
     }
 
     /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    @Override
+    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+        if (newMode != null) {
+            attachHelpNode(newMode);
+        }
+    }
+
+    /**
      * Callback invoked immediately after initializing the hotkey bindings of
      * the default input mode.
      */
@@ -119,19 +132,6 @@ public class TestCombo extends ActionApplication {
         dim.bind("hint", noCtrlE);
         dim.bind("hint", noShiftR);
         dim.bind("hint", shiftY);
-    }
-
-    /**
-     * Callback invoked when the active InputMode changes.
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            attachHelpNode(newMode);
-        }
     }
 
     /**
