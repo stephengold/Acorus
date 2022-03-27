@@ -256,14 +256,16 @@ the help node separates the alternatives with a slash.
 
 This example adds a `FlyByCamera` and a `StatsAppState` to `TestBareBones`.
 
+### TestMinHelp
+
+The example adds an action to toggle the help node between 2 versions:
+detailed and minimal.
+
 ### TestCaos
 
 This example adds a `CameraOrbitAppState` to `TestFlyCam`.
 The left- and right-arrow keys
 cause the camera to orbit around the center of the scene.
-
-The example also adds an action to toggle the help node between 2 versions:
-detailed and minimal.
 
 ### TestToggleFly
 
@@ -289,6 +291,27 @@ This example demonstrates 4 input modes, each with its own cursor.
 ### TestHeadless
 
 This is a simple example of a headless `ActionApplication`.
+
+### TestAbstractDemo
+
+This a simple example of an `AbstractDemo`.
+`AbstractDemo` is a subclass of `ActionApplication`
+that's more convenient for creating JME demos.
+It provides methods to:
+
++ toggle between minimal/detailed help nodes
++ add world axes to a scene
++ pause animations without disabling camera motion
++ scale a C-G model to a specified height
++ position a C-G model so that it rests on the X-Z plane
+  with center on the Y axis
++ select among float, int, and string values, as in a menu
++ store materials in a library and retrieve them by name
+
+### TestDsEdit
+
+This example demonstrates how to use the built-in `DsEditOverlay` appstate
+to edit display settings from within an `AbstractDemo`.
 
 [Jump to table of contents](#toc)
 
