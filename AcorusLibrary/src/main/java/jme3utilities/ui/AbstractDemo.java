@@ -434,22 +434,24 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Generate (or re-generate) detailed and minimal versions of hotkey help
-     * for the specified input mode and bounds. Attach as specified.
+     * Generate (or re-generate) detailed and minimal versions of help nodes for
+     * the specified input mode and bounds. Attach based on the existing help
+     * nodes or as specified.
      *
      * @param inputMode for which input mode (not null, unaffected)
      * @param bounds the desired screen coordinates (not null, unaffected)
-     * @param attachVersion which version to attach (not null)
+     * @param preferredVersion which version to attach if no help nodes are
+     * currently attached (not null)
      */
     public void updateHelpNodes(InputMode inputMode, Rectangle bounds,
-            HelpVersion attachVersion) {
+            HelpVersion preferredVersion) {
         Validate.nonNull(inputMode, "input mode");
         Validate.nonNull(bounds, "bounds");
-        Validate.nonNull(attachVersion, "attach version");
+        Validate.nonNull(preferredVersion, "preferred version");
 
         Node detailedParent;
         Node minimalParent;
-        switch (attachVersion) {
+        switch (preferredVersion) {
             case Detailed:
                 detailedParent = guiNode;
                 minimalParent = null;
@@ -461,7 +463,7 @@ abstract public class AbstractDemo extends ActionApplication {
                 break;
 
             default:
-                String message = "showVersion = " + attachVersion;
+                String message = "preferredVersion = " + preferredVersion;
                 throw new IllegalArgumentException(message);
         }
         /*
@@ -543,10 +545,11 @@ abstract public class AbstractDemo extends ActionApplication {
      * Generate (or re-generate) the minimal help node for the specified bounds
      * and attach it to the specified parent.
      *
-     * @param bounds the desired screen coordinates (not null, unaffected)
+     * @param detailedHelpBounds (not null, unaffected)
      * @param parent where to attach, or null to leave detached
      */
-    private void generateMinimalHelp(Rectangle bounds, Node parent) {
+    private void generateMinimalHelp(Rectangle detailedHelpBounds,
+            Node parent) {
         /*
          * Create a temporary InputMode with just a single binding.
          */
@@ -566,9 +569,9 @@ abstract public class AbstractDemo extends ActionApplication {
          * Narrow the bounds to just the upper right corner.
          */
         float width = 100f; // in pixels
-        float x = bounds.x + bounds.width - width;
-        float y = bounds.y;
-        float height = bounds.height;
+        float x = detailedHelpBounds.x + detailedHelpBounds.width - width;
+        float y = detailedHelpBounds.y;
+        float height = detailedHelpBounds.height;
         Rectangle narrowBounds = new Rectangle(x, y, width, height);
 
         float extraSpace = 0f;
