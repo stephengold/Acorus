@@ -71,6 +71,29 @@ public class Combo {
     // constructors
 
     /**
+     * Instantiate a Combo with the specified universal code and a single
+     * signal.
+     *
+     * @param universalCode the code that will trigger the Combo (&ge;0)
+     * @param signalName the name of the signal to be tested (not null, not
+     * empty)
+     * @param positiveFlag true&rarr;signal required, false&rarr;signal
+     * prohibited
+     */
+    public Combo(int universalCode, String signalName, boolean positiveFlag) {
+        Validate.nonNegative(universalCode, "universal code");
+        Validate.nonEmpty(signalName, "signal name");
+
+        hotkey = Hotkey.find(universalCode);
+
+        signalNames = new String[1];
+        signalNames[0] = signalName;
+
+        positiveFlags = new boolean[1];
+        positiveFlags[0] = positiveFlag;
+    }
+
+    /**
      * Instantiate a Combo with the specified Hotkey and a single signal.
      *
      * @param hotkey the Hotkey that will trigger the Combo (not null)
