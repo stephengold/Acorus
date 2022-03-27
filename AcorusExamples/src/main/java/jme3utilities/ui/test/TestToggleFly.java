@@ -170,7 +170,7 @@ public class TestToggleFly extends ActionApplication {
      *
      * @param inputMode (not null, unaffected)
      */
-    private void updateHelpNode(InputMode dim) {
+    private void updateHelpNode(InputMode inputMode) {
         if (helpNode != null) {
             helpNode.removeFromParent();
         }
@@ -183,7 +183,7 @@ public class TestToggleFly extends ActionApplication {
         Rectangle bounds = new Rectangle(x, y, width, height);
 
         float space = 20f; // in pixels
-        helpNode = HelpUtils.buildNode(dim, bounds, guiFont, space);
+        helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
         guiNode.attachChild(helpNode);
     }
 }
