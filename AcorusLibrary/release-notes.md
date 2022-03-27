@@ -1,10 +1,10 @@
 # release log for the Acorus library and related examples
 
-## Version 0.9.11 released on TODO
+## Version 0.9.11 released on 27 March 2022
 
- + Bugfix:  asset exception in `generateMaterials()`
+ + Bugfix:  asset exception in `AbstractDemo.generateMaterials()`
  + Added a test for `DebugKeysAppState` in `DefaultInputMode`.
- + Added a display-status edit overlay, including 3 new classes
+ + Added a display-settings editing overlay, including 3 new classes
    (`DsEditOverlay`, `DsEditInputMode`, and `DsUtils`).
  + Added the `HelpVersion` class.
  + Added a new convenience constructor to the `Combo` class.
@@ -18,7 +18,7 @@
    methods in the `AbstractDemo` class.
  + In the examples:
    + Renamed `TestCaos` to `TestCoas`.
-   + Add 4 new apps
+   + Added 4 example apps
      (`TestAbstractDemo`, `TestBind`, `TestDsEdit`, and `TestSignal`).
    + Refactored the example apps to generate help nodes in `inputModeChange()`
      instead of `moreDefaultBindings()`.

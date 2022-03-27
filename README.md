@@ -82,7 +82,7 @@ Add to the project’s "build.gradle" file:
         mavenCentral()
     }
     dependencies {
-        implementation 'com.github.stephengold:Acorus:0.9.10'
+        implementation 'com.github.stephengold:Acorus:0.9.11'
     }
 
 For some older versions of Gradle,
@@ -102,7 +102,7 @@ Add to the project’s "pom.xml" file:
     <dependency>
       <groupId>com.github.stephengold</groupId>
       <artifactId>Acorus</artifactId>
-      <version>0.9.10</version>
+      <version>0.9.11</version>
     </dependency>
 
 ### Ant-built projects
@@ -159,7 +159,7 @@ Open the project's properties in the IDE (JME 3.2 SDK or NetBeans 8.2):
   + using Git:
     + `git clone https://github.com/stephengold/Acorus.git`
     + `cd Acorus`
-    + `git checkout -b latest 0.9.10`
+    + `git checkout -b latest 0.9.11`
   + using a web browser:
     + browse to [the latest release][latest]
     + follow the "Source code (zip)" link
