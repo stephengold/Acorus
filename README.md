@@ -1,6 +1,6 @@
 # Acorus Project
 
-[The Acorus Project][acorus] provides a user-interface library for
+[The Acorus Project][acorus] provides a simple user-interface library for
 [the jMonkeyEngine (JME) game engine][jme].
 
 It contains 2 sub-projects:
@@ -10,6 +10,9 @@ It contains 2 sub-projects:
 
 Complete source code (in Java) is provided under
 [a 3-clause BSD license][license].
+
+Acorus is oriented toward demos and test applications.
+Examples may be found in the [Heart], [Minie], and [Wes] projects.
 
 
 <a name="toc"></a>
@@ -44,10 +47,13 @@ Acorus provides simple mechanisms to:
 
 Input modes can be configured dynamically and/or loaded from files.
 
-Acorus provides:
-+ 2 `Application` implementations tailored for demos
-+ a default input mode for emulating a `SimpleApplication`
-+ classes to simplify management of:
+Help nodes make Acorus-based user interfaces (somewhat) self-documenting.
+
+Acorus also provides:
++ 2 implementations of `Application` tailored for demos
+  (`ActionApplication` and `AbstractDemo`)
++ an input mode for emulating a `SimpleApplication` (`DefaultInputMode`)
++ classes to simplify the management of:
   + asset locators (for asset editors) and
   + display settings (for settings dialogs).
 
@@ -58,15 +64,13 @@ Acorus provides:
 
 ## How to add Acorus to an existing project
 
-Adding the Acorus Library to an existing [jMonkeyEngine][jme] project should be
-a simple matter of adding it to the classpath.
-
-Acorus comes pre-built as a single library
-that depends on [the Heart Library][heart],
-which in turn depends on
+Acorus comes pre-built as a single library that depends on
+[the Heart Library][heart], which in turn depends on
 the standard "jme3-core" library from jMonkeyEngine.
+Adding Acorus to an existing [jMonkeyEngine][jme] project should be
+a simple matter of adding these libraries to the classpath.
 
-For projects built using Maven or [Gradle], it is sufficient to specify the
+For projects built using Maven or [Gradle], it is sufficient to add a
 dependency on the Acorus Library.  The build tools should automatically
 resolve the remaining dependencies.
 
@@ -215,7 +219,8 @@ The pre-built libraries are compatible with JDK 8.
 
 ## An overview of the example applications
 
-(under construction)
+Applications have been created to illustrate key concepts of Acorus.
+The following demos are found in the AcorusExamples sub-project:
 
 ### TestBareBones
 
@@ -387,9 +392,11 @@ correct the situation: sgold@sonic.net
 [license]: https://github.com/stephengold/Acorus/blob/master/LICENSE "Acorus license"
 [log]: https://github.com/stephengold/Acorus/blob/master/AcorusLibrary/release-notes.md "release log"
 [markdown]: https://daringfireball.net/projects/markdown "Markdown Project"
-[meld]: https://meldmerge.org/ "Meld Project"
+[meld]: https://meldmerge.org "Meld Tool"
+[minie]: https://github.com/stephengold/Minie "Minie Project"
 [mint]: https://linuxmint.com "Linux Mint Project"
 [netbeans]: https://netbeans.org "NetBeans Project"
 [sonatype]: https://www.sonatype.com "Sonatype"
 [utilities]: https://github.com/stephengold/jme3-utilities "Jme3-utilities Project"
+[wes]: https://github.com/stephengold/Wes "Wes Project"
 [winmerge]: https://winmerge.org "WinMerge Project"
