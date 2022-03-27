@@ -227,10 +227,18 @@ The following demos are found in the AcorusExamples sub-project:
 This is an example of a minimal `ActionApplication`:
 one without a `FlyByCamera` or a `StatsAppState`.
 
-There is a single `InputMode`, which binds 4 hotkeys to 4 different actions.
-The bindings emulate the behavior of a `SimpleApplication`.
+A help node is displayed.
+It indicates which hotkey is bound to each action.
 
-A help node is displayed. It indicates which hotkey is bound to each action.
+There is a single `InputMode`, which binds 4 hotkeys to 4 different actions.
+The bindings emulate the behavior of a `SimpleApplication`:
++ the Esc hotkey, to exit the application
++ 2 hotkeys (C and M on "US" QWERTY keyboards),
+  to print the camera position and memory statistics to the console, and
++ a hotkey (PrtSc or ScrLk or SysRq) to capture a screenshot to a file.
+
+NOTE: If `ActionApplication` doesn't find a `ScreenshotAppState` during startup,
+it attaches one.
 
 ### TestHotkeys
 
@@ -244,8 +252,21 @@ Each `Hotkey` is identified three ways:
  + by its US name (String value), and
  + by its localized name (String value).
 
-On systems with "US" (QWERTY) keyboards,
+On systems with "US" QWERTY keyboards,
 the US name and the localized name will identical.
+
+### TestBind
+
+(example not yet written)
+
+If multiple hotkeys are bound to the same action,
+the help node separates the alternatives with a slash.
+
+### TestSignal
+
+(example not yet written)
+
+Signals are used to keep track of which hotkeys are active.
 
 ### TestCombo
 
@@ -253,18 +274,27 @@ This example binds combos to actions.
 
 A `Combo` consists of a hotkey plus positive and/or negative signals.
 
-Help nodes indicate combos much as they do hotkeys.
-
-When multiple combos or hotkeys are bound to the same action,
-the help node separates the alternatives with a slash.
+Help nodes indicate combo bindings alongside ordinary hotkey bindings:
++ "shift+y" mean pressing the "y" key while the "shift" signal is active
++ "noshift+y" means pressing the "y" key while "shift" isn't active
 
 ### TestFlyCam
 
-This example adds a `FlyByCamera` and a `StatsAppState` to `TestBareBones`.
+This example adds a `StatsAppState` and a `FlyByCamera`
+to the `TestBareBones` example.
+
+When `DefaultInputMode` detects a `StatsAppState`,
+it binds the F5 key to toggle the state of the render statistics display.
+When `DefaultInputMode` detects a `FlyByCamera`,
+it binds 6 keys (W/A/S/D/Q/Z on "US" QWERTY keyboards) to camera motion.
+
+Users accustomed to `SimpleApplication` tend to expect these bindings.
 
 ### TestMinHelp
 
-The example adds an action to toggle the help node between 2 versions:
+Sometimes you want to display detailed help only when the user requests it.
+
+This example adds an action to toggle the help node between 2 versions:
 detailed and minimal.
 
 ### TestCaos
