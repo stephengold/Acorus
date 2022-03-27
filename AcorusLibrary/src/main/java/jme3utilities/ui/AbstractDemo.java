@@ -231,7 +231,7 @@ abstract public class AbstractDemo extends ActionApplication {
 
     /**
      * Generate (or re-generate) detailed and minimal versions of hotkey help.
-     * Attach the minimal one to the GUI scene.
+     * Attach the minimal one to the GUI scene. TODO delete this?
      *
      * @param bounds the desired screen coordinates (not null, unaffected)
      */
@@ -280,6 +280,27 @@ abstract public class AbstractDemo extends ActionApplication {
         Vector3f location = cgModel.getWorldTranslation();
         location.subtractLocal(offset);
         MySpatial.setWorldLocation(cgModel, location);
+    }
+
+    /**
+     * Calculate screen bounds for a detailed help node. Meant to be overridden.
+     *
+     * @param viewPortWidth (in pixels, &gt;0)
+     * @param viewPortHeight (in pixels, &gt;0)
+     * @return a new instance
+     */
+    public Rectangle detailedHelpBounds(int viewPortWidth, int viewPortHeight) {
+        /*
+         * Position help nodes near the upper-right corner of the viewport.
+         */
+        float margin = 10f; // in pixels
+        float height = viewPortHeight - (2f * margin);
+        float width = 250f; // in pixels
+        float leftX = viewPortWidth - (width + margin);
+        float topY = margin + height;
+        Rectangle result = new Rectangle(leftX, topY, width, height);
+
+        return result;
     }
 
     /**
@@ -388,6 +409,28 @@ abstract public class AbstractDemo extends ActionApplication {
     public void toggleWorldAxes() {
         boolean enabled = worldAxes.isEnabled();
         worldAxes.setEnabled(!enabled);
+    }
+
+    /**
+     * Generate (or re-generate) detailed and minimal versions of hotkey help
+     * nodes for the specified input mode and viewport dimensions. Attach based
+     * on the existing help nodes or as specified.
+     *
+     * @param inputMode for which input mode (not null, unaffected)
+     * @param viewPortWidth (in pixels, &gt;0)
+     * @param viewPortHeight (in pixels, &gt;0)
+     * @param preferredVersion which version to attach if no help nodes are
+     * currently attached (not null)
+     */
+    public void updateHelpNodes(InputMode inputMode, int viewPortWidth,
+            int viewPortHeight, HelpVersion preferredVersion) {
+        Validate.nonNull(inputMode, "input mode");
+        Validate.positive(viewPortWidth, "viewport width");
+        Validate.positive(viewPortHeight, "viewport height");
+        Validate.nonNull(preferredVersion, "preferred version");
+
+        Rectangle bounds = detailedHelpBounds(viewPortWidth, viewPortHeight);
+        updateHelpNodes(inputMode, bounds, preferredVersion);
     }
 
     /**
