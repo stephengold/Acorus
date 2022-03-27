@@ -30,7 +30,6 @@
 package jme3utilities.ui.test;
 
 import com.jme3.font.Rectangle;
-import com.jme3.input.CameraInput;
 import com.jme3.input.KeyInput;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
@@ -38,18 +37,16 @@ import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.Validate;
 import jme3utilities.ui.ActionApplication;
-import jme3utilities.ui.CameraOrbitAppState;
 import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * Test/demonstrate the CameraOrbitAppState and help-node toggling.
+ * Test/demonstrate the help-node minimization.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestCaos extends ActionApplication {
+public class TestMinHelp extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -57,34 +54,34 @@ public class TestCaos extends ActionApplication {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestCaos.class.getName());
+            = Logger.getLogger(TestMinHelp.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestCaos.class.getSimpleName();
+            = TestMinHelp.class.getSimpleName();
     // *************************************************************************
     // fields
 
     /**
-     * Node for displaying hotkey help in the GUI scene
+     * Node for displaying detailed hotkey help in the GUI scene
      */
-    private Node helpNode;
+    private Node detailedHelpNode;
     /**
-     * Node for displaying "toggle help: H" in the GUI scene
+     * Node for displaying minimal help ("toggle help: H") in the GUI scene
      */
     private Node minHelpNode;
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the TestCaos application.
+     * Main entry point for the TestMinHelp application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestCaos application = new TestCaos();
+        TestMinHelp application = new TestMinHelp();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;
@@ -106,10 +103,19 @@ public class TestCaos extends ActionApplication {
     @Override
     public void actionInitializeApplication() {
         DemoScene.setup(this);
+    }
 
-        CameraOrbitAppState orbitState
-                = new CameraOrbitAppState(cam, "orbitLeft", "orbitRight");
-        stateManager.attach(orbitState);
+    /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    @Override
+    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+        if (newMode != null) {
+            attachHelpNodes(newMode);
+        }
     }
 
     /**
@@ -119,23 +125,7 @@ public class TestCaos extends ActionApplication {
     @Override
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
-
-        dim.bindSignal(CameraInput.FLYCAM_LOWER, KeyInput.KEY_DOWN);
-        dim.bindSignal(CameraInput.FLYCAM_RISE, KeyInput.KEY_UP);
-        dim.bindSignal("orbitLeft", KeyInput.KEY_LEFT);
-        dim.bindSignal("orbitRight", KeyInput.KEY_RIGHT);
         dim.bind("toggle help", KeyInput.KEY_H);
-        /*
-         * Build and attach the help node.
-         */
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        attachHelpNode(bounds);
     }
 
     /**
@@ -160,19 +150,29 @@ public class TestCaos extends ActionApplication {
     // private methods
 
     /**
-     * Generate full and minimal versions of the hotkey help. Attach the minimal
-     * one to the GUI scene.
+     * Generate both versions of the help node for the specified InputMode.
+     * Attach the minimal one to the GUI scene.
      *
-     * @param bounds the desired screen coordinates (not null, unaffected)
+     * @param inputMode (not null, unaffected)
      */
-    private void attachHelpNode(Rectangle bounds) {
-        Validate.nonNull(bounds, "bounds");
+    private void attachHelpNodes(InputMode inputMode) {
+        Camera guiCamera = guiViewPort.getCamera();
+        /*
+         * Build the detailed help node.
+         */
+        float x = 10f;
+        float y = guiCamera.getHeight() - 10f;
+        float width = guiCamera.getWidth() - 20f;
+        float height = guiCamera.getHeight() - 20f;
+        Rectangle bounds = new Rectangle(x, y, width, height);
 
-        InputMode inputMode = getDefaultInputMode();
-        float extraSpace = 20f;
-        helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, extraSpace);
-        helpNode.move(0f, 0f, 1f); // move (slightly) to the front
-
+        float space = 20f;
+        detailedHelpNode
+                = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
+        detailedHelpNode.move(0f, 0f, 1f); // move (slightly) to the front
+        /*
+         * Build and attach the minimal help node.
+         */
         InputMode dummyMode = new InputMode("dummy") {
             @Override
             protected void defaultBindings() {
@@ -184,10 +184,8 @@ public class TestCaos extends ActionApplication {
         };
         dummyMode.bind("toggle help", KeyInput.KEY_H);
 
-        float width = 100f; // in pixels
-        float height = bounds.height;
-        float x = bounds.x + bounds.width - width;
-        float y = bounds.y;
+        width = 100f; // in pixels
+        x = guiCamera.getWidth() - 110f;
         Rectangle dummyBounds = new Rectangle(x, y, width, height);
 
         minHelpNode = HelpUtils.buildNode(dummyMode, dummyBounds, guiFont, 0f);
@@ -195,14 +193,14 @@ public class TestCaos extends ActionApplication {
     }
 
     /**
-     * Toggle between the full help node and the minimal one.
+     * Toggle between the detailed help node and the minimal one.
      */
     private void toggleHelp() {
-        if (helpNode.getParent() == null) {
+        if (detailedHelpNode.getParent() == null) {
             minHelpNode.removeFromParent();
-            guiNode.attachChild(helpNode);
+            guiNode.attachChild(detailedHelpNode);
         } else {
-            helpNode.removeFromParent();
+            detailedHelpNode.removeFromParent();
             guiNode.attachChild(minHelpNode);
         }
     }
