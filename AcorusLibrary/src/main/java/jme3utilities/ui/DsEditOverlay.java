@@ -526,6 +526,10 @@ public class DsEditOverlay extends SimpleAppState {
      * @return an array of modes
      */
     private static DisplayMode[] getDisplayModes() {
+        // TODO use GLFW
+        //long primaryMonitorId = GLFW.glfwGetPrimaryMonitor();
+        //GLFWVidMode.Buffer buf = GLFW.glfwGetVideoModes(primaryMonitorId);
+
         GraphicsEnvironment graphicsEnvironment
                 = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice device = graphicsEnvironment.getDefaultScreenDevice();
