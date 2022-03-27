@@ -42,8 +42,8 @@ import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * Test a bare-bones ActionApplication: one without a FlyByCamera or a
- * StatsAppState.
+ * An example of a minimal ActionApplication: one without a StatsAppState, a
+ * DebugKeysAppState, or a FlyByCamera.
  *
  * @author Stephen Gold sgold@sonic.net
  */
