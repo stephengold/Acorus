@@ -30,6 +30,7 @@
 package jme3utilities.ui;
 
 import com.jme3.app.Application;
+import com.jme3.app.DebugKeysAppState;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.app.state.AppStateManager;
@@ -129,9 +130,14 @@ public class DefaultInputMode extends InputMode {
             bind(SimpleApplication.INPUT_MAPPING_HIDE_STATS, KeyInput.KEY_F5);
         }
 
-        bind(SimpleApplication.INPUT_MAPPING_CAMERA_POS, KeyInput.KEY_C);
+        DebugKeysAppState debugKeysAppState
+                = manager.getState(DebugKeysAppState.class);
+        if (statsAppState != null) {
+            bind(SimpleApplication.INPUT_MAPPING_CAMERA_POS, KeyInput.KEY_C);
+            bind(SimpleApplication.INPUT_MAPPING_MEMORY, KeyInput.KEY_M);
+        }
+
         bind(SimpleApplication.INPUT_MAPPING_EXIT, KeyInput.KEY_ESCAPE);
-        bind(SimpleApplication.INPUT_MAPPING_MEMORY, KeyInput.KEY_M);
     }
 
     /**

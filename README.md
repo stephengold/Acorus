@@ -230,12 +230,10 @@ one without a `FlyByCamera` or a `StatsAppState`.
 A help node is displayed.
 It indicates which hotkey is bound to each action.
 
-There is a single `InputMode`, which binds 4 hotkeys to 4 different actions.
-The bindings emulate the behavior of a `SimpleApplication`:
-+ the Esc hotkey, to exit the application
-+ 2 hotkeys (C and M on "US" QWERTY keyboards),
-  to print the camera position and memory statistics to the console, and
-+ a hotkey (PrtSc or ScrLk or SysRq) to capture a screenshot to a file.
+There is a single `InputMode`, which binds 2 hotkeys to 2 different actions.
+These bindings emulate the behavior of a `SimpleApplication`:
++ the Esc hotkey, to exit the application, and
++ a hotkey (either PrtSc or ScrLk or SysRq) to capture a screenshot to a file.
 
 NOTE: If `ActionApplication` doesn't find a `ScreenshotAppState` during startup,
 it attaches one.
@@ -280,11 +278,16 @@ Help nodes indicate combo bindings alongside ordinary hotkey bindings:
 
 ### TestFlyCam
 
-This example adds a `StatsAppState` and a `FlyByCamera`
+This example adds a `StatsAppState`, a `DebugKeysAppState`, and a `FlyByCamera`
 to the `TestBareBones` example.
 
 When `DefaultInputMode` detects a `StatsAppState`,
 it binds the F5 key to toggle the state of the render statistics display.
+
+When `DefaultInputMode` detects a `DebugKeysAppState`,
+it bind 2 hotkeys (C and M on "US" QWERTY keyboards),
+to print the camera position and memory statistics to the console.
+
 When `DefaultInputMode` detects a `FlyByCamera`,
 it binds 6 keys (W/A/S/D/Q/Z on "US" QWERTY keyboards) to camera motion.
 
