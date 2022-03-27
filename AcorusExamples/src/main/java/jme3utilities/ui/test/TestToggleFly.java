@@ -73,10 +73,6 @@ public class TestToggleFly extends ActionApplication {
      * Node for displaying hotkey help in the GUI scene
      */
     private Node helpNode;
-    /**
-     * screen area for displaying the help node
-     */
-    private Rectangle helpBounds;
     // *************************************************************************
     // new methods exposed
 
@@ -171,6 +167,8 @@ public class TestToggleFly extends ActionApplication {
 
     /**
      * Update the help node.
+     *
+     * @param inputMode (not null, unaffected)
      */
     private void updateHelpNode(InputMode dim) {
         if (helpNode != null) {
@@ -182,10 +180,10 @@ public class TestToggleFly extends ActionApplication {
         float y = guiCamera.getHeight() - 10f;
         float width = guiCamera.getWidth() - 20f;
         float height = guiCamera.getHeight() - 20f;
-        helpBounds = new Rectangle(x, y, width, height);
+        Rectangle bounds = new Rectangle(x, y, width, height);
 
-        float whiteSpace = 20f; // in pixels
-        helpNode = HelpUtils.buildNode(dim, helpBounds, guiFont, whiteSpace);
+        float space = 20f; // in pixels
+        helpNode = HelpUtils.buildNode(dim, bounds, guiFont, space);
         guiNode.attachChild(helpNode);
     }
 }
