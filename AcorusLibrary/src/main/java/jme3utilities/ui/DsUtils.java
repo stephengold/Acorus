@@ -55,10 +55,6 @@ final public class DsUtils {
      */
     final private static Pattern dimensionsPattern
             = Pattern.compile("^\\s*(\\d+)\\s*[x,]\\s*(\\d+)\\s*");
-    /**
-     * MSAA sampling factors, in ascending order
-     */
-    final private static int[] msaaFactors = {1, 2, 4, 6, 8};
     // *************************************************************************
     // constructors
 
@@ -105,9 +101,11 @@ final public class DsUtils {
     /**
      * Access the array of MSAA sampling factors.
      *
-     * @return the pre-existing array (in ascending order)
+     * @return a new array (in ascending order)
      */
     public static int[] getMsaaFactors() {
+        int[] msaaFactors = {1, 2, 4, 6, 8};
+
         assert MyArray.isSorted(msaaFactors);
         return msaaFactors;
     }

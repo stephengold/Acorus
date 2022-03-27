@@ -958,8 +958,8 @@ abstract public class InputMode
         if (mode != null && activeMode != null) {
             String message = String.format(
                     "tried to activate %s input mode while %s was active",
-                    MyString.quote(mode.shortName),
-                    MyString.quote(activeMode.shortName));
+                    MyString.quote(mode.shortName()),
+                    MyString.quote(activeMode.shortName()));
             throw new IllegalStateException(message);
         }
 

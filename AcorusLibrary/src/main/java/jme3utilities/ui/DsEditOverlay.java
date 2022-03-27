@@ -408,7 +408,8 @@ public class DsEditOverlay extends SimpleAppState {
         int[] depthArray = new int[depthSet.size()];
         int index = 0;
         for (int depth : depthSet) {
-            depthArray[index++] = depth;
+            depthArray[index] = depth;
+            ++index;
         }
 
         int depth = proposedSettings.colorDepth();
@@ -454,7 +455,8 @@ public class DsEditOverlay extends SimpleAppState {
         String[] descriptionArray = new String[descriptionSet.size()];
         int index = 0;
         for (String description : descriptionSet) {
-            descriptionArray[index++] = description;
+            descriptionArray[index] = description;
+            ++index;
         }
 
         int height = proposedSettings.height();
@@ -509,7 +511,8 @@ public class DsEditOverlay extends SimpleAppState {
         int[] rateArray = new int[rateSet.size()];
         int index = 0;
         for (int rate : rateSet) {
-            rateArray[index++] = rate;
+            rateArray[index] = rate;
+            ++index;
         }
 
         int rate = proposedSettings.refreshRate();
