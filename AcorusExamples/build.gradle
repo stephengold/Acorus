@@ -5,6 +5,7 @@
 dependencies {
     implementation heartCoordinates
     runtimeOnly 'org.jmonkeyengine:jme3-desktop:' + jme3Version
+    runtimeOnly 'org.jmonkeyengine:jme3-testdata:' + jme3Version // for Jaime
 
     // select one version of LWJGL:
     //runtimeOnly 'org.jmonkeyengine:jme3-lwjgl:' + jme3Version  // LWJGL 2.x
