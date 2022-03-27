@@ -298,7 +298,8 @@ public class TestDsEdit extends AbstractDemo {
      * @param showDialog when to show the JME settings dialog (not null)
      * @param title for the title bar of the app's window
      */
-    private static void mainStartup(ShowDialog showDialog, String title) {
+    private static void mainStartup(final ShowDialog showDialog,
+            final String title) {
         TestDsEdit application = new TestDsEdit();
 
         DisplaySizeLimits dsl = new DisplaySizeLimits(
