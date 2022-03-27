@@ -48,6 +48,9 @@ tasks.register('AbstractDemo', JavaExec) {
 tasks.register('TestBareBones', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestBareBones'
 }
+tasks.register('TestBind', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestBind'
+}
 tasks.register('TestCoas', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestCoas'
 }
@@ -71,6 +74,9 @@ tasks.register('TestHotkeys', JavaExec) {
 }
 tasks.register('TestMinHelp', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestMinHelp'
+}
+tasks.register('TestSignals', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestSignals'
 }
 tasks.register('TestToggleFly', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestToggleFly'
