@@ -1,5 +1,30 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.11 released on TODO
+
+ + Bugfix:  asset exception in `generateMaterials()`
+ + Added a test for `DebugKeysAppState` in `DefaultInputMode`.
+ + Added a display-status edit overlay, including 3 new classes
+   (`DsEditOverlay`, `DsEditInputMode`, and `DsUtils`).
+ + Added the `HelpVersion` class.
+ + Added a new convenience constructor to the `Combo` class.
+ + Added new methods to the library:
+   + `AbstractDemo.updateHelpNodes()` (2 signatures)
+   + `AbstractDemo.detailedHelpBounds()` callback
+   + `ActionApplication.inputModeChange()` callback
+   + `DisplaySettings.applicationName()` getter
+   + `DisplaySettings.resize()`
+ + Publicized the `toggleHelp()` and `toggleWorldAxes()`
+   methods in the `AbstractDemo` class.
+ + In the examples:
+   + Renamed `TestCaos` to `TestCoas`.
+   + Add 4 new apps
+     (`TestAbstractDemo`, `TestBind`, `TestDsEdit`, and `TestSignal`).
+   + Refactored the example apps to generate help nodes in `inputModeChange()`
+     instead of `moreDefaultBindings()`.
+   + Added command-line options to the title bars of all example apps.
+ + Based on jMonkeyEngine v3.5.1-stable.
+
 ## Version 0.9.10 released on 9 March 2022
 
  + Added a 3rd option for displaying the settings dialog. (API change)
