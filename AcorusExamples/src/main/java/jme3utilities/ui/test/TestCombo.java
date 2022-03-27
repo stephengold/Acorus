@@ -42,7 +42,6 @@ import jme3utilities.MyString;
 import jme3utilities.ui.ActionApplication;
 import jme3utilities.ui.Combo;
 import jme3utilities.ui.HelpUtils;
-import jme3utilities.ui.Hotkey;
 import jme3utilities.ui.InputMode;
 
 /**
@@ -107,22 +106,18 @@ public class TestCombo extends ActionApplication {
         dim.bindSignal("ctrl", KeyInput.KEY_LCONTROL, KeyInput.KEY_RCONTROL);
         dim.bindSignal("shift", KeyInput.KEY_LSHIFT, KeyInput.KEY_RSHIFT);
 
-        Hotkey eKey = Hotkey.find(KeyInput.KEY_E);
-        Combo ctrlE = new Combo(eKey, "ctrl", true);
-        Combo noCtrlE = new Combo(eKey, "ctrl", false);
+        Combo ctrlE = new Combo(KeyInput.KEY_E, "ctrl", true);
+        Combo noShiftY = new Combo(KeyInput.KEY_Y, "shift", false);
+        Combo shiftR = new Combo(KeyInput.KEY_R, "shift", true);
         dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, ctrlE);
-        dim.bind("hint", noCtrlE);
-
-        Hotkey rKey = Hotkey.find(KeyInput.KEY_R);
-        Combo shiftR = new Combo(rKey, "shift", true);
-        Combo noShiftR = new Combo(rKey, "shift", false);
-        dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, shiftR);
-        dim.bind("hint", noShiftR);
-
-        Hotkey yKey = Hotkey.find(KeyInput.KEY_Y);
-        Combo shiftY = new Combo(yKey, "shift", true);
-        Combo noShiftY = new Combo(yKey, "shift", false);
         dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, noShiftY);
+        dim.bind(SimpleApplication.INPUT_MAPPING_EXIT, shiftR);
+
+        Combo noCtrlE = new Combo(KeyInput.KEY_E, "ctrl", false);
+        Combo noShiftR = new Combo(KeyInput.KEY_R, "shift", false);
+        Combo shiftY = new Combo(KeyInput.KEY_Y, "shift", true);
+        dim.bind("hint", noCtrlE);
+        dim.bind("hint", noShiftR);
         dim.bind("hint", shiftY);
     }
 
