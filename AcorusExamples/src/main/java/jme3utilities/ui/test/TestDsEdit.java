@@ -163,7 +163,11 @@ public class TestDsEdit extends AbstractDemo {
     }
 
     /**
-     * Callback invoked when the active InputMode changes.
+     * Callback invoked when the active InputMode changes. TODO use the
+     * AbstractDemo default implementation
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
      */
     @Override
     public void inputModeChange(InputMode oldMode, InputMode newMode) {
