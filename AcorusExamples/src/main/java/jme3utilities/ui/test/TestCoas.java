@@ -44,11 +44,11 @@ import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * Test/demonstrate the CameraOrbitAppState. TODO rename TestCoas
+ * Test/demonstrate the CameraOrbitAppState.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestCaos extends ActionApplication {
+public class TestCoas extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -56,12 +56,12 @@ public class TestCaos extends ActionApplication {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestCaos.class.getName());
+            = Logger.getLogger(TestCoas.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestCaos.class.getSimpleName();
+            = TestCoas.class.getSimpleName();
     // *************************************************************************
     // fields
 
@@ -77,13 +77,13 @@ public class TestCaos extends ActionApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the TestCaos application.
+     * Main entry point for the TestCoas application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestCaos application = new TestCaos();
+        TestCoas application = new TestCoas();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;

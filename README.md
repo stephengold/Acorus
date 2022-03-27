@@ -300,7 +300,7 @@ Sometimes you want to display detailed help only when the user requests it.
 This example adds an action to toggle the help node between 2 versions:
 detailed and minimal.
 
-### TestCaos
+### TestCoas
 
 This example adds a `CameraOrbitAppState` to `TestFlyCam`.
 The left- and right-arrow keys
