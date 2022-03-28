@@ -162,12 +162,18 @@ public class TestDsEdit extends AbstractDemo {
         configureDumper();
         addSceneProcessor();
         DemoScene.setup(this);
-        
+
         for (DisplayMode mode : DsUtils.getDisplayModes()) {
             System.out.printf("%d x %d, %d bits, %d Hz\n",
                     mode.getWidth(), mode.getHeight(),
                     mode.getBitDepth(), mode.getRefreshRate());
         }
+
+        DisplayMode mode = DsUtils.getDisplayMode();
+        System.out.printf("Current mode:  %d x %d, %d bits, %d Hz\n",
+                mode.getWidth(), mode.getHeight(),
+                mode.getBitDepth(), mode.getRefreshRate());
+
         System.out.flush();
     }
 
