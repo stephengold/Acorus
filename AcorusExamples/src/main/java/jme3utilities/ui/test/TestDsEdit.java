@@ -39,6 +39,7 @@ import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeVersion;
 import com.jme3.texture.FrameBuffer;
+import java.awt.DisplayMode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
@@ -49,6 +50,7 @@ import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.DisplaySettings;
 import jme3utilities.ui.DisplaySizeLimits;
 import jme3utilities.ui.DsEditOverlay;
+import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.HelpVersion;
 import jme3utilities.ui.InputMode;
 import jme3utilities.ui.ShowDialog;
@@ -160,6 +162,13 @@ public class TestDsEdit extends AbstractDemo {
         configureDumper();
         addSceneProcessor();
         DemoScene.setup(this);
+        
+        for (DisplayMode mode : DsUtils.getDisplayModes()) {
+            System.out.printf("%d x %d, %d bits, %d Hz\n",
+                    mode.getWidth(), mode.getHeight(),
+                    mode.getBitDepth(), mode.getRefreshRate());
+        }
+        System.out.flush();
     }
 
     /**
