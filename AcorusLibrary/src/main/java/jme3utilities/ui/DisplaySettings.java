@@ -170,21 +170,7 @@ public class DisplaySettings {
 
         if (cachedSettings.isFullscreen()) {
             // assuming that the device supports full-screen exclusive mode
-            boolean foundMatch = false;
-            Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
-            for (DisplayMode mode : modes) {
-                // TODO see algorithm in LwjglDisplay.getFullscreenDisplayMode()
-                int bitDepth = mode.getBitDepth();
-                if (bitDepth == DisplayMode.BIT_DEPTH_MULTI
-                        || bitDepth == cachedSettings.getBitsPerPixel()) {
-                    int frequency = mode.getRefreshRate();
-                    if (mode.getWidth() == width && mode.getHeight() == height
-                            && frequency == cachedSettings.getFrequency()) {
-                        foundMatch = true;
-                        break;
-                    }
-                }
-            }
+            boolean foundMatch = matchesAvailableDisplayMode();
             return foundMatch;
 
         } else { // The cached settings specify a windowed display.
@@ -241,21 +227,7 @@ public class DisplaySettings {
 
         if (cachedSettings.isFullscreen()) {
             // assuming that the device supports full-screen exclusive mode
-            boolean foundMatch = false;
-            Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
-            for (DisplayMode mode : modes) {
-                // TODO see algorithm in LwjglDisplay.getFullscreenDisplayMode()
-                int bitDepth = mode.getBitDepth();
-                if (bitDepth == DisplayMode.BIT_DEPTH_MULTI
-                        || bitDepth == cachedSettings.getBitsPerPixel()) {
-                    int frequency = mode.getRefreshRate();
-                    if (mode.getWidth() == width && mode.getHeight() == height
-                            && frequency == cachedSettings.getFrequency()) {
-                        foundMatch = true;
-                        break;
-                    }
-                }
-            }
+            boolean foundMatch = matchesAvailableDisplayMode();
             if (!foundMatch) {
                 return "No matching mode for device.";
             }
@@ -633,6 +605,40 @@ public class DisplaySettings {
     protected ActionApplication getApplication() {
         ActionApplication result = application;
         assert result != null;
+        return result;
+    }
+
+    /**
+     * Test whether the cached settings match one or more of the default
+     * monitor's available display modes.
+     *
+     * @return true for a match, otherwise false
+     */
+    private boolean matchesAvailableDisplayMode() {
+        boolean result = false;
+
+        int bitDepth = cachedSettings.getBitsPerPixel();
+        int frequency = cachedSettings.getFrequency();
+        int height = cachedSettings.getHeight();
+        int width = cachedSettings.getWidth();
+
+        Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
+        for (DisplayMode mode : modes) {
+            // TODO see algorithm in LwjglDisplay.getFullscreenDisplayMode()
+
+            int modeBitDepth = mode.getBitDepth();
+            if (modeBitDepth == DisplayMode.BIT_DEPTH_MULTI
+                    || modeBitDepth == bitDepth) {
+                int modeFrequency = mode.getRefreshRate();
+                if (mode.getWidth() == width
+                        && mode.getHeight() == height
+                        && modeFrequency == frequency) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+
         return result;
     }
 }
