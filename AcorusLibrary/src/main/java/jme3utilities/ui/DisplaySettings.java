@@ -32,8 +32,6 @@ package jme3utilities.ui;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeSystem;
 import java.awt.DisplayMode;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -171,25 +169,19 @@ public class DisplaySettings {
         }
 
         if (cachedSettings.isFullscreen()) {
-            GraphicsEnvironment environment
-                    = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            GraphicsDevice device = environment.getDefaultScreenDevice();
-            if (!device.isFullScreenSupported()) {
-                return false;
-            }
-
+            // assuming that the device supports full-screen exclusive mode
             boolean foundMatch = false;
-            DisplayMode[] modes = device.getDisplayModes();
+            Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
             for (DisplayMode mode : modes) {
-                int bitDepth = mode.getBitDepth();
-                int frequency = mode.getRefreshRate();
                 // TODO see algorithm in LwjglDisplay.getFullscreenDisplayMode()
+                int bitDepth = mode.getBitDepth();
                 if (bitDepth == DisplayMode.BIT_DEPTH_MULTI
                         || bitDepth == cachedSettings.getBitsPerPixel()) {
-                    if (mode.getWidth() == cachedSettings.getWidth()
-                            && mode.getHeight() == cachedSettings.getHeight()
+                    int frequency = mode.getRefreshRate();
+                    if (mode.getWidth() == width && mode.getHeight() == height
                             && frequency == cachedSettings.getFrequency()) {
                         foundMatch = true;
+                        break;
                     }
                 }
             }
@@ -248,25 +240,19 @@ public class DisplaySettings {
         }
 
         if (cachedSettings.isFullscreen()) {
-            GraphicsEnvironment environment
-                    = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            GraphicsDevice device = environment.getDefaultScreenDevice();
-            if (!device.isFullScreenSupported()) {
-                return "Device does not support full screen.";
-            }
-
+            // assuming that the device supports full-screen exclusive mode
             boolean foundMatch = false;
-            DisplayMode[] modes = device.getDisplayModes();
+            Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
             for (DisplayMode mode : modes) {
-                int bitDepth = mode.getBitDepth();
-                int frequency = mode.getRefreshRate();
                 // TODO see algorithm in LwjglDisplay.getFullscreenDisplayMode()
+                int bitDepth = mode.getBitDepth();
                 if (bitDepth == DisplayMode.BIT_DEPTH_MULTI
                         || bitDepth == cachedSettings.getBitsPerPixel()) {
-                    if (mode.getWidth() == cachedSettings.getWidth()
-                            && mode.getHeight() == cachedSettings.getHeight()
+                    int frequency = mode.getRefreshRate();
+                    if (mode.getWidth() == width && mode.getHeight() == height
                             && frequency == cachedSettings.getFrequency()) {
                         foundMatch = true;
+                        break;
                     }
                 }
             }

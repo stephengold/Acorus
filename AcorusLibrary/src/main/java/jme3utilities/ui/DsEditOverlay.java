@@ -35,8 +35,6 @@ import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import java.awt.DisplayMode;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
@@ -380,7 +378,7 @@ public class DsEditOverlay extends SimpleAppState {
     private void advanceColorDepth(int amount) {
         Set<Integer> depthSet = new TreeSet<>();
         if (proposedSettings.isFullscreen()) {
-            DisplayMode[] modes = getDisplayModes();
+            Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
             int height = proposedSettings.height();
             int width = proposedSettings.width();
 
@@ -424,7 +422,7 @@ public class DsEditOverlay extends SimpleAppState {
      */
     private void advanceDimensions(int amount) {
         Set<String> descriptionSet = new TreeSet<>();
-        DisplayMode[] modes = getDisplayModes();
+        Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
         int depth = proposedSettings.colorDepth();
         int rate = proposedSettings.refreshRate();
         DisplaySizeLimits dsls = proposedSettings.getSizeLimits();
@@ -489,7 +487,7 @@ public class DsEditOverlay extends SimpleAppState {
     private void advanceRefreshRate(int amount) {
         assert proposedSettings.isFullscreen();
 
-        DisplayMode[] modes = getDisplayModes();
+        Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
         int height = proposedSettings.height();
         int width = proposedSettings.width();
         /*
@@ -518,24 +516,6 @@ public class DsEditOverlay extends SimpleAppState {
         int rate = proposedSettings.refreshRate();
         rate = AbstractDemo.advanceInt(rateArray, rate, amount);
         proposedSettings.setRefreshRate(rate);
-    }
-
-    /**
-     * Enumerate the available display modes for the default screen.
-     *
-     * @return an array of modes
-     */
-    private static DisplayMode[] getDisplayModes() {
-        // TODO use GLFW
-        //long primaryMonitorId = GLFW.glfwGetPrimaryMonitor();
-        //GLFWVidMode.Buffer buf = GLFW.glfwGetVideoModes(primaryMonitorId);
-
-        GraphicsEnvironment graphicsEnvironment
-                = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice device = graphicsEnvironment.getDefaultScreenDevice();
-        DisplayMode[] result = device.getDisplayModes();
-
-        return result;
     }
 
     /**

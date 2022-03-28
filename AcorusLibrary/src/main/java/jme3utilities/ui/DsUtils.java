@@ -29,6 +29,14 @@
  */
 package jme3utilities.ui;
 
+import java.awt.DisplayMode;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -96,6 +104,89 @@ final public class DsUtils {
         }
 
         return description;
+    }
+
+    /**
+     * Enumerate the default monitor's available display modes.
+     *
+     * @return a list of modes (not null)
+     */
+    public static List<DisplayMode> getDisplayModes() {
+        List<DisplayMode> result;
+
+        try { // accessing GLFW via reflection of LWJGL v3
+            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+            Method getMonitor = glfwClass.getDeclaredMethod(
+                    "glfwGetPrimaryMonitor");
+            Method getModes = glfwClass.getDeclaredMethod(
+                    "glfwGetVideoModes", long.class);
+
+            Class<?> vidModeClass = Class.forName("org.lwjgl.glfw.GLFWVidMode");
+            Method getBlueBits = vidModeClass.getDeclaredMethod("blueBits");
+            Method getGreenBits = vidModeClass.getDeclaredMethod("greenBits");
+            Method getHeight = vidModeClass.getDeclaredMethod("height");
+            Method getRedBits = vidModeClass.getDeclaredMethod("redBits");
+            Method getRate = vidModeClass.getDeclaredMethod("refreshRate");
+            Method getWidth = vidModeClass.getDeclaredMethod("width");
+
+            Class<?>[] innerClasses = vidModeClass.getDeclaredClasses();
+            assert innerClasses.length == 1 : innerClasses.length;
+            Class<?> vmBuffer = innerClasses[0];
+            Method get = vmBuffer.getMethod("get");
+            Method hasRemaining = vmBuffer.getMethod("hasRemaining");
+
+            // long monitorId = GLFW.glfwGetPrimaryMonitor();
+            Object monitorId = getMonitor.invoke(null);
+
+            // GLFWVidMode.Buffer buf = GLFW.glfwGetVideoModes(monitorId);
+            Object buf = getModes.invoke(null, monitorId);
+
+            result = new ArrayList<>(32);
+
+            // while (buf.hasRemaining()) {
+            while ((Boolean) hasRemaining.invoke(buf)) {
+
+                // GLFWVidMode vidMode = modes.get();
+                Object vidMode = get.invoke(buf);
+
+                // int w = vidMode.width();
+                int w = (Integer) getWidth.invoke(vidMode);
+
+                // int h = vidMode.height();
+                int h = (Integer) getHeight.invoke(vidMode);
+
+                // int reds = vidMode.redBits();
+                int reds = (Integer) getRedBits.invoke(vidMode);
+
+                // int greens = vidMode.greenBits();
+                int greens = (Integer) getGreenBits.invoke(vidMode);
+
+                // int blues = vidMode.blueBits();
+                int blues = (Integer) getBlueBits.invoke(vidMode);
+
+                // int rate = vidMode.refreshRate();
+                int rate = (Integer) getRate.invoke(vidMode);
+
+                int bitDepth = reds + greens + blues;
+                DisplayMode mode = new DisplayMode(w, h, bitDepth, rate);
+                result.add(mode);
+            }
+            logger.info("used GLFW via reflection of LWJGL v3");
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
+            logger.warning("using AWT due to " + exception.toString());
+
+            // LWJGL v3 is unavailable, so use AWT instead.
+            GraphicsEnvironment environment
+                    = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice device = environment.getDefaultScreenDevice();
+            DisplayMode[] modeArray = device.getDisplayModes();
+            result = Arrays.asList(modeArray);
+        }
+
+        return result;
     }
 
     /**
