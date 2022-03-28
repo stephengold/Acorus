@@ -630,11 +630,13 @@ public class DisplaySettings {
             if (modeBitDepth == DisplayMode.BIT_DEPTH_MULTI
                     || modeBitDepth == bitDepth) {
                 int modeFrequency = mode.getRefreshRate();
-                if (mode.getWidth() == width
-                        && mode.getHeight() == height
-                        && modeFrequency == frequency) {
-                    result = true;
-                    break;
+                if (modeFrequency == DisplayMode.REFRESH_RATE_UNKNOWN
+                        || modeFrequency == frequency) {
+                    if (mode.getWidth() == width
+                            && mode.getHeight() == height) {
+                        result = true;
+                        break;
+                    }
                 }
             }
         }
