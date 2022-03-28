@@ -107,9 +107,42 @@ final public class DsUtils {
     }
 
     /**
+     * Return the default monitor's current display mode.
+     *
+     * @return a new instance (not null)
+     */
+    public static DisplayMode getDisplayMode() {
+        DisplayMode result;
+
+        try { // accessing GLFW via reflection of LWJGL v3
+            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+            Method getMonitor = glfwClass.getDeclaredMethod(
+                    "glfwGetPrimaryMonitor");
+            Method getMode = glfwClass.getDeclaredMethod(
+                    "glfwGetVideoMode", long.class);
+
+            // long monitorId = GLFW.glfwGetPrimaryMonitor();
+            Object monitorId = getMonitor.invoke(null);
+
+            // GLFWVidMode vidMode = GLFW.glfwGetVideoMode(monitorId);
+            Object vidMode = getMode.invoke(null, monitorId);
+
+            result = makeDisplayMode(vidMode);
+
+        } catch (Exception e) {
+            GraphicsEnvironment environment
+                    = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice device = environment.getDefaultScreenDevice();
+            result = device.getDisplayMode();
+        }
+
+        return result;
+    }
+
+    /**
      * Enumerate the default monitor's available display modes.
      *
-     * @return a list of modes (not null)
+     * @return a new list of modes (not null)
      */
     public static List<DisplayMode> getDisplayModes() {
         List<DisplayMode> result;
@@ -122,13 +155,6 @@ final public class DsUtils {
                     "glfwGetVideoModes", long.class);
 
             Class<?> vidModeClass = Class.forName("org.lwjgl.glfw.GLFWVidMode");
-            Method getBlueBits = vidModeClass.getDeclaredMethod("blueBits");
-            Method getGreenBits = vidModeClass.getDeclaredMethod("greenBits");
-            Method getHeight = vidModeClass.getDeclaredMethod("height");
-            Method getRedBits = vidModeClass.getDeclaredMethod("redBits");
-            Method getRate = vidModeClass.getDeclaredMethod("refreshRate");
-            Method getWidth = vidModeClass.getDeclaredMethod("width");
-
             Class<?>[] innerClasses = vidModeClass.getDeclaredClasses();
             assert innerClasses.length == 1 : innerClasses.length;
             Class<?> vmBuffer = innerClasses[0];
@@ -149,26 +175,7 @@ final public class DsUtils {
                 // GLFWVidMode vidMode = modes.get();
                 Object vidMode = get.invoke(buf);
 
-                // int w = vidMode.width();
-                int w = (Integer) getWidth.invoke(vidMode);
-
-                // int h = vidMode.height();
-                int h = (Integer) getHeight.invoke(vidMode);
-
-                // int reds = vidMode.redBits();
-                int reds = (Integer) getRedBits.invoke(vidMode);
-
-                // int greens = vidMode.greenBits();
-                int greens = (Integer) getGreenBits.invoke(vidMode);
-
-                // int blues = vidMode.blueBits();
-                int blues = (Integer) getBlueBits.invoke(vidMode);
-
-                // int rate = vidMode.refreshRate();
-                int rate = (Integer) getRate.invoke(vidMode);
-
-                int bitDepth = reds + greens + blues;
-                DisplayMode mode = new DisplayMode(w, h, bitDepth, rate);
+                DisplayMode mode = makeDisplayMode(vidMode);
                 result.add(mode);
             }
             logger.info("used GLFW via reflection of LWJGL v3");
@@ -221,6 +228,55 @@ final public class DsUtils {
             String heightText = matcher.group(2);
             result[1] = Integer.parseInt(heightText);
         }
+
+        return result;
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Convert a GLFWVidMode to a DisplayMode via reflection of LWJGL v3.
+     *
+     * @param glfwVidMode (not null, unaffected)
+     * @return a new instance
+     *
+     * @throws ClassNotFoundException if LWJGL v3 isn't on the classpath
+     * @throws IllegalAccessException ?
+     * @throws InvocationTargetException ?
+     * @throws NoSuchMethodException ?
+     */
+    private static DisplayMode makeDisplayMode(Object glfwVidMode)
+            throws ClassNotFoundException, IllegalAccessException,
+            InvocationTargetException, NoSuchMethodException {
+        Class<?> vidModeClass = Class.forName("org.lwjgl.glfw.GLFWVidMode");
+
+        Method getBlueBits = vidModeClass.getDeclaredMethod("blueBits");
+        Method getGreenBits = vidModeClass.getDeclaredMethod("greenBits");
+        Method getHeight = vidModeClass.getDeclaredMethod("height");
+        Method getRedBits = vidModeClass.getDeclaredMethod("redBits");
+        Method getRate = vidModeClass.getDeclaredMethod("refreshRate");
+        Method getWidth = vidModeClass.getDeclaredMethod("width");
+
+        // int width = glfwVidMode.width();
+        int width = (Integer) getWidth.invoke(glfwVidMode);
+
+        // int height = glfwVidMode.height();
+        int height = (Integer) getHeight.invoke(glfwVidMode);
+
+        // int redBits = glfwVidMode.redBits();
+        int redBits = (Integer) getRedBits.invoke(glfwVidMode);
+
+        // int greenBits = glfwVidMode.greenBits();
+        int greenBits = (Integer) getGreenBits.invoke(glfwVidMode);
+
+        // int blueBits = glfwVidMode.blueBits();
+        int blueBits = (Integer) getBlueBits.invoke(glfwVidMode);
+
+        // int rate = glfwVidMode.refreshRate();
+        int rate = (Integer) getRate.invoke(glfwVidMode);
+
+        int bitDepth = redBits + greenBits + blueBits;
+        DisplayMode result = new DisplayMode(width, height, bitDepth, rate);
 
         return result;
     }
