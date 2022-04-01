@@ -174,15 +174,9 @@ public class DisplaySettings {
             // assuming that the device supports full-screen exclusive mode
             boolean foundMatch = matchesAvailableDisplayMode();
             return foundMatch;
-
-        } else { // The cached settings specify a windowed display.
-            int bpp = cachedSettings.getBitsPerPixel();
-            if (bpp == 24 || bpp == 32) {
-                return true;
-            } else {
-                return false;
-            }
         }
+
+        return true;
     }
 
     /**
@@ -198,11 +192,10 @@ public class DisplaySettings {
     /**
      * Determine the color depth.
      *
-     * @return depth (in bits per pixel, &gt;0)
+     * @return depth (in bits per pixel) or &le;0 for unknown/don't care
      */
     public int colorDepth() {
         int result = cachedSettings.getBitsPerPixel();
-        assert result > 0 : result;
         return result;
     }
 
@@ -232,12 +225,6 @@ public class DisplaySettings {
             boolean foundMatch = matchesAvailableDisplayMode();
             if (!foundMatch) {
                 return "No matching mode for device.";
-            }
-
-        } else { // The cached settings specify a windowed display.
-            int bpp = cachedSettings.getBitsPerPixel();
-            if (bpp != 24 && bpp != 32) {
-                return "Window BPP must be 24 or 32.";
             }
         }
 
@@ -376,11 +363,10 @@ public class DisplaySettings {
      * Determine the display's refresh rate, which is relevant only to
      * full-screen displays.
      *
-     * @return frequency (in Hertz, &ge;1) or -1 for unknown
+     * @return frequency (in Hertz) or &le;0 for unknown/don't care
      */
     public int refreshRate() {
         int result = cachedSettings.getFrequency();
-        assert result >= 1 || result == -1 : result;
         return result;
     }
 
@@ -424,14 +410,13 @@ public class DisplaySettings {
     /**
      * Alter the color depth.
      *
-     * @param newBpp color depth (in bits per pixel, &ge;1, &le;32)
+     * @param newDepth color depth (in bits per pixel) or &le;0 for
+     * unknown/don't care
      */
-    public void setColorDepth(int newBpp) {
-        Validate.inRange(newBpp, "new depth", 1, 32);
-
+    public void setColorDepth(int newDepth) {
         int oldBpp = colorDepth();
-        if (newBpp != oldBpp) {
-            cachedSettings.setBitsPerPixel(newBpp);
+        if (newDepth != oldBpp) {
+            cachedSettings.setBitsPerPixel(newDepth);
             areApplied = false;
             areSaved = false;
         }
@@ -521,11 +506,9 @@ public class DisplaySettings {
     /**
      * Alter the refresh rate.
      *
-     * @param newRate frequency (in Hertz, &gt;0)
+     * @param newRate frequency (in Hertz) or &le;0 for unknown/don't care
      */
     public void setRefreshRate(int newRate) {
-        Validate.positive(newRate, "new rate");
-
         int oldRate = refreshRate();
         if (newRate != oldRate) {
             cachedSettings.setFrequency(newRate);
@@ -631,11 +614,15 @@ public class DisplaySettings {
             // TODO see algorithm in LwjglDisplay.getFullscreenDisplayMode()
 
             int modeBitDepth = mode.getBitDepth();
-            if (modeBitDepth == DisplayMode.BIT_DEPTH_MULTI
+            if (modeBitDepth <= 0
+                    || bitDepth <= 0
                     || modeBitDepth == bitDepth) {
+
                 int modeFrequency = mode.getRefreshRate();
-                if (modeFrequency == DisplayMode.REFRESH_RATE_UNKNOWN
+                if (modeFrequency <= 0
+                        || frequency <= 0
                         || modeFrequency == frequency) {
+
                     if (mode.getWidth() == width
                             && mode.getHeight() == height) {
                         result = true;
