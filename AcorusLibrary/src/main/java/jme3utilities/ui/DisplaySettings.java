@@ -36,9 +36,10 @@ import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import jme3utilities.Validate;
+import jme3utilities.math.RectSizeLimits;
 
 /**
- * A simplified interface to an application's display settings.
+ * Manage an application's display settings.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -74,9 +75,9 @@ public class DisplaySettings {
      */
     private boolean areSaved = false;
     /**
-     * display-size limits (not null)
+     * framebuffer-size limits (not null)
      */
-    final private DisplaySizeLimits sizeLimits;
+    final private RectSizeLimits sizeLimits;
     /**
      * how often the JME settings dialog should be shown during initialize()
      */
@@ -95,20 +96,21 @@ public class DisplaySettings {
      *
      * @param app the current application instance (not null, alias created)
      * @param appName the name of the application (not null)
-     * @param dsl the display-size limits (not null)
+     * @param sizeLimits the desired framebuffer-size limits (not null, alias
+     * created)
      */
     public DisplaySettings(ActionApplication app, String appName,
-            DisplaySizeLimits dsl) {
+            RectSizeLimits sizeLimits) {
         Validate.nonNull(app, "application");
         Validate.nonNull(appName, "application name");
-        Validate.nonNull(dsl, "display-size limits");
+        Validate.nonNull(sizeLimits, "size limits");
 
         this.application = app;
         this.applicationName = appName;
-        this.sizeLimits = dsl;
+        this.sizeLimits = sizeLimits;
     }
     // *************************************************************************
-    // new methods exposed
+    // new methods exposed - TODO add isCentered()
 
     /**
      * Return the name of the application whose settings are being edited.
@@ -121,8 +123,8 @@ public class DisplaySettings {
     }
 
     /**
-     * Apply the cached settings to the application context and restart the
-     * context to put them into effect.
+     * Apply the cached settings to the graphics context and restart the context
+     * to put them into effect. TODO rename applyToContext
      */
     public void applyToDisplay() {
         assert canApply();
@@ -164,7 +166,7 @@ public class DisplaySettings {
     public boolean areValid() {
         int height = cachedSettings.getHeight();
         int width = cachedSettings.getWidth();
-        if (!sizeLimits.isValidDisplaySize(width, height)) {
+        if (!sizeLimits.isInRange(width, height)) {
             return false;
         }
 
@@ -221,8 +223,8 @@ public class DisplaySettings {
     public String feedbackValid() {
         int height = cachedSettings.getHeight();
         int width = cachedSettings.getWidth();
-        if (!sizeLimits.isValidDisplaySize(width, height)) {
-            return sizeLimits.feedbackValid(width, height);
+        if (!sizeLimits.isInRange(width, height)) {
+            return sizeLimits.feedbackInRange(width, height);
         }
 
         if (cachedSettings.isFullscreen()) {
@@ -243,11 +245,11 @@ public class DisplaySettings {
     }
 
     /**
-     * Access the max/min display size.
+     * Access the max/min framebuffer size.
      *
      * @return the pre-existing instance (not null)
      */
-    public DisplaySizeLimits getSizeLimits() {
+    public RectSizeLimits getSizeLimits() {
         return sizeLimits;
     }
 
@@ -386,6 +388,8 @@ public class DisplaySettings {
      * Update the dimensions of a resizable viewport, assuming the change has
      * already been applied.
      *
+     * @see #setDimensions(int, int)
+     *
      * @param newWidth (in pixels, &gt;0)
      * @param newHeight (in pixels, &gt;0)
      */
@@ -440,7 +444,7 @@ public class DisplaySettings {
      * @param newHeight height (in pixels, &ge;minHeight, &le;maxHeight)
      */
     public void setDimensions(int newWidth, int newHeight) {
-        assert sizeLimits.isValidDisplaySize(newWidth, newHeight);
+        assert sizeLimits.isInRange(newWidth, newHeight);
 
         int oldWidth = width();
         if (newWidth != oldWidth) {
@@ -485,14 +489,14 @@ public class DisplaySettings {
     }
 
     /**
-     * Maximize the display dimensions.
+     * Maximize the display dimensions. TODO rename setMaxSize()
      */
     public void setMaxDimensions() {
         setDimensions(sizeLimits.maxWidth, sizeLimits.maxHeight);
     }
 
     /**
-     * Minimize the display dimensions.
+     * Minimize the display dimensions. TODO rename setMinSize()
      */
     public void setMinDimensions() {
         setDimensions(sizeLimits.minWidth, sizeLimits.minHeight);

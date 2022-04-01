@@ -46,9 +46,9 @@ import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
 import jme3utilities.debug.Dumper;
+import jme3utilities.math.RectSizeLimits;
 import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.DisplaySettings;
-import jme3utilities.ui.DisplaySizeLimits;
 import jme3utilities.ui.DsEditOverlay;
 import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.HelpVersion;
@@ -57,8 +57,8 @@ import jme3utilities.ui.ShowDialog;
 import jme3utilities.ui.UiVersion;
 
 /**
- * Demonstrate how to edit an application's display settings using DseInputMode
- * and DseOverlay.
+ * Demonstrate how to edit an application's display settings using
+ * DsEditInputMode and DsEditOverlay.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -321,12 +321,12 @@ public class TestDsEdit extends AbstractDemo {
             final String title) {
         TestDsEdit application = new TestDsEdit();
 
-        DisplaySizeLimits dsl = new DisplaySizeLimits(
+        RectSizeLimits sizeLimits = new RectSizeLimits(
                 450, 380, // min width, height
                 2_048, 1_080 // max width, height
         );
-        proposedSettings
-                = new DisplaySettings(application, applicationName, dsl) {
+        proposedSettings = new DisplaySettings(application, applicationName,
+                sizeLimits) {
             @Override
             protected void applyOverrides(AppSettings settings) {
                 setShowDialog(showDialog);
@@ -354,11 +354,10 @@ public class TestDsEdit extends AbstractDemo {
     }
 
     /**
-     * Update the dimensions of a resizable viewport, assuming the change has
-     * already been applied.
+     * Update the GUI layout and proposed settings after a resize.
      *
-     * @param newWidth the new width of the viewport (in pixels, &gt;0)
-     * @param newHeight the new height of the viewport (in pixels, &gt;0)
+     * @param newWidth the new width of the framebuffers (in pixels, &gt;0)
+     * @param newHeight the new height of the framebuffers (in pixels, &gt;0)
      */
     private void resize(int newWidth, int newHeight) {
         dseOverlay.resize(newWidth, newHeight);

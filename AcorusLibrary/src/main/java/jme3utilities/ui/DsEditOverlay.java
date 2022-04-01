@@ -42,6 +42,7 @@ import jme3utilities.InitialState;
 import jme3utilities.SimpleAppState;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
+import jme3utilities.math.RectSizeLimits;
 
 /**
  * The overlay for the display-settings editor.
@@ -425,7 +426,7 @@ public class DsEditOverlay extends SimpleAppState {
         Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
         int depth = proposedSettings.colorDepth();
         int rate = proposedSettings.refreshRate();
-        DisplaySizeLimits dsls = proposedSettings.getSizeLimits();
+        RectSizeLimits sizeLimits = proposedSettings.getSizeLimits();
         /*
          * Enumerate the most relevant display sizes.
          */
@@ -433,7 +434,7 @@ public class DsEditOverlay extends SimpleAppState {
             if (mode.getBitDepth() == depth && mode.getRefreshRate() == rate) {
                 int height = mode.getHeight();
                 int width = mode.getWidth();
-                if (dsls.isValidDisplaySize(width, height)) {
+                if (sizeLimits.isInRange(width, height)) {
                     String desc = DsUtils.describeDimensions(width, height);
                     descriptionSet.add(desc);
                 }
@@ -443,7 +444,7 @@ public class DsEditOverlay extends SimpleAppState {
             for (DisplayMode mode : modes) {
                 int height = mode.getHeight();
                 int width = mode.getWidth();
-                if (dsls.isValidDisplaySize(width, height)) {
+                if (sizeLimits.isInRange(width, height)) {
                     String desc = DsUtils.describeDimensions(width, height);
                     descriptionSet.add(desc);
                 }
@@ -519,7 +520,7 @@ public class DsEditOverlay extends SimpleAppState {
     }
 
     /**
-     * Toggle between full-screen enabled/disabled.
+     * Toggle fullscreen between enabled and disabled.
      */
     private void toggleFullScreen() {
         boolean enabled = proposedSettings.isFullscreen();
