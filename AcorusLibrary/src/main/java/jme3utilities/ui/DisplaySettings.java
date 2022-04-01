@@ -408,6 +408,28 @@ public class DisplaySettings {
     }
 
     /**
+     * Scale the height and width of the display by the specified factors and
+     * clamp to the size limits.
+     *
+     * @param widthFactor scaling factor for the display width (&gt;0)
+     * @param heightFactor scaling factor for the display height (&gt;0)
+     */
+    public void scaleSize(float widthFactor, float heightFactor) {
+        Validate.positive(widthFactor, "width factor");
+        Validate.positive(heightFactor, "height factor");
+
+        int newWidth = width();
+        newWidth = Math.round(widthFactor * newWidth);
+        newWidth = sizeLimits.clampWidth(newWidth);
+
+        int newHeight = height();
+        newHeight = Math.round(widthFactor * newHeight);
+        newHeight = sizeLimits.clampHeight(newHeight);
+
+        setDimensions(newWidth, newHeight);
+    }
+
+    /**
      * Alter the color depth.
      *
      * @param newDepth color depth (in bits per pixel) or &le;0 for
