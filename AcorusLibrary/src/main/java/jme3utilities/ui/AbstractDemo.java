@@ -425,7 +425,7 @@ abstract public class AbstractDemo extends ActionApplication {
      * nodes for the specified input mode and viewport dimensions. Attach based
      * on the existing help nodes or as specified.
      *
-     * @param inputMode for which input mode (not null, unaffected)
+     * @param inputMode the active input mode (unaffected) or null if none
      * @param viewPortWidth (in pixels, &gt;0)
      * @param viewPortHeight (in pixels, &gt;0)
      * @param preferredVersion which version to attach if no help nodes are
@@ -433,7 +433,6 @@ abstract public class AbstractDemo extends ActionApplication {
      */
     public void updateHelpNodes(InputMode inputMode, int viewPortWidth,
             int viewPortHeight, HelpVersion preferredVersion) {
-        Validate.nonNull(inputMode, "input mode");
         Validate.positive(viewPortWidth, "viewport width");
         Validate.positive(viewPortHeight, "viewport height");
         Validate.nonNull(preferredVersion, "preferred version");
@@ -447,14 +446,13 @@ abstract public class AbstractDemo extends ActionApplication {
      * the specified input mode and bounds. Attach based on the existing help
      * nodes or as specified.
      *
-     * @param inputMode for which input mode (not null, unaffected)
+     * @param inputMode the active input mode (unaffected) or null if none
      * @param bounds the desired screen coordinates (not null, unaffected)
      * @param preferredVersion which version to attach if no help nodes are
      * currently attached (not null)
      */
     public void updateHelpNodes(InputMode inputMode, Rectangle bounds,
             HelpVersion preferredVersion) {
-        Validate.nonNull(inputMode, "input mode");
         Validate.nonNull(bounds, "bounds");
         Validate.nonNull(preferredVersion, "preferred version");
 
@@ -488,14 +486,17 @@ abstract public class AbstractDemo extends ActionApplication {
             minimalParent = minHelpNode.getParent();
             minHelpNode.removeFromParent();
         }
-        /*
-         * Build and attach the detailed version.
-         */
-        generateDetailedHelp(inputMode, bounds, detailedParent);
-        /*
-         * Build and attach the minimal version.
-         */
-        generateMinimalHelp(bounds, minimalParent);
+
+        if (inputMode != null) {
+            /*
+             * Build and attach the detailed version.
+             */
+            generateDetailedHelp(inputMode, bounds, detailedParent);
+            /*
+             * Build and attach the minimal version.
+             */
+            generateMinimalHelp(bounds, minimalParent);
+        }
     }
     // *************************************************************************
     // ActionApplication methods
