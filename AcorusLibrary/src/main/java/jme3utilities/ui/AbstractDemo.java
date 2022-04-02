@@ -169,7 +169,7 @@ abstract public class AbstractDemo extends ActionApplication {
      */
     public static int advanceInt(int[] valuesArray, int startValue,
             int amount) {
-        Validate.nonNull(valuesArray, "values array"); // TODO nonEmpty
+        Validate.nonEmpty(valuesArray, "values array");
         Validate.require(valuesArray.length > 0, "non-empty values array");
 
         int index = Arrays.binarySearch(valuesArray, startValue);
