@@ -110,7 +110,7 @@ public class DisplaySettings {
         this.sizeLimits = sizeLimits;
     }
     // *************************************************************************
-    // new methods exposed - TODO add isCentered()
+    // new methods exposed
 
     /**
      * Return the name of the application whose settings are being edited.
@@ -319,6 +319,16 @@ public class DisplaySettings {
     }
 
     /**
+     * Test whether center-on-start is enabled for LWJGL v3 windowed mode.
+     *
+     * @return true if centering, otherwise false
+     */
+    public boolean isCentered() {
+        boolean result = cachedSettings.getCenterWindow();
+        return result;
+    }
+
+    /**
      * Test whether full-screen mode is enabled.
      *
      * @return true if full-screen, otherwise false
@@ -427,6 +437,20 @@ public class DisplaySettings {
         newHeight = sizeLimits.clampHeight(newHeight);
 
         setDimensions(newWidth, newHeight);
+    }
+
+    /**
+     * Alter whether center-on-start is enabled for LWJGL v3 windowed mode.
+     *
+     * @param newSetting true for centering, false to specify screen coordinates
+     */
+    public void setCentered(boolean newSetting) {
+        boolean oldSetting = isCentered();
+        if (newSetting != oldSetting) {
+            cachedSettings.setCenterWindow(newSetting);
+            areApplied = false;
+            areSaved = false;
+        }
     }
 
     /**
@@ -551,6 +575,29 @@ public class DisplaySettings {
     }
 
     /**
+     * Alter the initial location for LWJGL v3 windowed mode with
+     * setCentered(false).
+     *
+     * @param newX screen X coordinate for the left edge of the content area
+     * @param newY screen Y coordinate for the top edge of the content area
+     */
+    public void setStartLocation(int newX, int newY) {
+        int oldX = startX();
+        if (newX != oldX) {
+            cachedSettings.setWindowXPosition(newX);
+            areApplied = false;
+            areSaved = false;
+        }
+
+        int oldY = startY();
+        if (newY != oldY) {
+            cachedSettings.setWindowYPosition(newY);
+            areApplied = false;
+            areSaved = false;
+        }
+    }
+
+    /**
      * Enable or disable VSync mode.
      *
      * @param newSetting true&rarr;synchronize, false&rarr; don't synchronize
@@ -572,6 +619,28 @@ public class DisplaySettings {
      */
     public ShowDialog showDialog() {
         return showDialog;
+    }
+
+    /**
+     * Return the initial X location for LWJGL v3 windowed mode with
+     * setCentered(false).
+     *
+     * @return the screen X coordinate for the left edge of the content area
+     */
+    public int startX() {
+        int result = cachedSettings.getWindowXPosition();
+        return result;
+    }
+
+    /**
+     * Return the initial Y location for LWJGL v3 windowed mode with
+     * setCentered(false).
+     *
+     * @return the screen Y coordinate for the left edge of the content area
+     */
+    public int startY() {
+        int result = cachedSettings.getWindowYPosition();
+        return result;
     }
 
     /**
