@@ -160,9 +160,18 @@ public class TestDsEdit extends AbstractDemo {
         assert success;
 
         configureDumper();
+        /*
+         * Ensure that size-dependent data get initialized.
+         */
+        int width = guiViewPort.getCamera().getWidth();
+        int height = guiViewPort.getCamera().getHeight();
+        resize(width, height);
+
         addSceneProcessor();
         DemoScene.setup(this);
-
+        /*
+         * Print the available and current display modes to the console.
+         */
         for (DisplayMode mode : DsUtils.getDisplayModes()) {
             System.out.printf("%d x %d, %d bits, %d Hz\n",
                     mode.getWidth(), mode.getHeight(),
