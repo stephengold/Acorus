@@ -529,8 +529,36 @@ public class DsEditOverlay extends SimpleAppState {
      * Toggle fullscreen between enabled and disabled.
      */
     private void toggleFullScreen() {
-        boolean enabled = proposedSettings.isFullscreen();
-        proposedSettings.setFullscreen(!enabled);
+        int rate;
+        int depth;
+
+        boolean isFullScreen = proposedSettings.isFullscreen();
+        if (isFullScreen) { // switch to windowed mode
+            rate = DisplayMode.REFRESH_RATE_UNKNOWN;
+            depth = DisplayMode.BIT_DEPTH_MULTI;
+            proposedSettings.scaleSize(0.8f, 0.8f);
+
+        } else { // switch to full-screen mode
+            DisplayMode mode = DsUtils.getDisplayMode();
+            rate = mode.getRefreshRate();
+            if (rate <= 0) {
+                rate = 60;
+            }
+            depth = mode.getBitDepth();
+            if (depth <= 0) {
+                depth = 24;
+            }
+            RectSizeLimits limits = proposedSettings.getSizeLimits();
+            int width = mode.getWidth();
+            int height = mode.getHeight();
+            if (limits.isInRange(width, height)) {
+                proposedSettings.setDimensions(width, height);
+            }
+        }
+
+        proposedSettings.setRefreshRate(rate);
+        proposedSettings.setColorDepth(depth);
+        proposedSettings.setFullscreen(!isFullScreen);
     }
 
     /**
