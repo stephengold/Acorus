@@ -496,16 +496,16 @@ public class DisplaySettings {
     }
 
     /**
-     * Maximize the display dimensions. TODO rename setMaxSize()
+     * Maximize the display dimensions.
      */
-    public void setMaxDimensions() {
+    public void setMaxSize() {
         setDimensions(sizeLimits.maxWidth, sizeLimits.maxHeight);
     }
 
     /**
-     * Minimize the display dimensions. TODO rename setMinSize()
+     * Minimize the display dimensions.
      */
-    public void setMinDimensions() {
+    public void setMinSize() {
         setDimensions(sizeLimits.minWidth, sizeLimits.minHeight);
     }
 
