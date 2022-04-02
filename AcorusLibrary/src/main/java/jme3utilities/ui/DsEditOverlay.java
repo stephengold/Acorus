@@ -349,8 +349,13 @@ public class DsEditOverlay extends SimpleAppState {
         message = "Gamma correction?  " + (isGammaCorrection ? "yes" : "no");
         updateStatusLine(gammaCorrectionStatusLine, message);
 
+        message = "";
         int colorDepth = proposedSettings.colorDepth();
-        message = String.format("Color depth:  %d bpp", colorDepth);
+        if (colorDepth <= 0) {
+            message = "Color depth:  any/unknown";
+        } else {
+            message = String.format("Color depth:  %d bpp", colorDepth);
+        }
         updateStatusLine(colorDepthStatusLine, message);
 
         int msaaFactor = proposedSettings.msaaFactor();
@@ -361,7 +366,7 @@ public class DsEditOverlay extends SimpleAppState {
         if (isFullScreen) {
             int refreshRate = proposedSettings.refreshRate();
             if (refreshRate <= 0) {
-                message = "Refresh rate:  unknown";
+                message = "Refresh rate:  any/unknown";
             } else {
                 message = String.format("Refresh rate:  %d Hz", refreshRate);
             }
@@ -385,8 +390,7 @@ public class DsEditOverlay extends SimpleAppState {
 
             for (DisplayMode mode : modes) {
                 int modeDepth = mode.getBitDepth();
-                if (modeDepth >= 16
-                        && mode.getHeight() == height
+                if (mode.getHeight() == height
                         && mode.getWidth() == width) {
                     depthSet.add(modeDepth);
                 }
@@ -394,15 +398,12 @@ public class DsEditOverlay extends SimpleAppState {
             if (depthSet.isEmpty()) {
                 for (DisplayMode mode : modes) {
                     int modeDepth = mode.getBitDepth();
-                    if (modeDepth >= 16) {
-                        depthSet.add(modeDepth);
-                    }
+                    depthSet.add(modeDepth);
                 }
             }
         }
         if (depthSet.isEmpty()) {
-            depthSet.add(24);
-            depthSet.add(32);
+            depthSet.add(DisplayMode.BIT_DEPTH_MULTI);
         }
         int[] depthArray = new int[depthSet.size()];
         int index = 0;
@@ -431,12 +432,17 @@ public class DsEditOverlay extends SimpleAppState {
          * Enumerate the most relevant display sizes.
          */
         for (DisplayMode mode : modes) {
-            if (mode.getBitDepth() == depth && mode.getRefreshRate() == rate) {
-                int height = mode.getHeight();
-                int width = mode.getWidth();
-                if (sizeLimits.isInRange(width, height)) {
-                    String desc = DsUtils.describeDimensions(width, height);
-                    descriptionSet.add(desc);
+            int modeDepth = mode.getBitDepth();
+            if (modeDepth <= 0 || depth <= 0 || modeDepth == depth) {
+
+                int modeRate = mode.getRefreshRate();
+                if (modeRate <= 0 || rate <= 0 || modeRate == rate) {
+                    int height = mode.getHeight();
+                    int width = mode.getWidth();
+                    if (sizeLimits.isInRange(width, height)) {
+                        String desc = DsUtils.describeDimensions(width, height);
+                        descriptionSet.add(desc);
+                    }
                 }
             }
         }
