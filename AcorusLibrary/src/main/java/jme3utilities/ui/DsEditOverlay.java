@@ -34,6 +34,7 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
+import com.jme3.system.JmeContext;
 import java.awt.DisplayMode;
 import java.util.Set;
 import java.util.TreeSet;
@@ -69,33 +70,37 @@ public class DsEditOverlay extends SimpleAppState {
      */
     final private static int fullScreenStatusLine = 2;
     /**
+     * index of the status line for start location
+     */
+    final private static int locationStatusLine = 3;
+    /**
      * index of the status line for dimensions
      */
-    final private static int dimensionsStatusLine = 3;
+    final private static int dimensionsStatusLine = 4;
     /**
      * index of the status line for vSync
      */
-    final private static int vSyncStatusLine = 4;
+    final private static int vSyncStatusLine = 5;
     /**
      * index of the status line for gamma correction
      */
-    final private static int gammaCorrectionStatusLine = 5;
+    final private static int gammaCorrectionStatusLine = 6;
     /**
      * index of the status line for color depth
      */
-    final private static int colorDepthStatusLine = 6;
+    final private static int colorDepthStatusLine = 7;
     /**
      * index of the status line for multi-sample anti-aliasing (MSAA)
      */
-    final private static int msaaStatusLine = 7;
+    final private static int msaaStatusLine = 8;
     /**
      * index of the status line for refresh rate
      */
-    final private static int refreshRateStatusLine = 8;
+    final private static int refreshRateStatusLine = 9;
     /**
      * number of lines of text in the overlay
      */
-    final private static int numStatusLines = 9;
+    final private static int numStatusLines = 10;
     /**
      * message logger for this class
      */
@@ -184,6 +189,10 @@ public class DsEditOverlay extends SimpleAppState {
 
             case gammaCorrectionStatusLine:
                 toggleGammaCorrection();
+                break;
+
+            case locationStatusLine:
+                toggleCentered();
                 break;
 
             case msaaStatusLine:
@@ -335,6 +344,18 @@ public class DsEditOverlay extends SimpleAppState {
         boolean isFullScreen = proposedSettings.isFullscreen();
         message = "Full screen?  " + (isFullScreen ? "yes" : "no");
         updateStatusLine(fullScreenStatusLine, message);
+
+        boolean isCentered = proposedSettings.isCentered();
+        if (isCentered || isFullScreen || !DsUtils.isLWJGLv3()) {
+            message = "Location:  centered";
+        } else {
+            JmeContext context = simpleApplication.getContext();
+            int x = DsUtils.getWindowXPosition(context);
+            int y = DsUtils.getWindowYPosition(context);
+            proposedSettings.setStartLocation(x, y);
+            message = "Location:  (" + x + ", " + y + ")";
+        }
+        updateStatusLine(locationStatusLine, message);
 
         int width = proposedSettings.width();
         int height = proposedSettings.height();
@@ -523,6 +544,25 @@ public class DsEditOverlay extends SimpleAppState {
         int rate = proposedSettings.refreshRate();
         rate = AbstractDemo.advanceInt(rateArray, rate, amount);
         proposedSettings.setRefreshRate(rate);
+    }
+
+    /**
+     * Toggle center-on-start between enabled and disabled.
+     */
+    private void toggleCentered() {
+        boolean isFullScreen = proposedSettings.isFullscreen();
+        if (isFullScreen || !DsUtils.isLWJGLv3()) {
+            return;
+        }
+
+        boolean isCentered = proposedSettings.isCentered();
+        if (isCentered) { // switch to specifying screen coordinates
+            JmeContext context = simpleApplication.getContext();
+            int x = DsUtils.getWindowXPosition(context);
+            int y = DsUtils.getWindowYPosition(context);
+            proposedSettings.setStartLocation(x, y);
+        }
+        proposedSettings.setCentered(!isCentered);
     }
 
     /**
