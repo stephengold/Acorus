@@ -176,7 +176,7 @@ public class DsEditInputMode extends InputMode {
                 case asApplyChanges:
                     if (proposedSettings.canApply()
                             && !proposedSettings.areApplied()) {
-                        proposedSettings.applyToDisplay();
+                        proposedSettings.applyToContext();
                     }
                     return;
 

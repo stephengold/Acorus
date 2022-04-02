@@ -124,9 +124,9 @@ public class DisplaySettings {
 
     /**
      * Apply the cached settings to the graphics context and restart the context
-     * to put them into effect. TODO rename applyToContext
+     * to put them into effect.
      */
-    public void applyToDisplay() {
+    public void applyToContext() {
         assert canApply();
         assert !areApplied;
 
