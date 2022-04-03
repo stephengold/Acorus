@@ -479,6 +479,31 @@ public class DisplaySettings {
     }
 
     /**
+     * Attempt to load settings from user preferences (persistent storage). If
+     * successful, this reverts all properties to their last saved values.
+     *
+     * @return true if successful, otherwise false
+     */
+    public boolean load() {
+        boolean success = false;
+        try {
+            if (Preferences.userRoot().nodeExists(applicationName)) {
+                proposedSettings.load(applicationName);
+                areApplied = false;
+                areSaved = true;
+                success = true;
+            }
+        } catch (BackingStoreException exception) {
+        }
+
+        if (!success) {
+            logger.warning("Failed to load display settings.");
+        }
+
+        return success;
+    }
+
+    /**
      * Determine the sampling factor for multi-sample anti-aliasing (MSAA).
      *
      * @return sampling factor (in samples per pixel, &ge;0)
@@ -524,7 +549,7 @@ public class DisplaySettings {
     }
 
     /**
-     * Write the proposed settings to persistent storage, so they will take
+     * Write the proposed settings to persistent storage, so that they will take
      * effect the next time the application is launched.
      */
     public void save() {
@@ -532,8 +557,7 @@ public class DisplaySettings {
             proposedSettings.save(applicationName);
             areSaved = true;
         } catch (BackingStoreException e) {
-            String message = "Display settings were not saved.";
-            logger.warning(message);
+            logger.warning("Failed to save display settings.");
         }
     }
 
