@@ -203,6 +203,20 @@ public class DisplaySettings {
      */
     public boolean canApply() {
         boolean result = areValid();
+        /*
+         * With jme3-lwjgl, attemptying to switch from fullscreen mode to
+         * windowed mode causes an LWJGLException to be thrown.
+         * See JME issue #798.
+         */
+        if (!DsUtils.hasLwjglVersion3()) {
+            AppSettings currentSettings = application.getSettings();
+            boolean fromFullscreen = currentSettings.isFullscreen();
+            boolean toWindowed = !proposedSettings.isFullscreen();
+            if (fromFullscreen && toWindowed) {
+                result = false;
+            }
+        }
+
         return result;
     }
 
@@ -222,7 +236,22 @@ public class DisplaySettings {
      * @return message text (not null)
      */
     public String feedbackApplicable() {
-        return "";
+        String result = "";
+        /*
+         * With jme3-lwjgl, attemptying to switch from fullscreen mode to
+         * windowed mode causes an LWJGLException to be thrown.
+         * See JME issue #798.
+         */
+        if (!DsUtils.hasLwjglVersion3()) {
+            AppSettings currentSettings = application.getSettings();
+            boolean fromFullscreen = currentSettings.isFullscreen();
+            boolean toWindowed = !proposedSettings.isFullscreen();
+            if (fromFullscreen && toWindowed) {
+                result = "Can't exit fullscreen due to JME issue #798.";
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -802,6 +831,8 @@ public class DisplaySettings {
         assert result != null;
         return result;
     }
+    // *************************************************************************
+    // new private methods
 
     /**
      * Test whether the proposed settings match one or more of the default
@@ -817,23 +848,76 @@ public class DisplaySettings {
         int height = proposedSettings.getHeight();
         int width = proposedSettings.getWidth();
 
+        boolean hasLwjglVersion3 = DsUtils.hasLwjglVersion3();
         Iterable<DisplayMode> modes = DsUtils.listDisplayModes();
         for (DisplayMode mode : modes) {
-            int modeBitDepth = mode.getBitDepth();
-            if (modeBitDepth <= 0
-                    || bitDepth <= 0
-                    || modeBitDepth == bitDepth) {
+            if (hasLwjglVersion3) {
+                result = matchesAvailableDisplayMode3(
+                        mode, bitDepth, frequency, width, height);
+            } else {
+                result = matchesAvailableDisplayMode2(
+                        mode, bitDepth, frequency, width, height);
+            }
+            if (result) { // A single matching mode suffices.
+                break;
+            }
+        }
 
-                int modeFrequency = mode.getRefreshRate();
-                if (modeFrequency <= 0
-                        || frequency <= 0
-                        || modeFrequency == frequency) {
+        return result;
+    }
 
-                    if (mode.getWidth() == width
-                            && mode.getHeight() == height) {
-                        result = true;
-                        break;
-                    }
+    /**
+     * Display-mode matching algorithm for LWJGL v2.
+     *
+     * @param mode an available DisplayMode (not null, unaffected)
+     * @param depth the desired color depth (in bits per pixel)
+     * @param rate the desired refresh rate (in Hertz)
+     * @param width the desired display width (in pixels, &gt;0)
+     * @param height the desired display height (in pixels, &gt;0)
+     * @return true for a match, otherwise false
+     */
+    private boolean matchesAvailableDisplayMode2(DisplayMode mode, int depth,
+            int rate, int width, int height) {
+        boolean result = false;
+
+        int modeDepth = mode.getBitDepth();
+        if (modeDepth == depth || depth == 24 && modeDepth == 32) {
+
+            int modeRate = mode.getRefreshRate();
+            if (modeRate == rate || rate == 60 && modeRate == 59) {
+
+                if (mode.getWidth() == width && mode.getHeight() == height) {
+                    result = true;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Display-mode matching algorithm for LWJGL v3.
+     *
+     * @param mode an available DisplayMode (not null, unaffected)
+     * @param depth the desired color depth (in bits per pixel) or &le;0 for
+     * don't care
+     * @param rate the desired refresh rate (in Hertz) or &le;0 for don't care
+     * @param width the desired display width (in pixels, &gt;0)
+     * @param height the desired display height (in pixels, &gt;0)
+     * @return true for a match, otherwise false
+     */
+    private boolean matchesAvailableDisplayMode3(DisplayMode mode, int depth,
+            int rate, int width, int height) {
+        boolean result = false;
+
+        int modeDepth = mode.getBitDepth();
+        if (modeDepth <= 0 || depth <= 0 || modeDepth == depth) {
+
+            int modeRate = mode.getRefreshRate();
+            if (modeRate <= 0 || rate <= 0 || modeRate == rate) {
+
+                if (mode.getWidth() == width && mode.getHeight() == height) {
+                    result = true;
                 }
             }
         }
