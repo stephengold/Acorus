@@ -628,7 +628,7 @@ public class DsEditOverlay extends SimpleAppState {
             proposedSettings.scaleSize(0.8f, 0.8f);
 
         } else { // switch to full-screen mode
-            DisplayMode mode = DsUtils.getDisplayMode();
+            DisplayMode mode = DsUtils.displayMode();
             rate = mode.getRefreshRate();
             if (rate <= 0) {
                 rate = 60;

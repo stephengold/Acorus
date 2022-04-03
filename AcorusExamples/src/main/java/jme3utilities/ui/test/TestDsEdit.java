@@ -178,7 +178,7 @@ public class TestDsEdit extends AbstractDemo {
                     mode.getBitDepth(), mode.getRefreshRate());
         }
 
-        DisplayMode mode = DsUtils.getDisplayMode();
+        DisplayMode mode = DsUtils.displayMode();
         System.out.printf("Current mode:  %d x %d, %d bits, %d Hz\n",
                 mode.getWidth(), mode.getHeight(),
                 mode.getBitDepth(), mode.getRefreshRate());

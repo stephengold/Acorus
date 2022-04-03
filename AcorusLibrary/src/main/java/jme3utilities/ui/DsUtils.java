@@ -112,7 +112,7 @@ final public class DsUtils {
      *
      * @return a new instance (not null)
      */
-    public static DisplayMode getDisplayMode() {
+    public static DisplayMode displayMode() {
         DisplayMode result;
 
         try { // accessing GLFW via reflection of LWJGL v3
@@ -141,7 +141,7 @@ final public class DsUtils {
     }
 
     /**
-     * Enumerate the default monitor's available display modes.
+     * Enumerate the default monitor's available display modes. TODO rename listDisplayModes?
      *
      * @return a new list of modes (not null)
      */
@@ -198,7 +198,7 @@ final public class DsUtils {
     }
 
     /**
-     * Access the array of MSAA sampling factors.
+     * Obtain an array of MSAA sampling factors. TODO rename listMsaaFactors?
      *
      * @return a new array (in ascending order)
      */
@@ -284,7 +284,7 @@ final public class DsUtils {
     }
 
     /**
-     * Test whether jme3-lwjgl3 is in the classpath.
+     * Test whether jme3-lwjgl3 is in the classpath. TODO rename hasLWJGLv3
      *
      * @return true if present, otherwise false
      */
