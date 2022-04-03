@@ -68,6 +68,156 @@ final public class DsUtils {
      */
     final private static Pattern dimensionsPattern
             = Pattern.compile("^\\s*(\\d+)\\s*[x,]\\s*(\\d+)\\s*");
+
+    final private static boolean hasLwjglVersion2;
+    final private static boolean hasLwjglVersion3;
+    final private static Field lwjglListenerField;
+    final private static Field nullListenerField;
+
+    final private static Method get;
+    final private static Method getBitsPerPixel;
+    final private static Method getBlueBits;
+    final private static Method getFramebufferSize;
+    final private static Method getFrequency;
+    final private static Method getGreenBits;
+    final private static Method getHandle;
+    final private static Method getHeight;
+    final private static Method getMode;
+    final private static Method getModeHeight;
+    final private static Method getModeWidth;
+    final private static Method getModes;
+    final private static Method getPrimaryMonitor;
+    final private static Method getRedBits;
+    final private static Method getWidth;
+    final private static Method getWindowPos;
+    final private static Method getX;
+    final private static Method getY;
+    final private static Method hasRemaining;
+
+    static {
+        boolean foundVersion2;
+        try {
+            Class.forName("org.lwjgl.opengl.Display");
+            foundVersion2 = true;
+        } catch (ClassNotFoundException exception) {
+            foundVersion2 = false;
+        }
+        hasLwjglVersion2 = foundVersion2;
+
+        boolean foundVersion3;
+        try {
+            Class.forName("com.jme3.system.lwjgl.LwjglWindow");
+            foundVersion3 = true;
+        } catch (ClassNotFoundException exception) {
+            foundVersion3 = false;
+        }
+        hasLwjglVersion3 = foundVersion3;
+
+        try {
+            Class<?> contextClass
+                    = Class.forName("com.jme3.system.lwjgl.LwjglContext");
+            lwjglListenerField = contextClass.getDeclaredField("listener");
+            lwjglListenerField.setAccessible(true);
+
+            nullListenerField = NullContext.class.getDeclaredField("listener");
+            nullListenerField.setAccessible(true);
+
+            if (foundVersion2) {
+                get = null;
+                getBlueBits = null;
+                getFramebufferSize = null;
+                getGreenBits = null;
+                getHandle = null;
+                getPrimaryMonitor = null;
+                getRedBits = null;
+                getWindowPos = null;
+                hasRemaining = null;
+
+                Class<?> displayClass
+                        = Class.forName("org.lwjgl.opengl.Display");
+                getHeight = displayClass.getDeclaredMethod("getHeight");
+                getMode = displayClass.getDeclaredMethod(
+                        "getDesktopDisplayMode");
+                getModes = displayClass.getDeclaredMethod(
+                        "getAvailableDisplayModes");
+                getWidth = displayClass.getDeclaredMethod("getWidth");
+                getX = displayClass.getDeclaredMethod("getX");
+                getY = displayClass.getDeclaredMethod("getY");
+
+                Class<?> displayModeClass = Class.forName(
+                        "org.lwjgl.opengl.DisplayMode");
+                getBitsPerPixel
+                        = displayModeClass.getDeclaredMethod("getBitsPerPixel");
+                getFrequency
+                        = displayModeClass.getDeclaredMethod("getFrequency");
+                getModeHeight = displayModeClass.getDeclaredMethod("getHeight");
+                getModeWidth = displayModeClass.getDeclaredMethod("getWidth");
+
+            } else if (foundVersion3) {
+                getBitsPerPixel = null;
+                getHeight = null;
+                getWidth = null;
+                getX = null;
+                getY = null;
+
+                Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+                getFramebufferSize = glfwClass.getDeclaredMethod(
+                        "glfwGetFramebufferSize",
+                        long.class, int[].class, int[].class);
+                getMode = glfwClass.getDeclaredMethod(
+                        "glfwGetVideoMode", long.class);
+                getModes = glfwClass.getDeclaredMethod(
+                        "glfwGetVideoModes", long.class);
+                getPrimaryMonitor = glfwClass.getDeclaredMethod(
+                        "glfwGetPrimaryMonitor");
+                getWindowPos = glfwClass.getDeclaredMethod("glfwGetWindowPos",
+                        long.class, int[].class, int[].class);
+
+                Class<?> vidModeClass
+                        = Class.forName("org.lwjgl.glfw.GLFWVidMode");
+                getBlueBits = vidModeClass.getDeclaredMethod("blueBits");
+                getFrequency = vidModeClass.getDeclaredMethod("refreshRate");
+                getGreenBits = vidModeClass.getDeclaredMethod("greenBits");
+                getModeHeight = vidModeClass.getDeclaredMethod("height");
+                getModeWidth = vidModeClass.getDeclaredMethod("width");
+                getRedBits = vidModeClass.getDeclaredMethod("redBits");
+
+                Class<?>[] vmInnerClasses = vidModeClass.getDeclaredClasses();
+                assert vmInnerClasses.length == 1 : vmInnerClasses.length;
+                Class<?> vmBufferClass = vmInnerClasses[0];
+                get = vmBufferClass.getMethod("get");
+                hasRemaining = vmBufferClass.getMethod("hasRemaining");
+
+                Class<?> windowClass = Class.forName(
+                        "com.jme3.system.lwjgl.LwjglWindow");
+                getHandle = windowClass.getDeclaredMethod("getWindowHandle");
+
+            } else { // LWJGL not found
+                get = null;
+                getBitsPerPixel = null;
+                getBlueBits = null;
+                getFramebufferSize = null;
+                getFrequency = null;
+                getGreenBits = null;
+                getHandle = null;
+                getHeight = null;
+                getMode = null;
+                getModeHeight = null;
+                getModeWidth = null;
+                getModes = null;
+                getPrimaryMonitor = null;
+                getRedBits = null;
+                getWidth = null;
+                getWindowPos = null;
+                getX = null;
+                getY = null;
+                hasRemaining = null;
+            }
+        } catch (ClassNotFoundException | NoSuchFieldException
+                | NoSuchMethodException | SecurityException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
     // *************************************************************************
     // constructors
 
@@ -133,9 +283,6 @@ final public class DsUtils {
         DisplayMode result;
 
         try { // via reflection of LWJGL v2
-            Class<?> displayClass = Class.forName("org.lwjgl.opengl.Display");
-            Method getMode = displayClass.getDeclaredMethod(
-                    "getDesktopDisplayMode");
 
             // DisplayMode glMode = Display.getDesktopDisplayMode();
             Object glMode = getMode.invoke(null);
@@ -143,28 +290,21 @@ final public class DsUtils {
             result = makeDisplayMode2(glMode);
             return result;
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | InvocationTargetException | NoSuchMethodException exception) {
+        } catch (IllegalArgumentException | IllegalAccessException
+                | InvocationTargetException exception) {
         }
 
         try { // accessing GLFW via reflection of LWJGL v3
-            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-            Method getMonitor = glfwClass.getDeclaredMethod(
-                    "glfwGetPrimaryMonitor");
-            Method getMode = glfwClass.getDeclaredMethod(
-                    "glfwGetVideoMode", long.class);
 
             // long monitorId = GLFW.glfwGetPrimaryMonitor();
-            Object monitorId = getMonitor.invoke(null);
+            Object monitorId = getPrimaryMonitor.invoke(null);
 
             // GLFWVidMode vidMode = GLFW.glfwGetVideoMode(monitorId);
             Object vidMode = getMode.invoke(null, monitorId);
 
             result = makeDisplayMode3(vidMode);
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (IllegalAccessException | InvocationTargetException exception) {
             // use AWT
             GraphicsEnvironment environment
                     = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -183,44 +323,30 @@ final public class DsUtils {
      */
     public static int framebufferHeight(JmeContext context) {
         try { // via reflection of LWJGL v2
-            Class<?> displayClass
-                    = Class.forName("org.lwjgl.opengl.Display");
-            Method getHeight = displayClass.getDeclaredMethod("getHeight");
 
             // result = Display.getWidth();
             int result = (Integer) getHeight.invoke(null);
             return result;
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (IllegalAccessException | InvocationTargetException
+                | NullPointerException exception) {
         }
 
         int width[] = new int[1];
         int height[] = new int[1];
 
         try { // accessing GLFW via reflection of LWJGL v3
-            Class<?> windowClass
-                    = Class.forName("com.jme3.system.lwjgl.LwjglWindow");
-            Method getHandle = windowClass.getDeclaredMethod("getWindowHandle");
-
-            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-            Method getSize = glfwClass.getDeclaredMethod(
-                    "glfwGetFramebufferSize",
-                    long.class, int[].class, int[].class);
 
             // long windowId = context.getWindowHandle();
             Object windowId = getHandle.invoke(context);
 
-            // GLFW.glfwGetWindowPos(windowId, x, y);
-            getSize.invoke(null, windowId, width, height);
+            // GLFW.glfwGetFramebufferSize(windowId, x, y);
+            getFramebufferSize.invoke(null, windowId, width, height);
 
             int result = height[0];
             return result;
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (IllegalAccessException | InvocationTargetException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -233,44 +359,30 @@ final public class DsUtils {
      */
     public static int framebufferWidth(JmeContext context) {
         try { // via reflection of LWJGL v2
-            Class<?> displayClass
-                    = Class.forName("org.lwjgl.opengl.Display");
-            Method getWidth = displayClass.getDeclaredMethod("getWidth");
 
             // result = Display.getWidth();
             int result = (Integer) getWidth.invoke(null);
             return result;
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (IllegalAccessException | InvocationTargetException
+                | NullPointerException exception) {
         }
 
         int width[] = new int[1];
         int height[] = new int[1];
 
         try { // accessing GLFW via reflection of LWJGL v3
-            Class<?> windowClass
-                    = Class.forName("com.jme3.system.lwjgl.LwjglWindow");
-            Method getHandle = windowClass.getDeclaredMethod("getWindowHandle");
-
-            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-            Method getSize = glfwClass.getDeclaredMethod(
-                    "glfwGetFramebufferSize",
-                    long.class, int[].class, int[].class);
 
             // long windowId = context.getWindowHandle();
             Object windowId = getHandle.invoke(context);
 
-            // GLFW.glfwGetWindowPos(windowId, x, y);
-            getSize.invoke(null, windowId, width, height);
+            // GLFW.glfwGetFramebufferSize(windowId, x, y);
+            getFramebufferSize.invoke(null, windowId, width, height);
 
             int result = width[0];
             return result;
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (IllegalAccessException | InvocationTargetException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -281,14 +393,7 @@ final public class DsUtils {
      * @return true if present, otherwise false
      */
     public static boolean hasLwjglVersion3() {
-        boolean result = true;
-        try {
-            Class.forName("com.jme3.system.lwjgl.LwjglWindow");
-        } catch (ClassNotFoundException exception) {
-            result = false;
-        }
-
-        return result;
+        return hasLwjglVersion3;
     }
 
     /**
@@ -302,26 +407,17 @@ final public class DsUtils {
 
         if (context instanceof NullContext) {
             try { // via reflection of NullContext
-                Class<?> contextClass = NullContext.class;
-                Field listenerField = contextClass.getDeclaredField("listener");
-                listenerField.setAccessible(true);
-                result = (SystemListener) listenerField.get(context);
+                result = (SystemListener) nullListenerField.get(context);
 
-            } catch (IllegalAccessException | IllegalArgumentException
-                    | NoSuchFieldException | SecurityException exception) {
+            } catch (IllegalAccessException exception) {
                 throw new RuntimeException(exception);
             }
         }
 
         try { // via reflection of LwjglContext
-            Class<?> contextClass
-                    = Class.forName("com.jme3.system.lwjgl.LwjglContext");
-            Field listenerField = contextClass.getDeclaredField("listener");
-            listenerField.setAccessible(true);
-            result = (SystemListener) listenerField.get(context);
+            result = (SystemListener) lwjglListenerField.get(context);
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | NoSuchFieldException | SecurityException exception) {
+        } catch (IllegalAccessException exception) {
             throw new RuntimeException(exception);
         }
 
@@ -337,9 +433,6 @@ final public class DsUtils {
         List<DisplayMode> result;
 
         try { // via reflection of LWJGL v2
-            Class<?> displayClass = Class.forName("org.lwjgl.opengl.Display");
-            Method getModes = displayClass.getDeclaredMethod(
-                    "getAvailableDisplayModes");
 
             // DisplayMode[] glModes = Display.getAvailableDisplayModes();
             Object[] glModes = (Object[]) getModes.invoke(null);
@@ -352,26 +445,14 @@ final public class DsUtils {
             logger.info("used reflection of LWJGL v2");
             return result;
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | InvocationTargetException | NoSuchMethodException exception) {
+        } catch (IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException exception) {
         }
 
         try { // accessing GLFW via reflection of LWJGL v3
-            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-            Method getMonitor = glfwClass.getDeclaredMethod(
-                    "glfwGetPrimaryMonitor");
-            Method getModes = glfwClass.getDeclaredMethod(
-                    "glfwGetVideoModes", long.class);
-
-            Class<?> vidModeClass = Class.forName("org.lwjgl.glfw.GLFWVidMode");
-            Class<?>[] innerClasses = vidModeClass.getDeclaredClasses();
-            assert innerClasses.length == 1 : innerClasses.length;
-            Class<?> vmBuffer = innerClasses[0];
-            Method get = vmBuffer.getMethod("get");
-            Method hasRemaining = vmBuffer.getMethod("hasRemaining");
 
             // long monitorId = GLFW.glfwGetPrimaryMonitor();
-            Object monitorId = getMonitor.invoke(null);
+            Object monitorId = getPrimaryMonitor.invoke(null);
 
             // GLFWVidMode.Buffer buf = GLFW.glfwGetVideoModes(monitorId);
             Object buf = getModes.invoke(null, monitorId);
@@ -389,9 +470,7 @@ final public class DsUtils {
             }
             logger.info("used GLFW via reflection of LWJGL v3");
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (IllegalAccessException | InvocationTargetException exception) {
             if (logger.isLoggable(Level.WARNING)) {
                 logger.log(Level.WARNING,
                         "using AWT due to {0}", exception.toString());
@@ -466,43 +545,30 @@ final public class DsUtils {
      */
     public static int windowXPosition(JmeContext context) {
         try { // via reflection of LWJGL v2
-            Class<?> displayClass
-                    = Class.forName("org.lwjgl.opengl.Display");
-            Method getX = displayClass.getDeclaredMethod("getX");
 
             // result = Display.getX();
             int result = (Integer) getX.invoke(null);
             return result;
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (IllegalAccessException | InvocationTargetException
+                | NullPointerException exception) {
         }
 
         int x[] = new int[1];
         int y[] = new int[1];
 
         try { // accessing GLFW via reflection of LWJGL v3
-            Class<?> windowClass
-                    = Class.forName("com.jme3.system.lwjgl.LwjglWindow");
-            Method getHandle = windowClass.getDeclaredMethod("getWindowHandle");
-
-            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-            Method getPos = glfwClass.getDeclaredMethod("glfwGetWindowPos",
-                    long.class, int[].class, int[].class);
 
             // long windowId = context.getWindowHandle();
             Object windowId = getHandle.invoke(context);
 
             // GLFW.glfwGetWindowPos(windowId, x, y);
-            getPos.invoke(null, windowId, x, y);
+            getWindowPos.invoke(null, windowId, x, y);
 
             int result = x[0];
             return result;
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (IllegalAccessException | InvocationTargetException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -516,43 +582,30 @@ final public class DsUtils {
      */
     public static int windowYPosition(JmeContext context) {
         try { // via reflection of LWJGL v2
-            Class<?> displayClass
-                    = Class.forName("org.lwjgl.opengl.Display");
-            Method getY = displayClass.getDeclaredMethod("getY");
 
             // result = Display.getY();
             int result = (Integer) getY.invoke(null);
             return result;
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (IllegalAccessException | InvocationTargetException
+                | NullPointerException exception) {
         }
 
         int x[] = new int[1];
         int y[] = new int[1];
 
         try { // accessing GLFW via reflection of LWJGL v3
-            Class<?> windowClass
-                    = Class.forName("com.jme3.system.lwjgl.LwjglWindow");
-            Method getHandle = windowClass.getDeclaredMethod("getWindowHandle");
-
-            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-            Method getPos = glfwClass.getDeclaredMethod("glfwGetWindowPos",
-                    long.class, int[].class, int[].class);
 
             // long windowId = context.getWindowHandle();
             Object windowId = getHandle.invoke(context);
 
             // GLFW.glfwGetWindowPos(windowId, x, y);
-            getPos.invoke(null, windowId, x, y);
+            getWindowPos.invoke(null, windowId, x, y);
 
             int result = y[0];
             return result;
 
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (IllegalAccessException | InvocationTargetException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -572,23 +625,17 @@ final public class DsUtils {
      * @throws NoSuchMethodException ?
      */
     private static DisplayMode makeDisplayMode2(Object glMode)
-            throws ClassNotFoundException, IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException {
-        Class<?> vidModeClass = Class.forName("org.lwjgl.opengl.DisplayMode");
-
-        Method getBits = vidModeClass.getDeclaredMethod("getBitsPerPixel");
-        Method getFrequency = vidModeClass.getDeclaredMethod("getFrequency");
-        Method getHeight = vidModeClass.getDeclaredMethod("getHeight");
-        Method getWidth = vidModeClass.getDeclaredMethod("getWidth");
+            throws IllegalAccessException, InvocationTargetException {
+        assert hasLwjglVersion2;
 
         // int width = glMode.getWidth();
-        int width = (Integer) getWidth.invoke(glMode);
+        int width = (Integer) getModeWidth.invoke(glMode);
 
         // int height = glMode.getHeight();
-        int height = (Integer) getHeight.invoke(glMode);
+        int height = (Integer) getModeHeight.invoke(glMode);
 
         // int bitDepth = glMode.getBitsPerPixel();
-        int bitDepth = (Integer) getBits.invoke(glMode);
+        int bitDepth = (Integer) getBitsPerPixel.invoke(glMode);
 
         // int rate = glMode.getFrequency();
         int rate = (Integer) getFrequency.invoke(glMode);
@@ -610,22 +657,14 @@ final public class DsUtils {
      * @throws NoSuchMethodException ?
      */
     private static DisplayMode makeDisplayMode3(Object glfwVidMode)
-            throws ClassNotFoundException, IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException {
-        Class<?> vidModeClass = Class.forName("org.lwjgl.glfw.GLFWVidMode");
-
-        Method getBlueBits = vidModeClass.getDeclaredMethod("blueBits");
-        Method getGreenBits = vidModeClass.getDeclaredMethod("greenBits");
-        Method getHeight = vidModeClass.getDeclaredMethod("height");
-        Method getRedBits = vidModeClass.getDeclaredMethod("redBits");
-        Method getRate = vidModeClass.getDeclaredMethod("refreshRate");
-        Method getWidth = vidModeClass.getDeclaredMethod("width");
+            throws IllegalAccessException, InvocationTargetException {
+        assert hasLwjglVersion3;
 
         // int width = glfwVidMode.width();
-        int width = (Integer) getWidth.invoke(glfwVidMode);
+        int width = (Integer) getModeWidth.invoke(glfwVidMode);
 
         // int height = glfwVidMode.height();
-        int height = (Integer) getHeight.invoke(glfwVidMode);
+        int height = (Integer) getModeHeight.invoke(glfwVidMode);
 
         // int redBits = glfwVidMode.redBits();
         int redBits = (Integer) getRedBits.invoke(glfwVidMode);
@@ -637,7 +676,7 @@ final public class DsUtils {
         int blueBits = (Integer) getBlueBits.invoke(glfwVidMode);
 
         // int rate = glfwVidMode.refreshRate();
-        int rate = (Integer) getRate.invoke(glfwVidMode);
+        int rate = (Integer) getFrequency.invoke(glfwVidMode);
 
         int bitDepth = redBits + greenBits + blueBits;
         DisplayMode result = new DisplayMode(width, height, bitDepth, rate);
