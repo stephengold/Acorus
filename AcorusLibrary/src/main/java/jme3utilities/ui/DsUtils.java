@@ -141,63 +141,6 @@ final public class DsUtils {
     }
 
     /**
-     * Enumerate the default monitor's available display modes.
-     *
-     * @return a new list of modes (not null)
-     */
-    public static List<DisplayMode> listDisplayModes() {
-        List<DisplayMode> result;
-
-        try { // accessing GLFW via reflection of LWJGL v3
-            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-            Method getMonitor = glfwClass.getDeclaredMethod(
-                    "glfwGetPrimaryMonitor");
-            Method getModes = glfwClass.getDeclaredMethod(
-                    "glfwGetVideoModes", long.class);
-
-            Class<?> vidModeClass = Class.forName("org.lwjgl.glfw.GLFWVidMode");
-            Class<?>[] innerClasses = vidModeClass.getDeclaredClasses();
-            assert innerClasses.length == 1 : innerClasses.length;
-            Class<?> vmBuffer = innerClasses[0];
-            Method get = vmBuffer.getMethod("get");
-            Method hasRemaining = vmBuffer.getMethod("hasRemaining");
-
-            // long monitorId = GLFW.glfwGetPrimaryMonitor();
-            Object monitorId = getMonitor.invoke(null);
-
-            // GLFWVidMode.Buffer buf = GLFW.glfwGetVideoModes(monitorId);
-            Object buf = getModes.invoke(null, monitorId);
-
-            result = new ArrayList<>(32);
-
-            // while (buf.hasRemaining()) {
-            while ((Boolean) hasRemaining.invoke(buf)) {
-
-                // GLFWVidMode vidMode = modes.get();
-                Object vidMode = get.invoke(buf);
-
-                DisplayMode mode = makeDisplayMode(vidMode);
-                result.add(mode);
-            }
-            logger.info("used GLFW via reflection of LWJGL v3");
-
-        } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException exception) {
-            logger.warning("using AWT due to " + exception.toString());
-
-            // LWJGL v3 is unavailable, so use AWT instead.
-            GraphicsEnvironment environment
-                    = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            GraphicsDevice device = environment.getDefaultScreenDevice();
-            DisplayMode[] modeArray = device.getDisplayModes();
-            result = Arrays.asList(modeArray);
-        }
-
-        return result;
-    }
-
-    /**
      * Obtain an array of MSAA sampling factors. TODO rename listMsaaFactors?
      *
      * @return a new array (in ascending order)
@@ -294,6 +237,63 @@ final public class DsUtils {
             Class.forName("com.jme3.system.lwjgl.LwjglWindow");
         } catch (ClassNotFoundException exception) {
             result = false;
+        }
+
+        return result;
+    }
+
+    /**
+     * Enumerate the default monitor's available display modes.
+     *
+     * @return a new list of modes (not null)
+     */
+    public static List<DisplayMode> listDisplayModes() {
+        List<DisplayMode> result;
+
+        try { // accessing GLFW via reflection of LWJGL v3
+            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+            Method getMonitor = glfwClass.getDeclaredMethod(
+                    "glfwGetPrimaryMonitor");
+            Method getModes = glfwClass.getDeclaredMethod(
+                    "glfwGetVideoModes", long.class);
+
+            Class<?> vidModeClass = Class.forName("org.lwjgl.glfw.GLFWVidMode");
+            Class<?>[] innerClasses = vidModeClass.getDeclaredClasses();
+            assert innerClasses.length == 1 : innerClasses.length;
+            Class<?> vmBuffer = innerClasses[0];
+            Method get = vmBuffer.getMethod("get");
+            Method hasRemaining = vmBuffer.getMethod("hasRemaining");
+
+            // long monitorId = GLFW.glfwGetPrimaryMonitor();
+            Object monitorId = getMonitor.invoke(null);
+
+            // GLFWVidMode.Buffer buf = GLFW.glfwGetVideoModes(monitorId);
+            Object buf = getModes.invoke(null, monitorId);
+
+            result = new ArrayList<>(32);
+
+            // while (buf.hasRemaining()) {
+            while ((Boolean) hasRemaining.invoke(buf)) {
+
+                // GLFWVidMode vidMode = modes.get();
+                Object vidMode = get.invoke(buf);
+
+                DisplayMode mode = makeDisplayMode(vidMode);
+                result.add(mode);
+            }
+            logger.info("used GLFW via reflection of LWJGL v3");
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
+            logger.warning("using AWT due to " + exception.toString());
+
+            // LWJGL v3 is unavailable, so use AWT instead.
+            GraphicsEnvironment environment
+                    = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice device = environment.getDefaultScreenDevice();
+            DisplayMode[] modeArray = device.getDisplayModes();
+            result = Arrays.asList(modeArray);
         }
 
         return result;
