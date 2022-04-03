@@ -183,6 +183,17 @@ public class TestDsEdit extends AbstractDemo {
                 mode.getWidth(), mode.getHeight(),
                 mode.getBitDepth(), mode.getRefreshRate());
 
+        boolean v3 = DsUtils.hasLwjglVersion3();
+        System.out.printf("LWJGL v3 is %s.\n", v3);
+
+        int fbWidth = DsUtils.framebufferWidth(context);
+        int fbHeight = DsUtils.framebufferHeight(context);
+        System.out.printf("Framebuffer:  %d x %d\n", fbWidth, fbHeight);
+
+        int x = DsUtils.windowXPosition(context);
+        int y = DsUtils.windowYPosition(context);
+        System.out.printf("Window position:  x=%d, y=%d\n", x, y);
+
         System.out.flush();
     }
 
