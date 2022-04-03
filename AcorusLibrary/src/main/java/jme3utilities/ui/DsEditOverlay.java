@@ -460,7 +460,7 @@ public class DsEditOverlay extends SimpleAppState {
             }
         }
         if (depthSet.isEmpty()) {
-            depthSet.add(DisplayMode.BIT_DEPTH_MULTI);
+            depthSet.add(24);
         }
         int[] depthArray = new int[depthSet.size()];
         int index = 0;
