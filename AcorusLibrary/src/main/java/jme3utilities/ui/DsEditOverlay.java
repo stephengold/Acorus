@@ -94,13 +94,17 @@ public class DsEditOverlay extends SimpleAppState {
      */
     final private static int msaaStatusLine = 8;
     /**
+     * index of the status line for graphics API
+     */
+    final private static int apiStatusLine = 9;
+    /**
      * index of the status line for refresh rate
      */
-    final private static int refreshRateStatusLine = 9;
+    final private static int refreshRateStatusLine = 10;
     /**
      * number of lines of text in the overlay
      */
-    final private static int numStatusLines = 10;
+    final private static int numStatusLines = 11;
     /**
      * message logger for this class
      */
@@ -175,6 +179,10 @@ public class DsEditOverlay extends SimpleAppState {
      */
     void advanceValue(int amount) {
         switch (selectedLine) {
+            case apiStatusLine:
+                advanceGraphicsApi(amount);
+                break;
+
             case colorDepthStatusLine:
                 advanceColorDepth(amount);
                 break;
@@ -383,6 +391,10 @@ public class DsEditOverlay extends SimpleAppState {
         message = "MSAA factor:  " + DsUtils.describeMsaaFactor(msaaFactor);
         updateStatusLine(msaaStatusLine, message);
 
+        String api = proposedSettings.graphicsAPI();
+        message = "Graphics API:  " + api;
+        updateStatusLine(apiStatusLine, message);
+
         message = "";
         if (isFullScreen) {
             int refreshRate = proposedSettings.refreshRate();
@@ -493,6 +505,19 @@ public class DsEditOverlay extends SimpleAppState {
 
         int[] wh = DsUtils.parseDisplaySize(description);
         proposedSettings.setDimensions(wh[0], wh[1]);
+    }
+
+    /**
+     * Advance the graphics API by the specified amount.
+     *
+     * @param amount the number of values to advance (may be negative)
+     */
+    private void advanceGraphicsApi(int amount) {
+        String[] values = DisplaySettings.listGraphicsApis();
+        String api = proposedSettings.graphicsAPI();
+
+        api = AbstractDemo.advanceString(values, api, amount);
+        proposedSettings.setGraphicsApi(api);
     }
 
     /**
