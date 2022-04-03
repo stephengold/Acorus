@@ -284,11 +284,11 @@ final public class DsUtils {
     }
 
     /**
-     * Test whether jme3-lwjgl3 is in the classpath. TODO rename hasLWJGLv3
+     * Test whether jme3-lwjgl3 is in the classpath.
      *
      * @return true if present, otherwise false
      */
-    public static boolean isLWJGLv3() {
+    public static boolean hasLwjglVersion3() {
         boolean result = true;
         try {
             Class.forName("com.jme3.system.lwjgl.LwjglWindow");

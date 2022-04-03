@@ -370,7 +370,7 @@ public class DsEditOverlay extends SimpleAppState {
         updateStatusLine(fullScreenStatusLine, message);
 
         boolean isCentered = proposedSettings.isCentered();
-        if (isCentered || isFullScreen || !DsUtils.isLWJGLv3()) {
+        if (isCentered || isFullScreen || !DsUtils.hasLwjglVersion3()) {
             message = "Location:  centered";
         } else {
             JmeContext context = simpleApplication.getContext();
@@ -600,7 +600,7 @@ public class DsEditOverlay extends SimpleAppState {
      */
     private void toggleCentered() {
         boolean isFullScreen = proposedSettings.isFullscreen();
-        if (isFullScreen || !DsUtils.isLWJGLv3()) {
+        if (isFullScreen || !DsUtils.hasLwjglVersion3()) {
             return;
         }
 
