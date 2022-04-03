@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -282,30 +281,13 @@ final public class DsUtils {
     public static DisplayMode displayMode() {
         DisplayMode result;
 
-        try { // via reflection of LWJGL v2
+        if (hasLwjglVersion2) {
+            result = displayMode2();
 
-            // DisplayMode glMode = Display.getDesktopDisplayMode();
-            Object glMode = getMode.invoke(null);
+        } else if (hasLwjglVersion3) {
+            result = displayMode3();
 
-            result = makeDisplayMode2(glMode);
-            return result;
-
-        } catch (IllegalArgumentException | IllegalAccessException
-                | InvocationTargetException exception) {
-        }
-
-        try { // accessing GLFW via reflection of LWJGL v3
-
-            // long monitorId = GLFW.glfwGetPrimaryMonitor();
-            Object monitorId = getPrimaryMonitor.invoke(null);
-
-            // GLFWVidMode vidMode = GLFW.glfwGetVideoMode(monitorId);
-            Object vidMode = getMode.invoke(null, monitorId);
-
-            result = makeDisplayMode3(vidMode);
-
-        } catch (IllegalAccessException | InvocationTargetException exception) {
-            // use AWT
+        } else { // use AWT
             GraphicsEnvironment environment
                     = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice device = environment.getDefaultScreenDevice();
@@ -322,33 +304,15 @@ final public class DsUtils {
      * @return the height (in pixels)
      */
     public static int framebufferHeight(JmeContext context) {
-        try { // via reflection of LWJGL v2
+        int result = 0;
+        if (hasLwjglVersion2) {
+            result = framebufferHeight2();
 
-            // result = Display.getWidth();
-            int result = (Integer) getHeight.invoke(null);
-            return result;
-
-        } catch (IllegalAccessException | InvocationTargetException
-                | NullPointerException exception) {
+        } else if (hasLwjglVersion3) {
+            result = framebufferHeight3(context);
         }
 
-        int width[] = new int[1];
-        int height[] = new int[1];
-
-        try { // accessing GLFW via reflection of LWJGL v3
-
-            // long windowId = context.getWindowHandle();
-            Object windowId = getHandle.invoke(context);
-
-            // GLFW.glfwGetFramebufferSize(windowId, x, y);
-            getFramebufferSize.invoke(null, windowId, width, height);
-
-            int result = height[0];
-            return result;
-
-        } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
-        }
+        return result;
     }
 
     /**
@@ -358,31 +322,34 @@ final public class DsUtils {
      * @return the width (in pixels)
      */
     public static int framebufferWidth(JmeContext context) {
-        try { // via reflection of LWJGL v2
+        int result = 0;
+        if (hasLwjglVersion2) {
+            result = framebufferWidth2();
 
-            // result = Display.getWidth();
-            int result = (Integer) getWidth.invoke(null);
-            return result;
-
-        } catch (IllegalAccessException | InvocationTargetException
-                | NullPointerException exception) {
+        } else if (hasLwjglVersion3) {
+            result = framebufferWidth3(context);
         }
 
-        int width[] = new int[1];
-        int height[] = new int[1];
+        return result;
+    }
 
-        try { // accessing GLFW via reflection of LWJGL v3
-
-            // long windowId = context.getWindowHandle();
-            Object windowId = getHandle.invoke(context);
-
-            // GLFW.glfwGetFramebufferSize(windowId, x, y);
-            getFramebufferSize.invoke(null, windowId, width, height);
-
-            int result = width[0];
+    /**
+     * Access the system listener of the specified context.
+     *
+     * @param context (not null, unaffected)
+     * @return the pre-existing instance
+     */
+    public static SystemListener getSystemListener(JmeContext context) {
+        try {
+            SystemListener result;
+            if (context instanceof NullContext) {
+                result = (SystemListener) nullListenerField.get(context);
+            } else {
+                result = (SystemListener) lwjglListenerField.get(context);
+            }
             return result;
 
-        } catch (IllegalAccessException | InvocationTargetException exception) {
+        } catch (IllegalAccessException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -397,85 +364,17 @@ final public class DsUtils {
     }
 
     /**
-     * Access the system listener of the specified context.
-     *
-     * @param context (not null, unaffected)
-     * @return the pre-existing instance
-     */
-    public static SystemListener getSystemListener(JmeContext context) {
-        SystemListener result;
-
-        if (context instanceof NullContext) {
-            try { // via reflection of NullContext
-                result = (SystemListener) nullListenerField.get(context);
-
-            } catch (IllegalAccessException exception) {
-                throw new RuntimeException(exception);
-            }
-        }
-
-        try { // via reflection of LwjglContext
-            result = (SystemListener) lwjglListenerField.get(context);
-
-        } catch (IllegalAccessException exception) {
-            throw new RuntimeException(exception);
-        }
-
-        return result;
-    }
-
-    /**
      * Enumerate the default monitor's available display modes.
      *
      * @return a new list of modes (not null)
      */
     public static List<DisplayMode> listDisplayModes() {
         List<DisplayMode> result;
-
-        try { // via reflection of LWJGL v2
-
-            // DisplayMode[] glModes = Display.getAvailableDisplayModes();
-            Object[] glModes = (Object[]) getModes.invoke(null);
-
-            result = new ArrayList<>(glModes.length);
-            for (Object glMode : glModes) {
-                DisplayMode mode = makeDisplayMode2(glMode);
-                result.add(mode);
-            }
-            logger.info("used reflection of LWJGL v2");
-            return result;
-
-        } catch (IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException exception) {
-        }
-
-        try { // accessing GLFW via reflection of LWJGL v3
-
-            // long monitorId = GLFW.glfwGetPrimaryMonitor();
-            Object monitorId = getPrimaryMonitor.invoke(null);
-
-            // GLFWVidMode.Buffer buf = GLFW.glfwGetVideoModes(monitorId);
-            Object buf = getModes.invoke(null, monitorId);
-
-            result = new ArrayList<>(32);
-
-            // while (buf.hasRemaining()) {
-            while ((Boolean) hasRemaining.invoke(buf)) {
-
-                // GLFWVidMode vidMode = modes.get();
-                Object vidMode = get.invoke(buf);
-
-                DisplayMode mode = makeDisplayMode3(vidMode);
-                result.add(mode);
-            }
-            logger.info("used GLFW via reflection of LWJGL v3");
-
-        } catch (IllegalAccessException | InvocationTargetException exception) {
-            if (logger.isLoggable(Level.WARNING)) {
-                logger.log(Level.WARNING,
-                        "using AWT due to {0}", exception.toString());
-            }
-
+        if (hasLwjglVersion2) {
+            result = listDisplayModes2();
+        } else if (hasLwjglVersion3) {
+            result = listDisplayModes3();
+        } else {
             // LWJGL v2 and v3 are unavailable, so use AWT instead.
             GraphicsEnvironment environment
                     = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -544,33 +443,16 @@ final public class DsUtils {
      * @return screen X coordinate
      */
     public static int windowXPosition(JmeContext context) {
-        try { // via reflection of LWJGL v2
+        Validate.nonNull(context, "context");
 
-            // result = Display.getX();
-            int result = (Integer) getX.invoke(null);
-            return result;
-
-        } catch (IllegalAccessException | InvocationTargetException
-                | NullPointerException exception) {
+        int result = 0;
+        if (hasLwjglVersion2) {
+            result = windowXPosition2();
+        } else if (hasLwjglVersion3) {
+            result = windowXPosition3(context);
         }
 
-        int x[] = new int[1];
-        int y[] = new int[1];
-
-        try { // accessing GLFW via reflection of LWJGL v3
-
-            // long windowId = context.getWindowHandle();
-            Object windowId = getHandle.invoke(context);
-
-            // GLFW.glfwGetWindowPos(windowId, x, y);
-            getWindowPos.invoke(null, windowId, x, y);
-
-            int result = x[0];
-            return result;
-
-        } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
-        }
+        return result;
     }
 
     /**
@@ -581,36 +463,207 @@ final public class DsUtils {
      * @return the screen Y coordinate
      */
     public static int windowYPosition(JmeContext context) {
-        try { // via reflection of LWJGL v2
+        Validate.nonNull(context, "context");
 
-            // result = Display.getY();
-            int result = (Integer) getY.invoke(null);
-            return result;
-
-        } catch (IllegalAccessException | InvocationTargetException
-                | NullPointerException exception) {
+        int result = 0;
+        if (hasLwjglVersion2) {
+            result = windowYPosition2();
+        } else if (hasLwjglVersion3) {
+            result = windowYPosition3(context);
         }
 
-        int x[] = new int[1];
-        int y[] = new int[1];
+        return result;
+    }
+    // *************************************************************************
+    // private methods
 
-        try { // accessing GLFW via reflection of LWJGL v3
+    /**
+     * Return the default monitor's current display mode.
+     *
+     * @return a new instance (not null)
+     */
+    private static DisplayMode displayMode2() {
+        assert hasLwjglVersion2;
 
-            // long windowId = context.getWindowHandle();
-            Object windowId = getHandle.invoke(context);
+        try {
+            // DisplayMode glMode = Display.getDesktopDisplayMode();
+            Object glMode = getMode.invoke(null);
 
-            // GLFW.glfwGetWindowPos(windowId, x, y);
-            getWindowPos.invoke(null, windowId, x, y);
-
-            int result = y[0];
+            DisplayMode result = makeDisplayMode2(glMode);
             return result;
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
             throw new RuntimeException(exception);
         }
     }
-    // *************************************************************************
-    // private methods
+
+    /**
+     * Return the default monitor's current display mode.
+     *
+     * @return a new instance (not null)
+     */
+    private static DisplayMode displayMode3() {
+        assert hasLwjglVersion3;
+
+        try {
+            // long monitorId = GLFW.glfwGetPrimaryMonitor();
+            Object monitorId = getPrimaryMonitor.invoke(null);
+
+            // GLFWVidMode vidMode = GLFW.glfwGetVideoMode(monitorId);
+            Object vidMode = getMode.invoke(null, monitorId);
+
+            DisplayMode result = makeDisplayMode3(vidMode);
+            return result;
+
+        } catch (IllegalAccessException | InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * Return the current framebuffer height.
+     *
+     * @return the height (in pixels)
+     */
+    private static int framebufferHeight2() {
+        assert hasLwjglVersion2;
+
+        try {
+            // result = Display.getHeight();
+            int result = (Integer) getHeight.invoke(null);
+            return result;
+
+        } catch (IllegalAccessException | InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * Return the current framebuffer height.
+     *
+     * @param context the rendering context (not null)
+     * @return the height (in pixels)
+     */
+    private static int framebufferHeight3(JmeContext context) {
+        assert hasLwjglVersion3;
+
+        int width[] = new int[1];
+        int height[] = new int[1];
+        try {
+            // long windowId = context.getWindowHandle();
+            Object windowId = getHandle.invoke(context);
+
+            // GLFW.glfwGetFramebufferSize(windowId, x, y);
+            getFramebufferSize.invoke(null, windowId, width, height);
+
+        } catch (IllegalAccessException | InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+
+        int result = height[0];
+        return result;
+    }
+
+    /**
+     * Return the current framebuffer width.
+     *
+     * @return the width (in pixels)
+     */
+    private static int framebufferWidth2() {
+        assert hasLwjglVersion2;
+
+        try {
+            // result = Display.getWidth();
+            int result = (Integer) getWidth.invoke(null);
+            return result;
+
+        } catch (IllegalAccessException | InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * Return the current framebuffer width.
+     *
+     * @param context the rendering context (not null)
+     * @return the width (in pixels)
+     */
+    private static int framebufferWidth3(JmeContext context) {
+        assert hasLwjglVersion3;
+
+        int width[] = new int[1];
+        int height[] = new int[1];
+        try {
+            // long windowId = context.getWindowHandle();
+            Object windowId = getHandle.invoke(context);
+
+            // GLFW.glfwGetFramebufferSize(windowId, x, y);
+            getFramebufferSize.invoke(null, windowId, width, height);
+
+        } catch (IllegalAccessException | InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+
+        int result = width[0];
+        return result;
+    }
+
+    /**
+     * Enumerate the default monitor's available display modes.
+     *
+     * @return a new list of modes (not null)
+     */
+    private static List<DisplayMode> listDisplayModes2() {
+        assert hasLwjglVersion2;
+
+        try {
+            // DisplayMode[] glModes = Display.getAvailableDisplayModes();
+            Object[] glModes = (Object[]) getModes.invoke(null);
+
+            List<DisplayMode> result = new ArrayList<>(glModes.length);
+            for (Object glMode : glModes) {
+                DisplayMode mode = makeDisplayMode2(glMode);
+                result.add(mode);
+            }
+            return result;
+
+        } catch (IllegalAccessException | InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * Enumerate the default monitor's available display modes.
+     *
+     * @return a new list of modes (not null)
+     */
+    private static List<DisplayMode> listDisplayModes3() {
+        assert hasLwjglVersion3;
+
+        try {
+            // long monitorId = GLFW.glfwGetPrimaryMonitor();
+            Object monitorId = getPrimaryMonitor.invoke(null);
+
+            // GLFWVidMode.Buffer buf = GLFW.glfwGetVideoModes(monitorId);
+            Object buf = getModes.invoke(null, monitorId);
+
+            List<DisplayMode> result = new ArrayList<>(32);
+
+            // while (buf.hasRemaining()) {
+            while ((Boolean) hasRemaining.invoke(buf)) {
+
+                // GLFWVidMode vidMode = modes.get();
+                Object vidMode = get.invoke(buf);
+
+                DisplayMode mode = makeDisplayMode3(vidMode);
+                result.add(mode);
+            }
+            return result;
+
+        } catch (IllegalAccessException | InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 
     /**
      * Convert a org.lwjgl.opengl.DisplayMode to a java.awt.DisplayMode via
@@ -681,6 +734,98 @@ final public class DsUtils {
         int bitDepth = redBits + greenBits + blueBits;
         DisplayMode result = new DisplayMode(width, height, bitDepth, rate);
 
+        return result;
+    }
+
+    /**
+     * Return the current screen X coordinate for the left edge of the content
+     * area.
+     *
+     * @return screen X coordinate
+     */
+    private static int windowXPosition2() {
+        assert hasLwjglVersion2;
+
+        try {
+            // result = Display.getX();
+            int result = (Integer) getX.invoke(null);
+            return result;
+
+        } catch (IllegalAccessException | InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * Return the current screen X coordinate for the left edge of the content
+     * area.
+     *
+     * @param context the rendering context (not null)
+     * @return screen X coordinate
+     */
+    private static int windowXPosition3(JmeContext context) {
+        assert hasLwjglVersion3;
+
+        int x[] = new int[1];
+        int y[] = new int[1];
+        try {
+            // long windowId = context.getWindowHandle();
+            Object windowId = getHandle.invoke(context);
+
+            // GLFW.glfwGetWindowPos(windowId, x, y);
+            getWindowPos.invoke(null, windowId, x, y);
+
+        } catch (IllegalAccessException | InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+
+        int result = x[0];
+        return result;
+    }
+
+    /**
+     * Return the current screen Y coordinate for the top edge of the content
+     * area.
+     *
+     * @return the screen Y coordinate
+     */
+    private static int windowYPosition2() {
+        assert hasLwjglVersion2;
+
+        try {
+            // result = Display.getY();
+            int result = (Integer) getY.invoke(null);
+            return result;
+
+        } catch (IllegalAccessException| InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * Return the current screen Y coordinate for the top edge of the content
+     * area.
+     *
+     * @param context the rendering context (not null)
+     * @return the screen Y coordinate
+     */
+    private static int windowYPosition3(JmeContext context) {
+        assert hasLwjglVersion3;
+
+        int x[] = new int[1];
+        int y[] = new int[1];
+        try {
+            // long windowId = context.getWindowHandle();
+            Object windowId = getHandle.invoke(context);
+
+            // GLFW.glfwGetWindowPos(windowId, x, y);
+            getWindowPos.invoke(null, windowId, x, y);
+
+        } catch (IllegalAccessException | InvocationTargetException exception) {
+            throw new RuntimeException(exception);
+        }
+
+        int result = y[0];
         return result;
     }
 }
