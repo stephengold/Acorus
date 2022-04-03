@@ -82,6 +82,10 @@ public class DsEditInputMode extends InputMode {
      */
     final private static String asPreviousValue = "previous value";
     /**
+     * action string to revert the proposed settings
+     */
+    final private static String asRevertChanges = "revert changes";
+    /**
      * action string to save the proposed settings
      */
     final private static String asSaveChanges = "save changes";
@@ -128,8 +132,11 @@ public class DsEditInputMode extends InputMode {
     @Override
     protected void defaultBindings() {
         bindSignal(signalCtrl, KeyInput.KEY_LCONTROL, KeyInput.KEY_RCONTROL);
+
         Combo ctrlS = new Combo(KeyInput.KEY_S, signalCtrl, true);
         bind(asSaveChanges, ctrlS);
+        Combo ctrlZ = new Combo(KeyInput.KEY_Z, signalCtrl, true);
+        bind(asRevertChanges, ctrlZ);
 
         bind(asApplyChanges, KeyInput.KEY_RETURN);
         bind(asCloseOverlay, KeyInput.KEY_ESCAPE);
@@ -200,6 +207,10 @@ public class DsEditInputMode extends InputMode {
                     statusOverlay.advanceValue(-1);
                     return;
 
+                case asRevertChanges:
+                    revert();
+                    return;
+
                 case asSaveChanges:
                     save();
                     return;
@@ -212,6 +223,17 @@ public class DsEditInputMode extends InputMode {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Handle a "revert changes" action.
+     */
+    private void revert() {
+        boolean success = proposedSettings.load();
+        if (success) {
+            logger.warning(
+                    "Display settings were read from persistent storage.");
+        }
+    }
 
     /**
      * Handle a "save changes" action.
