@@ -66,6 +66,10 @@ public class DsEditInputMode extends InputMode {
      */
     final private static String asCloseOverlay = "close overlay";
     /**
+     * action string to reset the proposed settings to the app's defaults
+     */
+    final private static String asLoadDefaults = "load defaults";
+    /**
      * action string to advance to the next field
      */
     final private static String asNextField = "next field";
@@ -133,6 +137,8 @@ public class DsEditInputMode extends InputMode {
     protected void defaultBindings() {
         bindSignal(signalCtrl, KeyInput.KEY_LCONTROL, KeyInput.KEY_RCONTROL);
 
+        Combo ctrlA = new Combo(KeyInput.KEY_A, signalCtrl, true);
+        bind(asLoadDefaults, ctrlA);
         Combo ctrlS = new Combo(KeyInput.KEY_S, signalCtrl, true);
         bind(asSaveChanges, ctrlS);
         Combo ctrlZ = new Combo(KeyInput.KEY_Z, signalCtrl, true);
@@ -189,6 +195,10 @@ public class DsEditInputMode extends InputMode {
 
                 case asCloseOverlay:
                     InputMode.resumeLifo();
+                    return;
+
+                case asLoadDefaults:
+                    proposedSettings.loadDefaults();
                     return;
 
                 case asNextField:
