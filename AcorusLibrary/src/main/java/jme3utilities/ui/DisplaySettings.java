@@ -32,6 +32,8 @@ package jme3utilities.ui;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeSystem;
 import java.awt.DisplayMode;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -74,6 +76,21 @@ public class DisplaySettings {
      * otherwise false
      */
     private boolean areSaved = false;
+    /**
+     * map graphics API names to AppSettings.getRenderer() values
+     */
+    final private static Map<String, String> apiNameMap = new TreeMap<>();
+
+    static {
+        apiNameMap.put("OpenGL 3.2", AppSettings.LWJGL_OPENGL32);
+        apiNameMap.put("OpenGL 3.3", AppSettings.LWJGL_OPENGL33);
+        apiNameMap.put("OpenGL 4.0", AppSettings.LWJGL_OPENGL40);
+        apiNameMap.put("OpenGL 4.1", AppSettings.LWJGL_OPENGL41);
+        apiNameMap.put("OpenGL 4.2", AppSettings.LWJGL_OPENGL42);
+        apiNameMap.put("OpenGL 4.3", AppSettings.LWJGL_OPENGL43);
+        apiNameMap.put("OpenGL 4.4", AppSettings.LWJGL_OPENGL44);
+        apiNameMap.put("OpenGL 4.5", AppSettings.LWJGL_OPENGL45);
+    }
     /**
      * framebuffer-size limits (not null)
      */
@@ -241,6 +258,23 @@ public class DisplaySettings {
     }
 
     /**
+     * Return the name of the graphics API.
+     *
+     * @return a name found in {@code listGraphicsApis()} (not null, not empty)
+     */
+    public String graphicsAPI() {
+        String result;
+        String value = cachedSettings.getRenderer();
+        for (Map.Entry<String, String> entry : apiNameMap.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                result = entry.getKey();
+                return result;
+            }
+        }
+        throw new RuntimeException("value = " + value);
+    }
+
+    /**
      * Determine the display height.
      *
      * @return height (in pixels, &gt;0)
@@ -355,6 +389,23 @@ public class DisplaySettings {
      */
     public boolean isVSync() {
         boolean result = cachedSettings.isVSync();
+        return result;
+    }
+
+    /**
+     * Enumerate all known graphics APIs.
+     *
+     * @return a new array (not null)
+     */
+    public static String[] listGraphicsApis() {
+        int numApis = apiNameMap.size();
+        String[] result = new String[numApis];
+        int i = 0;
+        for (String name : apiNameMap.keySet()) {
+            result[i] = name;
+            ++i;
+        }
+
         return result;
     }
 
@@ -514,6 +565,23 @@ public class DisplaySettings {
         boolean oldSetting = isGammaCorrection();
         if (newSetting != oldSetting) {
             cachedSettings.setGammaCorrection(newSetting);
+            areApplied = false;
+            areSaved = false;
+        }
+    }
+
+    /**
+     * Alter the graphics API.
+     *
+     * @param apiName a name found in {@code listGraphicsApis()} (not null, not
+     * empty, found in {@code apiNameMap})
+     */
+    public void setGraphicsApi(String apiName) {
+        Validate.require(apiNameMap.containsKey(apiName), "be a known API");
+        String newSetting = apiNameMap.get(apiName);
+        String oldSetting = graphicsAPI();
+        if (!newSetting.equals(oldSetting)) {
+            cachedSettings.setRenderer(newSetting);
             areApplied = false;
             areSaved = false;
         }
