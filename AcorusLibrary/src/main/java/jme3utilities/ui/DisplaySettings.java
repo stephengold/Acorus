@@ -41,7 +41,7 @@ import jme3utilities.Validate;
 import jme3utilities.math.RectSizeLimits;
 
 /**
- * Manage an application's display settings.
+ * Manage an application's render settings.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -383,6 +383,26 @@ public class DisplaySettings {
     }
 
     /**
+     * Test whether graphics debugging is enabled.
+     *
+     * @return true if enabled, otherwise false
+     */
+    public boolean isGraphicsDebug() {
+        boolean result = cachedSettings.isGraphicsDebug();
+        return result;
+    }
+
+    /**
+     * Test whether graphics tracing is enabled.
+     *
+     * @return true if enabled, otherwise false
+     */
+    public boolean isGraphicsTrace() {
+        boolean result = cachedSettings.isGraphicsTrace();
+        return result;
+    }
+
+    /**
      * Test whether VSync is enabled.
      *
      * @return true if enabled, otherwise false
@@ -578,11 +598,40 @@ public class DisplaySettings {
      */
     public void setGraphicsApi(String apiName) {
         Validate.require(apiNameMap.containsKey(apiName), "be a known API");
+
         String newSetting = apiNameMap.get(apiName);
         String oldSetting = graphicsAPI();
         if (!newSetting.equals(oldSetting)) {
             cachedSettings.setRenderer(newSetting);
             areApplied = false;
+            areSaved = false;
+        }
+    }
+
+    /**
+     * Alter the graphics-debug flag.
+     *
+     * @param newSetting true to enable debugging, false to disable it
+     */
+    public void setGraphicsDebug(boolean newSetting) {
+        boolean oldSetting = isGraphicsDebug();
+        if (newSetting != oldSetting) {
+            cachedSettings.setGraphicsDebug(newSetting);
+            // after init, applying has no effect
+            areSaved = false;
+        }
+    }
+
+    /**
+     * Alter the graphics-trace flag.
+     *
+     * @param newSetting true to enable tracing, false to disable it
+     */
+    public void setGraphicsTrace(boolean newSetting) {
+        boolean oldSetting = isGraphicsTrace();
+        if (newSetting != oldSetting) {
+            cachedSettings.setGraphicsTrace(newSetting);
+            // after init, applying has no effect
             areSaved = false;
         }
     }
