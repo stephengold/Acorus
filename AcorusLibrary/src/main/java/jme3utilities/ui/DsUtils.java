@@ -178,7 +178,7 @@ final public class DsUtils {
      * @param context the rendering context (not null)
      * @return screen X coordinate
      */
-    public static int getWindowXPosition(JmeContext context) {
+    public static int windowXPosition(JmeContext context) {
         try { // via reflection of LWJGL v2
             Class<?> displayClass
                     = Class.forName("org.lwjgl.opengl.Display");
@@ -228,7 +228,7 @@ final public class DsUtils {
      * @param context the rendering context (not null)
      * @return the screen Y coordinate
      */
-    public static int getWindowYPosition(JmeContext context) {
+    public static int windowYPosition(JmeContext context) {
         try { // via reflection of LWJGL v2
             Class<?> displayClass
                     = Class.forName("org.lwjgl.opengl.Display");

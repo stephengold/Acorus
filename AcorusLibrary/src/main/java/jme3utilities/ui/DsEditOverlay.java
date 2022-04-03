@@ -374,8 +374,8 @@ public class DsEditOverlay extends SimpleAppState {
             message = "Location:  centered";
         } else {
             JmeContext context = simpleApplication.getContext();
-            int x = DsUtils.getWindowXPosition(context);
-            int y = DsUtils.getWindowYPosition(context);
+            int x = DsUtils.windowXPosition(context);
+            int y = DsUtils.windowYPosition(context);
             proposedSettings.setStartLocation(x, y);
             message = "Location:  (" + x + ", " + y + ")";
         }
@@ -607,8 +607,8 @@ public class DsEditOverlay extends SimpleAppState {
         boolean isCentered = proposedSettings.isCentered();
         if (isCentered) { // switch to specifying screen coordinates
             JmeContext context = simpleApplication.getContext();
-            int x = DsUtils.getWindowXPosition(context);
-            int y = DsUtils.getWindowYPosition(context);
+            int x = DsUtils.windowXPosition(context);
+            int y = DsUtils.windowYPosition(context);
             proposedSettings.setStartLocation(x, y);
         }
         proposedSettings.setCentered(!isCentered);
