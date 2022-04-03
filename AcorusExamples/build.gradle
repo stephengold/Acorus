@@ -8,8 +8,8 @@ dependencies {
     runtimeOnly 'org.jmonkeyengine:jme3-testdata:' + jme3Version // for Jaime
 
     // select one version of LWJGL:
-    //runtimeOnly 'org.jmonkeyengine:jme3-lwjgl:' + jme3Version  // LWJGL 2.x
-    runtimeOnly 'org.jmonkeyengine:jme3-lwjgl3:' + jme3Version // LWJGL 3.x
+    //runtimeOnly 'org.jmonkeyengine:jme3-lwjgl:' + jme3Version  // for LWJGL 2.x
+    runtimeOnly 'org.jmonkeyengine:jme3-lwjgl3:' + jme3Version // for LWJGL 3.x
 
     // AcorusExamples doesn't use jme3-jogg nor jme3-plugins
     //  -- they are included solely to avoid warnings from AssetConfig.
