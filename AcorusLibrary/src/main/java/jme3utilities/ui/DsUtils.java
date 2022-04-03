@@ -29,6 +29,7 @@
  */
 package jme3utilities.ui;
 
+import com.jme3.system.AppSettings;
 import com.jme3.system.JmeContext;
 import com.jme3.system.NullContext;
 import com.jme3.system.SystemListener;
@@ -75,6 +76,19 @@ final public class DsUtils {
      */
     private DsUtils() {
     }
+    // *************************************************************************
+    // fields
+
+    /**
+     * framebuffer height (in pixels) the last time updateFramebufferSize() was
+     * invoked
+     */
+    private static int oldFramebufferHeight;
+    /**
+     * framebuffer width (in pixels) the last time updateFramebufferSize() was
+     * invoked
+     */
+    private static int oldFramebufferWidth;
     // *************************************************************************
     // new methods exposed
 
@@ -416,6 +430,31 @@ final public class DsUtils {
         }
 
         return result;
+    }
+
+    /**
+     * Invoke SystemListener.reshape() if the framebuffer has been resized since
+     * the last time updateFramebufferSize() was invoked.
+     * <p>
+     * This is intended to work around JMonkeyEngine issue #1793.
+     *
+     * @param context the rendering context (not null)
+     */
+    public static void updateFramebufferSize(JmeContext context) {
+        Validate.nonNull(context, "context");
+
+        int width = framebufferWidth(context);
+        int height = framebufferHeight(context);
+        if (width != oldFramebufferWidth || height != oldFramebufferHeight) {
+            AppSettings settings = context.getSettings();
+            settings.setResolution(width, height);
+
+            SystemListener listener = getSystemListener(context);
+            listener.reshape(width, height);
+
+            oldFramebufferWidth = width;
+            oldFramebufferHeight = height;
+        }
     }
 
     /**
