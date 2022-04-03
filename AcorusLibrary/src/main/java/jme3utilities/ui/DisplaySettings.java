@@ -208,8 +208,10 @@ public class DisplaySettings {
          * windowed mode causes an LWJGLException to be thrown.
          * See JME issue #798.
          *
-         * Furthermore, attempting to alter the MSAA factor
+         * Furthermore, attempting to alter the MSAA factor with jme3-lwjgl
          * causes an OpenGLException to be thrown.
+         *
+         * TODO simplify when these issues are resolved
          */
         if (!DsUtils.hasLwjglVersion3()) {
             AppSettings currentSettings = application.getSettings();
@@ -254,6 +256,8 @@ public class DisplaySettings {
          *
          * Furthermore, attempting to alter the MSAA factor with jme3-lwjgl
          * causes an OpenGLException to be thrown.
+         *
+         * TODO simplify when these issues are resolved
          */
         if (!DsUtils.hasLwjglVersion3()) {
             AppSettings currentSettings = application.getSettings();
