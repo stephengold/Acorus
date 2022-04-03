@@ -207,12 +207,22 @@ public class DisplaySettings {
          * With jme3-lwjgl, attemptying to switch from fullscreen mode to
          * windowed mode causes an LWJGLException to be thrown.
          * See JME issue #798.
+         *
+         * Furthermore, attempting to alter the MSAA factor
+         * causes an OpenGLException to be thrown.
          */
         if (!DsUtils.hasLwjglVersion3()) {
             AppSettings currentSettings = application.getSettings();
+
             boolean fromFullscreen = currentSettings.isFullscreen();
             boolean toWindowed = !proposedSettings.isFullscreen();
             if (fromFullscreen && toWindowed) {
+                result = false;
+            }
+
+            int oldMsaa = currentSettings.getSamples();
+            int newMsaa = proposedSettings.getSamples();
+            if (oldMsaa != newMsaa) {
                 result = false;
             }
         }
@@ -241,13 +251,23 @@ public class DisplaySettings {
          * With jme3-lwjgl, attemptying to switch from fullscreen mode to
          * windowed mode causes an LWJGLException to be thrown.
          * See JME issue #798.
+         *
+         * Furthermore, attempting to alter the MSAA factor with jme3-lwjgl
+         * causes an OpenGLException to be thrown.
          */
         if (!DsUtils.hasLwjglVersion3()) {
             AppSettings currentSettings = application.getSettings();
+
             boolean fromFullscreen = currentSettings.isFullscreen();
             boolean toWindowed = !proposedSettings.isFullscreen();
             if (fromFullscreen && toWindowed) {
                 result = "Can't exit fullscreen due to JME issue #798.";
+            }
+
+            int oldMsaa = currentSettings.getSamples();
+            int newMsaa = proposedSettings.getSamples();
+            if (oldMsaa != newMsaa) {
+                result = "Can't change MSAA factor with LWJGL v2.";
             }
         }
 
