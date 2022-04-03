@@ -98,13 +98,21 @@ public class DsEditOverlay extends SimpleAppState {
      */
     final private static int apiStatusLine = 9;
     /**
+     * index of the status line for the graphics-debug flag
+     */
+    final private static int debugStatusLine = 10;
+    /**
+     * index of the status line for the graphics-trace flag
+     */
+    final private static int traceStatusLine = 11;
+    /**
      * index of the status line for refresh rate
      */
-    final private static int refreshRateStatusLine = 10;
+    final private static int refreshRateStatusLine = 12;
     /**
-     * number of lines of text in the overlay
+     * number of status line in the overlay
      */
-    final private static int numStatusLines = 11;
+    final private static int numStatusLines = 13;
     /**
      * message logger for this class
      */
@@ -187,6 +195,10 @@ public class DsEditOverlay extends SimpleAppState {
                 advanceColorDepth(amount);
                 break;
 
+            case debugStatusLine:
+                toggleGraphicsDebugging();
+                break;
+
             case dimensionsStatusLine:
                 advanceDimensions(amount);
                 break;
@@ -209,6 +221,10 @@ public class DsEditOverlay extends SimpleAppState {
 
             case refreshRateStatusLine:
                 advanceRefreshRate(amount);
+                break;
+
+            case traceStatusLine:
+                toggleGraphicsTracing();
                 break;
 
             case vSyncStatusLine:
@@ -394,6 +410,14 @@ public class DsEditOverlay extends SimpleAppState {
         String api = proposedSettings.graphicsAPI();
         message = "Graphics API:  " + api;
         updateStatusLine(apiStatusLine, message);
+
+        boolean isDebug = proposedSettings.isGraphicsDebug();
+        message = "Debug graphics?  " + (isDebug ? "yes" : "no");
+        updateStatusLine(debugStatusLine, message);
+
+        boolean isTrace = proposedSettings.isGraphicsTrace();
+        message = "Trace graphics?  " + (isTrace ? "yes" : "no");
+        updateStatusLine(traceStatusLine, message);
 
         message = "";
         if (isFullScreen) {
@@ -632,6 +656,22 @@ public class DsEditOverlay extends SimpleAppState {
     private void toggleGammaCorrection() {
         boolean enabled = proposedSettings.isGammaCorrection();
         proposedSettings.setGammaCorrection(!enabled);
+    }
+
+    /**
+     * Toggle between graphics debug enabled/disabled.
+     */
+    private void toggleGraphicsDebugging() {
+        boolean enabled = proposedSettings.isGraphicsDebug();
+        proposedSettings.setGraphicsDebug(!enabled);
+    }
+
+    /**
+     * Toggle between graphics trace enabled/disabled.
+     */
+    private void toggleGraphicsTracing() {
+        boolean enabled = proposedSettings.isGraphicsTrace();
+        proposedSettings.setGraphicsTrace(!enabled);
     }
 
     /**
