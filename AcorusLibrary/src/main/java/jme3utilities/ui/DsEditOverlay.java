@@ -352,6 +352,11 @@ public class DsEditOverlay extends SimpleAppState {
     @Override
     public void update(float tpf) {
         super.update(tpf);
+        /*
+         * Work around JME issue #1793. TODO remove when the issue is resolved
+         */
+        JmeContext context = simpleApplication.getContext();
+        DsUtils.updateFramebufferSize(context);
 
         String message = "";
         if (!proposedSettings.areValid()) {
@@ -373,7 +378,6 @@ public class DsEditOverlay extends SimpleAppState {
         if (isCentered || isFullScreen || !DsUtils.hasLwjglVersion3()) {
             message = "Location:  centered";
         } else {
-            JmeContext context = simpleApplication.getContext();
             int x = DsUtils.windowXPosition(context);
             int y = DsUtils.windowYPosition(context);
             proposedSettings.setStartLocation(x, y);
