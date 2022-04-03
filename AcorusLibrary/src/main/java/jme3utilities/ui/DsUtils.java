@@ -116,6 +116,21 @@ final public class DsUtils {
     public static DisplayMode displayMode() {
         DisplayMode result;
 
+        try { // via reflection of LWJGL v2
+            Class<?> displayClass = Class.forName("org.lwjgl.opengl.Display");
+            Method getMode = displayClass.getDeclaredMethod(
+                    "getDesktopDisplayMode");
+
+            // DisplayMode glMode = Display.getDesktopDisplayMode();
+            Object glMode = getMode.invoke(null);
+
+            result = makeDisplayMode2(glMode);
+            return result;
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | InvocationTargetException | NoSuchMethodException exception) {
+        }
+
         try { // accessing GLFW via reflection of LWJGL v3
             Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
             Method getMonitor = glfwClass.getDeclaredMethod(
@@ -129,9 +144,12 @@ final public class DsUtils {
             // GLFWVidMode vidMode = GLFW.glfwGetVideoMode(monitorId);
             Object vidMode = getMode.invoke(null, monitorId);
 
-            result = makeDisplayMode(vidMode);
+            result = makeDisplayMode3(vidMode);
 
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
+            // use AWT
             GraphicsEnvironment environment
                     = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice device = environment.getDefaultScreenDevice();
@@ -277,6 +295,26 @@ final public class DsUtils {
     public static List<DisplayMode> listDisplayModes() {
         List<DisplayMode> result;
 
+        try { // via reflection of LWJGL v2
+            Class<?> displayClass = Class.forName("org.lwjgl.opengl.Display");
+            Method getModes = displayClass.getDeclaredMethod(
+                    "getAvailableDisplayModes");
+
+            // DisplayMode[] glModes = Display.getAvailableDisplayModes();
+            Object[] glModes = (Object[]) getModes.invoke(null);
+
+            result = new ArrayList<>(glModes.length);
+            for (Object glMode : glModes) {
+                DisplayMode mode = makeDisplayMode2(glMode);
+                result.add(mode);
+            }
+            logger.info("used reflection of LWJGL v2");
+            return result;
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | InvocationTargetException | NoSuchMethodException exception) {
+        }
+
         try { // accessing GLFW via reflection of LWJGL v3
             Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
             Method getMonitor = glfwClass.getDeclaredMethod(
@@ -305,7 +343,7 @@ final public class DsUtils {
                 // GLFWVidMode vidMode = modes.get();
                 Object vidMode = get.invoke(buf);
 
-                DisplayMode mode = makeDisplayMode(vidMode);
+                DisplayMode mode = makeDisplayMode3(vidMode);
                 result.add(mode);
             }
             logger.info("used GLFW via reflection of LWJGL v3");
@@ -313,12 +351,12 @@ final public class DsUtils {
         } catch (ClassNotFoundException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException exception) {
-            if (logger.isLoggable(Level.INFO)) {
-                logger.log(Level.INFO,
+            if (logger.isLoggable(Level.WARNING)) {
+                logger.log(Level.WARNING,
                         "using AWT due to {0}", exception.toString());
             }
 
-            // LWJGL v3 is unavailable, so use AWT instead.
+            // LWJGL v2 and v3 are unavailable, so use AWT instead.
             GraphicsEnvironment environment
                     = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice device = environment.getDefaultScreenDevice();
@@ -356,6 +394,45 @@ final public class DsUtils {
     // private methods
 
     /**
+     * Convert a org.lwjgl.opengl.DisplayMode to a java.awt.DisplayMode via
+     * reflection of LWJGL v2.
+     *
+     * @param glMode the AWT display mode (not null, unaffected)
+     * @return a new instance
+     *
+     * @throws ClassNotFoundException if LWJGL v2 isn't on the classpath
+     * @throws IllegalAccessException ?
+     * @throws InvocationTargetException ?
+     * @throws NoSuchMethodException ?
+     */
+    private static DisplayMode makeDisplayMode2(Object glMode)
+            throws ClassNotFoundException, IllegalAccessException,
+            InvocationTargetException, NoSuchMethodException {
+        Class<?> vidModeClass = Class.forName("org.lwjgl.opengl.DisplayMode");
+
+        Method getBits = vidModeClass.getDeclaredMethod("getBitsPerPixel");
+        Method getFrequency = vidModeClass.getDeclaredMethod("getFrequency");
+        Method getHeight = vidModeClass.getDeclaredMethod("getHeight");
+        Method getWidth = vidModeClass.getDeclaredMethod("getWidth");
+
+        // int width = glMode.getWidth();
+        int width = (Integer) getWidth.invoke(glMode);
+
+        // int height = glMode.getHeight();
+        int height = (Integer) getHeight.invoke(glMode);
+
+        // int bitDepth = glMode.getBitsPerPixel();
+        int bitDepth = (Integer) getBits.invoke(glMode);
+
+        // int rate = glMode.getFrequency();
+        int rate = (Integer) getFrequency.invoke(glMode);
+
+        DisplayMode result = new DisplayMode(width, height, bitDepth, rate);
+
+        return result;
+    }
+
+    /**
      * Convert a GLFWVidMode to a DisplayMode via reflection of LWJGL v3.
      *
      * @param glfwVidMode (not null, unaffected)
@@ -366,7 +443,7 @@ final public class DsUtils {
      * @throws InvocationTargetException ?
      * @throws NoSuchMethodException ?
      */
-    private static DisplayMode makeDisplayMode(Object glfwVidMode)
+    private static DisplayMode makeDisplayMode3(Object glfwVidMode)
             throws ClassNotFoundException, IllegalAccessException,
             InvocationTargetException, NoSuchMethodException {
         Class<?> vidModeClass = Class.forName("org.lwjgl.glfw.GLFWVidMode");
