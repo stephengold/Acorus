@@ -508,6 +508,20 @@ public class DisplaySettings {
     }
 
     /**
+     * Reset the proposed settings to the application's default values.
+     */
+    public void loadDefaults() {
+        boolean loadDefaults = true;
+        AppSettings defaults = new AppSettings(loadDefaults);
+
+        proposedSettings.copyFrom(defaults);
+        applyOverrides(proposedSettings);
+
+        areApplied = false;
+        areSaved = false;
+    }
+
+    /**
      * Determine the sampling factor for multi-sample anti-aliasing (MSAA).
      *
      * @return sampling factor (in samples per pixel, &ge;0)
