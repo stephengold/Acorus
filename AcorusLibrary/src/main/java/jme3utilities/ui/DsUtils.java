@@ -162,6 +162,106 @@ final public class DsUtils {
     }
 
     /**
+     * Return the current framebuffer height.
+     *
+     * @param context the rendering context (not null)
+     * @return the height (in pixels)
+     */
+    public static int framebufferHeight(JmeContext context) {
+        try { // via reflection of LWJGL v2
+            Class<?> displayClass
+                    = Class.forName("org.lwjgl.opengl.Display");
+            Method getHeight = displayClass.getDeclaredMethod("getHeight");
+
+            // result = Display.getWidth();
+            int result = (Integer) getHeight.invoke(null);
+            return result;
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
+        }
+
+        int width[] = new int[1];
+        int height[] = new int[1];
+
+        try { // accessing GLFW via reflection of LWJGL v3
+            Class<?> windowClass
+                    = Class.forName("com.jme3.system.lwjgl.LwjglWindow");
+            Method getHandle = windowClass.getDeclaredMethod("getWindowHandle");
+
+            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+            Method getSize = glfwClass.getDeclaredMethod(
+                    "glfwGetFramebufferSize",
+                    long.class, int[].class, int[].class);
+
+            // long windowId = context.getWindowHandle();
+            Object windowId = getHandle.invoke(context);
+
+            // GLFW.glfwGetWindowPos(windowId, x, y);
+            getSize.invoke(null, windowId, width, height);
+
+            int result = height[0];
+            return result;
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * Return the current framebuffer width.
+     *
+     * @param context the rendering context (not null)
+     * @return the width (in pixels)
+     */
+    public static int framebufferWidth(JmeContext context) {
+        try { // via reflection of LWJGL v2
+            Class<?> displayClass
+                    = Class.forName("org.lwjgl.opengl.Display");
+            Method getWidth = displayClass.getDeclaredMethod("getWidth");
+
+            // result = Display.getWidth();
+            int result = (Integer) getWidth.invoke(null);
+            return result;
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
+        }
+
+        int width[] = new int[1];
+        int height[] = new int[1];
+
+        try { // accessing GLFW via reflection of LWJGL v3
+            Class<?> windowClass
+                    = Class.forName("com.jme3.system.lwjgl.LwjglWindow");
+            Method getHandle = windowClass.getDeclaredMethod("getWindowHandle");
+
+            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+            Method getSize = glfwClass.getDeclaredMethod(
+                    "glfwGetFramebufferSize",
+                    long.class, int[].class, int[].class);
+
+            // long windowId = context.getWindowHandle();
+            Object windowId = getHandle.invoke(context);
+
+            // GLFW.glfwGetWindowPos(windowId, x, y);
+            getSize.invoke(null, windowId, width, height);
+
+            int result = width[0];
+            return result;
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
      * Test whether jme3-lwjgl3 is in the classpath.
      *
      * @return true if present, otherwise false
