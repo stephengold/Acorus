@@ -30,9 +30,12 @@
 package jme3utilities.ui;
 
 import com.jme3.system.JmeContext;
+import com.jme3.system.NullContext;
+import com.jme3.system.SystemListener;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -169,6 +172,43 @@ final public class DsUtils {
             Class.forName("com.jme3.system.lwjgl.LwjglWindow");
         } catch (ClassNotFoundException exception) {
             result = false;
+        }
+
+        return result;
+    }
+
+    /**
+     * Access the system listener of the specified context.
+     *
+     * @param context (not null, unaffected)
+     * @return the pre-existing instance
+     */
+    public static SystemListener getSystemListener(JmeContext context) {
+        SystemListener result;
+
+        if (context instanceof NullContext) {
+            try { // via reflection of NullContext
+                Class<?> contextClass = NullContext.class;
+                Field listenerField = contextClass.getDeclaredField("listener");
+                listenerField.setAccessible(true);
+                result = (SystemListener) listenerField.get(context);
+
+            } catch (IllegalAccessException | IllegalArgumentException
+                    | NoSuchFieldException | SecurityException exception) {
+                throw new RuntimeException(exception);
+            }
+        }
+
+        try { // via reflection of LwjglContext
+            Class<?> contextClass
+                    = Class.forName("com.jme3.system.lwjgl.LwjglContext");
+            Field listenerField = contextClass.getDeclaredField("listener");
+            listenerField.setAccessible(true);
+            result = (SystemListener) listenerField.get(context);
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | NoSuchFieldException | SecurityException exception) {
+            throw new RuntimeException(exception);
         }
 
         return result;
