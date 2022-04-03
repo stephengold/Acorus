@@ -44,7 +44,6 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jme3utilities.Validate;
-import jme3utilities.math.MyArray;
 
 /**
  * Utility methods connected with display settings.
@@ -157,18 +156,6 @@ final public class DsUtils {
         }
 
         return result;
-    }
-
-    /**
-     * Obtain an array of MSAA sampling factors. TODO rename listMsaaFactors?
-     *
-     * @return a new array (in ascending order)
-     */
-    public static int[] getMsaaFactors() {
-        int[] msaaFactors = {1, 2, 4, 6, 8};
-
-        assert MyArray.isSorted(msaaFactors);
-        return msaaFactors;
     }
 
     /**

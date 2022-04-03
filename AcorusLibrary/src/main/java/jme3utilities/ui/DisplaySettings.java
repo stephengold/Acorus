@@ -726,10 +726,10 @@ public class DisplaySettings {
     /**
      * Alter the sampling factor for multi-sample anti-aliasing (MSAA).
      *
-     * @param newFactor number of samples per pixel (&ge;1, &le;16)
+     * @param newFactor number of samples per pixel (&ge;1)
      */
     public void setMsaaFactor(int newFactor) {
-        Validate.inRange(newFactor, "new factor", 1, 16);
+        Validate.positive(newFactor, "new factor");
 
         int oldFactor = msaaFactor();
         if (newFactor != oldFactor) {

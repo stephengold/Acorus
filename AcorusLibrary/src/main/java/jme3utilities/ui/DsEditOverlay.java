@@ -550,9 +550,11 @@ public class DsEditOverlay extends SimpleAppState {
      * @param amount the number of values to advance (may be negative)
      */
     private void advanceMsaaFactor(int amount) {
-        int[] values = DsUtils.getMsaaFactors();
         int factor = proposedSettings.msaaFactor();
-        factor = AbstractDemo.advanceInt(values, factor, amount);
+        factor += amount;
+        if (factor < 1) {
+            factor = 1;
+        }
         proposedSettings.setMsaaFactor(factor);
     }
 
