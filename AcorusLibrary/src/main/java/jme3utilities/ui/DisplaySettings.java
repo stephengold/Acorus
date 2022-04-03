@@ -62,10 +62,10 @@ public class DisplaySettings {
      */
     final private ActionApplication application;
     /**
-     * cached settings that can be applied (to the application context) or saved
-     * (written to persistent storage)
+     * proposed settings, which can be applied (to the application context) or
+     * saved (written to persistent storage)
      */
-    final private AppSettings cachedSettings = new AppSettings(true);
+    final private AppSettings proposedSettings = new AppSettings(true);
     /**
      * true&rarr;settings have been applied since their last modification,
      * otherwise false
@@ -140,15 +140,15 @@ public class DisplaySettings {
     }
 
     /**
-     * Apply the cached settings to the graphics context and restart the context
-     * to put them into effect.
+     * Apply the proposed settings to the graphics context and restart the
+     * context to put them into effect.
      */
     public void applyToContext() {
         assert canApply();
         assert !areApplied;
 
         AppSettings clone = new AppSettings(false);
-        clone.copyFrom(cachedSettings);
+        clone.copyFrom(proposedSettings);
 
         application.setSettings(clone);
         application.restart();
@@ -156,8 +156,8 @@ public class DisplaySettings {
     }
 
     /**
-     * Test whether the cached settings have been applied since their last
-     * modification.
+     * Test whether the proposed settings have been applied since their last
+     * applicable modification.
      *
      * @return true if clean, otherwise false
      */
@@ -166,7 +166,7 @@ public class DisplaySettings {
     }
 
     /**
-     * Test whether the cached settings have been saved (written to persistent
+     * Test whether the proposed settings have been saved (written to persistent
      * storage) since their last modification.
      *
      * @return true if clean, otherwise false
@@ -176,18 +176,18 @@ public class DisplaySettings {
     }
 
     /**
-     * Test the validity of the cached settings prior to a save.
+     * Test the validity of the proposed settings prior to a save.
      *
      * @return true if good enough, otherwise false
      */
     public boolean areValid() {
-        int height = cachedSettings.getHeight();
-        int width = cachedSettings.getWidth();
+        int height = proposedSettings.getHeight();
+        int width = proposedSettings.getWidth();
         if (!sizeLimits.isInRange(width, height)) {
             return false;
         }
 
-        if (cachedSettings.isFullscreen()) {
+        if (proposedSettings.isFullscreen()) {
             // assuming that the device supports full-screen exclusive mode
             boolean foundMatch = matchesAvailableDisplayMode();
             return foundMatch;
@@ -197,7 +197,7 @@ public class DisplaySettings {
     }
 
     /**
-     * Test whether the cached settings can be applied immediately.
+     * Test whether the proposed settings can be applied immediately.
      *
      * @return true if they can be applied, otherwise false
      */
@@ -212,7 +212,7 @@ public class DisplaySettings {
      * @return depth (in bits per pixel) or &le;0 for unknown/don't care
      */
     public int colorDepth() {
-        int result = cachedSettings.getBitsPerPixel();
+        int result = proposedSettings.getBitsPerPixel();
         return result;
     }
 
@@ -226,18 +226,18 @@ public class DisplaySettings {
     }
 
     /**
-     * Explain why the cached settings are invalid.
+     * Explain why the proposed settings are invalid.
      *
      * @return message text (not null)
      */
     public String feedbackValid() {
-        int height = cachedSettings.getHeight();
-        int width = cachedSettings.getWidth();
+        int height = proposedSettings.getHeight();
+        int width = proposedSettings.getWidth();
         if (!sizeLimits.isInRange(width, height)) {
             return sizeLimits.feedbackInRange(width, height);
         }
 
-        if (cachedSettings.isFullscreen()) {
+        if (proposedSettings.isFullscreen()) {
             // assuming that the device supports full-screen exclusive mode
             boolean foundMatch = matchesAvailableDisplayMode();
             if (!foundMatch) {
@@ -264,7 +264,7 @@ public class DisplaySettings {
      */
     public String graphicsAPI() {
         String result;
-        String value = cachedSettings.getRenderer();
+        String value = proposedSettings.getRenderer();
         for (Map.Entry<String, String> entry : apiNameMap.entrySet()) {
             if (entry.getValue().equals(value)) {
                 result = entry.getKey();
@@ -280,7 +280,7 @@ public class DisplaySettings {
      * @return height (in pixels, &gt;0)
      */
     public int height() {
-        int result = cachedSettings.getHeight();
+        int result = proposedSettings.getHeight();
         assert result > 0 : result;
         return result;
     }
@@ -298,7 +298,7 @@ public class DisplaySettings {
         boolean loadedFromStore = false;
         try {
             if (Preferences.userRoot().nodeExists(applicationName)) {
-                cachedSettings.load(applicationName);
+                proposedSettings.load(applicationName);
                 loadedFromStore = true;
             }
         } catch (BackingStoreException e) {
@@ -306,7 +306,7 @@ public class DisplaySettings {
         /*
          * Apply overrides to the loaded settings.
          */
-        applyOverrides(cachedSettings);
+        applyOverrides(proposedSettings);
 
         boolean show;
         switch (showDialog) {
@@ -333,7 +333,7 @@ public class DisplaySettings {
              */
             boolean loadFlag = false;
             boolean proceed
-                    = JmeSystem.showSettingsDialog(cachedSettings, loadFlag);
+                    = JmeSystem.showSettingsDialog(proposedSettings, loadFlag);
             if (!proceed) {
                 /*
                  * The user clicked on the "Cancel" button.
@@ -347,7 +347,7 @@ public class DisplaySettings {
         }
 
         AppSettings clone = new AppSettings(false);
-        clone.copyFrom(cachedSettings);
+        clone.copyFrom(proposedSettings);
 
         return clone;
     }
@@ -358,7 +358,7 @@ public class DisplaySettings {
      * @return true if centering, otherwise false
      */
     public boolean isCentered() {
-        boolean result = cachedSettings.getCenterWindow();
+        boolean result = proposedSettings.getCenterWindow();
         return result;
     }
 
@@ -368,7 +368,7 @@ public class DisplaySettings {
      * @return true if full-screen, otherwise false
      */
     public boolean isFullscreen() {
-        boolean result = cachedSettings.isFullscreen();
+        boolean result = proposedSettings.isFullscreen();
         return result;
     }
 
@@ -378,7 +378,7 @@ public class DisplaySettings {
      * @return true if enabled, otherwise false
      */
     public boolean isGammaCorrection() {
-        boolean result = cachedSettings.isGammaCorrection();
+        boolean result = proposedSettings.isGammaCorrection();
         return result;
     }
 
@@ -388,7 +388,7 @@ public class DisplaySettings {
      * @return true if enabled, otherwise false
      */
     public boolean isGraphicsDebug() {
-        boolean result = cachedSettings.isGraphicsDebug();
+        boolean result = proposedSettings.isGraphicsDebug();
         return result;
     }
 
@@ -398,7 +398,7 @@ public class DisplaySettings {
      * @return true if enabled, otherwise false
      */
     public boolean isGraphicsTrace() {
-        boolean result = cachedSettings.isGraphicsTrace();
+        boolean result = proposedSettings.isGraphicsTrace();
         return result;
     }
 
@@ -408,7 +408,7 @@ public class DisplaySettings {
      * @return true if enabled, otherwise false
      */
     public boolean isVSync() {
-        boolean result = cachedSettings.isVSync();
+        boolean result = proposedSettings.isVSync();
         return result;
     }
 
@@ -435,7 +435,7 @@ public class DisplaySettings {
      * @return sampling factor (in samples per pixel, &ge;0)
      */
     public int msaaFactor() {
-        int result = cachedSettings.getSamples();
+        int result = proposedSettings.getSamples();
         assert result >= 0 : result;
         return result;
     }
@@ -447,7 +447,7 @@ public class DisplaySettings {
      * @return frequency (in Hertz) or &le;0 for unknown/don't care
      */
     public int refreshRate() {
-        int result = cachedSettings.getFrequency();
+        int result = proposedSettings.getFrequency();
         return result;
     }
 
@@ -463,24 +463,24 @@ public class DisplaySettings {
     public void resize(int newWidth, int newHeight) {
         int oldWidth = width();
         if (newWidth != oldWidth) {
-            cachedSettings.setWidth(newWidth);
+            proposedSettings.setWidth(newWidth);
             areSaved = false;
         }
 
         int oldHeight = height();
         if (newHeight != oldHeight) {
-            cachedSettings.setHeight(newHeight);
+            proposedSettings.setHeight(newHeight);
             areSaved = false;
         }
     }
 
     /**
-     * Write the cached settings to persistent storage, so they will take effect
-     * the next time the application is launched.
+     * Write the proposed settings to persistent storage, so they will take
+     * effect the next time the application is launched.
      */
     public void save() {
         try {
-            cachedSettings.save(applicationName);
+            proposedSettings.save(applicationName);
             areSaved = true;
         } catch (BackingStoreException e) {
             String message = "Display settings were not saved.";
@@ -518,7 +518,7 @@ public class DisplaySettings {
     public void setCentered(boolean newSetting) {
         boolean oldSetting = isCentered();
         if (newSetting != oldSetting) {
-            cachedSettings.setCenterWindow(newSetting);
+            proposedSettings.setCenterWindow(newSetting);
             areApplied = false;
             areSaved = false;
         }
@@ -533,7 +533,7 @@ public class DisplaySettings {
     public void setColorDepth(int newDepth) {
         int oldBpp = colorDepth();
         if (newDepth != oldBpp) {
-            cachedSettings.setBitsPerPixel(newDepth);
+            proposedSettings.setBitsPerPixel(newDepth);
             areApplied = false;
             areSaved = false;
         }
@@ -550,13 +550,13 @@ public class DisplaySettings {
 
         int oldWidth = width();
         if (newWidth != oldWidth) {
-            cachedSettings.setWidth(newWidth);
+            proposedSettings.setWidth(newWidth);
             areApplied = false;
             areSaved = false;
         }
         int oldHeight = height();
         if (newHeight != oldHeight) {
-            cachedSettings.setHeight(newHeight);
+            proposedSettings.setHeight(newHeight);
             areApplied = false;
             areSaved = false;
         }
@@ -570,7 +570,7 @@ public class DisplaySettings {
     public void setFullscreen(boolean newSetting) {
         boolean oldSetting = isFullscreen();
         if (newSetting != oldSetting) {
-            cachedSettings.setFullscreen(newSetting);
+            proposedSettings.setFullscreen(newSetting);
             areApplied = false;
             areSaved = false;
         }
@@ -584,7 +584,7 @@ public class DisplaySettings {
     public void setGammaCorrection(boolean newSetting) {
         boolean oldSetting = isGammaCorrection();
         if (newSetting != oldSetting) {
-            cachedSettings.setGammaCorrection(newSetting);
+            proposedSettings.setGammaCorrection(newSetting);
             areApplied = false;
             areSaved = false;
         }
@@ -602,7 +602,7 @@ public class DisplaySettings {
         String newSetting = apiNameMap.get(apiName);
         String oldSetting = graphicsAPI();
         if (!newSetting.equals(oldSetting)) {
-            cachedSettings.setRenderer(newSetting);
+            proposedSettings.setRenderer(newSetting);
             areApplied = false;
             areSaved = false;
         }
@@ -616,7 +616,7 @@ public class DisplaySettings {
     public void setGraphicsDebug(boolean newSetting) {
         boolean oldSetting = isGraphicsDebug();
         if (newSetting != oldSetting) {
-            cachedSettings.setGraphicsDebug(newSetting);
+            proposedSettings.setGraphicsDebug(newSetting);
             // after init, applying has no effect
             areSaved = false;
         }
@@ -630,7 +630,7 @@ public class DisplaySettings {
     public void setGraphicsTrace(boolean newSetting) {
         boolean oldSetting = isGraphicsTrace();
         if (newSetting != oldSetting) {
-            cachedSettings.setGraphicsTrace(newSetting);
+            proposedSettings.setGraphicsTrace(newSetting);
             // after init, applying has no effect
             areSaved = false;
         }
@@ -660,7 +660,7 @@ public class DisplaySettings {
 
         int oldFactor = msaaFactor();
         if (newFactor != oldFactor) {
-            cachedSettings.setSamples(newFactor);
+            proposedSettings.setSamples(newFactor);
             areApplied = false;
             areSaved = false;
         }
@@ -674,7 +674,7 @@ public class DisplaySettings {
     public void setRefreshRate(int newRate) {
         int oldRate = refreshRate();
         if (newRate != oldRate) {
-            cachedSettings.setFrequency(newRate);
+            proposedSettings.setFrequency(newRate);
             areApplied = false;
             areSaved = false;
         }
@@ -701,14 +701,14 @@ public class DisplaySettings {
     public void setStartLocation(int newX, int newY) {
         int oldX = startX();
         if (newX != oldX) {
-            cachedSettings.setWindowXPosition(newX);
+            proposedSettings.setWindowXPosition(newX);
             areApplied = false;
             areSaved = false;
         }
 
         int oldY = startY();
         if (newY != oldY) {
-            cachedSettings.setWindowYPosition(newY);
+            proposedSettings.setWindowYPosition(newY);
             areApplied = false;
             areSaved = false;
         }
@@ -722,7 +722,7 @@ public class DisplaySettings {
     public void setVSync(boolean newSetting) {
         boolean oldSetting = isVSync();
         if (newSetting != oldSetting) {
-            cachedSettings.setVSync(newSetting);
+            proposedSettings.setVSync(newSetting);
             areApplied = false;
             areSaved = false;
         }
@@ -745,7 +745,7 @@ public class DisplaySettings {
      * @return the screen X coordinate for the left edge of the content area
      */
     public int startX() {
-        int result = cachedSettings.getWindowXPosition();
+        int result = proposedSettings.getWindowXPosition();
         return result;
     }
 
@@ -756,7 +756,7 @@ public class DisplaySettings {
      * @return the screen Y coordinate for the left edge of the content area
      */
     public int startY() {
-        int result = cachedSettings.getWindowYPosition();
+        int result = proposedSettings.getWindowYPosition();
         return result;
     }
 
@@ -766,7 +766,7 @@ public class DisplaySettings {
      * @return width (in pixels, &gt;0)
      */
     public int width() {
-        int result = cachedSettings.getWidth();
+        int result = proposedSettings.getWidth();
         assert result > 0 : result;
         return result;
     }
@@ -804,23 +804,21 @@ public class DisplaySettings {
     }
 
     /**
-     * Test whether the cached settings match one or more of the default
-     * monitor's available display modes.
+     * Test whether the proposed settings match one or more of the default
+     * monitor's display modes.
      *
      * @return true for a match, otherwise false
      */
     private boolean matchesAvailableDisplayMode() {
         boolean result = false;
 
-        int bitDepth = cachedSettings.getBitsPerPixel();
-        int frequency = cachedSettings.getFrequency();
-        int height = cachedSettings.getHeight();
-        int width = cachedSettings.getWidth();
+        int bitDepth = proposedSettings.getBitsPerPixel();
+        int frequency = proposedSettings.getFrequency();
+        int height = proposedSettings.getHeight();
+        int width = proposedSettings.getWidth();
 
         Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
         for (DisplayMode mode : modes) {
-            // TODO see algorithm in LwjglDisplay.getFullscreenDisplayMode()
-
             int modeBitDepth = mode.getBitDepth();
             if (modeBitDepth <= 0
                     || bitDepth <= 0
