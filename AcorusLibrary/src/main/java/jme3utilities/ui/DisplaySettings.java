@@ -817,7 +817,7 @@ public class DisplaySettings {
         int height = proposedSettings.getHeight();
         int width = proposedSettings.getWidth();
 
-        Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
+        Iterable<DisplayMode> modes = DsUtils.listDisplayModes();
         for (DisplayMode mode : modes) {
             int modeBitDepth = mode.getBitDepth();
             if (modeBitDepth <= 0

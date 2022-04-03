@@ -141,11 +141,11 @@ final public class DsUtils {
     }
 
     /**
-     * Enumerate the default monitor's available display modes. TODO rename listDisplayModes?
+     * Enumerate the default monitor's available display modes.
      *
      * @return a new list of modes (not null)
      */
-    public static List<DisplayMode> getDisplayModes() {
+    public static List<DisplayMode> listDisplayModes() {
         List<DisplayMode> result;
 
         try { // accessing GLFW via reflection of LWJGL v3

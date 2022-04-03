@@ -172,7 +172,7 @@ public class TestDsEdit extends AbstractDemo {
         /*
          * Print the available and current display modes to the console.
          */
-        for (DisplayMode mode : DsUtils.getDisplayModes()) {
+        for (DisplayMode mode : DsUtils.listDisplayModes()) {
             System.out.printf("%d x %d, %d bits, %d Hz\n",
                     mode.getWidth(), mode.getHeight(),
                     mode.getBitDepth(), mode.getRefreshRate());

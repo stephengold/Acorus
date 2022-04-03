@@ -441,7 +441,7 @@ public class DsEditOverlay extends SimpleAppState {
     private void advanceColorDepth(int amount) {
         Set<Integer> depthSet = new TreeSet<>();
         if (proposedSettings.isFullscreen()) {
-            Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
+            Iterable<DisplayMode> modes = DsUtils.listDisplayModes();
             int height = proposedSettings.height();
             int width = proposedSettings.width();
 
@@ -481,7 +481,7 @@ public class DsEditOverlay extends SimpleAppState {
      */
     private void advanceDimensions(int amount) {
         Set<String> descriptionSet = new TreeSet<>();
-        Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
+        Iterable<DisplayMode> modes = DsUtils.listDisplayModes();
         int depth = proposedSettings.colorDepth();
         int rate = proposedSettings.refreshRate();
         RectSizeLimits sizeLimits = proposedSettings.getSizeLimits();
@@ -564,7 +564,7 @@ public class DsEditOverlay extends SimpleAppState {
     private void advanceRefreshRate(int amount) {
         assert proposedSettings.isFullscreen();
 
-        Iterable<DisplayMode> modes = DsUtils.getDisplayModes();
+        Iterable<DisplayMode> modes = DsUtils.listDisplayModes();
         int height = proposedSettings.height();
         int width = proposedSettings.width();
         /*
