@@ -110,7 +110,7 @@ final public class DsUtils {
     /**
      * Describe an MSAA sampling factor.
      *
-     * @param factor samples per pixel (&ge;0, &le;16)
+     * @param factor samples per pixel
      * @return a textual description (not null, not empty)
      */
     public static String describeMsaaFactor(int factor) {
