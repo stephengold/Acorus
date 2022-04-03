@@ -154,13 +154,26 @@ final public class DsUtils {
 
     /**
      * Return the current screen X coordinate for the left edge of the content
-     * area. Implemented only for LWJGL v3.
+     * area.
      *
      * @param context the rendering context (not null)
      * @return screen X coordinate
      */
     public static int getWindowXPosition(JmeContext context) {
-        int result;
+        try { // via reflection of LWJGL v2
+            Class<?> displayClass
+                    = Class.forName("org.lwjgl.opengl.Display");
+            Method getX = displayClass.getDeclaredMethod("getX");
+
+            // result = Display.getX();
+            int result = (Integer) getX.invoke(null);
+            return result;
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
+        }
+
         int x[] = new int[1];
         int y[] = new int[1];
 
@@ -173,31 +186,44 @@ final public class DsUtils {
             Method getPos = glfwClass.getDeclaredMethod("glfwGetWindowPos",
                     long.class, int[].class, int[].class);
 
-            // long windowId = window.getWindowHandle();
+            // long windowId = context.getWindowHandle();
             Object windowId = getHandle.invoke(context);
 
             // GLFW.glfwGetWindowPos(windowId, x, y);
             getPos.invoke(null, windowId, x, y);
 
+            int result = x[0];
+            return result;
+
         } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | NoSuchMethodException
-                | SecurityException | InvocationTargetException exception) {
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
             throw new RuntimeException(exception);
         }
-        result = x[0];
-
-        return result;
     }
 
     /**
      * Return the current screen Y coordinate for the top edge of the content
-     * area. Implemented only for LWJGL v3.
+     * area.
      *
      * @param context the rendering context (not null)
-     * @return screen X coordinate
+     * @return the screen Y coordinate
      */
     public static int getWindowYPosition(JmeContext context) {
-        int result;
+        try { // via reflection of LWJGL v2
+            Class<?> displayClass
+                    = Class.forName("org.lwjgl.opengl.Display");
+            Method getY = displayClass.getDeclaredMethod("getY");
+
+            // result = Display.getY();
+            int result = (Integer) getY.invoke(null);
+            return result;
+
+        } catch (ClassNotFoundException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
+        }
+
         int x[] = new int[1];
         int y[] = new int[1];
 
@@ -210,20 +236,20 @@ final public class DsUtils {
             Method getPos = glfwClass.getDeclaredMethod("glfwGetWindowPos",
                     long.class, int[].class, int[].class);
 
-            // long windowId = window.getWindowHandle();
+            // long windowId = context.getWindowHandle();
             Object windowId = getHandle.invoke(context);
 
             // GLFW.glfwGetWindowPos(windowId, x, y);
             getPos.invoke(null, windowId, x, y);
 
+            int result = y[0];
+            return result;
+
         } catch (ClassNotFoundException | IllegalAccessException
-                | IllegalArgumentException | NoSuchMethodException
-                | SecurityException | InvocationTargetException exception) {
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException exception) {
             throw new RuntimeException(exception);
         }
-        result = y[0];
-
-        return result;
     }
 
     /**
