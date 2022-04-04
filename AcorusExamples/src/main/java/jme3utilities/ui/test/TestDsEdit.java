@@ -29,6 +29,7 @@
  */
 package jme3utilities.ui.test;
 
+import com.jme3.app.StatsAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.post.SceneProcessor;
 import com.jme3.profile.AppProfiler;
@@ -165,6 +166,10 @@ public class TestDsEdit extends AbstractDemo {
         assert success;
 
         configureDumper();
+        /*
+         * Hide the render-statistics overlay.
+         */
+        stateManager.getState(StatsAppState.class).toggleStats();
         /*
          * Ensure that size-dependent data get initialized.
          */
