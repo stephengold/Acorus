@@ -43,7 +43,7 @@ tasks.register('cleanWrittenAssets', Delete) { // Acorus output directory
 // tasks to run the example apps:
 
 tasks.register('AbstractDemo', JavaExec) {
-  mainClass = 'jme3utilities.ui.test.AbstractDemo'
+    mainClass = 'jme3utilities.ui.test.AbstractDemo'
 }
 tasks.register('TestBareBones', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestBareBones'
@@ -61,6 +61,10 @@ tasks.register('TestCursors', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestCursors'
 }
 tasks.register('TestDsEdit', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestDsEdit'
+}
+tasks.register('TestDsEditReset', JavaExec) {
+    args '--resetOnly'
     mainClass = 'jme3utilities.ui.test.TestDsEdit'
 }
 tasks.register('TestFlyCam', JavaExec) {

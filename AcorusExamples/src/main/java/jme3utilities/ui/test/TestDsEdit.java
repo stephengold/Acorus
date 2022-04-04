@@ -113,12 +113,17 @@ public class TestDsEdit extends AbstractDemo {
          */
         Heart.setLoggingLevels(Level.WARNING);
 
+        boolean resetOnly = false;
         ShowDialog showDialog = ShowDialog.Never;
         /*
          * Process any command-line arguments.
          */
         for (String arg : arguments) {
             switch (arg) {
+                case "--resetOnly":
+                    resetOnly = true;
+                    break;
+
                 case "--showSettingsDialog":
                     showDialog = ShowDialog.FirstTime;
                     break;
@@ -135,7 +140,7 @@ public class TestDsEdit extends AbstractDemo {
         }
 
         String title = applicationName + " " + MyString.join(arguments);
-        mainStartup(showDialog, title);
+        mainStartup(resetOnly, showDialog, title);
     }
     // *************************************************************************
     // AbstractDemo methods
@@ -334,11 +339,13 @@ public class TestDsEdit extends AbstractDemo {
      * Initialization performed immediately after parsing the command-line
      * arguments.
      *
+     * @param resetOnly true to reset the saved settings and then exit, false to
+     * run the application
      * @param showDialog when to show the JME settings dialog (not null)
      * @param title for the title bar of the app's window
      */
-    private static void mainStartup(final ShowDialog showDialog,
-            final String title) {
+    private static void mainStartup(boolean resetOnly,
+            final ShowDialog showDialog, final String title) {
         TestDsEdit application = new TestDsEdit();
 
         RectSizeLimits sizeLimits = new RectSizeLimits(
@@ -359,6 +366,18 @@ public class TestDsEdit extends AbstractDemo {
                 settings.setTitle(title); // Customize the window's title bar.
             }
         };
+
+        if (resetOnly) {
+            /*
+             * In case bad settings get written to persistent storage,
+             * the --resetOnly command-line option should allow recovery.
+             */
+            proposedSettings.loadDefaults();
+            proposedSettings.save();
+            logger.log(Level.WARNING, "Display settings for {0} were reset "
+                    + "and written to persistent storage.", applicationName);
+            System.exit(0);
+        }
 
         AppSettings appSettings = proposedSettings.initialize();
         if (appSettings != null) {
