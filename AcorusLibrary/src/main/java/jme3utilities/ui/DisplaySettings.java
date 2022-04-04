@@ -254,7 +254,7 @@ public class DisplaySettings {
     /**
      * Explain why the proposed settings are invalid.
      *
-     * @return message text (not null)
+     * @return message text (not null, not empty) or "" if settings are valid
      */
     public String feedbackValid() {
         int height = proposedSettings.getHeight();
@@ -267,11 +267,15 @@ public class DisplaySettings {
             // assuming that the device supports full-screen exclusive mode
             boolean foundMatch = matchesAvailableDisplayMode();
             if (!foundMatch) {
-                return "No matching mode for device.";
+                return "No matching display mode for device.";
             }
         }
 
-        return "";
+        if (!DsUtils.hasLwjglVersion3() && msaaFactor() > 16) {
+            return "Can't have MSAA factor >16 with LWJGL v2.";
+        }
+
+        return ""; // The proposed settings are valid.
     }
 
     /**
