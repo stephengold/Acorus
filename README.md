@@ -11,7 +11,7 @@ It contains 2 sub-projects:
 Complete source code (in Java) is provided under
 [a 3-clause BSD license][license].
 
-Acorus is oriented toward demos and test applications.
+Acorus is oriented toward keyboard-driven demo/test applications.
 Examples may be found in the [Heart], [Minie], and [Wes] projects.
 
 
