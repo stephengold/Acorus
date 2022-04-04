@@ -66,6 +66,10 @@ public class DsEditOverlay extends SimpleAppState {
      */
     final private static int feedbackStatusLine = 0;
     /**
+     * index of the status line for save status
+     */
+    final private static int saveStatusLine = 1;
+    /**
      * index of the status line for full screen
      */
     final private static int fullScreenStatusLine = 2;
@@ -352,23 +356,28 @@ public class DsEditOverlay extends SimpleAppState {
     @Override
     public void update(float tpf) {
         super.update(tpf);
+        JmeContext context = simpleApplication.getContext();
         /*
          * Work around JME issue #1793. TODO remove when the issue is resolved
          */
-        JmeContext context = simpleApplication.getContext();
         DsUtils.updateFramebufferSize(context);
 
         String message = "";
-        if (!proposedSettings.areValid()) {
+        boolean areValid = proposedSettings.areValid();
+        if (!areValid) {
             message = proposedSettings.feedbackValid();
         } else if (!proposedSettings.canApply()) {
             message = proposedSettings.feedbackApplicable();
         } else if (!proposedSettings.areApplied()) {
-            message = "There are unapplied changes.";
-        } else if (!proposedSettings.areSaved()) {
-            message = "There are unsaved changes.";
+            message = "Changes are ready to be applied.";
         }
         updateStatusLine(feedbackStatusLine, message);
+
+        message = "";
+        if (areValid && !proposedSettings.areSaved()) {
+            message = "Changes are ready to be saved.";
+        }
+        updateStatusLine(saveStatusLine, message);
 
         boolean isFullScreen = proposedSettings.isFullscreen();
         message = "Full screen?  " + (isFullScreen ? "yes" : "no");
