@@ -181,19 +181,10 @@ public class DisplaySettings {
      * @return true if good enough, otherwise false
      */
     public boolean areValid() {
-        int height = proposedSettings.getHeight();
-        int width = proposedSettings.getWidth();
-        if (!sizeLimits.isInRange(width, height)) {
-            return false;
-        }
+        String feedback = feedbackValid();
+        boolean result = feedback.isEmpty();
 
-        if (proposedSettings.isFullscreen()) {
-            // assuming that the device supports full-screen exclusive mode
-            boolean foundMatch = matchesAvailableDisplayMode();
-            return foundMatch;
-        }
-
-        return true;
+        return result;
     }
 
     /**
@@ -202,32 +193,8 @@ public class DisplaySettings {
      * @return true if they can be applied, otherwise false
      */
     public boolean canApply() {
-        boolean result = areValid();
-        /*
-         * With jme3-lwjgl, attemptying to switch from fullscreen mode to
-         * windowed mode causes an LWJGLException to be thrown.
-         * See JME issue #798.
-         *
-         * Furthermore, attempting to alter the MSAA factor with jme3-lwjgl
-         * causes an OpenGLException to be thrown.
-         *
-         * TODO simplify when these issues are resolved
-         */
-        if (!DsUtils.hasLwjglVersion3()) {
-            AppSettings currentSettings = application.getSettings();
-
-            boolean fromFullscreen = currentSettings.isFullscreen();
-            boolean toWindowed = !proposedSettings.isFullscreen();
-            if (fromFullscreen && toWindowed) {
-                result = false;
-            }
-
-            int oldMsaa = currentSettings.getSamples();
-            int newMsaa = proposedSettings.getSamples();
-            if (oldMsaa != newMsaa) {
-                result = false;
-            }
-        }
+        String feedback = feedbackApplicable();
+        boolean result = feedback.isEmpty();
 
         return result;
     }
