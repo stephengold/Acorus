@@ -644,6 +644,10 @@ final public class DsUtils {
             // long monitorId = GLFW.glfwGetPrimaryMonitor();
             Object monitorId = getPrimaryMonitor.invoke(null);
 
+            if (monitorId == null || 0L == (Long) monitorId) {
+                return new ArrayList<>(1);
+            }
+
             // GLFWVidMode.Buffer buf = GLFW.glfwGetVideoModes(monitorId);
             Object buf = getModes.invoke(null, monitorId);
 
@@ -797,7 +801,7 @@ final public class DsUtils {
             int result = (Integer) getY.invoke(null);
             return result;
 
-        } catch (IllegalAccessException| InvocationTargetException exception) {
+        } catch (IllegalAccessException | InvocationTargetException exception) {
             throw new RuntimeException(exception);
         }
     }
