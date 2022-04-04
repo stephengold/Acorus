@@ -652,7 +652,7 @@ final public class DsUtils {
             // while (buf.hasRemaining()) {
             while ((Boolean) hasRemaining.invoke(buf)) {
 
-                // GLFWVidMode vidMode = modes.get();
+                // GLFWVidMode vidMode = buf.get();
                 Object vidMode = get.invoke(buf);
 
                 DisplayMode mode = makeDisplayMode3(vidMode);
