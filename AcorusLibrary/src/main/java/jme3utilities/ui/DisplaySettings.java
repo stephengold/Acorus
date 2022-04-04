@@ -395,10 +395,6 @@ public class DisplaySettings {
             }
         }
 
-        if (areValid()) {
-            save();
-        }
-
         AppSettings clone = new AppSettings(false);
         clone.copyFrom(proposedSettings);
 
