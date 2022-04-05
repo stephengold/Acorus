@@ -240,8 +240,10 @@ public class DsEditInputMode extends InputMode {
     private void revert() {
         boolean success = proposedSettings.load();
         if (success) {
-            logger.warning(
-                    "Display settings were read from persistent storage.");
+            String appName = proposedSettings.applicationName();
+            logger.log(Level.WARNING,
+                    "Read settings for \"{0}\" from persistent storage.",
+                    appName);
         }
     }
 
@@ -253,9 +255,9 @@ public class DsEditInputMode extends InputMode {
             proposedSettings.save();
 
             String appName = proposedSettings.applicationName();
-            String arg = MyString.quote(appName);
-            logger.log(Level.WARNING, "Display settings for {0} were written "
-                    + "to persistent storage.", arg);
+            logger.log(Level.WARNING,
+                    "Wrote settings for \"{0}\" to persistent storage.",
+                    appName);
         }
     }
 }

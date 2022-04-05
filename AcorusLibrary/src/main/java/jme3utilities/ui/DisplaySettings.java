@@ -34,6 +34,7 @@ import com.jme3.system.JmeSystem;
 import java.awt.DisplayMode;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -474,7 +475,9 @@ public class DisplaySettings {
         }
 
         if (!success) {
-            logger.warning("Failed to load display settings.");
+            logger.log(Level.WARNING, "Failed to read settings for \"{0}\""
+                    + " from persistent storage.",
+                    applicationName);
         }
 
         return success;
@@ -541,14 +544,15 @@ public class DisplaySettings {
 
     /**
      * Write the proposed settings to persistent storage, so that they will take
-     * effect the next time the application is launched.
+     * effect the next time the application is launched. TODO return boolean
      */
     public void save() {
         try {
             proposedSettings.save(applicationName);
             areSaved = true;
         } catch (BackingStoreException e) {
-            logger.warning("Failed to save display settings.");
+            logger.log(Level.WARNING, "Failed to write settings for \"{0}\" "
+                            + "to persistent storage.", applicationName);
         }
     }
 
