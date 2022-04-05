@@ -83,6 +83,10 @@ abstract public class ActionApplication
     // fields
 
     /**
+     * set to true in {@link #simpleInitApp()}
+     */
+    private static boolean isInitialized = false;
+    /**
      * directory for writing assets
      */
     private static File writtenAssetDir = null;
@@ -136,6 +140,8 @@ abstract public class ActionApplication
      */
     public void didntHandle(String actionString) {
         Validate.nonNull(actionString, "action string");
+        assert isInitialized;
+
         logger.log(Level.WARNING, "Ongoing action {0} was not handled.",
                 MyString.quote(actionString));
     }
@@ -163,6 +169,10 @@ abstract public class ActionApplication
      * @return pre-existing instance (not null)
      */
     public InputMode getDefaultInputMode() {
+        if (!isInitialized) {
+            throw new IllegalStateException(
+                    "The application hasn't been initialized yet.");
+        }
         assert defaultInputMode != null;
         return defaultInputMode;
     }
@@ -183,6 +193,10 @@ abstract public class ActionApplication
      * @return pre-existing instance (not null)
      */
     public Signals getSignals() {
+        if (!isInitialized) {
+            throw new IllegalStateException(
+                    "The application hasn't been initialized yet.");
+        }
         assert signals != null;
         return signals;
     }
@@ -240,6 +254,7 @@ abstract public class ActionApplication
      */
     @Override
     public void onAction(String actionString, boolean ongoing, float tpf) {
+        assert isInitialized;
         if (ongoing) {
             /*
              * Process combo actions.
@@ -325,14 +340,11 @@ abstract public class ActionApplication
      */
     @Override
     final public void simpleInitApp() {
-        if (defaultInputMode != null) {
+        if (isInitialized) {
             throw new IllegalStateException(
-                    "application should be initialized only once");
+                    "application may only be initialized once");
         }
-        if (signals != null) {
-            throw new IllegalStateException(
-                    "application should be initialized only once");
-        }
+        isInitialized = true;
         /*
          * Attempt to create a folder/directory for writing assets.
          */
@@ -396,6 +408,7 @@ abstract public class ActionApplication
      */
     @Override
     public void simpleUpdate(float tpf) {
+        assert isInitialized;
         /*
          * Handle flyCam signals whose mappings may have been deleted by
          * DefaultInputMode.initialize().
