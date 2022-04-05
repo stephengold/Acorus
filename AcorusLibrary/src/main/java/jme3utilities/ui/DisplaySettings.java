@@ -552,7 +552,7 @@ public class DisplaySettings {
             areSaved = true;
         } catch (BackingStoreException e) {
             logger.log(Level.WARNING, "Failed to write settings for \"{0}\" "
-                            + "to persistent storage.", applicationName);
+                    + "to persistent storage.", applicationName);
         }
     }
 
