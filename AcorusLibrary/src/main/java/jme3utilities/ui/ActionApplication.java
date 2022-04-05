@@ -83,7 +83,7 @@ abstract public class ActionApplication
     // fields
 
     /**
-     * folder/directory for writing assets
+     * directory for writing assets
      */
     private static File writtenAssetDir = null;
     /**
@@ -91,7 +91,7 @@ abstract public class ActionApplication
      */
     private InputMode defaultInputMode = null;
     /**
-     * signal tracker set in {@link #simpleInitApp()}
+     * track input signals
      */
     private Signals signals = null;
     // *************************************************************************
@@ -123,7 +123,7 @@ abstract public class ActionApplication
     // new methods exposed
 
     /**
-     * Callback to the user's application startup code.
+     * Invoke the user's application startup code.
      */
     abstract public void actionInitializeApplication();
 
@@ -208,7 +208,7 @@ abstract public class ActionApplication
     }
 
     /**
-     * Determine the effective speed of physics and animations.
+     * Determine the effective speed of physics and animations. TODO delete
      *
      * @return the speed (&gt;0, standard speed &rarr; 1)
      */
@@ -218,8 +218,7 @@ abstract public class ActionApplication
     }
 
     /**
-     * Determine the file-system path to the folder/directory for writing
-     * assets.
+     * Determine the filesystem path to the directory for writing assets.
      *
      * @return the canonical pathname (not null, not empty)
      */
@@ -311,9 +310,9 @@ abstract public class ActionApplication
     // SimpleApplication methods
 
     /**
-     * Alter the effective speeds of physics and all animations.
+     * Alter the effective speeds of physics simulation and all animations.
      *
-     * @param newSpeed animation speed (&gt;0, standard speed &rarr; 1)
+     * @param newSpeed animation speed (&gt;0, normal speed &rarr; 1)
      */
     @Override
     public void setSpeed(float newSpeed) {
@@ -366,15 +365,15 @@ abstract public class ActionApplication
         defaultInputMode = stateManager.getState(DefaultInputMode.class);
         if (defaultInputMode == null) {
             /*
-             * Attach and enable the default input mode.
+             * Attach and enable the standard initial input mode.
              */
             defaultInputMode = new DefaultInputMode();
             stateManager.attach(defaultInputMode);
             defaultInputMode.setEnabled(true);
         }
         /*
-         * Capture a screenshot each time KEY_SYSRQ
-         * (the PrtSc key) is pressed.
+         * Capture a screenshot to the written-asset directory
+         * each time KEY_SYSRQ (a.k.a. the PrtSc key) is pressed.
          */
         ScreenshotAppState screenshotAppState
                 = stateManager.getState(ScreenshotAppState.class);
