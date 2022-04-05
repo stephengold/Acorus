@@ -204,17 +204,6 @@ abstract public class ActionApplication
     }
 
     /**
-     * Alter the effective speeds of physics and all animations.
-     *
-     * @param newSpeed animation speed (&gt;0, standard speed &rarr; 1)
-     */
-    @Override
-    public void setSpeed(float newSpeed) {
-        Validate.positive(newSpeed, "speed");
-        speed = newSpeed;
-    }
-
-    /**
      * Determine the effective speed of physics and animations.
      *
      * @return the speed (&gt;0, standard speed &rarr; 1)
@@ -316,6 +305,17 @@ abstract public class ActionApplication
     }
     // *************************************************************************
     // SimpleApplication methods
+
+    /**
+     * Alter the effective speeds of physics and all animations.
+     *
+     * @param newSpeed animation speed (&gt;0, standard speed &rarr; 1)
+     */
+    @Override
+    public void setSpeed(float newSpeed) {
+        Validate.positive(newSpeed, "speed");
+        speed = newSpeed;
+    }
 
     /**
      * Startup code for this application.
