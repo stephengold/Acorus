@@ -41,6 +41,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.system.AppSettings;
 import com.jme3.util.BufferUtils;
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
@@ -87,7 +88,7 @@ abstract public class ActionApplication
      */
     private static boolean isInitialized = false;
     /**
-     * directory for writing assets
+     * directory for writing assets, or null if none has been designated
      */
     private static File writtenAssetDir = null;
     /**
@@ -132,6 +133,54 @@ abstract public class ActionApplication
     abstract public void actionInitializeApplication();
 
     /**
+     * Designate a directory for writing assets, and if it doesn't exist, create
+     * it. Also causes a ScreenshotAppState to be added during initialization.
+     * <p>
+     * Invoke this at most once, prior to initialization---for instance, in
+     * {@code main()}.
+     *
+     * @param desiredPath the desired filesystem path, or null for "./Written
+     * Assets"
+     * @throws IOException if directory creation fails
+     */
+    public static void designateWrittenAssetPath(String desiredPath)
+            throws IOException {
+        if (writtenAssetDir != null) {
+            throw new IllegalStateException(
+                    "Don't invoke this method more than once.");
+        }
+        if (isInitialized) {
+            throw new IllegalStateException(
+                    "too late - application is already initialized");
+        }
+
+        if (desiredPath == null) {
+            writtenAssetDir = new File("./Written Assets");
+        } else {
+            writtenAssetDir = new File(desiredPath);
+        }
+        String fixedPath = writtenAssetPath();
+        String quotedPath = MyString.quote(fixedPath);
+
+        if (!writtenAssetDir.exists()) {
+            boolean success = writtenAssetDir.mkdirs();
+            if (!success) {
+                throw new IOException(
+                        "Failed to create a directory at " + quotedPath);
+            }
+        }
+
+        assert writtenAssetDir.exists();
+        if (!writtenAssetDir.isDirectory()) {
+            logger.log(Level.WARNING, "{0} exists, but is not a directory.",
+                    quotedPath);
+        } else if (!writtenAssetDir.canWrite()) {
+            logger.log(Level.WARNING, "{0} exists, but is not writeable.",
+                    quotedPath);
+        }
+    }
+
+    /**
      * Callback invoked when an ongoing action isn't handled after running
      * through the {@link #onAction(java.lang.String, boolean, float)} methods
      * of both the input mode and the application. Meant to be overridden.
@@ -147,14 +196,19 @@ abstract public class ActionApplication
     }
 
     /**
-     * Convert an asset path to a canonical file-system path for writing the
-     * asset.
+     * Convert an asset path to a canonical filesystem path for writing the
+     * asset. Assumes that {@link #designateWrittenAssetPath(java.lang.String)}
+     * has been invoked.
      *
      * @param assetPath (not null)
      * @return the file-system path (not null, not empty)
      */
     public static String filePath(String assetPath) {
         Validate.nonNull(assetPath, "asset path");
+        if (writtenAssetDir == null) {
+            throw new IllegalStateException(
+                    "No written-asset path has been designated.");
+        }
 
         File file = new File(writtenAssetDir, assetPath);
         String result = Heart.fixedPath(file);
@@ -233,10 +287,16 @@ abstract public class ActionApplication
 
     /**
      * Determine the filesystem path to the directory for writing assets.
+     * Assumes that {@link #designateWrittenAssetPath(java.lang.String)} has
+     * been invoked.
      *
      * @return the canonical pathname (not null, not empty)
      */
     public static String writtenAssetPath() {
+        if (writtenAssetDir == null) {
+            throw new IllegalStateException(
+                    "No written-asset path has been designated.");
+        }
         String path = Heart.fixedPath(writtenAssetDir);
 
         assert !path.isEmpty();
@@ -345,25 +405,15 @@ abstract public class ActionApplication
                     "application may only be initialized once");
         }
         isInitialized = true;
-        /*
-         * Attempt to create a folder/directory for writing assets.
-         */
-        writtenAssetDir = new File("Written Assets");
-        if (!writtenAssetDir.isDirectory()) {
-            boolean success = writtenAssetDir.mkdirs();
-            if (!success) {
-                String waPath = writtenAssetPath();
-                logger.log(Level.WARNING,
-                        "Failed to create folder/directory {0}.",
-                        MyString.quote(waPath));
-            }
-        }
-        /*
-         * Initialize asset locators to the default list.
-         */
-        assetManager.unregisterLocator("/", ClasspathLocator.class);
+
         Locators.setAssetManager(assetManager);
-        Locators.useDefault();
+        if (writtenAssetDir != null) {
+            /*
+             * Initialize asset locators to the default list.
+             */
+            assetManager.unregisterLocator("/", ClasspathLocator.class);
+            Locators.useDefault();
+        }
         /*
          * Register a loader for Properties assets.
          */
@@ -382,15 +432,17 @@ abstract public class ActionApplication
             stateManager.attach(defaultInputMode);
             defaultInputMode.setEnabled(true);
         }
-        /*
-         * Capture a screenshot to the written-asset directory
-         * each time KEY_SYSRQ (a.k.a. the PrtSc key) is pressed.
-         */
+
         ScreenshotAppState screenshotAppState
                 = stateManager.getState(ScreenshotAppState.class);
-        if (screenshotAppState == null) {
+        if (screenshotAppState == null && writtenAssetDir != null) {
+            /*
+             * Capture a screenshot to the written-asset directory
+             * each time KEY_SYSRQ (a.k.a. the PrtSc key) is pressed.
+             */
+            String waPath = writtenAssetPath() + "/";
             screenshotAppState
-                    = new ScreenshotAppState("Written Assets/", "screenshot");
+                    = new ScreenshotAppState(waPath, "screenshot");
             boolean success = stateManager.attach(screenshotAppState);
             assert success;
         }
