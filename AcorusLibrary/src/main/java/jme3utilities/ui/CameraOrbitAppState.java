@@ -190,7 +190,7 @@ public class CameraOrbitAppState extends ActionAppState {
             orbitAngle -= tpf;
         }
         if (orbitAngle != 0f) {
-            float appSpeed = speed();
+            float appSpeed = getSpeed();
             orbitAngle *= angularRate / appSpeed;
             orbitCamera(orbitAngle);
         }

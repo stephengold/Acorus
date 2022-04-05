@@ -100,7 +100,7 @@ public class ActionAppState extends SimpleAppState {
      *
      * @return the speed (&gt;0, standard speed &rarr; 1)
      */
-    public float speed() {
+    public float getSpeed() {
         float result = getActionApplication().getSpeed();
         return result;
     }
