@@ -95,13 +95,13 @@ public class ActionAppState extends SimpleAppState {
     }
 
     /**
-     * Determine the effective speed of physics and animations. Allowed only if
-     * the AppState has been initialized.
+     * Return the effective speed of physics and animations. Allowed only if the
+     * AppState has been initialized.
      *
      * @return the speed (&gt;0, standard speed &rarr; 1)
      */
     public float speed() {
-        float result = getActionApplication().speed();
+        float result = getActionApplication().getSpeed();
         return result;
     }
     // *************************************************************************

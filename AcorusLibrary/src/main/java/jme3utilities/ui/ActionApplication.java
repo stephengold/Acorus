@@ -276,16 +276,6 @@ abstract public class ActionApplication
     }
 
     /**
-     * Determine the effective speed of physics and animations. TODO delete
-     *
-     * @return the speed (&gt;0, standard speed &rarr; 1)
-     */
-    public float speed() {
-        assert speed > 0f : speed;
-        return speed;
-    }
-
-    /**
      * Determine the filesystem path to the directory for writing assets.
      * Assumes that {@link #designateWrittenAssetPath(java.lang.String)} has
      * been invoked.
@@ -383,6 +373,17 @@ abstract public class ActionApplication
     }
     // *************************************************************************
     // SimpleApplication methods
+
+    /**
+     * Return the effective speed of physics and animations.
+     *
+     * @return the speed (&gt;0, standard speed &rarr; 1)
+     */
+    @Override
+    public float getSpeed() {
+        assert speed > 0f : speed;
+        return speed;
+    }
 
     /**
      * Alter the effective speeds of physics simulation and all animations.
