@@ -75,6 +75,10 @@ abstract public class ActionApplication
         CameraInput.FLYCAM_STRAFELEFT,
         CameraInput.FLYCAM_STRAFERIGHT
     };
+    /**
+     * action string to generate a screenshot
+     */
+    final public static String asScreenShot = "ScreenShot";
     // *************************************************************************
     // constructors
 
@@ -256,7 +260,7 @@ abstract public class ActionApplication
              * DefaultInputMode.initialize().
              */
             switch (actionString) {
-                case "ScreenShot":
+                case asScreenShot:
                     ScreenshotAppState screenshotAppState
                             = stateManager.getState(ScreenshotAppState.class);
                     if (screenshotAppState != null) {

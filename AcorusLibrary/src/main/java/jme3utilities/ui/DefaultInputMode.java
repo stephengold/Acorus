@@ -119,9 +119,12 @@ public class DefaultInputMode extends InputMode {
 
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.Linux) {
-            bind("ScreenShot", KeyInput.KEY_SCROLL); // window mgr blocks SYSRQ
+            /*
+             * Some Linux window managers intercept the SYSRQ key.
+             */
+            bind(ActionApplication.asScreenShot, KeyInput.KEY_SCROLL);
         } else {
-            bind("ScreenShot", KeyInput.KEY_SYSRQ);
+            bind(ActionApplication.asScreenShot, KeyInput.KEY_SYSRQ);
         }
 
         AppStateManager manager = simpleApplication.getStateManager();
@@ -160,7 +163,7 @@ public class DefaultInputMode extends InputMode {
         for (String signalName : ActionApplication.flycamNames) {
             deleteAnyMapping(im, signalName);
         }
-        deleteAnyMapping(im, "ScreenShot");
+        deleteAnyMapping(im, ActionApplication.asScreenShot);
         deleteAnyMapping(im, SimpleApplication.INPUT_MAPPING_CAMERA_POS);
         deleteAnyMapping(im, SimpleApplication.INPUT_MAPPING_EXIT);
         deleteAnyMapping(im, SimpleApplication.INPUT_MAPPING_HIDE_STATS);
