@@ -97,7 +97,7 @@ abstract public class ActionApplication
     /**
      * track input signals
      */
-    private Signals signals = null;
+    final private Signals signals = new Signals();
     // *************************************************************************
     // constructors
 
@@ -369,9 +369,8 @@ abstract public class ActionApplication
          */
         assetManager.registerLoader(PropertiesLoader.class, "properties");
         /*
-         * Initialize hotkeys and a signal tracker for hotkeys.
+         * Initialize hotkeys.
          */
-        signals = new Signals();
         Hotkey.initialize(inputManager);
 
         defaultInputMode = stateManager.getState(DefaultInputMode.class);
