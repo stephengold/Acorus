@@ -33,6 +33,7 @@ import com.jme3.app.Application;
 import com.jme3.app.DebugKeysAppState;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
+import com.jme3.app.state.AppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.cursors.plugins.JmeCursor;
@@ -116,26 +117,16 @@ public class DefaultInputMode extends InputMode {
         }
 
         bindFlyKeys();
-
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.Linux) {
-            /*
-             * Some Linux window managers intercept the SYSRQ key.
-             */
-            bind(ActionApplication.asScreenShot, KeyInput.KEY_SCROLL);
-        } else {
-            bind(ActionApplication.asScreenShot, KeyInput.KEY_SYSRQ);
-        }
+        bindScreenshotKey();
 
         AppStateManager manager = simpleApplication.getStateManager();
-        StatsAppState statsAppState = manager.getState(StatsAppState.class);
-        if (statsAppState != null) {
+        AppState renderStats = manager.getState(StatsAppState.class);
+        if (renderStats != null) {
             bind(SimpleApplication.INPUT_MAPPING_HIDE_STATS, KeyInput.KEY_F5);
         }
 
-        DebugKeysAppState debugKeysAppState
-                = manager.getState(DebugKeysAppState.class);
-        if (debugKeysAppState != null) {
+        AppState debugKeys = manager.getState(DebugKeysAppState.class);
+        if (debugKeys != null) {
             bind(SimpleApplication.INPUT_MAPPING_CAMERA_POS, KeyInput.KEY_C);
             bind(SimpleApplication.INPUT_MAPPING_MEMORY, KeyInput.KEY_M);
         }
@@ -205,6 +196,21 @@ public class DefaultInputMode extends InputMode {
             bindSignal(CameraInput.FLYCAM_RISE, KeyInput.KEY_Q);
             bindSignal(CameraInput.FLYCAM_STRAFELEFT, KeyInput.KEY_A);
             bindSignal(CameraInput.FLYCAM_STRAFERIGHT, KeyInput.KEY_D);
+        }
+    }
+
+    /**
+     * Add the hotkey binding for a ScreenshotAppState.
+     */
+    private void bindScreenshotKey() {
+        Platform platform = JmeSystem.getPlatform();
+        if (platform.getOs() == Platform.Os.Linux) {
+            /*
+             * Some Linux window managers intercept the SYSRQ key.
+             */
+            bind(ActionApplication.asScreenShot, KeyInput.KEY_SCROLL);
+        } else {
+            bind(ActionApplication.asScreenShot, KeyInput.KEY_SYSRQ);
         }
     }
 
