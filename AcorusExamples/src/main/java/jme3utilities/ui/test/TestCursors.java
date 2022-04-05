@@ -29,7 +29,7 @@
  */
 package jme3utilities.ui.test;
 
-import com.jme3.app.StatsAppState;
+import com.jme3.app.state.AppState;
 import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.font.BitmapText;
 import com.jme3.font.Rectangle;
@@ -71,6 +71,15 @@ public class TestCursors extends ActionApplication {
      */
     private BitmapText statusText;
     // *************************************************************************
+    // constructors
+
+    /**
+     * Instantiate an ActionApplication without any initial appstates.
+     */
+    private TestCursors() {
+        super((AppState[]) null);
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**
@@ -100,14 +109,6 @@ public class TestCursors extends ActionApplication {
      */
     @Override
     public void actionInitializeApplication() {
-        /*
-         * Avert warnings about signals not added.
-         */
-        flyCam.setEnabled(false);
-        /*
-         * Hide the render-statistics overlay.
-         */
-        stateManager.getState(StatsAppState.class).toggleStats();
         /*
          * Instantiate the status text and attach it to the GUI node.
          */
