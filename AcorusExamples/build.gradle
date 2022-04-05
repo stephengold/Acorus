@@ -60,13 +60,19 @@ tasks.register('TestCombo', JavaExec) {
 tasks.register('TestCursors', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestCursors'
 }
+
 tasks.register('TestDsEdit', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestDsEdit'
 }
-tasks.register('TestDsEditReset', JavaExec) {
+tasks.register('TestDsEditDeleteSettings', JavaExec) {
+    args '--deleteOnly'
+    mainClass = 'jme3utilities.ui.test.TestDsEdit'
+}
+tasks.register('TestDsEditResetSettings', JavaExec) {
     args '--resetOnly'
     mainClass = 'jme3utilities.ui.test.TestDsEdit'
 }
+
 tasks.register('TestFlyCam', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestFlyCam'
 }

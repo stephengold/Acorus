@@ -43,6 +43,8 @@ import com.jme3.texture.FrameBuffer;
 import java.awt.DisplayMode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
@@ -89,7 +91,7 @@ public class TestDsEdit extends AbstractDemo {
     // fields
 
     /**
-     * proposed display settings
+     * proposed settings
      */
     private static DisplaySettings proposedSettings;
     /**
@@ -121,6 +123,11 @@ public class TestDsEdit extends AbstractDemo {
          */
         for (String arg : arguments) {
             switch (arg) {
+                case "--deleteOnly":
+                    deleteStoredSettings();
+                    System.exit(0);
+                    break;
+
                 case "--resetOnly":
                     resetOnly = true;
                     break;
@@ -341,6 +348,29 @@ public class TestDsEdit extends AbstractDemo {
     }
 
     /**
+     * Delete the application's stored settings, if any.
+     */
+    private static void deleteStoredSettings() {
+        try {
+            if (Preferences.userRoot().nodeExists(applicationName)) {
+                Preferences.userRoot().node(applicationName).removeNode();
+                logger.log(Level.WARNING,
+                        "The stored settings for \"{0}\" were deleted.",
+                        applicationName);
+            } else {
+                logger.log(Level.WARNING,
+                        "No stored settings for \"{0}\" were found.",
+                        applicationName);
+            }
+
+        } catch (BackingStoreException exception) {
+            logger.log(Level.SEVERE,
+                    "The stored settings for \"{0}\" are inaccessible.",
+                    applicationName);
+        }
+    }
+
+    /**
      * Initialization performed immediately after parsing the command-line
      * arguments.
      *
@@ -375,12 +405,13 @@ public class TestDsEdit extends AbstractDemo {
         if (resetOnly) {
             /*
              * In case bad settings get written to persistent storage,
-             * the --resetOnly command-line option should allow recovery.
+             * the --resetOnly command-line option can be used to recover.
              */
             proposedSettings.loadDefaults();
             proposedSettings.save();
-            logger.log(Level.WARNING, "Display settings for {0} were reset "
-                    + "and written to persistent storage.", applicationName);
+
+            logger.log(Level.WARNING, "The stored settings for \"{0}\" were "
+                    + "reset to their default values.", applicationName);
             System.exit(0);
         }
 
