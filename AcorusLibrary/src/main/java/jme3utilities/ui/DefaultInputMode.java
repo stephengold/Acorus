@@ -35,6 +35,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.app.state.AppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.app.state.ScreenshotAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.input.CameraInput;
@@ -117,9 +118,13 @@ public class DefaultInputMode extends InputMode {
         }
 
         bindFlyKeys();
-        bindScreenshotKey();
 
         AppStateManager manager = simpleApplication.getStateManager();
+        AppState screenshot = manager.getState(ScreenshotAppState.class);
+        if (screenshot != null) {
+            bindScreenshotKey();
+        }
+
         AppState renderStats = manager.getState(StatsAppState.class);
         if (renderStats != null) {
             bind(SimpleApplication.INPUT_MAPPING_HIDE_STATS, KeyInput.KEY_F5);
