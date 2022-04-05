@@ -46,7 +46,7 @@ import java.util.logging.Logger;
 import jme3utilities.MyString;
 
 /**
- * The default InputMode for an ActionApplication.
+ * The standard initial InputMode for an ActionApplication.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -67,7 +67,7 @@ public class DefaultInputMode extends InputMode {
     // constructors
 
     /**
-     * Instantiate a disabled, uninitialized mode.
+     * Instantiate a disabled, uninitialized InputMode.
      */
     DefaultInputMode() {
         super("default");
@@ -135,7 +135,7 @@ public class DefaultInputMode extends InputMode {
 
         DebugKeysAppState debugKeysAppState
                 = manager.getState(DebugKeysAppState.class);
-        if (statsAppState != null) {
+        if (debugKeysAppState != null) {
             bind(SimpleApplication.INPUT_MAPPING_CAMERA_POS, KeyInput.KEY_C);
             bind(SimpleApplication.INPUT_MAPPING_MEMORY, KeyInput.KEY_M);
         }
