@@ -408,10 +408,12 @@ public class TestDsEdit extends AbstractDemo {
              * the --resetOnly command-line option can be used to recover.
              */
             proposedSettings.loadDefaults();
-            proposedSettings.save();
-
-            logger.log(Level.WARNING, "The stored settings for \"{0}\" were "
-                    + "reset to their default values.", applicationName);
+            boolean success = proposedSettings.save();
+            if (success) {
+                logger.log(Level.WARNING, "The stored settings for \"{0}\" "
+                        + "were reset to their default values.",
+                        applicationName);
+            }
             System.exit(0);
         }
 

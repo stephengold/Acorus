@@ -544,16 +544,22 @@ public class DisplaySettings {
 
     /**
      * Write the proposed settings to persistent storage, so that they will take
-     * effect the next time the application is launched. TODO return boolean
+     * effect the next time the application is launched.
+     *
+     * @return true if successful, otherwise false
      */
-    public void save() {
+    public boolean save() {
+        boolean result = false;
         try {
             proposedSettings.save(applicationName);
             areSaved = true;
+            result = true;
         } catch (BackingStoreException e) {
             logger.log(Level.WARNING, "Failed to write settings for \"{0}\" "
                     + "to persistent storage.", applicationName);
         }
+
+        return result;
     }
 
     /**

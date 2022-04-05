@@ -34,7 +34,6 @@ import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.input.KeyInput;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jme3utilities.MyString;
 import jme3utilities.Validate;
 
 /**
@@ -252,12 +251,13 @@ public class DsEditInputMode extends InputMode {
      */
     private void save() {
         if (proposedSettings.areValid() && !proposedSettings.areSaved()) {
-            proposedSettings.save();
-
-            String appName = proposedSettings.applicationName();
-            logger.log(Level.WARNING,
-                    "Wrote settings for \"{0}\" to persistent storage.",
-                    appName);
+            boolean success = proposedSettings.save();
+            if (success) {
+                String appName = proposedSettings.applicationName();
+                logger.log(Level.WARNING,
+                        "Wrote settings for \"{0}\" to persistent storage.",
+                        appName);
+            }
         }
     }
 }
