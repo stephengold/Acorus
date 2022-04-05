@@ -80,6 +80,21 @@ abstract public class ActionApplication
      */
     final public static String asScreenShot = "ScreenShot";
     // *************************************************************************
+    // fields
+
+    /**
+     * folder/directory for writing assets
+     */
+    private static File writtenAssetDir = null;
+    /**
+     * initial input mode: set in {@link #simpleInitApp()}
+     */
+    private InputMode defaultInputMode = null;
+    /**
+     * signal tracker set in {@link #simpleInitApp()}
+     */
+    private Signals signals = null;
+    // *************************************************************************
     // constructors
 
     /**
@@ -104,21 +119,6 @@ abstract public class ActionApplication
     protected ActionApplication(AppState... initialAppStates) {
         super(initialAppStates);
     }
-    // *************************************************************************
-    // fields
-
-    /**
-     * folder/directory for writing assets
-     */
-    private static File writtenAssetDir = null;
-    /**
-     * initial input mode: set in {@link #simpleInitApp()}
-     */
-    private InputMode defaultInputMode = null;
-    /**
-     * signal tracker set in {@link #simpleInitApp()}
-     */
-    private Signals signals = null;
     // *************************************************************************
     // new methods exposed
 
