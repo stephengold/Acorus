@@ -29,6 +29,7 @@
  */
 package jme3utilities.ui.test;
 
+import com.jme3.app.state.AppState;
 import com.jme3.font.BitmapText;
 import com.jme3.system.AppSettings;
 import java.util.ArrayList;
@@ -77,6 +78,15 @@ public class TestHotkeys extends ActionApplication {
      */
     final private static StringBuffer statusBuffer = new StringBuffer(200);
     // *************************************************************************
+    // constructors
+
+    /**
+     * Instantiate an ActionApplication without any initial appstates.
+     */
+    private TestHotkeys() {
+        super((AppState[]) null);
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**
@@ -111,10 +121,6 @@ public class TestHotkeys extends ActionApplication {
             logger.log(Level.SEVERE, "Not designed to run full-screen.");
             stop();
         }
-        /*
-         * Avert warnings about signals not added.
-         */
-        flyCam.setEnabled(false);
         /*
          * Instantiate the status text and attach it to the GUI node.
          */
