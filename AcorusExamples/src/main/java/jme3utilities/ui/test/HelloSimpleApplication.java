@@ -41,11 +41,12 @@ import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * Test/demonstrate the default hotkey bindings.
+ * Test/demonstrate hotkey bindings that emulate JMonkeyEngine's
+ * SimpleApplication.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestFlyCam extends ActionApplication {
+public class HelloSimpleApplication extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -53,23 +54,23 @@ public class TestFlyCam extends ActionApplication {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestFlyCam.class.getName());
+            = Logger.getLogger(HelloSimpleApplication.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestFlyCam.class.getSimpleName();
+            = HelloSimpleApplication.class.getSimpleName();
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the TestFlyCam application.
+     * Main entry point for the HelloSimpleApplication application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestFlyCam application = new TestFlyCam();
+        HelloSimpleApplication application = new HelloSimpleApplication();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;

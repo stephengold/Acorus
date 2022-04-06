@@ -317,10 +317,11 @@ Help nodes indicate combo bindings alongside simple hotkey bindings:
 + "shift+y" mean pressing the "y" key while the "shift" signal is active
 + "noshift+y" means pressing the "y" key while "shift" isn't active
 
-### TestFlyCam
+### HelloSimpleApplication
 
-This example adds a `FlyByCamera`, a `StatsAppState`, a `DebugKeysAppState`,
-and a `ScreenshotAppState` to the `HelloAcorus` example.
+This example extends the `HelloAcorus` example
+with a `FlyByCamera`, a `StatsAppState`, a `DebugKeysAppState`,
+and a `ScreenshotAppState`.
 
 When `DefaultInputMode` detects a `StatsAppState`,
 it binds the F5 key to the action
@@ -359,7 +360,7 @@ detailed and minimal.
 `FlyByCamera` is a powerful camera control,
 but it's not convenient for studying a 3-D object from all sides.
 
-This example adds a `CameraOrbitAppState` to `TestFlyCam`.
+This example adds a `CameraOrbitAppState` to `TestSimpleApplication`.
 The left- and right-arrow keys
 cause the camera to orbit around the center of the scene.
 
@@ -369,7 +370,7 @@ This makes it easy to customize which hotkeys do what.
 
 ### TestToggleFly
 
-This example extends `TestFlyCam`
+This example extends `TestSimpleApplication`
 with an action to toggle the state of the `FlyByCamera`.
 
 Notice how the hotkey bindings change

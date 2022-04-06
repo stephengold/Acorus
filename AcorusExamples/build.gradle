@@ -73,8 +73,8 @@ tasks.register('TestDsEditResetSettings', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestDsEdit'
 }
 
-tasks.register('TestFlyCam', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestFlyCam'
+tasks.register('HelloSimpleApplication', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloSimpleApplication'
 }
 tasks.register('TestHeadless', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestHeadless'
