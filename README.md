@@ -338,7 +338,7 @@ Users accustomed to `SimpleApplication` tend to expect these bindings.
 
 Acorus allows you to designate a sandbox:
 a directory to which Acorus will write files.
-By convention, this directory named "Written Assets".
+By tradition, this directory is named "Written Assets".
 
 If there's a designated sandbox,
 `ActionApplication` attaches a `ScreenshotAppState`
