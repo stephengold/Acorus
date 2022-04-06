@@ -541,7 +541,7 @@ abstract public class AbstractDemo extends ActionApplication {
      */
     private void generateDetailedHelp(InputMode inputMode, Rectangle bounds,
             Node parent) {
-        float extraSpace = 20f;
+        float extraSpace = 20f; // separation between actions, in pixels
         helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, extraSpace);
 
         helpNode.setLocalTranslation(0f, 0f, 1f); // move to the front
@@ -584,7 +584,7 @@ abstract public class AbstractDemo extends ActionApplication {
         float height = detailedHelpBounds.height;
         Rectangle narrowBounds = new Rectangle(x, y, width, height);
 
-        float extraSpace = 0f;
+        float extraSpace = 0f; // separation between actions, in pixels
         minHelpNode = HelpUtils.buildNode(
                 tmpInputMode, narrowBounds, guiFont, extraSpace);
 

@@ -182,7 +182,7 @@ public class TestToggleFly extends ActionApplication {
         float height = guiCamera.getHeight() - 20f;
         Rectangle bounds = new Rectangle(x, y, width, height);
 
-        float space = 20f; // in pixels
+        float space = 20f; // separation between actions, in pixels
         helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
         guiNode.attachChild(helpNode);
     }

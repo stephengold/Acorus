@@ -166,7 +166,7 @@ public class HelloToggleHelp extends ActionApplication {
         float height = guiCamera.getHeight() - 20f;
         Rectangle bounds = new Rectangle(x, y, width, height);
 
-        float space = 20f;
+        float space = 20f; // separation between actions, in pixels
         detailedHelpNode
                 = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
         detailedHelpNode.move(0f, 0f, 1f); // move (slightly) to the front
