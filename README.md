@@ -334,7 +334,7 @@ to signals that control camera motion.
 
 Users accustomed to `SimpleApplication` tend to expect these bindings.
 
-### TestScreenshot
+### HelloSandbox
 
 Acorus allows you to designate a sandbox:
 a directory to which Acorus will write files.
@@ -343,7 +343,7 @@ By convention, this directory named "Written Assets".
 If there's a designated sandbox,
 `ActionApplication` attaches a `ScreenshotAppState`
 and binds a hotkey (either PrtSc or ScrLk or SysRq)
-to the action that captures a screenshot.
+to the action that takes a screenshot and writes it to the sandbox.
 
 ### TestMinHelp
 

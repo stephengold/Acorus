@@ -85,8 +85,8 @@ tasks.register('TestHotkeys', JavaExec) {
 tasks.register('TestMinHelp', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestMinHelp'
 }
-tasks.register('TestScreenshot', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestScreenshot'
+tasks.register('HelloSandbox', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloSandbox'
 }
 tasks.register('TestSignals', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestSignals'

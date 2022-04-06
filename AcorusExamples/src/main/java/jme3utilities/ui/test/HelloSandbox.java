@@ -43,11 +43,11 @@ import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * Test/demonstrate the built-in "screenshot" action.
+ * Test/demonstrate the Acorus sandbox and the built-in "screenshot" action.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestScreenshot extends ActionApplication {
+public class HelloSandbox extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -55,32 +55,32 @@ public class TestScreenshot extends ActionApplication {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestScreenshot.class.getName());
+            = Logger.getLogger(HelloSandbox.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestScreenshot.class.getSimpleName();
+            = HelloSandbox.class.getSimpleName();
     // *************************************************************************
     // constructors
 
     /**
      * Instantiate an ActionApplication without any initial appstates.
      */
-    private TestScreenshot() {
+    private HelloSandbox() {
         super((AppState[]) null);
     }
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the TestScreenshot application.
+     * Main entry point for the HelloSandbox application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestScreenshot application = new TestScreenshot();
+        HelloSandbox application = new HelloSandbox();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;
