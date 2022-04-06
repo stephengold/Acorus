@@ -346,14 +346,7 @@ By tradition, this directory is named "Written Assets".
 If there's a designated sandbox,
 `ActionApplication` attaches a `ScreenshotAppState`
 and binds a hotkey (either PrtSc or ScrLk or SysRq)
-to the action that takes a screenshot and writes it to the sandbox.
-
-### TestMinHelp
-
-Often you'll want to display detailed help only when the user requests it.
-
-This example adds an action to toggle the help node between 2 versions:
-detailed and minimal.
+to an action that takes a screenshot and writes it to the sandbox.
 
 ### TestCoas
 
@@ -397,6 +390,18 @@ Occasionally, an applications that run in a headless context
 will want to utilize these features.
 
 `TestHeadless` is a simple example of a headless `ActionApplication`.
+
+### HelloToggleHelp
+
+Often you'll want to display detailed help
+only when the user explicitly requests it.
+
+This example adds an action to toggle the help node between 2 versions:
+detailed and minimal.
+
+This functionaly is somewhat tricky to implement,
+and it's so useful that it's built into
+a subclass of `ActionApplication` named `AbstractDemo`.
 
 ### TestAbstractDemo
 

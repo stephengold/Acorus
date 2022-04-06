@@ -42,11 +42,11 @@ import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
- * Test/demonstrate the help-node minimization.
+ * An example of minimizing a help node the hard way.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestMinHelp extends ActionApplication {
+public class HelloToggleHelp extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -54,12 +54,12 @@ public class TestMinHelp extends ActionApplication {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestMinHelp.class.getName());
+            = Logger.getLogger(HelloToggleHelp.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestMinHelp.class.getSimpleName();
+            = HelloToggleHelp.class.getSimpleName();
     // *************************************************************************
     // fields
 
@@ -75,13 +75,13 @@ public class TestMinHelp extends ActionApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the TestMinHelp application.
+     * Main entry point for the HelloToggleHelp application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestMinHelp application = new TestMinHelp();
+        HelloToggleHelp application = new HelloToggleHelp();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;
