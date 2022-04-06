@@ -143,8 +143,7 @@ abstract public class ActionApplication
      * Assets"
      * @throws IOException if directory creation fails
      */
-    public static void designateSandbox(String desiredPath)
-            throws IOException {
+    public static void designateSandbox(String desiredPath) throws IOException {
         if (sandboxDirectory != null) {
             throw new IllegalStateException(
                     "Don't invoke this method more than once.");
@@ -395,7 +394,7 @@ abstract public class ActionApplication
     }
 
     /**
-     * Startup code for this application.
+     * Initialization code common to all action-oriented applications.
      */
     @Override
     final public void simpleInitApp() {
