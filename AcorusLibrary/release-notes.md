@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 0.9.12 released on TBD
+## Version 0.9.12 released on 6 April 2022
 
 + Bugfix:  incorrect hotkey bindings in `DefaultInputMode`
 + API changes:
