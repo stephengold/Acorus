@@ -47,7 +47,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestBareBones extends ActionApplication {
+public class HelloAcorus extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -55,32 +55,32 @@ public class TestBareBones extends ActionApplication {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestBareBones.class.getName());
+            = Logger.getLogger(HelloAcorus.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestBareBones.class.getSimpleName();
+            = HelloAcorus.class.getSimpleName();
     // *************************************************************************
     // constructors
 
     /**
      * Instantiate an ActionApplication without any initial appstates.
      */
-    private TestBareBones() {
+    private HelloAcorus() {
         super((AppState[]) null);
     }
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the TestBareBones application.
+     * Main entry point for the HelloAcorus application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestBareBones application = new TestBareBones();
+        HelloAcorus application = new HelloAcorus();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;

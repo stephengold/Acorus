@@ -222,11 +222,11 @@ The pre-built libraries are compatible with JDK 8.
 Applications have been created to illustrate key concepts of Acorus.
 The following example apps are found in the AcorusExamples sub-project:
 
-### TestBareBones
+### HelloAcorus
 
 All Acorus applications extend the `ActionApplication` class
 or one of its subclasses.
-`TestBareBones` is an example of a minimal `ActionApplication`:
+`HelloAcorus` is an example of a minimal `ActionApplication`:
 one without a `FlyByCamera`, a `DebugKeysAppState`,
 a `ScreenshotAppState`, or a `StatsAppState`.
 
@@ -317,8 +317,8 @@ Help nodes indicate combo bindings alongside simple hotkey bindings:
 
 ### TestFlyCam
 
-This example adds a `FlyByCamera`, a StatsAppState`, a `DebugKeysAppState`,
-and a `ScreenshotAppState` to the `TestBareBones` example.
+This example adds a `FlyByCamera`, a `StatsAppState`, a `DebugKeysAppState`,
+and a `ScreenshotAppState` to the `HelloAcorus` example.
 
 When `DefaultInputMode` detects a `StatsAppState`,
 it binds the F5 key to the action

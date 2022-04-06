@@ -45,8 +45,8 @@ tasks.register('cleanWrittenAssets', Delete) { // Acorus output directory
 tasks.register('TestAbstractDemo', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestAbstractDemo'
 }
-tasks.register('TestBareBones', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestBareBones'
+tasks.register('HelloAcorus', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloAcorus'
 }
 tasks.register('TestBind', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestBind'
