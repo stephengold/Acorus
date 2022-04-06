@@ -1,5 +1,80 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.12 released on TBD
+
++ Bugfix:  incorrect hotkey bindings in `DefaultInputMode`
++ API changes:
+  + in the `ActionApplication` and `ActionAppState` classes,
+    renamed `speed()` to `getSpeed()`
+  + in the `ActionApplication` class,
+    renamed `writtenAssetPath()` to `sandboxPath()`
+  + in the `DisplaySettings` class:
+    + replaced `DisplaySizeLimits` with `RectSizeLimits`
+    + renamed `applyToDisplay()` to `applyToContext()`
+    + renamed `setMaxDimensions()` to `setMaxSize()`
+    + renamed `setMinDimensions()` to `setMinSize()`
++ Other potential breaking changes:
+  + `ActionApplication` no longer designates the sandbox,
+    so (by default) neither does it add an asset locator
+    or attach a `ScreenshotAppState`.
+    Applications that desire these features
+    should invoke `designateSandbox()` prior to initialization.
++ Other important changes to `DisplaySettings` class:
+  + don't save settings during `initialize()`
+  + added a return value to the `save()` method
+  + allow MSAA factors > 16
+  + added public methods:
+    + `graphicsApi()`
+    + `isCentered()`
+    + `listGraphicsApis()`
+    + `load()`
+    + `loadDefaults()`
+    + `scaleSize()`
+    + `setCentered()`
+    + `setGraphicsApi()`
+    + `setStartLocation()`
+    + `startX()`
+    + `startY()`
++ Important changes to the `AbstractDemo` class:
+  + overrode the `inputModeChange()` method to update help nodes
+  + allowed for the possibility of no active input mode
++ Important changes to the display-settings editor:
+  + made it compatible with both LWJGL v2 and v3, minimizing use of AWT
+  + created distinct display-mode matching rules for v2 and v3
+  + worked around JME issues, including 798 and 1793
+    and undocumented limitations of `restart()`
+  + added heuristics for easier transitions between fullscreen and windowed
+  + added capabilities to edit more settings:
+    + window centering
+    + window initial position
+    + graphics API
+    + graphics debug and graphics trace
+  + added a 2nd status line to the overlay
+  + added actions to reload default settings and revert to saved settings
+  + added reflection-based utility methods to the `DsUtils` class:
+    + `displayMode()`
+    + `framebufferHeight()`
+    + `framebufferWidth()`
+    + `getSystemListener()`
+    + `hasLwjglVersion3()`
+    + `listDisplayModes()`
+    + `updateFramebufferSize()`
+    + `windowXPosition()`
+    + `windowYPosition()`
++ Based on version 7.5.0 of the Heart Library.
++ Renamed tutorial apps:
+  + `TestBareBones` to `HelloAcorus`
+  + `TestBind` to `HelloBind`
+  + `TestCoas` to `HelloCoas`
+  + `TestCombo` to `HelloCombo`
+  + `TestFlyCam` to `HelloSimpleApplication`
+  + `TestMinHelp` to `HelloToggleHelp`
+  + `TestScreenshot` to `HelloSandbox`
+  + `TestSignal` to `HelloSignals`
++ Added the `HelloSandbox` tutorial app.
++ Added "--deleteOnly" and "--resetOnly" command-line options to `TestDsEdit`
+  in order to recover from bad saved settings.
+
 ## Version 0.9.11 released on 27 March 2022
 
  + Bugfix:  asset exception in `AbstractDemo.generateMaterials()`
