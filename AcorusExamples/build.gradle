@@ -88,8 +88,8 @@ tasks.register('TestMinHelp', JavaExec) {
 tasks.register('HelloSandbox', JavaExec) {
     mainClass = 'jme3utilities.ui.test.HelloSandbox'
 }
-tasks.register('TestSignals', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestSignals'
+tasks.register('HelloSignals', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloSignals'
 }
 tasks.register('TestToggleFly', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestToggleFly'

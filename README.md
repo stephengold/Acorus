@@ -292,10 +292,12 @@ For example, the `HelloBind` help node indicates "num4",
 which is an abbreviated form of "numpad 4",
 which is the US/local name for the "4" key on the numeric keypad.
 
-### TestSignal
+### HelloSignals
 
 Just as hotkeys can be bound to actions, they can also be bound to signals.
-Signals are used to keep track of which hotkeys are active.
+Signals keep track of which hotkeys are active.
+They are used to monitor modal keys (like Shift, Ctrl, and Alt)
+and also to control motion.
 
 This example binds 12 hotkeys to 4 custom signals in the default input mode.
 The signals cause squares to appear on (or disappear from) the display.

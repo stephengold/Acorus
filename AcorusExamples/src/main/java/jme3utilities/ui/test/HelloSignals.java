@@ -54,7 +54,7 @@ import jme3utilities.ui.Signals;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestSignal extends ActionApplication {
+public class HelloSignals extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -62,12 +62,12 @@ public class TestSignal extends ActionApplication {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestSignal.class.getName());
+            = Logger.getLogger(HelloSignals.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestSignal.class.getSimpleName();
+            = HelloSignals.class.getSimpleName();
     // *************************************************************************
     // field
 
@@ -93,20 +93,20 @@ public class TestSignal extends ActionApplication {
     /**
      * Instantiate an ActionApplication without any initial appstates.
      */
-    private TestSignal() {
+    private HelloSignals() {
         super((AppState[]) null);
     }
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the TestSignal application.
+     * Main entry point for the HelloSignals application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestSignal application = new TestSignal();
+        HelloSignals application = new HelloSignals();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;
