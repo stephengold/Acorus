@@ -197,8 +197,8 @@ abstract public class ActionApplication
 
     /**
      * Convert an asset path to a canonical filesystem path for writing the
-     * asset. Assumes that {@link #designateSandbox(java.lang.String)}
-     * has been invoked.
+     * asset. Assumes that {@link #designateSandbox(java.lang.String)} has been
+     * invoked.
      *
      * @param assetPath (not null)
      * @return the file-system path (not null, not empty)
@@ -276,8 +276,8 @@ abstract public class ActionApplication
 
     /**
      * Determine the filesystem path to the directory for writing assets.
-     * Assumes that {@link #designateSandbox(java.lang.String)} has
-     * been invoked.
+     * Assumes that {@link #designateSandbox(java.lang.String)} has been
+     * invoked.
      *
      * @return the canonical pathname (not null, not empty)
      */
