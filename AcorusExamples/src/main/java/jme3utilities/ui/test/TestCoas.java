@@ -63,17 +63,6 @@ public class TestCoas extends ActionApplication {
     final private static String applicationName
             = TestCoas.class.getSimpleName();
     // *************************************************************************
-    // fields
-
-    /**
-     * Node for displaying detailed hotkey help in the GUI scene
-     */
-    private Node detailedHelpNode;
-    /**
-     * Node for displaying minimal help ("toggle help: H") in the GUI scene
-     */
-    private Node minHelpNode;
-    // *************************************************************************
     // new methods exposed
 
     /**
@@ -120,7 +109,7 @@ public class TestCoas extends ActionApplication {
     @Override
     public void inputModeChange(InputMode oldMode, InputMode newMode) {
         if (newMode != null) {
-            attachHelpNodes(newMode);
+            attachHelpNode(newMode);
         }
     }
 
@@ -132,45 +121,19 @@ public class TestCoas extends ActionApplication {
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
 
-        dim.bindSignal(CameraInput.FLYCAM_LOWER, KeyInput.KEY_DOWN);
-        dim.bindSignal(CameraInput.FLYCAM_RISE, KeyInput.KEY_UP);
         dim.bindSignal("orbitLeft", KeyInput.KEY_LEFT);
         dim.bindSignal("orbitRight", KeyInput.KEY_RIGHT);
-        dim.bind("toggle help", KeyInput.KEY_H);
-    }
-
-    /**
-     * Process an action that wasn't handled by the active InputMode.
-     *
-     * @param actionString textual description of the action (not null)
-     * @param ongoing true if the action is ongoing, otherwise false
-     * @param tpf the time interval between frames (in seconds, &ge;0)
-     */
-    @Override
-    public void onAction(String actionString, boolean ongoing, float tpf) {
-        if (ongoing) {
-            switch (actionString) {
-                case "toggle help":
-                    toggleHelp();
-                    return;
-            }
-        }
-        super.onAction(actionString, ongoing, tpf);
     }
     // *************************************************************************
     // private methods
 
     /**
-     * Generate both versions of the help node for the specified InputMode.
-     * Attach the minimal one to the GUI scene.
+     * Build and attach the help node for the specified InputMode.
      *
      * @param inputMode (not null, unaffected)
      */
-    private void attachHelpNodes(InputMode inputMode) {
+    private void attachHelpNode(InputMode inputMode) {
         Camera guiCamera = guiViewPort.getCamera();
-        /*
-         * Build and attach the detailed help node.
-         */
         float x = 10f;
         float y = guiCamera.getHeight() - 10f;
         float width = guiCamera.getWidth() - 20f;
@@ -178,41 +141,7 @@ public class TestCoas extends ActionApplication {
         Rectangle bounds = new Rectangle(x, y, width, height);
 
         float space = 20f;
-        detailedHelpNode
-                = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
-        detailedHelpNode.move(0f, 0f, 1f); // move (slightly) to the front
-        /*
-         * Build and attach the minimal help node.
-         */
-        InputMode dummyMode = new InputMode("dummy") {
-            @Override
-            protected void defaultBindings() {
-            }
-
-            @Override
-            public void onAction(String s, boolean b, float f) {
-            }
-        };
-        dummyMode.bind("toggle help", KeyInput.KEY_H);
-
-        width = 100f; // in pixels
-        x = guiCamera.getWidth() - 110f;
-        Rectangle dummyBounds = new Rectangle(x, y, width, height);
-
-        minHelpNode = HelpUtils.buildNode(dummyMode, dummyBounds, guiFont, 0f);
-        guiNode.attachChild(minHelpNode);
-    }
-
-    /**
-     * Toggle between the detailed help node and the minimal one.
-     */
-    private void toggleHelp() {
-        if (detailedHelpNode.getParent() == null) {
-            minHelpNode.removeFromParent();
-            guiNode.attachChild(detailedHelpNode);
-        } else {
-            detailedHelpNode.removeFromParent();
-            guiNode.attachChild(minHelpNode);
-        }
+        Node helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
+        guiNode.attachChild(helpNode);
     }
 }
