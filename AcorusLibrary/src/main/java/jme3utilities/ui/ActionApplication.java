@@ -90,7 +90,7 @@ abstract public class ActionApplication
     /**
      * directory for writing assets, or null if none has been designated
      */
-    private static File writtenAssetDir = null;
+    private static File sandboxDirectory = null;
     /**
      * initial input mode: set in {@link #simpleInitApp()}
      */
@@ -143,9 +143,9 @@ abstract public class ActionApplication
      * Assets"
      * @throws IOException if directory creation fails
      */
-    public static void designateWrittenAssetPath(String desiredPath)
+    public static void designateSandbox(String desiredPath)
             throws IOException {
-        if (writtenAssetDir != null) {
+        if (sandboxDirectory != null) {
             throw new IllegalStateException(
                     "Don't invoke this method more than once.");
         }
@@ -155,26 +155,26 @@ abstract public class ActionApplication
         }
 
         if (desiredPath == null) {
-            writtenAssetDir = new File("./Written Assets");
+            sandboxDirectory = new File("./Written Assets");
         } else {
-            writtenAssetDir = new File(desiredPath);
+            sandboxDirectory = new File(desiredPath);
         }
-        String fixedPath = writtenAssetPath();
+        String fixedPath = sandboxPath();
         String quotedPath = MyString.quote(fixedPath);
 
-        if (!writtenAssetDir.exists()) {
-            boolean success = writtenAssetDir.mkdirs();
+        if (!sandboxDirectory.exists()) {
+            boolean success = sandboxDirectory.mkdirs();
             if (!success) {
                 throw new IOException(
                         "Failed to create a directory at " + quotedPath);
             }
         }
 
-        assert writtenAssetDir.exists();
-        if (!writtenAssetDir.isDirectory()) {
+        assert sandboxDirectory.exists();
+        if (!sandboxDirectory.isDirectory()) {
             logger.log(Level.WARNING, "{0} exists, but is not a directory.",
                     quotedPath);
-        } else if (!writtenAssetDir.canWrite()) {
+        } else if (!sandboxDirectory.canWrite()) {
             logger.log(Level.WARNING, "{0} exists, but is not writeable.",
                     quotedPath);
         }
@@ -197,7 +197,7 @@ abstract public class ActionApplication
 
     /**
      * Convert an asset path to a canonical filesystem path for writing the
-     * asset. Assumes that {@link #designateWrittenAssetPath(java.lang.String)}
+     * asset. Assumes that {@link #designateSandbox(java.lang.String)}
      * has been invoked.
      *
      * @param assetPath (not null)
@@ -205,12 +205,11 @@ abstract public class ActionApplication
      */
     public static String filePath(String assetPath) {
         Validate.nonNull(assetPath, "asset path");
-        if (writtenAssetDir == null) {
-            throw new IllegalStateException(
-                    "No written-asset path has been designated.");
+        if (sandboxDirectory == null) {
+            throw new IllegalStateException("No sandbox been designated.");
         }
 
-        File file = new File(writtenAssetDir, assetPath);
+        File file = new File(sandboxDirectory, assetPath);
         String result = Heart.fixedPath(file);
 
         assert !result.isEmpty();
@@ -277,17 +276,16 @@ abstract public class ActionApplication
 
     /**
      * Determine the filesystem path to the directory for writing assets.
-     * Assumes that {@link #designateWrittenAssetPath(java.lang.String)} has
+     * Assumes that {@link #designateSandbox(java.lang.String)} has
      * been invoked.
      *
      * @return the canonical pathname (not null, not empty)
      */
-    public static String writtenAssetPath() {
-        if (writtenAssetDir == null) {
-            throw new IllegalStateException(
-                    "No written-asset path has been designated.");
+    public static String sandboxPath() {
+        if (sandboxDirectory == null) {
+            throw new IllegalStateException("No sandbox has been designated.");
         }
-        String path = Heart.fixedPath(writtenAssetDir);
+        String path = Heart.fixedPath(sandboxDirectory);
 
         assert !path.isEmpty();
         return path;
@@ -408,7 +406,7 @@ abstract public class ActionApplication
         isInitialized = true;
 
         Locators.setAssetManager(assetManager);
-        if (writtenAssetDir != null) {
+        if (sandboxDirectory != null) {
             /*
              * Initialize asset locators to the default list.
              */
@@ -436,12 +434,12 @@ abstract public class ActionApplication
 
         ScreenshotAppState screenshotAppState
                 = stateManager.getState(ScreenshotAppState.class);
-        if (screenshotAppState == null && writtenAssetDir != null) {
+        if (screenshotAppState == null && sandboxDirectory != null) {
             /*
-             * Capture a screenshot to the written-asset directory
-             * each time KEY_SYSRQ (a.k.a. the PrtSc key) is pressed.
+             * Capture a screenshot to the sandbox
+             * each time a "ScreenShot" action is triggered.
              */
-            String waPath = writtenAssetPath() + "/";
+            String waPath = sandboxPath() + "/";
             screenshotAppState
                     = new ScreenshotAppState(waPath, "screenshot");
             boolean success = stateManager.attach(screenshotAppState);

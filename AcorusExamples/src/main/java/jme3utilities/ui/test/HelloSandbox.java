@@ -95,7 +95,7 @@ public class HelloSandbox extends ActionApplication {
          * This has to be done *prior to* initialization.
          */
         try {
-            ActionApplication.designateWrittenAssetPath("./Written Assets");
+            ActionApplication.designateSandbox("./Written Assets");
         } catch (IOException e) {
         }
 

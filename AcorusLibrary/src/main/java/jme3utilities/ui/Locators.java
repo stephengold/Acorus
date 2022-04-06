@@ -366,7 +366,7 @@ public class Locators {
      * "Written Assets" folder (if one exists) followed by the classpath.
      */
     private void configurationRegisterDefault() {
-        String wadPath = ActionApplication.writtenAssetPath();
+        String wadPath = ActionApplication.sandboxPath();
         File wadFile = new File(wadPath);
         if (wadFile.isDirectory()) {
             configurationRegister(wadPath, FileLocator.class);
