@@ -54,7 +54,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestBind extends ActionApplication {
+public class HelloBind extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -62,12 +62,12 @@ public class TestBind extends ActionApplication {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestBind.class.getName());
+            = Logger.getLogger(HelloBind.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestBind.class.getSimpleName();
+            = HelloBind.class.getSimpleName();
     // *************************************************************************
     // field
 
@@ -93,20 +93,20 @@ public class TestBind extends ActionApplication {
     /**
      * Instantiate an ActionApplication without any initial appstates.
      */
-    private TestBind() {
+    private HelloBind() {
         super((AppState[]) null);
     }
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the TestBind application.
+     * Main entry point for the HelloBind application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestBind application = new TestBind();
+        HelloBind application = new HelloBind();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;

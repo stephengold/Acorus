@@ -262,7 +262,7 @@ Each `Hotkey` is identified in 3 ways:
 On systems with "US" QWERTY keyboards,
 the US name and the localized name are identical.
 
-### TestBind
+### HelloBind
 
 This example binds 12 hotkeys to 4 custom actions in the default input mode.
 The actions cause squares to appear on (or disappear from) the display.
@@ -288,7 +288,7 @@ the help node separates the alternatives with slashes.
 
 NOTE:  To conserve screen area in the help node,
 the `buildNode()` method sometimes abbreviates hotkey names.
-For example, the `TestBind` help node indicates "num4",
+For example, the `HelloBind` help node indicates "num4",
 which is an abbreviated form of "numpad 4",
 which is the US/local name for the "4" key on the numeric keypad.
 
