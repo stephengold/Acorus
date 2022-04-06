@@ -100,7 +100,7 @@ public class TestSignal extends ActionApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the TestBareBones application.
+     * Main entry point for the TestSignal application.
      *
      * @param arguments array of command-line arguments (not null)
      */

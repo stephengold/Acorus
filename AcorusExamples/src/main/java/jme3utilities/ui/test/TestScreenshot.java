@@ -74,7 +74,7 @@ public class TestScreenshot extends ActionApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the TestFlyCam application.
+     * Main entry point for the TestScreenshot application.
      *
      * @param arguments array of command-line arguments (not null)
      */

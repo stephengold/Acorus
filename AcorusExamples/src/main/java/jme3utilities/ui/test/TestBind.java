@@ -100,7 +100,7 @@ public class TestBind extends ActionApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the TestBareBones application.
+     * Main entry point for the TestBind application.
      *
      * @param arguments array of command-line arguments (not null)
      */
