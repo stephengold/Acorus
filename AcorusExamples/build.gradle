@@ -54,8 +54,8 @@ tasks.register('HelloBind', JavaExec) {
 tasks.register('TestCoas', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestCoas'
 }
-tasks.register('TestCombo', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestCombo'
+tasks.register('HelloCombo', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloCombo'
 }
 tasks.register('TestCursors', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestCursors'

@@ -49,7 +49,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestCombo extends ActionApplication {
+public class HelloCombo extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -57,23 +57,23 @@ public class TestCombo extends ActionApplication {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestCombo.class.getName());
+            = Logger.getLogger(HelloCombo.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestCombo.class.getSimpleName();
+            = HelloCombo.class.getSimpleName();
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the TestCombo application.
+     * Main entry point for the HelloCombo application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestCombo application = new TestCombo();
+        HelloCombo application = new HelloCombo();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;

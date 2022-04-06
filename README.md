@@ -305,13 +305,13 @@ The signals cause squares to appear on (or disappear from) the display.
 NOTE:  When multiple hotkeys are bound to the same signal (as here),
 the signal remains active as long as any of the hotkeys is active.
 
-### TestCombo
+### HelloCombo
 
 A `Combo` represents a combination of hotkeys.
 More precisely, it consists of a hotkey
 plus a set of positive and/or negative signals.
 
-The `TestCombo` example app binds combos to actions.
+The `HelloCombo` example app binds combos to actions.
 
 Help nodes indicate combo bindings alongside simple hotkey bindings:
 + "shift+y" mean pressing the "y" key while the "shift" signal is active
