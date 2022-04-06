@@ -225,18 +225,24 @@ The following example apps are found in the AcorusExamples sub-project:
 ### TestBareBones
 
 This is an example of a minimal `ActionApplication`:
-one without a `StatsAppState`, a `DebugKeysAppState`, or a `FlyByCamera`.
+one without a `FlyByCamera`, a `DebugKeysAppState`,
+a `ScreenshotAppState`, or a `StatsAppState`.
 
 A help node is displayed.
 It indicates which hotkey is bound to each action.
+There is a single input mode: Acorus's default input mode.
+In this example, it binds the Esc hotkey to the "SIMPLEAPP_Exit" action.
 
-There is a single `InputMode`, which binds 2 hotkeys to 2 different actions.
-These bindings emulate the behavior of a `SimpleApplication`:
-+ the Esc hotkey, to exit the application, and
-+ a hotkey (either PrtSc or ScrLk or SysRq) to capture a screenshot to a file.
+Pressing the Esc key triggers the "SIMPLEAPP_Exit" action.
+The code to handle that action is built into `ActionApplication`.
+It causes the application to terminate.
 
-NOTE: If `ActionApplication` doesn't find a `ScreenshotAppState` during startup,
-it attaches one.
+Because action names are displayed in the help node,
+they should ideally be short and descriptive.
+However, since "SIMPLEAPP_Exit" is part of the JMonkeyEngine legacy,
+the `buildNode()` utility method that constructs the help node
+gives it special treatment.
+As a result, "exit" is displayed in place of the actual action name.
 
 ### TestHotkeys
 
@@ -262,14 +268,26 @@ An input mode's bindings don't become effective (mapped)
 until the mode is activated (enabled).
 Acorus activates the default mode during initialization,
 just after invoking the `moreDefaultBindings()` callback,
-so that's a good place to add bindings to the default mode.
+making `moreDefaultBindings()`
+the ideal place to add bindings to the default mode.
+
+An action handler is simply a method
+with the `onAction(String, boolean, float)` signature,
+defined in JMonkeyEngine's `ActionListener` interface.
+All Acorus applications and input modes implement this interface.
 
 When a bound hotkey is pressed, Acorus invokes the input mode's action handler.
 In the example, the mode's handler doesn't handle the action,
 so it falls through to the application's handler.
 
-NOTE:  When multiple hotkeys are bound to the same action (as here),
+NOTE:  When multiple hotkeys are bound to a single action (as here),
 the help node separates the alternatives with slashes.
+
+NOTE:  To conserve screen area in the help node,
+the `buildNode()` method sometimes abbreviates hotkey names.
+For example, the `TestBind` help node indicates "num4",
+which is an abbreviated form of "numpad 4",
+which is the US/local name for the "4" key on the numeric keypad.
 
 ### TestSignal
 
@@ -280,38 +298,46 @@ This example binds 12 hotkeys to 4 custom signals in the default input mode.
 The signals cause squares to appear on (or disappear from) the display.
 
 NOTE:  When multiple hotkeys are bound to the same signal (as here),
-the signal remains active as long as one or more of the hotkeys is active.
+the signal remains active as long as any of the hotkeys is active.
 
 ### TestCombo
 
-A `Combo` consists of a hotkey plus positive and/or negative signals.
+A `Combo` represents a combination of hotkeys.
+More precisely, it consists of a hotkey
+plus a set of positive and/or negative signals.
 
-This example binds combos to actions.
+The `TestCombo` example app binds combos to actions.
 
-Help nodes indicate combo bindings alongside ordinary hotkey bindings:
+Help nodes indicate combo bindings alongside simple hotkey bindings:
 + "shift+y" mean pressing the "y" key while the "shift" signal is active
 + "noshift+y" means pressing the "y" key while "shift" isn't active
 
 ### TestFlyCam
 
-This example adds a `StatsAppState`, a `DebugKeysAppState`, and a `FlyByCamera`
-to the `TestBareBones` example.
+This example adds a `FlyByCamera`, a StatsAppState`, a `DebugKeysAppState`,
+and a `ScreenshotAppState` to the `TestBareBones` example.
 
 When `DefaultInputMode` detects a `StatsAppState`,
-it binds the F5 key to toggle the state of the render statistics display.
+it binds the F5 key to the action
+that toggles visibility of the render-statistics display.
 
 When `DefaultInputMode` detects a `DebugKeysAppState`,
-it bind 2 hotkeys (C and M on "US" QWERTY keyboards),
-to print the camera position and memory statistics to the console.
+it bind 2 hotkeys (C and M on "US" QWERTY keyboards)
+to actions that print the camera position and memory statistics to the console.
 
 When `DefaultInputMode` detects a `FlyByCamera`,
-it binds 6 keys (W/A/S/D/Q/Z on "US" QWERTY keyboards) to camera motion.
+it binds 6 hotkeys (W/A/S/D/Q/Z on "US" QWERTY keyboards)
+to signals that control camera motion.
+
+When `DefaultInputMode` detects a `ScreenshotAppState`,
+it binds a hotkey (either PrtSc or ScrLk or SysRq)
+to the action that captures a screenshot.
 
 Users accustomed to `SimpleApplication` tend to expect these bindings.
 
 ### TestMinHelp
 
-Sometimes you want to display detailed help only when the user requests it.
+Often you'll want to display detailed help only when the user requests it.
 
 This example adds an action to toggle the help node between 2 versions:
 detailed and minimal.
@@ -325,6 +351,10 @@ This example adds a `CameraOrbitAppState` to `TestFlyCam`.
 The left- and right-arrow keys
 cause the camera to orbit around the center of the scene.
 
+`CameraOrbitAppState` is entirely controlled by 2 signals,
+and it doesn't care which hotkeys are bound to those signals.
+This makes it easy to customize which hotkeys do what.
+
 ### TestToggleFly
 
 This example extends `TestFlyCam`
@@ -332,23 +362,28 @@ with an action to toggle the state of the `FlyByCamera`.
 
 Notice how the hotkey bindings change
 when camera controller is enabled and disabled.
+Each change is reflected in the help node.
 
 ### TestTwoModes
 
 This example demonstrates an `ActionApplication` with 2 input modes:
-The initial mode enables `FlyByCamera`.
+The initially-active mode enables `FlyByCamera` for camera movement.
 The other mode allows you to type a line of text.
 
 ### TestCursors
 
-To help user tell which `InputMode` is active,
+To remind the user which input mode is active,
 you can give each mode its own cursor.
 
 This example demonstrates 4 input modes, each with its own cursor.
 
 ### TestHeadless
 
-This is a simple example of a headless `ActionApplication`.
+Acorus provides a few features that aren't directly related to user interface.
+Occasionally, an applications that run in a headless context
+will want to utilize these features.
+
+`TestHeadless` is a simple example of a headless `ActionApplication`.
 
 ### TestAbstractDemo
 
