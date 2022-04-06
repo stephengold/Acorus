@@ -48,7 +48,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestCoas extends ActionApplication {
+public class HelloCoas extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -56,23 +56,23 @@ public class TestCoas extends ActionApplication {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestCoas.class.getName());
+            = Logger.getLogger(HelloCoas.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestCoas.class.getSimpleName();
+            = HelloCoas.class.getSimpleName();
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the TestCoas application.
+     * Main entry point for the HelloCoas application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestCoas application = new TestCoas();
+        HelloCoas application = new HelloCoas();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;

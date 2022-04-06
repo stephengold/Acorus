@@ -348,7 +348,7 @@ If there's a designated sandbox,
 and binds a hotkey (either PrtSc or ScrLk or SysRq)
 to an action that takes a screenshot and writes it to the sandbox.
 
-### TestCoas
+### HelloCoas
 
 `FlyByCamera` is a powerful camera control,
 but it's not convenient for studying a 3-D object from all sides.
@@ -379,7 +379,7 @@ The other mode allows you to type a line of text.
 ### TestCursors
 
 To remind the user which input mode is active,
-you can give each mode its own cursor.
+you can give each mode its own cursor style.
 
 This example demonstrates 4 input modes, each with its own cursor.
 
