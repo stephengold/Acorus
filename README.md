@@ -224,14 +224,17 @@ The following example apps are found in the AcorusExamples sub-project:
 
 ### TestBareBones
 
-This is an example of a minimal `ActionApplication`:
+All Acorus applications extend the `ActionApplication` class
+or one of its subclasses.
+`TestBareBones` is an example of a minimal `ActionApplication`:
 one without a `FlyByCamera`, a `DebugKeysAppState`,
 a `ScreenshotAppState`, or a `StatsAppState`.
 
 A help node is displayed.
-It indicates which hotkey is bound to each action.
-There is a single input mode: Acorus's default input mode.
-In this example, it binds the Esc hotkey to the "SIMPLEAPP_Exit" action.
+It indicates which hotkeys are bound to each action.
+There is a single input mode: the Acorus default input mode.
+In this example,
+the mode simply binds the Esc hotkey to the "SIMPLEAPP_Exit" action.
 
 Pressing the Esc key triggers the "SIMPLEAPP_Exit" action.
 The code to handle that action is built into `ActionApplication`.
@@ -329,11 +332,18 @@ When `DefaultInputMode` detects a `FlyByCamera`,
 it binds 6 hotkeys (W/A/S/D/Q/Z on "US" QWERTY keyboards)
 to signals that control camera motion.
 
-When `DefaultInputMode` detects a `ScreenshotAppState`,
-it binds a hotkey (either PrtSc or ScrLk or SysRq)
-to the action that captures a screenshot.
-
 Users accustomed to `SimpleApplication` tend to expect these bindings.
+
+### TestScreenshot
+
+Acorus allows you to designate a sandbox:
+a directory to which Acorus will write files.
+By convention, this directory named "Written Assets".
+
+If there's a designated sandbox,
+`ActionApplication` attaches a `ScreenshotAppState`
+and binds a hotkey (either PrtSc or ScrLk or SysRq)
+to the action that captures a screenshot.
 
 ### TestMinHelp
 
