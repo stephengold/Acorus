@@ -392,8 +392,8 @@ abstract public class ActionApplication
      */
     @Override
     public void setSpeed(float newSpeed) {
-        Validate.positive(newSpeed, "speed");
-        speed = newSpeed;
+        Validate.positive(newSpeed, "new speed");
+        this.speed = newSpeed;
     }
 
     /**
