@@ -30,7 +30,6 @@
 package jme3utilities.ui.test;
 
 import com.jme3.font.Rectangle;
-import com.jme3.input.CameraInput;
 import com.jme3.input.KeyInput;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
