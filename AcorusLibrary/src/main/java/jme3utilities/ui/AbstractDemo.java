@@ -342,7 +342,7 @@ abstract public class AbstractDemo extends ActionApplication {
             int viewPortWidth = guiCamera.getWidth();
             int viewPortHeight = guiCamera.getHeight();
             updateHelpNodes(newMode, viewPortWidth, viewPortHeight,
-                    HelpVersion.Detailed);
+                    HelpVersion.Minimal);
         }
     }
 
