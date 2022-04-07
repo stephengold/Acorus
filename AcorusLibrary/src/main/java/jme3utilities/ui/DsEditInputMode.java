@@ -147,7 +147,8 @@ public class DsEditInputMode extends InputMode {
         bind(asRevertChanges, ctrlZ);
 
         bind(asApplyChanges, KeyInput.KEY_RETURN);
-        bind(asCloseOverlay, KeyInput.KEY_ESCAPE);
+        bind(asCloseOverlay,
+                KeyInput.KEY_ESCAPE, KeyInput.KEY_TAB, KeyInput.KEY_F2);
         bind(asNextField, KeyInput.KEY_NUMPAD2, KeyInput.KEY_DOWN);
         bind(asNextValue,
                 KeyInput.KEY_EQUALS, KeyInput.KEY_NUMPAD6, KeyInput.KEY_RIGHT);
