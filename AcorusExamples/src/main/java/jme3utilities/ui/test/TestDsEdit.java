@@ -82,10 +82,6 @@ public class TestDsEdit extends AbstractDemo {
      * action string to dump the RenderManager
      */
     final private static String asDumpScenes = "dump scenes";
-    /**
-     * action string to activate the display-settings editor overlay
-     */
-    final private static String asEditDisplaySettings = "edit display settings";
     // *************************************************************************
     // fields
 
@@ -329,7 +325,7 @@ public class TestDsEdit extends AbstractDemo {
     }
 
     /**
-     * Delete the application's stored settings, if any.
+     * Delete the application's stored settings, if any. TODO use Heart library
      */
     private static void deleteStoredSettings() {
         try {
