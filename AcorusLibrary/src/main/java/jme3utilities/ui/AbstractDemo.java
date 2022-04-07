@@ -376,6 +376,20 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
+     * Callback invoked after the framebuffer is resized.
+     *
+     * @param newWidth the new width of the framebuffer (in pixels, &gt;0)
+     * @param newHeight the new height of the framebuffer (in pixels, &gt;0)
+     */
+    public void resize(int newWidth, int newHeight) {
+        Validate.positive(newWidth, "new width");
+        Validate.positive(newHeight, "new height");
+
+        InputMode activeMode = InputMode.getActiveMode();
+        updateHelpNodes(activeMode, newWidth, newHeight, HelpVersion.Detailed);
+    }
+
+    /**
      * Scale the specified C-G model uniformly so that it has the specified
      * height, assuming Y-up orientation.
      *

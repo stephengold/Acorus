@@ -53,7 +53,6 @@ import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.DisplaySettings;
 import jme3utilities.ui.DsEditOverlay;
 import jme3utilities.ui.DsUtils;
-import jme3utilities.ui.HelpVersion;
 import jme3utilities.ui.InputMode;
 import jme3utilities.ui.ShowDialog;
 import jme3utilities.ui.UiVersion;
@@ -249,6 +248,20 @@ public class TestDsEdit extends AbstractDemo {
          */
         super.onAction(actionString, ongoing, tpf);
     }
+
+    /**
+     * Update the GUI layout and proposed settings after a resize.
+     *
+     * @param newWidth the new width of the framebuffers (in pixels, &gt;0)
+     * @param newHeight the new height of the framebuffers (in pixels, &gt;0)
+     */
+    @Override
+    public void resize(int newWidth, int newHeight) {
+        dseOverlay.resize(newWidth, newHeight);
+        proposedSettings.resize(newWidth, newHeight);
+
+        super.resize(newWidth, newHeight);
+    }
     // *************************************************************************
     // private methods
 
@@ -405,19 +418,5 @@ public class TestDsEdit extends AbstractDemo {
 
             application.start();
         }
-    }
-
-    /**
-     * Update the GUI layout and proposed settings after a resize.
-     *
-     * @param newWidth the new width of the framebuffers (in pixels, &gt;0)
-     * @param newHeight the new height of the framebuffers (in pixels, &gt;0)
-     */
-    private void resize(int newWidth, int newHeight) {
-        dseOverlay.resize(newWidth, newHeight);
-        proposedSettings.resize(newWidth, newHeight);
-
-        InputMode activeMode = InputMode.getActiveMode();
-        updateHelpNodes(activeMode, newWidth, newHeight, HelpVersion.Detailed);
     }
 }
