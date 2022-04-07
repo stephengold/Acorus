@@ -42,9 +42,6 @@ tasks.register('cleanSOs', Delete) { // extracted Linux and Android native libra
 
 // tasks to run the example apps:
 
-tasks.register('TestAbstractDemo', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestAbstractDemo'
-}
 tasks.register('HelloAcorus', JavaExec) {
     mainClass = 'jme3utilities.ui.test.HelloAcorus'
 }
@@ -56,6 +53,22 @@ tasks.register('HelloCoas', JavaExec) {
 }
 tasks.register('HelloCombo', JavaExec) {
     mainClass = 'jme3utilities.ui.test.HelloCombo'
+}
+tasks.register('HelloSandbox', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloSandbox'
+}
+tasks.register('HelloSignals', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloSignals'
+}
+tasks.register('HelloSimpleApplication', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloSimpleApplication'
+}
+tasks.register('HelloToggleHelp', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloToggleHelp'
+}
+
+tasks.register('TestAbstractDemo', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestAbstractDemo'
 }
 tasks.register('TestCursors', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestCursors'
@@ -73,23 +86,11 @@ tasks.register('TestDsEditResetSettings', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestDsEdit'
 }
 
-tasks.register('HelloSimpleApplication', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloSimpleApplication'
-}
 tasks.register('TestHeadless', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestHeadless'
 }
 tasks.register('TestHotkeys', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestHotkeys'
-}
-tasks.register('HelloToggleHelp', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloToggleHelp'
-}
-tasks.register('HelloSandbox', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloSandbox'
-}
-tasks.register('HelloSignals', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloSignals'
 }
 tasks.register('TestToggleFly', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestToggleFly'
