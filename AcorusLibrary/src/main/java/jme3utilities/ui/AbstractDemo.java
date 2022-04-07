@@ -73,6 +73,10 @@ abstract public class AbstractDemo extends ActionApplication {
      */
     final public static String asCollectGarbage = "collect garbage";
     /**
+     * action string to activate the display-settings editor
+     */
+    final public static String asEditDisplaySettings = "edit display settings";
+    /**
      * action to toggle the state of the help node
      */
     final public static String asToggleHelp = "toggle help";
