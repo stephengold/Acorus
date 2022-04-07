@@ -33,7 +33,6 @@ import com.jme3.app.StatsAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.post.SceneProcessor;
 import com.jme3.profile.AppProfiler;
-import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue;
@@ -91,7 +90,7 @@ public class TestDsEdit extends AbstractDemo {
     // fields
 
     /**
-     * proposed settings
+     * proposed display settings
      */
     private static DisplaySettings proposedSettings;
     /**
@@ -212,24 +211,6 @@ public class TestDsEdit extends AbstractDemo {
         System.out.printf("Window position:  x=%d, y=%d\n", x, y);
 
         System.out.flush();
-    }
-
-    /**
-     * Callback invoked when the active InputMode changes. TODO use the
-     * AbstractDemo default implementation
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            Camera guiCamera = guiViewPort.getCamera();
-            int viewPortWidth = guiCamera.getWidth();
-            int viewPortHeight = guiCamera.getHeight();
-            updateHelpNodes(newMode, viewPortWidth, viewPortHeight,
-                    HelpVersion.Detailed);
-        }
     }
 
     /**

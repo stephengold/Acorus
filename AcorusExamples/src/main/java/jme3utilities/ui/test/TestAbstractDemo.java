@@ -41,7 +41,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
@@ -53,7 +52,6 @@ import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AbstractDemo;
-import jme3utilities.ui.HelpVersion;
 import jme3utilities.ui.InputMode;
 
 /**
@@ -154,24 +152,6 @@ public class TestAbstractDemo extends AbstractDemo {
         statusLine = new BitmapText(guiFont);
         statusLine.setLocalTranslation(0f, cam.getHeight(), 0f);
         guiNode.attachChild(statusLine);
-    }
-
-    /**
-     * Callback invoked when the active InputMode changes. TODO use the
-     * AbstractDemo default implementation
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            Camera guiCamera = guiViewPort.getCamera();
-            int viewPortWidth = guiCamera.getWidth();
-            int viewPortHeight = guiCamera.getHeight();
-            updateHelpNodes(newMode, viewPortWidth, viewPortHeight,
-                    HelpVersion.Detailed);
-        }
     }
 
     /**
