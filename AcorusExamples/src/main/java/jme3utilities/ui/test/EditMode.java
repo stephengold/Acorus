@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2021, Stephen Gold
+ Copyright (c) 2020-2022, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -116,8 +116,8 @@ class EditMode extends InputMode {
         if (ongoing) {
             if (actionString.startsWith("appendLetter ")) {
                 String arg = MyString.remainder(actionString, "appendLetter ");
-                if (!getSignals().test("shift")) {
-                    arg = arg.toLowerCase();
+                if (getSignals().test("shift")) {
+                    arg = arg.toUpperCase();
                 }
                 builder.append(arg);
                 return;
