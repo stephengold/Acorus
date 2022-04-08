@@ -119,6 +119,7 @@ public class TestAbstractDemo extends AbstractDemo {
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
         settings.setRenderer(AppSettings.LWJGL_OPENGL32);
+        settings.setResizable(true);
         settings.setSamples(4); // anti-aliasing
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
@@ -150,8 +151,9 @@ public class TestAbstractDemo extends AbstractDemo {
          * Add the status text to the GUI.
          */
         statusLine = new BitmapText(guiFont);
-        statusLine.setLocalTranslation(0f, cam.getHeight(), 0f);
         guiNode.attachChild(statusLine);
+
+        super.actionInitializeApplication();
     }
 
     /**
@@ -197,6 +199,18 @@ public class TestAbstractDemo extends AbstractDemo {
          * The action was not handled here: forward it to the superclass.
          */
         super.onAction(actionString, ongoing, tpf);
+    }
+
+    /**
+     * Update the GUI layout and proposed settings after a resize.
+     *
+     * @param newWidth the new width of the framebuffers (in pixels, &gt;0)
+     * @param newHeight the new height of the framebuffers (in pixels, &gt;0)
+     */
+    @Override
+    public void resize(int newWidth, int newHeight) {
+        super.resize(newWidth, newHeight);
+        statusLine.setLocalTranslation(0f, newHeight, 0f);
     }
 
     /**
