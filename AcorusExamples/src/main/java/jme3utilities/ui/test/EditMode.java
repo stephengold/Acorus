@@ -97,7 +97,9 @@ class EditMode extends InputMode {
         bind("backspace", KeyInput.KEY_BACK, KeyInput.KEY_DELETE);
         bind("commit", KeyInput.KEY_RETURN, KeyInput.KEY_TAB);
         bindSignal("shift", KeyInput.KEY_LSHIFT, KeyInput.KEY_RSHIFT);
+
         bind(SimpleApplication.INPUT_MAPPING_EXIT, KeyInput.KEY_ESCAPE);
+        bind(SimpleApplication.INPUT_MAPPING_HIDE_STATS, KeyInput.KEY_F5);
     }
 
     /**
