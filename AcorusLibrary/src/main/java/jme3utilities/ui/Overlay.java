@@ -69,9 +69,9 @@ public class Overlay extends SimpleAppState {
      */
     final private static float padding = 5f;
     /**
-     * Z coordinate of content relative to the background
+     * Z offset of content relative to the background
      */
-    final private static float zContent = 0.1f;
+    final private static float contentZOffset = 0.1f;
     /**
      * message logger for this class
      */
@@ -87,6 +87,10 @@ public class Overlay extends SimpleAppState {
      * color of the background
      */
     final private ColorRGBA backgroundColor;
+    /**
+     * Z-coordinate for the background (in case the framebuffer gets resized)
+     */
+    private float backgroundZ = -2f;
     /**
      * rounded-rectangle geometry to ensure content visibility
      */
@@ -157,7 +161,8 @@ public class Overlay extends SimpleAppState {
         Validate.positive(newHeight, "new height");
 
         float margin = 10f; // in framebuffer pixels
-        Vector3f location = new Vector3f(margin, newHeight - margin, 0f);
+        Vector3f location
+                = new Vector3f(margin, newHeight - margin, backgroundZ);
         setLocation(location);
     }
 
@@ -187,6 +192,7 @@ public class Overlay extends SimpleAppState {
         Validate.nonNull(newLocation, "new location");
 
         node.setLocalTranslation(newLocation);
+        this.backgroundZ = newLocation.z;
     }
 
     /**
@@ -281,7 +287,7 @@ public class Overlay extends SimpleAppState {
             node.attachChild(bitmap);
 
             float y = -(padding + lineSpacing * lineIndex);
-            bitmap.setLocalTranslation(padding, y, zContent);
+            bitmap.setLocalTranslation(padding, y, contentZOffset);
         }
 
         if (isEnabled()) {
