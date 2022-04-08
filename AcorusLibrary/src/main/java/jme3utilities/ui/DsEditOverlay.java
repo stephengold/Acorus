@@ -312,7 +312,6 @@ public class DsEditOverlay extends Overlay {
         message = "Gamma correction?  " + (isGammaCorrection ? "yes" : "no");
         updateStatusLine(gammaCorrectionStatusLine, message);
 
-        message = "";
         int colorDepth = proposedSettings.colorDepth();
         if (colorDepth <= 0) {
             message = "Color depth:  any/unknown";
