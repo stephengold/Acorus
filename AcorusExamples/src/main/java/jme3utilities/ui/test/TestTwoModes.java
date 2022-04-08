@@ -31,16 +31,12 @@ package jme3utilities.ui.test;
 
 import com.jme3.app.StatsAppState;
 import com.jme3.font.BitmapText;
-import com.jme3.font.Rectangle;
 import com.jme3.input.KeyInput;
-import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.ActionApplication;
-import jme3utilities.ui.HelpUtils;
+import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.InputMode;
 
 /**
@@ -48,7 +44,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestTwoModes extends ActionApplication {
+public class TestTwoModes extends AbstractDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -69,10 +65,6 @@ public class TestTwoModes extends ActionApplication {
      * status displayed in the upper-left corner of the GUI node
      */
     private BitmapText statusText;
-    /**
-     * help node for the current input mode
-     */
-    private Node defaultHelp;
     // *************************************************************************
     // new methods exposed
 
@@ -108,7 +100,7 @@ public class TestTwoModes extends ActionApplication {
         dim.setEnabled(true);
     }
     // *************************************************************************
-    // ActionApplication methods
+    // AbstractDemo methods
 
     /**
      * Initialize this application.
@@ -131,22 +123,8 @@ public class TestTwoModes extends ActionApplication {
          * Hide the render-statistics overlay.
          */
         stateManager.getState(StatsAppState.class).toggleStats();
-    }
 
-    /**
-     * Callback invoked when the active InputMode changes.
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            if (defaultHelp != null) {
-                defaultHelp.removeFromParent();
-            }
-            defaultHelp = attachHelpNode(newMode);
-        }
+        super.actionInitializeApplication();
     }
 
     /**
@@ -157,6 +135,7 @@ public class TestTwoModes extends ActionApplication {
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
         dim.bind("edit text", KeyInput.KEY_RETURN, KeyInput.KEY_TAB);
+        dim.bind(asToggleHelp, KeyInput.KEY_H);
     }
 
     /**
@@ -204,28 +183,5 @@ public class TestTwoModes extends ActionApplication {
             }
         }
         statusText.setText("Text: " + text);
-    }
-    // *************************************************************************
-    // private methods
-
-    /**
-     * Build and attach the help node for the specified InputMode.
-     *
-     * @param inputMode (not null, unaffected)
-     * @return the new node
-     */
-    private Node attachHelpNode(InputMode inputMode) {
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 30f; // leave room for status
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f; // separation between actions, in pixels
-        Node helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
-        guiNode.attachChild(helpNode);
-
-        return helpNode;
     }
 }
