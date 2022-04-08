@@ -90,10 +90,10 @@ class EditMode extends InputMode {
         for (char c = 'a'; c <= 'z'; ++c) {
             tmpArray[0] = c;
             String letter = new String(tmpArray);
-            bindLocal("appendLetter " + letter, letter);
+            bindLocal("push " + letter, letter);
         }
 
-        bind("appendSpace", KeyInput.KEY_SPACE);
+        bind("pushSpace", KeyInput.KEY_SPACE);
         bind("backspace", KeyInput.KEY_BACK, KeyInput.KEY_DELETE);
         bind("commit", KeyInput.KEY_RETURN, KeyInput.KEY_TAB);
         bindSignal("shift", KeyInput.KEY_LSHIFT, KeyInput.KEY_RSHIFT);
@@ -114,15 +114,15 @@ class EditMode extends InputMode {
         });
 
         if (ongoing) {
-            if (actionString.startsWith("appendLetter ")) {
-                String arg = MyString.remainder(actionString, "appendLetter ");
+            if (actionString.startsWith("push ")) {
+                String arg = MyString.remainder(actionString, "push ");
                 if (getSignals().test("shift")) {
                     arg = arg.toUpperCase();
                 }
                 builder.append(arg);
                 return;
 
-            } else if (actionString.equals("appendSpace")) {
+            } else if (actionString.equals("pushSpace")) {
                 builder.append(" ");
                 return;
 
