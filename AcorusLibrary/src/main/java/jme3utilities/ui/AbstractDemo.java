@@ -35,9 +35,15 @@ import com.jme3.input.KeyInput;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.post.SceneProcessor;
+import com.jme3.profile.AppProfiler;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.RenderManager;
+import com.jme3.renderer.ViewPort;
+import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.texture.FrameBuffer;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
@@ -520,6 +526,23 @@ abstract public class AbstractDemo extends ActionApplication {
     // ActionApplication methods
 
     /**
+     * Initialize this application.
+     */
+    @Override
+    public void actionInitializeApplication() {
+        /*
+         * Ensure that size-dependent data get initialized.
+         */
+        int width = cam.getWidth();
+        int height = cam.getHeight();
+        resize(width, height);
+        /*
+         * Ensure that size-dependent data get updated.
+         */
+        addSceneProcessor();
+    }
+
+    /**
      * Process an action that wasn't handled by the active InputMode.
      *
      * @param actionString textual description of the action (not null)
@@ -548,6 +571,55 @@ abstract public class AbstractDemo extends ActionApplication {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Add a SceneProcessor to invoke resize().
+     */
+    private void addSceneProcessor() {
+        SceneProcessor sceneProcessor = new SceneProcessor() {
+            @Override
+            public void cleanup() {
+                // do nothing
+            }
+
+            @Override
+            public void initialize(RenderManager rm, ViewPort unused2) {
+                // do nothing
+            }
+
+            @Override
+            public boolean isInitialized() {
+                return true;
+            }
+
+            @Override
+            public void postFrame(FrameBuffer unused) {
+                // do nothing
+            }
+
+            @Override
+            public void postQueue(RenderQueue unused) {
+                // do nothing
+            }
+
+            @Override
+            public void preFrame(float tpf) {
+                // do nothing
+            }
+
+            @Override
+            public void reshape(ViewPort unused, int newWidth, int newHeight) {
+                resize(newWidth, newHeight);
+            }
+
+            @Override
+            public void setProfiler(AppProfiler unused) {
+                // do nothing
+            }
+        };
+
+        guiViewPort.addProcessor(sceneProcessor);
+    }
 
     /**
      * Generate (or re-generate) the detailed help node for the specified input

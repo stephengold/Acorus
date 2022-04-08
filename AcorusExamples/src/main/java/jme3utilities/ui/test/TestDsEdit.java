@@ -31,14 +31,8 @@ package jme3utilities.ui.test;
 
 import com.jme3.app.StatsAppState;
 import com.jme3.input.KeyInput;
-import com.jme3.post.SceneProcessor;
-import com.jme3.profile.AppProfiler;
-import com.jme3.renderer.RenderManager;
-import com.jme3.renderer.ViewPort;
-import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeVersion;
-import com.jme3.texture.FrameBuffer;
 import java.awt.DisplayMode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -171,14 +165,9 @@ public class TestDsEdit extends AbstractDemo {
          * Hide the render-statistics overlay.
          */
         stateManager.getState(StatsAppState.class).toggleStats();
-        /*
-         * Ensure that size-dependent data get initialized.
-         */
-        int width = guiViewPort.getCamera().getWidth();
-        int height = guiViewPort.getCamera().getHeight();
-        resize(width, height);
 
-        addSceneProcessor();
+        super.actionInitializeApplication();
+
         DemoScene.setup(this);
         /*
          * Print the available and current display modes to the console.
@@ -279,55 +268,6 @@ public class TestDsEdit extends AbstractDemo {
         if (active != desired) {
             InputMode.suspendAndActivate(desired);
         }
-    }
-
-    /**
-     * Add a SceneProcessor to update the help nodes and the overlay whenever
-     * the display changes size.
-     */
-    private void addSceneProcessor() {
-        SceneProcessor sceneProcessor = new SceneProcessor() {
-            @Override
-            public void cleanup() {
-                // do nothing
-            }
-
-            @Override
-            public void initialize(RenderManager rm, ViewPort unused2) {
-                // do nothing
-            }
-
-            @Override
-            public boolean isInitialized() {
-                return true;
-            }
-
-            @Override
-            public void postFrame(FrameBuffer unused) {
-                // do nothing
-            }
-
-            @Override
-            public void postQueue(RenderQueue unused) {
-                // do nothing
-            }
-
-            @Override
-            public void preFrame(float tpf) {
-                // do nothing
-            }
-
-            @Override
-            public void reshape(ViewPort unused, int newWidth, int newHeight) {
-                resize(newWidth, newHeight);
-            }
-
-            @Override
-            public void setProfiler(AppProfiler unused) {
-                // do nothing
-            }
-        };
-        guiViewPort.addProcessor(sceneProcessor);
     }
 
     /**
