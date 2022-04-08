@@ -31,16 +31,12 @@ package jme3utilities.ui;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.font.BitmapFont;
-import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.JmeContext;
 import java.awt.DisplayMode;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
-import jme3utilities.InitialState;
-import jme3utilities.SimpleAppState;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.RectSizeLimits;
@@ -48,19 +44,15 @@ import jme3utilities.math.RectSizeLimits;
 /**
  * The overlay for the display-settings editor.
  * <p>
- * The overlay consists of status lines, one of which is selected for editing.
- * The overlay appears in the upper-left portion of the display.
+ * The overlay consists of status lines, one of which is always selected for
+ * editing.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class DsEditOverlay extends SimpleAppState {
+public class DsEditOverlay extends Overlay {
     // *************************************************************************
     // constants and loggers
 
-    /**
-     * vertical separation between status lines (in pixels)
-     */
-    final private static float lineSpacing = 20f;
     /**
      * index of the status line for user feedback
      */
@@ -126,11 +118,6 @@ public class DsEditOverlay extends SimpleAppState {
     // fields
 
     /**
-     * lines of text displayed in the upper-left corner of the GUI node ([0] is
-     * the top line)
-     */
-    final private BitmapText[] statusLines = new BitmapText[numStatusLines];
-    /**
      * proposed display settings: set by constructor
      */
     final private DisplaySettings proposedSettings;
@@ -152,7 +139,7 @@ public class DsEditOverlay extends SimpleAppState {
      * created)
      */
     public DsEditOverlay(DisplaySettings proposedSettings) {
-        super(InitialState.Disabled);
+        super("dsEditor", 330f, numStatusLines);
         Validate.nonNull(proposedSettings, "proposed settings");
 
         this.proposedSettings = proposedSettings;
@@ -239,66 +226,6 @@ public class DsEditOverlay extends SimpleAppState {
                 throw new IllegalStateException("line = " + selectedLine);
         }
     }
-
-    /**
-     * Callback when the dimensions of the viewport have changed.
-     *
-     * @param width the new width (in pixels, &gt;0)
-     * @param height the new height (in pixels; &gt;0)
-     */
-    public void resize(int width, int height) {
-        Validate.positive(width, "width");
-        Validate.positive(height, "height");
-        /*
-         * Re-position the status lines.
-         */
-        for (int lineIndex = 0; lineIndex < numStatusLines; ++lineIndex) {
-            float y = height - lineSpacing * lineIndex;
-            BitmapText line = statusLines[lineIndex];
-            if (line != null) {
-                line.setLocalTranslation(0f, y, 0f);
-            }
-        }
-    }
-    // *************************************************************************
-    // new protected methods
-
-    /**
-     * Disable this overlay, assuming it is initialized and enabled.
-     */
-    protected void disable() {
-        assert isInitialized();
-        assert isEnabled();
-        /*
-         * Remove the status lines from the GUI node.
-         */
-        for (int i = 0; i < numStatusLines; ++i) {
-            statusLines[i].removeFromParent();
-        }
-
-        super.setEnabled(false);
-    }
-
-    /**
-     * Enable this overlay, assuming it is initialized and disabled.
-     */
-    protected void enable() {
-        assert isInitialized();
-        assert !isEnabled();
-
-        super.setEnabled(true);
-        /*
-         * Add the status lines to the guiNode.
-         */
-        BitmapFont font = assetManager.loadFont("Interface/Fonts/Default.fnt");
-        float height = guiViewPort.getCamera().getHeight();
-        for (int lineIndex = 0; lineIndex < numStatusLines; ++lineIndex) {
-            statusLines[lineIndex] = new BitmapText(font);
-            float y = height - lineSpacing * lineIndex;
-            statusLines[lineIndex].setLocalTranslation(0f, y, 0f);
-            guiNode.attachChild(statusLines[lineIndex]);
-        }
-    }
     // *************************************************************************
     // SimpleAppState methods
 
@@ -308,11 +235,7 @@ public class DsEditOverlay extends SimpleAppState {
      */
     @Override
     public void cleanup() {
-        if (isEnabled()) {
-            disable();
-        }
         stateManager.detach(inputMode);
-
         super.cleanup();
     }
 
@@ -327,24 +250,6 @@ public class DsEditOverlay extends SimpleAppState {
             Application application) {
         super.initialize(stateManager, application);
         stateManager.attach(inputMode);
-
-        if (isEnabled()) {
-            enable();
-        }
-    }
-
-    /**
-     * Enable or disable this overlay.
-     *
-     * @param newSetting true &rarr; enable, false &rarr; disable
-     */
-    @Override
-    final public void setEnabled(boolean newSetting) {
-        if (newSetting && !isEnabled()) {
-            enable();
-        } else if (!newSetting && isEnabled()) {
-            disable();
-        }
     }
 
     /**
@@ -701,14 +606,10 @@ public class DsEditOverlay extends SimpleAppState {
      * Update the indexed status line.
      */
     private void updateStatusLine(int lineIndex, String text) {
-        BitmapText spatial = statusLines[lineIndex];
-
         if (lineIndex == selectedLine) {
-            spatial.setColor(ColorRGBA.Yellow.clone());
-            spatial.setText("--> " + text);
+            setText(lineIndex, "--> " + text, ColorRGBA.Yellow);
         } else {
-            spatial.setColor(ColorRGBA.White.clone());
-            spatial.setText(" " + text);
+            setText(lineIndex, text, ColorRGBA.White);
         }
     }
 }
