@@ -31,6 +31,7 @@ package jme3utilities.ui.test;
 
 import com.jme3.app.StatsAppState;
 import com.jme3.input.KeyInput;
+import com.jme3.math.ColorRGBA;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeVersion;
 import java.awt.DisplayMode;
@@ -157,6 +158,7 @@ public class TestDsEdit extends AbstractDemo {
                 MyString.quote(UiVersion.versionShort()));
 
         dseOverlay = new DsEditOverlay(proposedSettings);
+        dseOverlay.setBackgroundColor(new ColorRGBA(0f, 0.05f, 0f, 1f));
         boolean success = stateManager.attach(dseOverlay);
         assert success;
 
