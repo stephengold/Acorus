@@ -348,19 +348,6 @@ If there's a designated sandbox,
 and binds a hotkey (either PrtSc or ScrLk or SysRq)
 to an action that takes a screenshot and writes it to the sandbox.
 
-### HelloCoas
-
-`FlyByCamera` is a powerful camera control,
-but it's not convenient for studying a 3-D object from all sides.
-
-This example adds a `CameraOrbitAppState` to `TestSimpleApplication`.
-The left- and right-arrow keys
-cause the camera to orbit around the center of the scene.
-
-`CameraOrbitAppState` is entirely controlled by 2 signals,
-and it doesn't care which hotkeys are bound to those signals.
-This makes it easy to customize which hotkeys do what.
-
 ### TestToggleFly
 
 This example extends `TestSimpleApplication`
@@ -411,7 +398,20 @@ It provides methods to:
 + position a C-G model so that it rests on the X-Z plane
   with center on the Y axis
 + select among float, int, and string values, as in a menu
-+ store materials in a library and retrieve them by name
++ store materials in a "library" and retrieve them by name
+
+### HelloCoas
+
+`FlyByCamera` is a powerful camera control,
+but it's not convenient for studying a 3-D object from all sides.
+
+This example adds a `CameraOrbitAppState` to `TestSimpleApplication`.
+The left- and right-arrow keys
+cause the camera to orbit around the center of the scene.
+
+`CameraOrbitAppState` is entirely controlled by 2 signals,
+and it doesn't care which hotkeys are bound to those signals.
+This makes it easy to customize which hotkeys do what.
 
 ### TestTwoModes
 
