@@ -148,6 +148,37 @@ final public class HelpUtils {
 
         return result;
     }
+
+    /**
+     * Compactly describe the specified Combo using compressed local hotkey
+     * names. Compare with {@link jme3utilities.ui.Combo#toStringLocal()}.
+     *
+     * @param combo the Combo to describe (not null)
+     * @return a textual description (not null)
+     */
+    public static String describe(Combo combo) {
+        StringBuilder result = new StringBuilder(40);
+
+        int numSignals = combo.countSignals();
+        for (int signalIndex = 0; signalIndex < numSignals; ++signalIndex) {
+            boolean positiveFlag = combo.isPositive(signalIndex);
+            if (!positiveFlag) {
+                result.append("no");
+            }
+
+            String signalName = combo.signalName(signalIndex);
+            result.append(signalName);
+            result.append('+');
+        }
+
+        int code = combo.triggerCode();
+        Hotkey hotkey = Hotkey.find(code);
+        String hotkeyName = hotkey.localName();
+        hotkeyName = compress(hotkeyName);
+        result.append(hotkeyName);
+
+        return result.toString();
+    }
     // *************************************************************************
     // private methods
 
@@ -226,37 +257,6 @@ final public class HelpUtils {
         result = result.replace("numpad ", "num");
 
         return result;
-    }
-
-    /**
-     * Compactly describe the specified Combo using beautified local hotkey
-     * names. Compare with Combo.toString(). TODO re-order methods
-     *
-     * @param combo the Combo to describe (not null)
-     * @return a textual description (not null)
-     */
-    public static String describe(Combo combo) {
-        StringBuilder result = new StringBuilder(40);
-
-        int numSignals = combo.countSignals();
-        for (int signalIndex = 0; signalIndex < numSignals; ++signalIndex) {
-            boolean positiveFlag = combo.isPositive(signalIndex);
-            if (!positiveFlag) {
-                result.append("no");
-            }
-
-            String signalName = combo.signalName(signalIndex);
-            result.append(signalName);
-            result.append('+');
-        }
-
-        int code = combo.triggerCode();
-        Hotkey hotkey = Hotkey.find(code);
-        String hotkeyName = hotkey.localName();
-        hotkeyName = compress(hotkeyName);
-        result.append(hotkeyName);
-
-        return result.toString();
     }
 
     /**
