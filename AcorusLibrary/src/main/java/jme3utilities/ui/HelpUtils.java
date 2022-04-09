@@ -230,12 +230,12 @@ final public class HelpUtils {
 
     /**
      * Compactly describe the specified Combo using beautified local hotkey
-     * names. Compare with Combo.toString().
+     * names. Compare with Combo.toString(). TODO re-order methods
      *
      * @param combo the Combo to describe (not null)
      * @return a textual description (not null)
      */
-    private static String describe(Combo combo) {
+    public static String describe(Combo combo) {
         StringBuilder result = new StringBuilder(40);
 
         int numSignals = combo.countSignals();
