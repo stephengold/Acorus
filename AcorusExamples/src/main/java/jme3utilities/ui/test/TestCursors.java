@@ -29,6 +29,7 @@
  */
 package jme3utilities.ui.test;
 
+import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
 import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.font.BitmapText;
@@ -114,7 +115,54 @@ public class TestCursors extends AbstractDemo {
         guiNode.attachChild(statusText);
 
         super.actionInitializeApplication();
-        setCursor("default");
+
+        for (String name : new String[]{"dialog", "green", "menu"}) {
+            InputMode mode = new InputMode(name) {
+                protected void defaultBindings() {
+                    bind(SimpleApplication.INPUT_MAPPING_EXIT,
+                            KeyInput.KEY_ESCAPE);
+
+                    bind("default", KeyInput.KEY_F1);
+                    if (!name.equals("dialog")) {
+                        bind("dialog", KeyInput.KEY_F2);
+                    }
+                    if (!name.equals("green")) {
+                        bind("green", KeyInput.KEY_F3);
+                    }
+                    if (!name.equals("menu")) {
+                        bind("menu", KeyInput.KEY_F4);
+                    }
+                }
+
+                public void onAction(String as, boolean ongoing, float tpf) {
+                    /*
+                     * Forward all actions to the application for processing.
+                     */
+                    getActionApplication().onAction(as, ongoing, tpf);
+                }
+            };
+
+            String assetPath = String.format("Textures/cursors/%s.cur", name);
+            JmeCursor cursor = (JmeCursor) assetManager.loadAsset(assetPath);
+            mode.setCursor(cursor);
+
+            stateManager.attach(mode);
+        }
+    }
+
+    /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+        super.inputModeChange(oldMode, newMode);
+
+        if (newMode != null) {
+            String message = "mode = " + newMode.shortName();
+            statusText.setText(message);
+        }
     }
 
     /**
@@ -124,11 +172,9 @@ public class TestCursors extends AbstractDemo {
     @Override
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
-        dim.bind("cursor default", KeyInput.KEY_1, KeyInput.KEY_F1);
-        dim.bind("cursor dialog", KeyInput.KEY_2, KeyInput.KEY_F2);
-        dim.bind("cursor green", KeyInput.KEY_3, KeyInput.KEY_F3);
-        dim.bind("cursor menu", KeyInput.KEY_4, KeyInput.KEY_F4);
-        dim.bind(asToggleHelp, KeyInput.KEY_H);
+        dim.bind("dialog", KeyInput.KEY_F2);
+        dim.bind("green", KeyInput.KEY_F3);
+        dim.bind("menu", KeyInput.KEY_F4);
     }
 
     /**
@@ -142,17 +188,11 @@ public class TestCursors extends AbstractDemo {
     public void onAction(String actionString, boolean ongoing, float tpf) {
         if (ongoing) {
             switch (actionString) {
-                case "cursor default":
-                    setCursor("default");
-                    return;
-                case "cursor dialog":
-                    setCursor("dialog");
-                    return;
-                case "cursor green":
-                    setCursor("green");
-                    return;
-                case "cursor menu":
-                    setCursor("menu");
+                case "default":
+                case "dialog":
+                case "green":
+                case "menu":
+                    setMode(actionString);
                     return;
             }
         }
@@ -161,12 +201,11 @@ public class TestCursors extends AbstractDemo {
     // *************************************************************************
     // private methods
 
-    private void setCursor(String cursorName) {
-        String message = "cursor = " + cursorName;
-        statusText.setText(message);
+    private void setMode(String modeName) {
+        InputMode oldMode = InputMode.getActiveMode();
+        InputMode newMode = InputMode.findMode(modeName);
 
-        String assetPath = String.format("Textures/cursors/%s.cur", cursorName);
-        JmeCursor cursor = (JmeCursor) assetManager.loadAsset(assetPath);
-        inputManager.setMouseCursor(cursor);
+        oldMode.setEnabled(false);
+        newMode.setEnabled(true);
     }
 }
