@@ -32,16 +32,12 @@ package jme3utilities.ui.test;
 import com.jme3.app.state.AppState;
 import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.font.BitmapText;
-import com.jme3.font.Rectangle;
 import com.jme3.input.KeyInput;
-import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.ActionApplication;
-import jme3utilities.ui.HelpUtils;
+import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.InputMode;
 
 /**
@@ -49,7 +45,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestCursors extends ActionApplication {
+public class TestCursors extends AbstractDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -102,7 +98,7 @@ public class TestCursors extends ActionApplication {
         application.start();
     }
     // *************************************************************************
-    // ActionApplication methods
+    // AbstractDemo methods
 
     /**
      * Initialize this application.
@@ -116,20 +112,8 @@ public class TestCursors extends ActionApplication {
         statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
         guiNode.attachChild(statusText);
 
+        super.actionInitializeApplication();
         setCursor("default");
-    }
-
-    /**
-     * Callback invoked when the active InputMode changes.
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            attachHelpNode(newMode);
-        }
     }
 
     /**
@@ -143,6 +127,7 @@ public class TestCursors extends ActionApplication {
         dim.bind("cursor dialog", KeyInput.KEY_2, KeyInput.KEY_F2);
         dim.bind("cursor green", KeyInput.KEY_3, KeyInput.KEY_F3);
         dim.bind("cursor menu", KeyInput.KEY_4, KeyInput.KEY_F4);
+        dim.bind(asToggleHelp, KeyInput.KEY_H);
     }
 
     /**
@@ -174,24 +159,6 @@ public class TestCursors extends ActionApplication {
     }
     // *************************************************************************
     // private methods
-
-    /**
-     * Build and attach the help node for the specified InputMode.
-     *
-     * @param inputMode (not null, unaffected)
-     */
-    private void attachHelpNode(InputMode inputMode) {
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 30f; // leave room for status
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f; // separation between actions, in pixels
-        Node helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
-        guiNode.attachChild(helpNode);
-    }
 
     private void setCursor(String cursorName) {
         String message = "cursor = " + cursorName;

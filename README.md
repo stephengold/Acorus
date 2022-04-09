@@ -357,13 +357,6 @@ Notice how the hotkey bindings change
 when camera controller is enabled and disabled.
 Each change is reflected in the help node.
 
-### TestCursors
-
-To remind the user which input mode is active,
-you can give each mode its own cursor style.
-
-This example demonstrates 4 input modes, each with its own cursor.
-
 ### TestHeadless
 
 Acorus provides a few features that aren't directly related to user interface.
@@ -418,6 +411,13 @@ This makes it easy to customize which hotkeys do what.
 This example illustrates an `AbstractDemo` with 2 input modes:
 The initially-active mode enables `FlyByCamera` for camera movement.
 The other mode allows you to type a line of text.
+
+### TestCursors
+
+To remind the user which input mode is active,
+you can give each mode its own cursor style.
+
+This example demonstrates 4 input modes, each with its own cursor.
 
 ### TestDsEdit
 
