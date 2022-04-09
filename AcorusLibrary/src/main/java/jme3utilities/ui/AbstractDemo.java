@@ -31,7 +31,6 @@ package jme3utilities.ui;
 
 import com.jme3.app.state.AppState;
 import com.jme3.font.Rectangle;
-import com.jme3.input.KeyInput;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -131,6 +130,11 @@ abstract public class AbstractDemo extends ActionApplication {
      */
     final private ColorRGBA helpBackgroundColor = new ColorRGBA(0f, 0f, 0f, 1f);
     /**
+     * which version of the help node is displayed (or would be if there were an
+     * active InputMode)
+     */
+    private HelpVersion helpVersion = HelpVersion.Minimal;
+    /**
      * library of named geometry materials
      */
     final private Map<String, Material> namedMaterials = new TreeMap<>();
@@ -138,10 +142,6 @@ abstract public class AbstractDemo extends ActionApplication {
      * Node for displaying hotkey help in the GUI scene
      */
     private Node helpNode;
-    /**
-     * Node for displaying "toggle help: H" in the GUI scene
-     */
-    private Node minHelpNode;
     // *************************************************************************
     // new methods exposed
 
@@ -338,8 +338,8 @@ abstract public class AbstractDemo extends ActionApplication {
             Camera guiCamera = guiViewPort.getCamera();
             int viewPortWidth = guiCamera.getWidth();
             int viewPortHeight = guiCamera.getHeight();
-            updateHelpNodes(newMode, viewPortWidth, viewPortHeight,
-                    HelpVersion.Minimal);
+            updateHelpNodes(
+                    newMode, viewPortWidth, viewPortHeight, helpVersion);
         }
     }
 
@@ -383,7 +383,7 @@ abstract public class AbstractDemo extends ActionApplication {
         Validate.positive(newHeight, "new height");
 
         InputMode activeMode = InputMode.getActiveMode();
-        updateHelpNodes(activeMode, newWidth, newHeight, HelpVersion.Detailed);
+        updateHelpNodes(activeMode, newWidth, newHeight, helpVersion);
     }
 
     /**
@@ -417,15 +417,36 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Toggle between the detailed help node and the minimal one.
+     * Display the specified version of the help node.
+     *
+     * @param newVersion which version to display (not null)
+     */
+    public void setHelpVersion(HelpVersion newVersion) {
+        Validate.nonNull(newVersion, "new version");
+
+        InputMode activeMode = InputMode.getActiveMode();
+        Camera guiCamera = guiViewPort.getCamera();
+        int viewPortWidth = guiCamera.getWidth();
+        int viewPortHeight = guiCamera.getHeight();
+        updateHelpNodes(activeMode, viewPortWidth, viewPortHeight, newVersion);
+    }
+
+    /**
+     * Toggle between the detailed help node and the minimal version.
      */
     public void toggleHelp() {
-        if (helpNode.getParent() == null) {
-            minHelpNode.removeFromParent();
-            guiNode.attachChild(helpNode);
-        } else {
-            helpNode.removeFromParent();
-            guiNode.attachChild(minHelpNode);
+        switch (helpVersion) {
+            case Detailed:
+                setHelpVersion(HelpVersion.Minimal);
+                break;
+
+            case Minimal:
+                setHelpVersion(HelpVersion.Detailed);
+                break;
+
+            default:
+                String message = "helpVersion = " + helpVersion;
+                throw new IllegalStateException(message);
         }
     }
 
@@ -446,81 +467,57 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Generate (or re-generate) detailed and minimal versions of hotkey help
-     * nodes for the specified input mode and viewport dimensions. Attach based
-     * on the existing help nodes or as specified.
+     * Update the help node for the specified input mode, viewport dimensions,
+     * and version. TODO rename updateHelpNode
      *
      * @param inputMode the active input mode (unaffected) or null if none
      * @param viewPortWidth (in pixels, &gt;0)
      * @param viewPortHeight (in pixels, &gt;0)
-     * @param preferredVersion which version to attach if no help nodes are
-     * currently attached (not null)
+     * @param displayVersion which version to display, or null for none
      */
     public void updateHelpNodes(InputMode inputMode, int viewPortWidth,
-            int viewPortHeight, HelpVersion preferredVersion) {
+            int viewPortHeight, HelpVersion displayVersion) {
         Validate.positive(viewPortWidth, "viewport width");
         Validate.positive(viewPortHeight, "viewport height");
-        Validate.nonNull(preferredVersion, "preferred version");
 
         Rectangle bounds = detailedHelpBounds(viewPortWidth, viewPortHeight);
-        updateHelpNodes(inputMode, bounds, preferredVersion);
+        updateHelpNodes(inputMode, bounds, displayVersion);
     }
 
     /**
-     * Generate (or re-generate) detailed and minimal versions of help nodes for
-     * the specified input mode and bounds. Attach based on the existing help
-     * nodes or as specified.
+     * Update the help node for the specified input mode, bounds, and version.
+     * TODO rename updateHelp
      *
      * @param inputMode the active input mode (unaffected) or null if none
      * @param bounds the desired screen coordinates (not null, unaffected)
-     * @param preferredVersion which version to attach if no help nodes are
-     * currently attached (not null)
+     * @param displayVersion which version to display, or null for none
      */
     public void updateHelpNodes(InputMode inputMode, Rectangle bounds,
-            HelpVersion preferredVersion) {
+            HelpVersion displayVersion) {
         Validate.nonNull(bounds, "bounds");
-        Validate.nonNull(preferredVersion, "preferred version");
-
-        Node detailedParent;
-        Node minimalParent;
-        switch (preferredVersion) {
-            case Detailed:
-                detailedParent = guiNode;
-                minimalParent = null;
-                break;
-
-            case Minimal:
-                detailedParent = null;
-                minimalParent = guiNode;
-                break;
-
-            default:
-                String message = "preferredVersion = " + preferredVersion;
-                throw new IllegalArgumentException(message);
-        }
         /*
-         * If help nodes already exist, note where they are attached
-         * and then detach them.
+         * If a help node already exists, remove it from the scene graph.
          */
         if (helpNode != null) {
-            detailedParent = helpNode.getParent();
             helpNode.removeFromParent();
         }
 
-        if (minHelpNode != null) {
-            minimalParent = minHelpNode.getParent();
-            minHelpNode.removeFromParent();
+        this.helpVersion = displayVersion;
+        if (inputMode == null) {
+            return;
         }
 
-        if (inputMode != null) {
-            /*
-             * Build and attach the detailed version.
-             */
-            generateDetailedHelp(inputMode, bounds, detailedParent);
-            /*
-             * Build and attach the minimal version.
-             */
-            generateMinimalHelp(bounds, minimalParent);
+        switch (displayVersion) {
+            case Detailed:
+                generateDetailedHelp(inputMode, bounds, guiNode);
+                break;
+
+            case Minimal:
+                generateMinimalHelp(inputMode, bounds, guiNode);
+                break;
+
+            default:
+                break;
         }
     }
     // *************************************************************************
@@ -647,13 +644,14 @@ abstract public class AbstractDemo extends ActionApplication {
      * Generate (or re-generate) the minimal help node for the specified bounds
      * and attach it to the specified parent.
      *
-     * @param detailedHelpBounds (not null, unaffected)
+     * @param inputMode the input mode (not null, unaffected)
+     * @param bounds the desired screen coordinates (not null, unaffected)
      * @param parent where to attach, or null to leave detached
      */
-    private void generateMinimalHelp(Rectangle detailedHelpBounds,
+    private void generateMinimalHelp(InputMode inputMode, Rectangle bounds,
             Node parent) {
         /*
-         * Create a temporary InputMode with just a single binding.
+         * Create a temporary InputMode with just a single action.
          */
         InputMode tmpInputMode = new InputMode("dummy") {
             @Override
@@ -666,24 +664,23 @@ abstract public class AbstractDemo extends ActionApplication {
                 // do nothing
             }
         };
-        tmpInputMode.bind(asToggleHelp, KeyInput.KEY_H);
-        /*
-         * Narrow the bounds to just the upper right corner.
-         */
-        float width = 100f; // in pixels
-        float x = detailedHelpBounds.x + detailedHelpBounds.width - width;
-        float y = detailedHelpBounds.y;
-        float height = detailedHelpBounds.height;
-        Rectangle narrowBounds = new Rectangle(x, y, width, height);
+        Iterable<String> hotkeys = inputMode.listHotkeysLocal(asToggleHelp);
+        for (String hotkey : hotkeys) {
+            tmpInputMode.bind(asToggleHelp, hotkey);
+        }
+        Iterable<Combo> combos = inputMode.listCombos(asToggleHelp);
+        for (Combo combo : combos) {
+            tmpInputMode.bind(asToggleHelp, combo);
+        }
 
         float extraSpace = 0f; // separation between actions, in pixels
-        minHelpNode = HelpUtils.buildNode(tmpInputMode, narrowBounds, guiFont,
-                extraSpace, helpBackgroundColor);
+        helpNode = HelpUtils.buildNode(
+                tmpInputMode, bounds, guiFont, extraSpace, helpBackgroundColor);
 
-        minHelpNode.setLocalTranslation(0f, 0f, 1f); // move to the front
+        helpNode.setLocalTranslation(0f, 0f, 1f); // move to the front
 
         if (parent != null) {
-            parent.attachChild(minHelpNode);
+            parent.attachChild(helpNode);
         }
     }
 }
