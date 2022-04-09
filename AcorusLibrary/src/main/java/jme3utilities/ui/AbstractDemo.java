@@ -44,6 +44,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.texture.FrameBuffer;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -650,8 +651,18 @@ abstract public class AbstractDemo extends ActionApplication {
      */
     private void generateMinimalHelp(InputMode inputMode, Rectangle bounds,
             Node parent) {
+        Collection<Combo> combos = inputMode.listCombos(asToggleHelp);
+        Collection<String> hotkeys = inputMode.listHotkeysLocal(asToggleHelp);
+        if (combos.isEmpty() && hotkeys.isEmpty()) {
+            /*
+             * The input mode appears to lack any toggle mechanism.
+             * Generate a detailed help node instead.
+             */
+            generateDetailedHelp(inputMode, bounds, parent);
+            return;
+        }
         /*
-         * Create a temporary InputMode with just a single action.
+         * Create a temporary InputMode with only the "toggle help" bindings.
          */
         InputMode tmpInputMode = new InputMode("dummy") {
             @Override
@@ -664,15 +675,12 @@ abstract public class AbstractDemo extends ActionApplication {
                 // do nothing
             }
         };
-        Iterable<String> hotkeys = inputMode.listHotkeysLocal(asToggleHelp);
-        for (String hotkey : hotkeys) {
-            tmpInputMode.bind(asToggleHelp, hotkey);
-        }
-        Iterable<Combo> combos = inputMode.listCombos(asToggleHelp);
         for (Combo combo : combos) {
             tmpInputMode.bind(asToggleHelp, combo);
         }
-
+        for (String hotkey : hotkeys) {
+            tmpInputMode.bind(asToggleHelp, hotkey);
+        }
         float extraSpace = 0f; // separation between actions, in pixels
         helpNode = HelpUtils.buildNode(
                 tmpInputMode, bounds, guiFont, extraSpace, helpBackgroundColor);
