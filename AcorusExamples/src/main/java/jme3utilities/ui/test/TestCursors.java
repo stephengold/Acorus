@@ -41,7 +41,7 @@ import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.InputMode;
 
 /**
- * Test/demonstrate the built-in cursors.
+ * Test/demonstrate the cursors that are built in to Acorus.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -70,7 +70,7 @@ public class TestCursors extends AbstractDemo {
     // constructors
 
     /**
-     * Instantiate an ActionApplication without any initial appstates.
+     * Instantiate an AbstractDemo without any initial appstates.
      */
     private TestCursors() {
         super((AppState[]) null);
@@ -105,6 +105,7 @@ public class TestCursors extends AbstractDemo {
      */
     @Override
     public void actionInitializeApplication() {
+        super.actionInitializeApplication();
         /*
          * Instantiate the status text and attach it to the GUI node.
          */
