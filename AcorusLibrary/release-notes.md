@@ -1,5 +1,30 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.13 released on TBD
+
++ Bugfix:  shift key not working in the `EditMode` example class
++ API changes to the `AbstractDemo` class:
+  + deleted the `attachHelpNode()` method
+  + renamed the `updateHelpNodes()` methods to `updateHelp()`
++ Other important changes to the `AbstractDemo` class:
+  + It now generates only one help node at a time.
+  + It now generates minimal help only when "toggle help" bindings exist;
+    otherwise it generates detailed help.
+  + The `HelpVersion` passed to `updateHelp()` is no longer a hint;
+    it gets applied regardless of which version is currently attached.
+  + changed the default initial help version to `Minimal`
+  + added the `resize()` callback method
+  + added the `setHelpMode()` method
+  + added the `setHelpBackgroundColor()` method
+  + added a no-argument `updateHelp()` method
+  + defined an action-string constant to activate the display-settings editor
++ Added the `Overlay` class and made `DsEditOverlay` a subclass.
++ Publicized the `InputMode` constructor (for creating anonymous classes).
++ Publicized the `describe(Combo)` method in `HelpUtils`.
++ Added Tab and F2 bindings to close the overlay in `DsEditInputMode`.
++ Changed most of the example apps
+  to extend `AbstractDemo` instead of `ActionApplication`.
+
 ## Version 0.9.12 released on 6 April 2022
 
 + Bugfix:  incorrect hotkey bindings in `DefaultInputMode`
@@ -19,7 +44,7 @@
     or attach a `ScreenshotAppState`.
     Applications that desire these features
     should invoke `designateSandbox()` prior to initialization.
-+ Other important changes to `DisplaySettings` class:
++ Other important changes to the `DisplaySettings` class:
   + don't save settings during `initialize()`
   + added a return value to the `save()` method
   + allow MSAA factors > 16
