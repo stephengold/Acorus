@@ -31,6 +31,7 @@ package jme3utilities.ui.test;
 
 import com.jme3.app.state.AppState;
 import com.jme3.font.Rectangle;
+import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
@@ -133,7 +134,8 @@ public class HelloAcorus extends ActionApplication {
         Rectangle bounds = new Rectangle(x, y, width, height);
 
         float space = 20f; // separation between actions, in pixels
-        Node helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
+        Node helpNode = HelpUtils.buildNode(
+                inputMode, bounds, guiFont, space, ColorRGBA.Black);
         guiNode.attachChild(helpNode);
     }
 }

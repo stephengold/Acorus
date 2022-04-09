@@ -58,11 +58,6 @@ final public class HelpUtils {
     // constants and loggers
 
     /**
-     * color of the background
-     */
-    final private static ColorRGBA backgroundColor
-            = new ColorRGBA(0f, 0f, 0f, 1f);
-    /**
      * foreground color for highlighted text
      */
     final private static ColorRGBA highlightForegroundColor
@@ -104,10 +99,11 @@ final public class HelpUtils {
      * @param font (not null, unaffected)
      * @param space amount of extra space between hotkey descriptions (in
      * pixels)
+     * @param backgroundColor the color of the background (not null, unaffected)
      * @return a new orphan Node, suitable for attachment to the GUI node
      */
     public static Node buildNode(InputMode inputMode, Rectangle bounds,
-            BitmapFont font, float space) {
+            BitmapFont font, float space, ColorRGBA backgroundColor) {
         Validate.nonNull(inputMode, "input mode");
         Validate.nonNull(bounds, "bounds");
         Validate.nonNull(font, "font");
@@ -146,7 +142,8 @@ final public class HelpUtils {
             }
         }
 
-        Geometry backgroundGeometry = buildBackground(bounds, maxX, minY);
+        Geometry backgroundGeometry
+                = buildBackground(bounds, maxX, minY, backgroundColor);
         result.attachChild(backgroundGeometry);
 
         return result;
@@ -183,15 +180,18 @@ final public class HelpUtils {
     }
 
     /**
-     * Generate a background geometry for the help node.
+     * Generate a background geometry for a help node.
      *
      * @param bounds (in screen coordinates, not null, unaffected)
      * @param maxX the highest screen X of the text
      * @param minY the lowest screen Y of the text
+     * @param color the desired color (not null, unaffected)
      * @return a new Geometry, suitable for attachment to the help node
      */
     private static Geometry buildBackground(Rectangle bounds, float maxX,
-            float minY) {
+            float minY, ColorRGBA color) {
+        assert color != null;
+
         float x1 = bounds.x - padding;
         float x2 = maxX + padding;
         float y1 = minY - padding;
@@ -204,9 +204,8 @@ final public class HelpUtils {
         result.setLocalTranslation(0f, 0f, zBackground);
 
         AssetManager assetManager = Locators.getAssetManager();
-        Material backgroundMaterial
-                = MyAsset.createUnshadedMaterial(assetManager, backgroundColor);
-        result.setMaterial(backgroundMaterial);
+        Material material = MyAsset.createUnshadedMaterial(assetManager, color);
+        result.setMaterial(material);
 
         return result;
     }

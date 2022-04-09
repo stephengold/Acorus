@@ -147,6 +147,7 @@ public class TestAbstractDemo extends AbstractDemo {
         addJaime();
         addLighting();
         configureCamera();
+        setHelpBackgroundColor(ColorRGBA.Blue);
         /*
          * Add the status text to the GUI.
          */

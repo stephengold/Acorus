@@ -31,6 +31,7 @@ package jme3utilities.ui.test;
 
 import com.jme3.font.Rectangle;
 import com.jme3.input.KeyInput;
+import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
@@ -167,8 +168,8 @@ public class HelloToggleHelp extends ActionApplication {
         Rectangle bounds = new Rectangle(x, y, width, height);
 
         float space = 20f; // separation between actions, in pixels
-        detailedHelpNode
-                = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
+        detailedHelpNode = HelpUtils.buildNode(
+                inputMode, bounds, guiFont, space, ColorRGBA.Black);
         detailedHelpNode.move(0f, 0f, 1f); // move (slightly) to the front
         /*
          * Build and attach the minimal help node.
@@ -188,7 +189,8 @@ public class HelloToggleHelp extends ActionApplication {
         x = guiCamera.getWidth() - 110f;
         Rectangle dummyBounds = new Rectangle(x, y, width, height);
 
-        minHelpNode = HelpUtils.buildNode(dummyMode, dummyBounds, guiFont, 0f);
+        minHelpNode = HelpUtils.buildNode(
+                dummyMode, dummyBounds, guiFont, 0f, ColorRGBA.Black);
         guiNode.attachChild(minHelpNode);
     }
 

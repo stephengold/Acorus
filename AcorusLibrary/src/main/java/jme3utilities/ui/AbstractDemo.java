@@ -127,6 +127,10 @@ abstract public class AbstractDemo extends ActionApplication {
      */
     private AxesVisualizer worldAxes = null;
     /**
+     * color for the backgrounds of new help nodes
+     */
+    final private ColorRGBA helpBackgroundColor = new ColorRGBA(0f, 0f, 0f, 1f);
+    /**
      * library of named geometry materials
      */
     final private Map<String, Material> namedMaterials = new TreeMap<>();
@@ -416,6 +420,16 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
+     * Set the background color for help nodes.
+     *
+     * @param newColor the desired color going forward (not null, unaffected)
+     */
+    public void setHelpBackgroundColor(ColorRGBA newColor) {
+        Validate.nonNull(newColor, "new color");
+        helpBackgroundColor.set(newColor);
+    }
+
+    /**
      * Toggle between the detailed help node and the minimal one.
      */
     public void toggleHelp() {
@@ -632,7 +646,8 @@ abstract public class AbstractDemo extends ActionApplication {
     private void generateDetailedHelp(InputMode inputMode, Rectangle bounds,
             Node parent) {
         float extraSpace = 20f; // separation between actions, in pixels
-        helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, extraSpace);
+        helpNode = HelpUtils.buildNode(
+                inputMode, bounds, guiFont, extraSpace, helpBackgroundColor);
 
         helpNode.setLocalTranslation(0f, 0f, 1f); // move to the front
 
@@ -675,8 +690,8 @@ abstract public class AbstractDemo extends ActionApplication {
         Rectangle narrowBounds = new Rectangle(x, y, width, height);
 
         float extraSpace = 0f; // separation between actions, in pixels
-        minHelpNode = HelpUtils.buildNode(
-                tmpInputMode, narrowBounds, guiFont, extraSpace);
+        minHelpNode = HelpUtils.buildNode(tmpInputMode, narrowBounds, guiFont,
+                extraSpace, helpBackgroundColor);
 
         minHelpNode.setLocalTranslation(0f, 0f, 1f); // move to the front
 

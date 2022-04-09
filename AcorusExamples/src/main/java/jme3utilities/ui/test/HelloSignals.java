@@ -245,7 +245,8 @@ public class HelloSignals extends ActionApplication {
         Rectangle bounds = new Rectangle(x, y, width, height);
 
         float space = 20f; // separation between actions, in pixels
-        Node helpNode = HelpUtils.buildNode(inputMode, bounds, guiFont, space);
+        Node helpNode = HelpUtils.buildNode(
+                inputMode, bounds, guiFont, space, ColorRGBA.Black);
         guiNode.attachChild(helpNode);
     }
 }
