@@ -244,19 +244,6 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Generate (or re-generate) detailed and minimal versions of hotkey help.
-     * Attach the minimal one to the GUI scene. TODO delete this?
-     *
-     * @param bounds the desired screen coordinates (not null, unaffected)
-     */
-    public void attachHelpNode(Rectangle bounds) {
-        Validate.nonNull(bounds, "bounds");
-
-        InputMode inputMode = getDefaultInputMode();
-        updateHelpNodes(inputMode, bounds, HelpVersion.Minimal);
-    }
-
-    /**
      * Add a visualizer for the axes of the world coordinate system.
      *
      * @param axisLength the desired length for each axis arrow (in world units,
