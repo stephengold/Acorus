@@ -29,18 +29,13 @@
  */
 package jme3utilities.ui.test;
 
-import com.jme3.font.Rectangle;
 import com.jme3.input.KeyInput;
-import com.jme3.math.ColorRGBA;
-import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.ActionApplication;
+import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.DefaultInputMode;
-import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
 
 /**
@@ -49,7 +44,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestToggleFly extends ActionApplication {
+public class TestToggleFly extends AbstractDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -67,13 +62,6 @@ public class TestToggleFly extends ActionApplication {
      * action string to toggle the state of the FlyByCamera
      */
     final private static String asToggleFlyCam = "toggle flyCam";
-    // *************************************************************************
-    // fields
-
-    /**
-     * Node for displaying hotkey help in the GUI scene
-     */
-    private Node helpNode;
     // *************************************************************************
     // new methods exposed
 
@@ -98,28 +86,18 @@ public class TestToggleFly extends ActionApplication {
         application.start();
     }
     // *************************************************************************
-    // ActionApplication methods
+    // AbstractDemo methods
 
     /**
      * Initialize this application.
      */
     @Override
     public void actionInitializeApplication() {
+        super.actionInitializeApplication();
+        /*
+         * Create a 3-D scene with something to look at:  a lit green cube.
+         */
         DemoScene.setup(this);
-        flyCam.setEnabled(false);
-    }
-
-    /**
-     * Callback invoked when the active InputMode changes.
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            updateHelpNode(newMode);
-        }
     }
 
     /**
@@ -160,32 +138,14 @@ public class TestToggleFly extends ActionApplication {
     private void toggleFlyCam() {
         boolean isEnabled = flyCam.isEnabled();
         flyCam.setEnabled(!isEnabled);
-
+        /*
+         * Update the bindings to reflect the new state.
+         */
         DefaultInputMode dim = (DefaultInputMode) getDefaultInputMode();
         dim.updateBindings();
-        updateHelpNode(dim);
-    }
-
-    /**
-     * Update the help node.
-     *
-     * @param inputMode (not null, unaffected)
-     */
-    private void updateHelpNode(InputMode inputMode) {
-        if (helpNode != null) {
-            helpNode.removeFromParent();
-        }
-
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f; // separation between actions, in pixels
-        helpNode = HelpUtils.buildNode(
-                inputMode, bounds, guiFont, space, ColorRGBA.Black);
-        guiNode.attachChild(helpNode);
+        /*
+         * Update the help node to reflect the changed bindings.
+         */
+        updateHelp();
     }
 }

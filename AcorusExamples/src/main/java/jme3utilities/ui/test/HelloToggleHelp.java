@@ -29,25 +29,20 @@
  */
 package jme3utilities.ui.test;
 
-import com.jme3.font.Rectangle;
 import com.jme3.input.KeyInput;
-import com.jme3.math.ColorRGBA;
-import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.ActionApplication;
-import jme3utilities.ui.HelpUtils;
+import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.InputMode;
 
 /**
- * An example of minimizing a help node the hard way.
+ * Toggle the help node between detailed and minimal versions.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloToggleHelp extends ActionApplication {
+public class HelloToggleHelp extends AbstractDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -61,17 +56,6 @@ public class HelloToggleHelp extends ActionApplication {
      */
     final private static String applicationName
             = HelloToggleHelp.class.getSimpleName();
-    // *************************************************************************
-    // fields
-
-    /**
-     * Node for displaying detailed hotkey help in the GUI scene
-     */
-    private Node detailedHelpNode;
-    /**
-     * Node for displaying minimal help ("toggle help: H") in the GUI scene
-     */
-    private Node minHelpNode;
     // *************************************************************************
     // new methods exposed
 
@@ -96,27 +80,18 @@ public class HelloToggleHelp extends ActionApplication {
         application.start();
     }
     // *************************************************************************
-    // ActionApplication methods
+    // AbstractDemo methods
 
     /**
      * Initialize this application.
      */
     @Override
     public void actionInitializeApplication() {
+        super.actionInitializeApplication();
+        /*
+         * Create a 3-D scene with something to look at:  a lit green cube.
+         */
         DemoScene.setup(this);
-    }
-
-    /**
-     * Callback invoked when the active InputMode changes.
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            attachHelpNodes(newMode);
-        }
     }
 
     /**
@@ -126,84 +101,6 @@ public class HelloToggleHelp extends ActionApplication {
     @Override
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
-        dim.bind("toggle help", KeyInput.KEY_H);
-    }
-
-    /**
-     * Process an action that wasn't handled by the active InputMode.
-     *
-     * @param actionString textual description of the action (not null)
-     * @param ongoing true if the action is ongoing, otherwise false
-     * @param tpf the time interval between frames (in seconds, &ge;0)
-     */
-    @Override
-    public void onAction(String actionString, boolean ongoing, float tpf) {
-        if (ongoing) {
-            switch (actionString) {
-                case "toggle help":
-                    toggleHelp();
-                    return;
-            }
-        }
-        super.onAction(actionString, ongoing, tpf);
-    }
-    // *************************************************************************
-    // private methods
-
-    /**
-     * Generate both versions of the help node for the specified InputMode.
-     * Attach the minimal one to the GUI scene.
-     *
-     * @param inputMode (not null, unaffected)
-     */
-    private void attachHelpNodes(InputMode inputMode) {
-        Camera guiCamera = guiViewPort.getCamera();
-        /*
-         * Build the detailed help node.
-         */
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f; // separation between actions, in pixels
-        detailedHelpNode = HelpUtils.buildNode(
-                inputMode, bounds, guiFont, space, ColorRGBA.Black);
-        detailedHelpNode.move(0f, 0f, 1f); // move (slightly) to the front
-        /*
-         * Build and attach the minimal help node.
-         */
-        InputMode dummyMode = new InputMode("dummy") {
-            @Override
-            protected void defaultBindings() {
-            }
-
-            @Override
-            public void onAction(String s, boolean b, float f) {
-            }
-        };
-        dummyMode.bind("toggle help", KeyInput.KEY_H);
-
-        width = 100f; // in pixels
-        x = guiCamera.getWidth() - 110f;
-        Rectangle dummyBounds = new Rectangle(x, y, width, height);
-
-        minHelpNode = HelpUtils.buildNode(
-                dummyMode, dummyBounds, guiFont, 0f, ColorRGBA.Black);
-        guiNode.attachChild(minHelpNode);
-    }
-
-    /**
-     * Toggle between the detailed help node and the minimal one.
-     */
-    private void toggleHelp() {
-        if (detailedHelpNode.getParent() == null) {
-            minHelpNode.removeFromParent();
-            guiNode.attachChild(detailedHelpNode);
-        } else {
-            detailedHelpNode.removeFromParent();
-            guiNode.attachChild(minHelpNode);
-        }
+        dim.bind(asToggleHelp, KeyInput.KEY_H);
     }
 }

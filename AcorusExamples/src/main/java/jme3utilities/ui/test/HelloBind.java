@@ -30,13 +30,10 @@
 package jme3utilities.ui.test;
 
 import com.jme3.app.state.AppState;
-import com.jme3.font.Rectangle;
 import com.jme3.input.KeyInput;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
-import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
 import com.jme3.system.AppSettings;
@@ -44,8 +41,7 @@ import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyAsset;
 import jme3utilities.MyString;
-import jme3utilities.ui.ActionApplication;
-import jme3utilities.ui.HelpUtils;
+import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.InputMode;
 
 /**
@@ -54,7 +50,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloBind extends ActionApplication {
+public class HelloBind extends AbstractDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -91,7 +87,7 @@ public class HelloBind extends ActionApplication {
     // constructors
 
     /**
-     * Instantiate an ActionApplication without any initial appstates.
+     * Instantiate an AbstractDemo without any initial appstates.
      */
     private HelloBind() {
         super((AppState[]) null);
@@ -113,20 +109,24 @@ public class HelloBind extends ActionApplication {
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
         settings.setRenderer(AppSettings.LWJGL_OPENGL32);
-        settings.setSamples(4); // anti-aliasing
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
 
         application.start();
     }
     // *************************************************************************
-    // ActionApplication methods
+    // AbstractDemo methods
 
     /**
      * Initialize this application.
      */
     @Override
     public void actionInitializeApplication() {
+        super.actionInitializeApplication();
+
+        ColorRGBA gray = new ColorRGBA(0.1f, 0.1f, 0.1f, 1f);
+        viewPort.setBackgroundColor(gray);
+
         float squareSize = 50f; // in pixels
         Quad squareMesh = new Quad(squareSize, squareSize);
         float x2 = cam.getWidth() / 2f;
@@ -158,19 +158,6 @@ public class HelloBind extends ActionApplication {
         whiteSquare = new Geometry("white square", squareMesh);
         whiteSquare.setMaterial(whiteMaterial);
         whiteSquare.move(x2, y2, z);
-    }
-
-    /**
-     * Callback invoked when the active InputMode changes.
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            attachHelpNode(newMode);
-        }
     }
 
     /**
@@ -220,25 +207,6 @@ public class HelloBind extends ActionApplication {
     }
     // *************************************************************************
     // private methods
-
-    /**
-     * Build and attach the help node for the specified InputMode.
-     *
-     * @param inputMode (not null, unaffected)
-     */
-    private void attachHelpNode(InputMode inputMode) {
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f; // separation between actions, in pixels
-        Node helpNode = HelpUtils.buildNode(
-                inputMode, bounds, guiFont, space, ColorRGBA.Black);
-        guiNode.attachChild(helpNode);
-    }
 
     /**
      * Cause the specified Spatial to appear (if hidden) or disappear (if

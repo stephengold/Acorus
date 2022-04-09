@@ -30,17 +30,15 @@
 package jme3utilities.ui.test;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.font.Rectangle;
+import com.jme3.app.state.AppState;
 import com.jme3.input.KeyInput;
 import com.jme3.math.ColorRGBA;
-import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.Collection;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.ActionApplication;
+import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.Combo;
 import jme3utilities.ui.HelpUtils;
 import jme3utilities.ui.InputMode;
@@ -50,7 +48,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloCombo extends ActionApplication {
+public class HelloCombo extends AbstractDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -64,6 +62,15 @@ public class HelloCombo extends ActionApplication {
      */
     final private static String applicationName
             = HelloCombo.class.getSimpleName();
+    // *************************************************************************
+    // constructors
+
+    /**
+     * Instantiate an AbstractDemo without any initial appstates.
+     */
+    private HelloCombo() {
+        super((AppState[]) null);
+    }
     // *************************************************************************
     // new methods exposed
 
@@ -87,27 +94,17 @@ public class HelloCombo extends ActionApplication {
         application.start();
     }
     // *************************************************************************
-    // ActionApplication methods
+    // AbstractDemo methods
 
     /**
      * Initialize this application.
      */
     @Override
     public void actionInitializeApplication() {
-        // do nothing
-    }
+        super.actionInitializeApplication();
 
-    /**
-     * Callback invoked when the active InputMode changes.
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            attachHelpNode(newMode);
-        }
+        ColorRGBA gray = new ColorRGBA(0.1f, 0.1f, 0.1f, 1f);
+        viewPort.setBackgroundColor(gray);
     }
 
     /**
@@ -158,25 +155,6 @@ public class HelloCombo extends ActionApplication {
     // private methods
 
     /**
-     * Build and attach the help node for the specified InputMode.
-     *
-     * @param inputMode (not null, unaffected)
-     */
-    private void attachHelpNode(InputMode inputMode) {
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f; // separation between actions, in pixels
-        Node helpNode = HelpUtils.buildNode(
-                inputMode, bounds, guiFont, space, ColorRGBA.Black);
-        guiNode.attachChild(helpNode);
-    }
-
-    /**
      * Enumerate all the quit alternatives to System.out.
      */
     private void printQuitHint() {
@@ -192,7 +170,7 @@ public class HelloCombo extends ActionApplication {
         System.out.println();
         System.out.print("Use ");
         for (int arrayIndex = 0; arrayIndex < numCombos; ++arrayIndex) {
-            String comboName = array[arrayIndex].toStringLocal();
+            String comboName = HelpUtils.describe(array[arrayIndex]);
             System.out.print(comboName);
             if (arrayIndex != lastIndex) {
                 if (numCombos > 2) {
@@ -204,7 +182,7 @@ public class HelloCombo extends ActionApplication {
                 }
             }
         }
-        System.out.println(" to quit.");
+        System.out.println(" to exit.");
         System.out.println();
     }
 }

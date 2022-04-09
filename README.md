@@ -225,19 +225,22 @@ The following example apps are found in the AcorusExamples sub-project:
 ### HelloAcorus
 
 All Acorus applications extend the `ActionApplication` class
-or one of its subclasses.
-`HelloAcorus` is an example of a minimal `ActionApplication`:
+or one of its subclasses, usually `AbstractDemo`.
+
+`HelloAcorus` is a very simple example of an `AbstractDemo`:
 one without a `FlyByCamera`, a `DebugKeysAppState`,
 a `ScreenshotAppState`, or a `StatsAppState`.
 
-A help node is displayed.
-It indicates which hotkeys are bound to each action.
-There is a single input mode: the Acorus default input mode.
-In this example,
-the mode simply binds the Esc hotkey to the "SIMPLEAPP_Exit" action.
+Note that the initialization method
+is named `actionInitializeApplication`, not `simpleInitApp`!
+
+A help node is displayed in the upper right of the viewport.
+It describes the available user actions.
+In the example there is just one action, named "SIMPLEAPP_Exit",
+which is bound to the Esc key.
 
 Pressing the Esc key triggers the "SIMPLEAPP_Exit" action.
-The code to handle that action is built into `ActionApplication`.
+Code to handle that action is built into `ActionApplication`.
 It causes the application to terminate.
 
 Because action names are displayed in the help node,
@@ -245,12 +248,11 @@ they should ideally be short and descriptive.
 However, since "SIMPLEAPP_Exit" is part of the JMonkeyEngine legacy,
 the `buildNode()` utility method that constructs the help node
 gives it special treatment.
-As a result, "exit" is displayed in place of the actual action name.
+That's why "exit" is displayed in place of the actual action name.
 
 ### TestHotkeys
 
-This example displays continuously-updated list active hotkeys,
-making it a convenient tool for identifying hotkeys.
+The Esc key in `HelloAcorus` is an example of a hotkey.
 
 Hotkeys include not only keyboard keys
 but also mouse buttons and joystick buttons.
@@ -262,25 +264,32 @@ Each `Hotkey` is identified in 3 ways:
 On systems with "US" QWERTY keyboards,
 the US name and the localized name are identical.
 
+The `TestHotKeys` example displays a continuously-updated list active hotkeys,
+making it a convenient tool for identifying hotkeys.
+
 ### HelloBind
 
-This example binds 12 hotkeys to 4 custom actions in the default input mode.
-The actions cause squares to appear on (or disappear from) the display.
+`HelloBind` binds 12 hotkeys to 4 custom actions.
+Those actions cause squares to appear on (or disappear from) the display.
+
+Acorus groups action bindings into input modes.
+In this example, the custom bindings are added
+to an automatically created mode called the default input mode.
 
 An input mode's bindings don't become effective (mapped)
 until the mode is activated (enabled).
 Acorus activates the default mode during initialization,
-just after invoking the `moreDefaultBindings()` callback,
-making `moreDefaultBindings()`
+just after invoking the `moreDefaultBindings()` callback.
+That makes `moreDefaultBindings()`
 the ideal place to add bindings to the default mode.
 
 An action handler is simply a method
-with the `onAction(String, boolean, float)` signature,
-defined in JMonkeyEngine's `ActionListener` interface.
+with the `onAction(String, boolean, float)` signature.
+This signature is defined in JMonkeyEngine's `ActionListener` interface.
 All Acorus applications and input modes implement this interface.
 
 When a bound hotkey is pressed, Acorus invokes the input mode's action handler.
-In the example, the mode's handler doesn't handle the action,
+In the example, the input mode doesn't handle the action,
 so it falls through to the application's handler.
 
 NOTE:  When multiple hotkeys are bound to a single action (as here),
@@ -295,15 +304,16 @@ which is the US/local name for the "4" key on the numeric keypad.
 ### HelloSignals
 
 Just as hotkeys can be bound to actions, they can also be bound to signals.
+
 Signals keep track of which hotkeys are active.
 They are used to monitor modal keys (like Shift, Ctrl, and Alt)
 and also to control motion.
 
-This example binds 12 hotkeys to 4 custom signals in the default input mode.
+`HelloSignals` binds 12 hotkeys to 4 custom actions.
 The signals cause squares to appear on (or disappear from) the display.
 
 NOTE:  When multiple hotkeys are bound to the same signal (as here),
-the signal remains active as long as any of the hotkeys is active.
+the signal remains active as long as any of the hotkeys are active.
 
 ### HelloCombo
 
@@ -311,7 +321,7 @@ A `Combo` represents a combination of hotkeys.
 More precisely, it consists of a hotkey
 plus a set of positive and/or negative signals.
 
-The `HelloCombo` example app binds combos to actions.
+The `HelloCombo` example binds 2 signals and 6 combos.
 
 Help nodes indicate combo bindings alongside simple hotkey bindings:
 + "shift+y" mean pressing the "y" key while the "shift" signal is active
@@ -323,30 +333,51 @@ This example extends the `HelloAcorus` example
 with a `FlyByCamera`, a `StatsAppState`, a `DebugKeysAppState`,
 and a `ScreenshotAppState`.
 
-When `DefaultInputMode` detects a `StatsAppState`,
+When the default input mode detects a `StatsAppState`,
 it binds the F5 key to the action
 that toggles visibility of the render-statistics display.
 
-When `DefaultInputMode` detects a `DebugKeysAppState`,
+When the default input mode detects a `DebugKeysAppState`,
 it bind 2 hotkeys (C and M on "US" QWERTY keyboards)
 to actions that print the camera position and memory statistics to the console.
 
-When `DefaultInputMode` detects a `FlyByCamera`,
+When the default input mode detects a `FlyByCamera`,
 it binds 6 hotkeys (W/A/S/D/Q/Z on "US" QWERTY keyboards)
 to signals that control camera motion.
 
 Users accustomed to `SimpleApplication` tend to expect these bindings.
 
+### HelloToggleHelp
+
+Since detailed help obscures a portion of the viewport,
+you'll often want to display it only when the user explicitly requests it.
+
+This example adds an action to toggle the help node between 2 versions:
+detailed and minimal.
+The minimal version merely indicates how to display the detailed one.
+
 ### HelloSandbox
 
 Acorus allows you to designate a sandbox:
 a directory to which Acorus will write files.
-By tradition, this directory is named "Written Assets".
+This directory is traditionally named "Written Assets".
 
 If there's a designated sandbox,
 `ActionApplication` attaches a `ScreenshotAppState`
 and binds a hotkey (either PrtSc or ScrLk or SysRq)
-to an action that takes a screenshot and writes it to the sandbox.
+to an action that captures a screenshot and writes it to the sandbox.
+
+### TestAbstractDemo
+
+`TestAbstractDemo` demonstrates a few more features of `AbstractDemo`:
+
++ add world axes to a scene
++ pause animations without disabling camera motion
++ scale a C-G model to a specified height
++ position a C-G model so that it rests on the X-Z plane
+  with center on the Y axis
++ select among string values, as in a menu
++ store materials in a "library" and retrieve them by name
 
 ### TestToggleFly
 
@@ -356,42 +387,6 @@ with an action to toggle the state of the `FlyByCamera`.
 Notice how the hotkey bindings change
 when camera controller is enabled and disabled.
 Each change is reflected in the help node.
-
-### TestHeadless
-
-Acorus provides a few features that aren't directly related to user interface.
-Occasionally, an applications that run in a headless context
-will want to utilize these features.
-
-`TestHeadless` is a simple example of a headless `ActionApplication`.
-
-### HelloToggleHelp
-
-Often you'll want to display detailed help
-only when the user explicitly requests it.
-
-This example adds an action to toggle the help node between 2 versions:
-detailed and minimal.
-
-This functionaly is somewhat tricky to implement,
-and it's so useful that it's built into
-a subclass of `ActionApplication` named `AbstractDemo`.
-
-### TestAbstractDemo
-
-This a simple example of an `AbstractDemo`.
-`AbstractDemo` is a subclass of `ActionApplication`
-that's more convenient for creating JME demos.
-It provides methods to:
-
-+ toggle between minimal/detailed help nodes
-+ add world axes to a scene
-+ pause animations without disabling camera motion
-+ scale a C-G model to a specified height
-+ position a C-G model so that it rests on the X-Z plane
-  with center on the Y axis
-+ select among float, int, and string values, as in a menu
-+ store materials in a "library" and retrieve them by name
 
 ### HelloCoas
 
@@ -404,25 +399,36 @@ cause the camera to orbit around the center of the scene.
 
 `CameraOrbitAppState` is entirely controlled by 2 signals,
 and it doesn't care which hotkeys are bound to those signals.
-This makes it easy to customize which hotkeys do what.
+This makes it very easy to customize which hotkeys do what.
 
 ### TestTwoModes
 
+In Acorus, an application can attach multiple input modes,
+but it can only enable them one at a time.
+
 This example illustrates an `AbstractDemo` with 2 input modes:
-The initially-active mode enables `FlyByCamera` for camera movement.
-The other mode allows you to type a line of text.
+The default mode (initially active) enables `FlyByCamera` for camera movement.
+The other mode (named "edit") allows you to type a line of text.
 
 ### TestCursors
 
 To remind the user which input mode is active,
 you can give each mode its own cursor style.
 
-This example demonstrates 4 input modes, each with its own cursor.
+This example demonstrates 4 input modes, each with its own cursor style.
 
 ### TestDsEdit
 
 This example demonstrates how to use the built-in `DsEditOverlay` appstate
 to edit display settings from within an `AbstractDemo`.
+
+### TestHeadless
+
+Acorus offers some features that aren't directly related to user interface.
+Occasionally, an application that runs in a headless context
+will want to utilize these features.
+
+`TestHeadless` is a simple example of a headless `ActionApplication`.
 
 [Jump to table of contents](#toc)
 

@@ -29,25 +29,19 @@
  */
 package jme3utilities.ui.test;
 
-import com.jme3.font.Rectangle;
-import com.jme3.math.ColorRGBA;
-import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.ActionApplication;
-import jme3utilities.ui.HelpUtils;
-import jme3utilities.ui.InputMode;
+import jme3utilities.ui.AbstractDemo;
 
 /**
- * Test/demonstrate hotkey bindings that emulate JMonkeyEngine's
+ * Test/demonstrate the built-in hotkey bindings that emulate JMonkeyEngine's
  * SimpleApplication.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloSimpleApplication extends ActionApplication {
+public class HelloSimpleApplication extends AbstractDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -85,47 +79,17 @@ public class HelloSimpleApplication extends ActionApplication {
         application.start();
     }
     // *************************************************************************
-    // ActionApplication methods
+    // AbstractDemo methods
 
     /**
      * Initialize this application.
      */
     @Override
     public void actionInitializeApplication() {
+        super.actionInitializeApplication();
+        /*
+         * Create a 3-D scene with something to look at:  a lit green cube.
+         */
         DemoScene.setup(this);
-    }
-
-    /**
-     * Callback invoked when the active InputMode changes.
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            attachHelpNode(newMode);
-        }
-    }
-    // *************************************************************************
-    // private methods
-
-    /**
-     * Build and attach the help node for the specified InputMode.
-     *
-     * @param inputMode (not null, unaffected)
-     */
-    private void attachHelpNode(InputMode inputMode) {
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f; // separation between actions, in pixels
-        Node helpNode = HelpUtils.buildNode(
-                inputMode, bounds, guiFont, space, ColorRGBA.Black);
-        guiNode.attachChild(helpNode);
     }
 }

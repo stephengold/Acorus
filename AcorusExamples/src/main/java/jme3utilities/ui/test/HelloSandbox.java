@@ -25,30 +25,26 @@
  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ OF THIS SOFTWARE, EVEN IF ADVISED OFHelpUtils THE POSSIBILITY OF SUCH DAMAGE.
  */
 package jme3utilities.ui.test;
 
 import com.jme3.app.state.AppState;
-import com.jme3.font.Rectangle;
-import com.jme3.math.ColorRGBA;
-import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.io.IOException;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
+import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.ActionApplication;
-import jme3utilities.ui.HelpUtils;
-import jme3utilities.ui.InputMode;
+import jme3utilities.ui.HelpVersion;
 
 /**
  * Test/demonstrate the Acorus sandbox and the built-in "screenshot" action.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloSandbox extends ActionApplication {
+public class HelloSandbox extends AbstractDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -66,7 +62,7 @@ public class HelloSandbox extends ActionApplication {
     // constructors
 
     /**
-     * Instantiate an ActionApplication without any initial appstates.
+     * Instantiate an AbstractDemo without any initial appstates.
      */
     private HelloSandbox() {
         super((AppState[]) null);
@@ -97,53 +93,24 @@ public class HelloSandbox extends ActionApplication {
          */
         try {
             ActionApplication.designateSandbox("./Written Assets");
-        } catch (IOException e) {
+        } catch (IOException exception) {
         }
 
         application.start();
     }
     // *************************************************************************
-    // ActionApplication methods
+    // AbstractDemo methods
 
     /**
      * Initialize this application.
      */
     @Override
     public void actionInitializeApplication() {
+        super.actionInitializeApplication();
+        this.setHelpVersion(HelpVersion.Detailed);
+        /*
+         * Create a 3-D scene with something to look at:  a lit green cube.
+         */
         DemoScene.setup(this);
-    }
-
-    /**
-     * Callback invoked when the active InputMode changes.
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            attachHelpNode(newMode);
-        }
-    }
-    // *************************************************************************
-    // private methods
-
-    /**
-     * Build and attach the help node for the specified InputMode.
-     *
-     * @param inputMode (not null, unaffected)
-     */
-    private void attachHelpNode(InputMode inputMode) {
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f; // separation between actions, in pixels
-        Node helpNode = HelpUtils.buildNode(
-                inputMode, bounds, guiFont, space, ColorRGBA.Black);
-        guiNode.attachChild(helpNode);
     }
 }

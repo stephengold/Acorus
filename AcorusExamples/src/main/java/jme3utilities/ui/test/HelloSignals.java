@@ -30,21 +30,17 @@
 package jme3utilities.ui.test;
 
 import com.jme3.app.state.AppState;
-import com.jme3.font.Rectangle;
 import com.jme3.input.KeyInput;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
-import com.jme3.scene.Node;
 import com.jme3.scene.shape.Quad;
 import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyAsset;
 import jme3utilities.MyString;
-import jme3utilities.ui.ActionApplication;
-import jme3utilities.ui.HelpUtils;
+import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.InputMode;
 import jme3utilities.ui.Signals;
 
@@ -54,7 +50,7 @@ import jme3utilities.ui.Signals;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloSignals extends ActionApplication {
+public class HelloSignals extends AbstractDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -91,7 +87,7 @@ public class HelloSignals extends ActionApplication {
     // constructors
 
     /**
-     * Instantiate an ActionApplication without any initial appstates.
+     * Instantiate an AbstractDemo without any initial appstates.
      */
     private HelloSignals() {
         super((AppState[]) null);
@@ -113,20 +109,24 @@ public class HelloSignals extends ActionApplication {
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
         settings.setRenderer(AppSettings.LWJGL_OPENGL32);
-        settings.setSamples(4); // anti-aliasing
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
 
         application.start();
     }
     // *************************************************************************
-    // ActionApplication methods
+    // AbstractDemo methods
 
     /**
      * Initialize this application.
      */
     @Override
     public void actionInitializeApplication() {
+        super.actionInitializeApplication();
+
+        ColorRGBA gray = new ColorRGBA(0.1f, 0.1f, 0.1f, 1f);
+        viewPort.setBackgroundColor(gray);
+
         float squareSize = 50f; // in pixels
         Quad squareMesh = new Quad(squareSize, squareSize);
         float x2 = cam.getWidth() / 2f;
@@ -161,32 +161,19 @@ public class HelloSignals extends ActionApplication {
     }
 
     /**
-     * Callback invoked when the active InputMode changes.
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            attachHelpNode(newMode);
-        }
-    }
-
-    /**
      * Callback invoked immediately after initializing the hotkey bindings of
      * the default input mode.
      */
     @Override
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
-        dim.bindSignal("showBlue",
+        dim.bindSignal("show blue",
                 KeyInput.KEY_F1, KeyInput.KEY_1, KeyInput.KEY_NUMPAD1);
-        dim.bindSignal("showGreen",
+        dim.bindSignal("show green",
                 KeyInput.KEY_F2, KeyInput.KEY_2, KeyInput.KEY_NUMPAD2);
-        dim.bindSignal("showRed",
+        dim.bindSignal("show red",
                 KeyInput.KEY_F3, KeyInput.KEY_3, KeyInput.KEY_NUMPAD3);
-        dim.bindSignal("showWhite",
+        dim.bindSignal("show white",
                 KeyInput.KEY_F4, KeyInput.KEY_4, KeyInput.KEY_NUMPAD4);
     }
 
@@ -204,49 +191,28 @@ public class HelloSignals extends ActionApplication {
          */
         Signals signals = getSignals();
 
-        if (signals.test("showBlue")) {
+        if (signals.test("show blue")) {
             guiNode.attachChild(blueSquare);
         } else {
             blueSquare.removeFromParent();
         }
 
-        if (signals.test("showGreen")) {
+        if (signals.test("show green")) {
             guiNode.attachChild(greenSquare);
         } else {
             greenSquare.removeFromParent();
         }
 
-        if (signals.test("showRed")) {
+        if (signals.test("show red")) {
             guiNode.attachChild(redSquare);
         } else {
             redSquare.removeFromParent();
         }
 
-        if (signals.test("showWhite")) {
+        if (signals.test("show white")) {
             guiNode.attachChild(whiteSquare);
         } else {
             whiteSquare.removeFromParent();
         }
-    }
-    // *************************************************************************
-    // private methods
-
-    /**
-     * Build and attach the help node for the specified InputMode.
-     *
-     * @param inputMode (not null, unaffected)
-     */
-    private void attachHelpNode(InputMode inputMode) {
-        Camera guiCamera = guiViewPort.getCamera();
-        float x = 10f;
-        float y = guiCamera.getHeight() - 10f;
-        float width = guiCamera.getWidth() - 20f;
-        float height = guiCamera.getHeight() - 20f;
-        Rectangle bounds = new Rectangle(x, y, width, height);
-
-        float space = 20f; // separation between actions, in pixels
-        Node helpNode = HelpUtils.buildNode(
-                inputMode, bounds, guiFont, space, ColorRGBA.Black);
-        guiNode.attachChild(helpNode);
     }
 }
