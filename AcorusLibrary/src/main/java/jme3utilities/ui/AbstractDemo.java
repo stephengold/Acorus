@@ -467,6 +467,17 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
+     * Update the help node to reflect changed bindings.
+     */
+    public void updateHelp() {
+        InputMode activeMode = InputMode.getActiveMode();
+        Camera guiCamera = guiViewPort.getCamera();
+        int viewPortWidth = guiCamera.getWidth();
+        int viewPortHeight = guiCamera.getHeight();
+        updateHelp(activeMode, viewPortWidth, viewPortHeight, helpVersion);
+    }
+
+    /**
      * Update the help node for the specified input mode, viewport dimensions,
      * and version.
      *
