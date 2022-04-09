@@ -339,8 +339,7 @@ abstract public class AbstractDemo extends ActionApplication {
             Camera guiCamera = guiViewPort.getCamera();
             int viewPortWidth = guiCamera.getWidth();
             int viewPortHeight = guiCamera.getHeight();
-            updateHelpNodes(
-                    newMode, viewPortWidth, viewPortHeight, helpVersion);
+            updateHelp(newMode, viewPortWidth, viewPortHeight, helpVersion);
         }
     }
 
@@ -384,7 +383,7 @@ abstract public class AbstractDemo extends ActionApplication {
         Validate.positive(newHeight, "new height");
 
         InputMode activeMode = InputMode.getActiveMode();
-        updateHelpNodes(activeMode, newWidth, newHeight, helpVersion);
+        updateHelp(activeMode, newWidth, newHeight, helpVersion);
     }
 
     /**
@@ -429,7 +428,7 @@ abstract public class AbstractDemo extends ActionApplication {
         Camera guiCamera = guiViewPort.getCamera();
         int viewPortWidth = guiCamera.getWidth();
         int viewPortHeight = guiCamera.getHeight();
-        updateHelpNodes(activeMode, viewPortWidth, viewPortHeight, newVersion);
+        updateHelp(activeMode, viewPortWidth, viewPortHeight, newVersion);
     }
 
     /**
@@ -469,31 +468,30 @@ abstract public class AbstractDemo extends ActionApplication {
 
     /**
      * Update the help node for the specified input mode, viewport dimensions,
-     * and version. TODO rename updateHelpNode
+     * and version.
      *
      * @param inputMode the active input mode (unaffected) or null if none
      * @param viewPortWidth (in pixels, &gt;0)
      * @param viewPortHeight (in pixels, &gt;0)
      * @param displayVersion which version to display, or null for none
      */
-    public void updateHelpNodes(InputMode inputMode, int viewPortWidth,
+    public void updateHelp(InputMode inputMode, int viewPortWidth,
             int viewPortHeight, HelpVersion displayVersion) {
         Validate.positive(viewPortWidth, "viewport width");
         Validate.positive(viewPortHeight, "viewport height");
 
         Rectangle bounds = detailedHelpBounds(viewPortWidth, viewPortHeight);
-        updateHelpNodes(inputMode, bounds, displayVersion);
+        updateHelp(inputMode, bounds, displayVersion);
     }
 
     /**
      * Update the help node for the specified input mode, bounds, and version.
-     * TODO rename updateHelp
      *
      * @param inputMode the active input mode (unaffected) or null if none
      * @param bounds the desired screen coordinates (not null, unaffected)
      * @param displayVersion which version to display, or null for none
      */
-    public void updateHelpNodes(InputMode inputMode, Rectangle bounds,
+    public void updateHelp(InputMode inputMode, Rectangle bounds,
             HelpVersion displayVersion) {
         Validate.nonNull(bounds, "bounds");
         /*
