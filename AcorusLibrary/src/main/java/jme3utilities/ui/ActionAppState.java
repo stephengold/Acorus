@@ -36,7 +36,7 @@ import jme3utilities.InitialState;
 import jme3utilities.SimpleAppState;
 
 /**
- * A SimpleAppState in an ActionApplication.
+ * A SimpleAppState in an ActionApplication. TODO rename AcorusAppState
  *
  * @author Stephen Gold sgold@sonic.net
  */

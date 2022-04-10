@@ -56,8 +56,8 @@ import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 
 /**
- * An abstract ActionApplication with additional data and methods for use in
- * demos.
+ * An ActionApplication with additional data and methods for use in
+ * demos. TODO rename AcorusDemo
  *
  * @author Stephen Gold sgold@sonic.net
  */
