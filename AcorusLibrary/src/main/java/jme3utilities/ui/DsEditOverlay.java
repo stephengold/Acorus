@@ -62,9 +62,9 @@ public class DsEditOverlay extends Overlay {
      */
     final private static int saveStatusLine = 1;
     /**
-     * index of the status line for full screen
+     * index of the status line for fullscreen mode
      */
-    final private static int fullScreenStatusLine = 2;
+    final private static int fullscreenStatusLine = 2;
     /**
      * index of the status line for start location
      */
@@ -128,7 +128,7 @@ public class DsEditOverlay extends Overlay {
     /**
      * index of the line being edited (&ge;1)
      */
-    private int selectedLine = fullScreenStatusLine;
+    private int selectedLine = fullscreenStatusLine;
     // *************************************************************************
     // constructors
 
@@ -157,7 +157,7 @@ public class DsEditOverlay extends Overlay {
         /*
          * Not all status lines are fields!
          */
-        int firstField = fullScreenStatusLine;
+        int firstField = fullscreenStatusLine;
         int numFields;
         if (proposedSettings.isFullscreen()) {
             numFields = numStatusLines - firstField;
@@ -194,8 +194,8 @@ public class DsEditOverlay extends Overlay {
                 advanceDimensions(amount);
                 break;
 
-            case fullScreenStatusLine:
-                toggleFullScreen();
+            case fullscreenStatusLine:
+                toggleFullscreen();
                 break;
 
             case gammaCorrectionStatusLine:
@@ -284,12 +284,12 @@ public class DsEditOverlay extends Overlay {
         }
         updateStatusLine(saveStatusLine, message);
 
-        boolean isFullScreen = proposedSettings.isFullscreen();
-        message = "Full screen?  " + (isFullScreen ? "yes" : "no");
-        updateStatusLine(fullScreenStatusLine, message);
+        boolean isFullscreen = proposedSettings.isFullscreen();
+        message = "Fullscreen?  " + (isFullscreen ? "yes" : "no");
+        updateStatusLine(fullscreenStatusLine, message);
 
         boolean isCentered = proposedSettings.isCentered();
-        if (isCentered || isFullScreen || !DsUtils.hasLwjglVersion3()) {
+        if (isCentered || isFullscreen || !DsUtils.hasLwjglVersion3()) {
             message = "Location:  centered";
         } else {
             int x = DsUtils.windowXPosition(context);
@@ -337,7 +337,7 @@ public class DsEditOverlay extends Overlay {
         updateStatusLine(traceStatusLine, message);
 
         message = "";
-        if (isFullScreen) {
+        if (isFullscreen) {
             int refreshRate = proposedSettings.refreshRate();
             if (refreshRate <= 0) {
                 message = "Refresh rate:  any/unknown";
@@ -518,8 +518,8 @@ public class DsEditOverlay extends Overlay {
      * Toggle center-on-start between enabled and disabled.
      */
     private void toggleCentered() {
-        boolean isFullScreen = proposedSettings.isFullscreen();
-        if (isFullScreen || !DsUtils.hasLwjglVersion3()) {
+        boolean isFullscreen = proposedSettings.isFullscreen();
+        if (isFullscreen || !DsUtils.hasLwjglVersion3()) {
             return;
         }
 
@@ -536,12 +536,12 @@ public class DsEditOverlay extends Overlay {
     /**
      * Toggle fullscreen between enabled and disabled.
      */
-    private void toggleFullScreen() {
+    private void toggleFullscreen() {
         int rate;
         int depth;
 
-        boolean isFullScreen = proposedSettings.isFullscreen();
-        if (isFullScreen) { // switch to windowed mode
+        boolean isFullscreen = proposedSettings.isFullscreen();
+        if (isFullscreen) { // switch to windowed mode
             rate = DisplayMode.REFRESH_RATE_UNKNOWN;
             depth = DisplayMode.BIT_DEPTH_MULTI;
             proposedSettings.scaleSize(0.8f, 0.8f);
@@ -566,7 +566,7 @@ public class DsEditOverlay extends Overlay {
 
         proposedSettings.setRefreshRate(rate);
         proposedSettings.setColorDepth(depth);
-        proposedSettings.setFullscreen(!isFullScreen);
+        proposedSettings.setFullscreen(!isFullscreen);
     }
 
     /**
