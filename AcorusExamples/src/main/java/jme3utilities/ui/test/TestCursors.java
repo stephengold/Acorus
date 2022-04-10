@@ -116,8 +116,9 @@ public class TestCursors extends AbstractDemo {
 
         super.actionInitializeApplication();
 
-        for (String name : new String[]{"dialog", "green", "menu"}) {
+        for (final String name : new String[]{"dialog", "green", "menu"}) {
             InputMode mode = new InputMode(name) {
+                @Override
                 protected void defaultBindings() {
                     bind(SimpleApplication.INPUT_MAPPING_EXIT,
                             KeyInput.KEY_ESCAPE);
@@ -134,6 +135,7 @@ public class TestCursors extends AbstractDemo {
                     }
                 }
 
+                @Override
                 public void onAction(String as, boolean ongoing, float tpf) {
                     /*
                      * Forward all actions to the application for processing.
