@@ -128,9 +128,25 @@ abstract public class ActionApplication
     // new methods exposed
 
     /**
-     * Invoke the user's application startup code.
+     * Invoke the user's application startup code. TODO rename acorusInit()
      */
     abstract public void actionInitializeApplication();
+
+    /**
+     * Activate the named InputMode.
+     *
+     * @param shortName the short name of the desired InputMode (not null, mode
+     * must be initialized)
+     */
+    public static void activateInputMode(String shortName) {
+        InputMode desired = InputMode.findMode(shortName);
+        Validate.require(desired != null, "an initialized InputMode");
+
+        InputMode active = InputMode.getActiveMode();
+        if (active != desired) {
+            InputMode.suspendAndActivate(desired);
+        }
+    }
 
     /**
      * Designate a directory for writing assets, and if it doesn't exist, create

@@ -41,7 +41,6 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.Validate;
 import jme3utilities.debug.Dumper;
 import jme3utilities.math.RectSizeLimits;
 import jme3utilities.ui.AbstractDemo;
@@ -255,22 +254,6 @@ public class TestDsEdit extends AbstractDemo {
     }
     // *************************************************************************
     // private methods
-
-    /**
-     * Activate the named InputMode.
-     *
-     * @param shortName the short name of the desired InputMode (not null, mode
-     * must be initialized)
-     */
-    private void activateInputMode(String shortName) {
-        InputMode desired = InputMode.findMode(shortName);
-        Validate.require(desired != null, "an initialized InputMode");
-
-        InputMode active = InputMode.getActiveMode();
-        if (active != desired) {
-            InputMode.suspendAndActivate(desired);
-        }
-    }
 
     /**
      * Configure the Dumper.
