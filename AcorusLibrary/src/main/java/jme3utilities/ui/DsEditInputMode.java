@@ -66,7 +66,7 @@ public class DsEditInputMode extends InputMode {
     /**
      * action string to close the overlay
      */
-    final private static String asCloseOverlay = "close overlay";
+    final private static String asCloseEditor = "close editor";
     /**
      * action string to reset the proposed settings to the app's defaults
      */
@@ -147,7 +147,7 @@ public class DsEditInputMode extends InputMode {
         bind(asRevertChanges, ctrlZ);
 
         bind(asApplyChanges, KeyInput.KEY_RETURN);
-        bind(asCloseOverlay,
+        bind(asCloseEditor,
                 KeyInput.KEY_ESCAPE, KeyInput.KEY_TAB, KeyInput.KEY_F2);
         bind(asNextField, KeyInput.KEY_NUMPAD2, KeyInput.KEY_DOWN);
         bind(asNextValue,
@@ -196,7 +196,7 @@ public class DsEditInputMode extends InputMode {
                     }
                     return;
 
-                case asCloseOverlay:
+                case asCloseEditor:
                     InputMode.resumeLifo();
                     return;
 
