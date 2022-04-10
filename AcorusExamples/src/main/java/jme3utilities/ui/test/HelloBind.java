@@ -65,7 +65,7 @@ public class HelloBind extends AbstractDemo {
     final private static String applicationName
             = HelloBind.class.getSimpleName();
     // *************************************************************************
-    // field
+    // fields
 
     /**
      * square controlled by F1
@@ -161,8 +161,7 @@ public class HelloBind extends AbstractDemo {
     }
 
     /**
-     * Callback invoked immediately after initializing the hotkey bindings of
-     * the default input mode.
+     * Add application-specific hotkey bindings and override existing ones.
      */
     @Override
     public void moreDefaultBindings() {

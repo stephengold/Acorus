@@ -65,7 +65,7 @@ public class HelloSignals extends AbstractDemo {
     final private static String applicationName
             = HelloSignals.class.getSimpleName();
     // *************************************************************************
-    // field
+    // fields
 
     /**
      * square controlled by F1
