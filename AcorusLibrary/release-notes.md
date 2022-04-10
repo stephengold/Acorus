@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 0.9.13 released on TBD
+## Version 0.9.13 released on 9 April 2022
 
 + Bugfix:  shift key not working in the `EditMode` example class
 + API changes to the `AbstractDemo` class:
