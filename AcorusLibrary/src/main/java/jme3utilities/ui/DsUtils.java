@@ -49,7 +49,8 @@ import java.util.regex.Pattern;
 import jme3utilities.Validate;
 
 /**
- * Utility methods connected with display settings.
+ * Utility methods connected with display settings. TODO move to the Heart
+ * library
  *
  * @author Stephen Gold sgold@sonic.net
  */

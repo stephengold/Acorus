@@ -407,7 +407,8 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Set the background color for help nodes.
+     * Set the background color for help nodes. TODO move to new HelpBuilder
+     * class
      *
      * @param newColor the desired color going forward (not null, unaffected)
      */
@@ -417,7 +418,8 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Display the specified version of the help node.
+     * Display the specified version of the help node. TODO move to new
+     * HelpBuilder class
      *
      * @param newVersion which version to display (not null)
      */
@@ -432,7 +434,8 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Toggle between the detailed help node and the minimal version.
+     * Toggle between the detailed help node and the minimal version. TODO move
+     * to new HelpBuilder class
      */
     public void toggleHelp() {
         switch (helpVersion) {
@@ -467,7 +470,8 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Update the help node to reflect changed bindings.
+     * Update the help node to reflect changed bindings. TODO move to new
+     * HelpBuilder class
      */
     public void updateHelp() {
         InputMode activeMode = InputMode.getActiveMode();
@@ -479,7 +483,7 @@ abstract public class AbstractDemo extends ActionApplication {
 
     /**
      * Update the help node for the specified input mode, viewport dimensions,
-     * and version.
+     * and version. TODO move to new HelpBuilder class
      *
      * @param inputMode the active input mode (unaffected) or null if none
      * @param viewPortWidth (in pixels, &gt;0)
@@ -497,6 +501,7 @@ abstract public class AbstractDemo extends ActionApplication {
 
     /**
      * Update the help node for the specified input mode, bounds, and version.
+     * TODO move to new HelpBuilder class
      *
      * @param inputMode the active input mode (unaffected) or null if none
      * @param bounds the desired screen coordinates (not null, unaffected)
@@ -631,7 +636,8 @@ abstract public class AbstractDemo extends ActionApplication {
 
     /**
      * Generate (or re-generate) the detailed help node for the specified input
-     * mode and bounds and attach it to the specified parent.
+     * mode and bounds and attach it to the specified parent. TODO move to new
+     * HelpBuilder class
      *
      * @param inputMode the input mode (not null, unaffected)
      * @param bounds the desired screen coordinates (not null, unaffected)
@@ -652,7 +658,7 @@ abstract public class AbstractDemo extends ActionApplication {
 
     /**
      * Generate (or re-generate) the minimal help node for the specified bounds
-     * and attach it to the specified parent.
+     * and attach it to the specified parent. TODO move to new HelpBuilder class
      *
      * @param inputMode the input mode (not null, unaffected)
      * @param bounds the desired screen coordinates (not null, unaffected)
