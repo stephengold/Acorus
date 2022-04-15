@@ -367,9 +367,9 @@ If there's a designated sandbox,
 and binds a hotkey (either PrtSc or ScrLk or SysRq)
 to an action that captures a screenshot and writes it to the sandbox.
 
-### TestAbstractDemo
+### TestAcorusDemo
 
-`TestAbstractDemo` demonstrates a few more features of `AcorusDemo`:
+`TestAcorusDemo` demonstrates a few more features of `AcorusDemo`:
 
 + add world axes to a scene
 + pause animations without disabling camera motion

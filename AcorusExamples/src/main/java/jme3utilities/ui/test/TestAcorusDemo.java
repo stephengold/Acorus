@@ -59,7 +59,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestAbstractDemo extends AcorusDemo {
+public class TestAcorusDemo extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -67,12 +67,12 @@ public class TestAbstractDemo extends AcorusDemo {
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(TestAbstractDemo.class.getName());
+            = Logger.getLogger(TestAcorusDemo.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */
     final private static String applicationName
-            = TestAbstractDemo.class.getSimpleName();
+            = TestAcorusDemo.class.getSimpleName();
     /**
      * action string to advance to the next AnimClip
      */
@@ -106,13 +106,13 @@ public class TestAbstractDemo extends AcorusDemo {
     // new methods exposed
 
     /**
-     * Main entry point for the TestAbstractDemo application.
+     * Main entry point for the TestAcorusDemo application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         String title = applicationName + " " + MyString.join(arguments);
-        TestAbstractDemo application = new TestAbstractDemo();
+        TestAcorusDemo application = new TestAcorusDemo();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;

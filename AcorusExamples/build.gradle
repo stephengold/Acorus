@@ -67,8 +67,8 @@ tasks.register('HelloToggleHelp', JavaExec) {
     mainClass = 'jme3utilities.ui.test.HelloToggleHelp'
 }
 
-tasks.register('TestAbstractDemo', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestAbstractDemo'
+tasks.register('TestAcorusDemo', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestAcorusDemo'
 }
 tasks.register('TestCursors', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestCursors'
