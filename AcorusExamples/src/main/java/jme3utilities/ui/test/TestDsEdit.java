@@ -248,7 +248,7 @@ public class TestDsEdit extends AcorusDemo {
      */
     @Override
     public void onViewPortResize(int newWidth, int newHeight) {
-        dseOverlay.resize(newWidth, newHeight);
+        dseOverlay.onViewPortResize(newWidth, newHeight);
         proposedSettings.resize(newWidth, newHeight);
 
         super.onViewPortResize(newWidth, newHeight);

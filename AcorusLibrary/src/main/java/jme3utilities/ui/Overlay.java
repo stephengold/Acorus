@@ -205,14 +205,14 @@ public class Overlay extends SimpleAppState {
     /**
      * Relocate this overlay for the specified viewport dimensions. The policy
      * is to locate the overlay 10px inward from the upper-left corner of the
-     * viewport. TODO alternative policies
+     * viewport. TODO alternative policies, re-order methods
      *
      * @param newViewPortWidth the new viewport width (in framebuffer pixels,
      * &gt;0)
      * @param newViewPortHeight the new viewport height (in framebuffer pixels;
      * &gt;0)
      */
-    public void resize(int newViewPortWidth, int newViewPortHeight) {
+    public void onViewPortResize(int newViewPortWidth, int newViewPortHeight) {
         Validate.positive(newViewPortWidth, "new viewport width");
         Validate.positive(newViewPortHeight, "new viewport height");
 
@@ -249,7 +249,7 @@ public class Overlay extends SimpleAppState {
         Camera guiCamera = guiViewPort.getCamera();
         int viewPortWidth = guiCamera.getWidth();
         int viewPortHeight = guiCamera.getHeight();
-        resize(viewPortWidth, viewPortHeight);
+        onViewPortResize(viewPortWidth, viewPortHeight);
     }
 
     /**
@@ -374,7 +374,7 @@ public class Overlay extends SimpleAppState {
         Camera guiCamera = guiViewPort.getCamera();
         int viewPortWidth = guiCamera.getWidth();
         int viewPortHeight = guiCamera.getHeight();
-        resize(viewPortWidth, viewPortHeight);
+        onViewPortResize(viewPortWidth, viewPortHeight);
 
         guiNode.attachChild(node);
     }
