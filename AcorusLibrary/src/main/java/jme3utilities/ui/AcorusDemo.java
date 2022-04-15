@@ -384,12 +384,12 @@ abstract public class AcorusDemo extends ActionApplication {
     }
 
     /**
-     * Callback invoked after the framebuffer is resized.
+     * Update the GUI layout after the ViewPort gets resized.
      *
-     * @param newWidth the new width of the framebuffer (in pixels, &gt;0)
-     * @param newHeight the new height of the framebuffer (in pixels, &gt;0)
+     * @param newWidth the new width of the ViewPort (in pixels, &gt;0)
+     * @param newHeight the new height of the ViewPort (in pixels, &gt;0)
      */
-    public void resize(int newWidth, int newHeight) {
+    public void onViewPortResize(int newWidth, int newHeight) {
         Validate.positive(newWidth, "new width");
         Validate.positive(newHeight, "new height");
 
@@ -548,7 +548,7 @@ abstract public class AcorusDemo extends ActionApplication {
          */
         int width = cam.getWidth();
         int height = cam.getHeight();
-        resize(width, height);
+        onViewPortResize(width, height);
         /*
          * Ensure that size-dependent data get updated.
          */
@@ -586,7 +586,7 @@ abstract public class AcorusDemo extends ActionApplication {
     // private methods
 
     /**
-     * Add a SceneProcessor to invoke resize().
+     * Add a SceneProcessor to invoke onViewPortResize().
      */
     private void addSceneProcessor() {
         SceneProcessor sceneProcessor = new SceneProcessor() {
@@ -622,7 +622,7 @@ abstract public class AcorusDemo extends ActionApplication {
 
             @Override
             public void reshape(ViewPort unused, int newWidth, int newHeight) {
-                resize(newWidth, newHeight);
+                onViewPortResize(newWidth, newHeight);
             }
 
             @Override

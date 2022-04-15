@@ -240,17 +240,18 @@ public class TestDsEdit extends AcorusDemo {
     }
 
     /**
-     * Update the GUI layout and proposed settings after a resize.
+     * Update the GUI layout and proposed settings after the GUI viewport gets
+     * resized.
      *
-     * @param newWidth the new width of the framebuffers (in pixels, &gt;0)
-     * @param newHeight the new height of the framebuffers (in pixels, &gt;0)
+     * @param newWidth the new width of the ViewPort (in pixels, &gt;0)
+     * @param newHeight the new height of the ViewPort (in pixels, &gt;0)
      */
     @Override
-    public void resize(int newWidth, int newHeight) {
+    public void onViewPortResize(int newWidth, int newHeight) {
         dseOverlay.resize(newWidth, newHeight);
         proposedSettings.resize(newWidth, newHeight);
 
-        super.resize(newWidth, newHeight);
+        super.onViewPortResize(newWidth, newHeight);
     }
     // *************************************************************************
     // private methods
