@@ -47,103 +47,180 @@ import jme3utilities.MyAsset;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
 import jme3utilities.mesh.RoundedRectangle;
+import static jme3utilities.ui.AbstractDemo.asToggleHelp;
 
 /**
- * Utility methods to generate hotkey clues for action-oriented applications.
+ * Generate hotkey clues for action-oriented applications.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-final public class HelpUtils {
+public class HelpBuilder {
     // *************************************************************************
     // constants and loggers
 
     /**
-     * foreground color for highlighted text
-     */
-    final private static ColorRGBA highlightForegroundColor
-            = new ColorRGBA(1f, 1f, 0f, 1f);
-    /**
-     * padding added to all 4 sides of the background (in pixels)
-     */
-    final private static float padding = 5f;
-    /**
-     * Z coordinate for the background
-     */
-    final private static float zBackground = -1f;
-    /**
-     * Z coordinate for text
-     */
-    final private static float zText = 0f;
-    /**
      * message logger for this class
      */
     final public static Logger logger
-            = Logger.getLogger(HelpUtils.class.getName());
+            = Logger.getLogger(HelpBuilder.class.getName());
+    /**
+     * separator for compressed hotkey names in lists
+     */
+    final private static String chnSeparator = "/";
+    // *************************************************************************
+    // fields
+
+    /**
+     * color of the background
+     */
+    final private ColorRGBA backgroundColor = new ColorRGBA(0f, 0f, 0f, 1f);
+    /**
+     * default foreground color for text
+     */
+    final private ColorRGBA foregroundColor = new ColorRGBA(1f, 1f, 1f, 1f);
+    /**
+     * foreground color for highlighted text
+     */
+    final private ColorRGBA highlightForegroundColor
+            = new ColorRGBA(1f, 1f, 0f, 1f);
+    /**
+     * horizontal space between hotkey descriptions (in pixels)
+     */
+    private float extraSpace = 20f;
+    /**
+     * padding added to all 4 sides of the background (in pixels)
+     */
+    private float padding = 5f;
+    /**
+     * Z offset of background geometries relative to their nodes
+     */
+    private float zBackground = 0f;
+    /**
+     * Z offsets of text spatials relative to their nodes
+     */
+    private float zText = 0.1f;
     // *************************************************************************
     // constructors
 
     /**
-     * A private constructor to inhibit instantiation of this class.
+     * Instantiate a new builder with the specified font.
      */
-    private HelpUtils() {
+    public HelpBuilder() {
     }
     // *************************************************************************
     // new methods exposed
 
     /**
      * Build a Node to describe the hotkey mappings of the specified InputMode
-     * within the specified bounds.
+     * in detail.
      *
-     * @param inputMode (not null, unaffected)
-     * @param bounds (not null, unaffected)
-     * @param font (not null, unaffected)
-     * @param space amount of extra space between hotkey descriptions (in
-     * pixels)
-     * @param backgroundColor the color of the background (not null, unaffected)
+     * @param inputMode the InputMode to describe (not null, unaffected)
+     * @param bounds (in pixels, relative to the resulting node, not null,
+     * unaffected)
+     * @param font the font to use (not null, unaffected)
      * @return a new orphan Node, suitable for attachment to the GUI node
      */
-    public static Node buildNode(InputMode inputMode, Rectangle bounds,
-            BitmapFont font, float space, ColorRGBA backgroundColor) {
+    public Node buildDetailedNode(InputMode inputMode, Rectangle bounds,
+            BitmapFont font) {
+        Validate.nonNull(inputMode, "input mode");
+        Validate.nonNull(bounds, "bounds");
+        Validate.nonNull(font, "font");
+
+        ColorRGBA fgColor = foregroundColor.clone();
+        ColorRGBA highlightColor = highlightForegroundColor.clone();
+        float x = bounds.x;
+        float y = bounds.y;
+        float maxX = x + 1f;
+        float minY = y - 1f;
+        float size = font.getCharSet().getRenderedSize();
+        Map<String, String> actionToList = mapActions(inputMode);
+        Node result = new Node("detailed help node");
+
+        for (Map.Entry<String, String> entry : actionToList.entrySet()) {
+            String actionName = entry.getKey();
+            String hotkeyList = entry.getValue();
+            String text = actionName + ": " + hotkeyList;
+
+            BitmapText textSpatial = new BitmapText(font);
+            result.attachChild(textSpatial);
+            textSpatial.setSize(size);
+            textSpatial.setText(text);
+            float textWidth = textSpatial.getLineWidth();
+            /*
+             * Position the textSpatial relative to the Node.
+             */
+            if (x > bounds.x && x + textWidth > bounds.x + bounds.width) {
+                // start a new line of text
+                y -= textSpatial.getHeight();
+                x = bounds.x;
+            }
+            textSpatial.setLocalTranslation(x, y, zText);
+            maxX = Math.max(maxX, x + textWidth);
+            minY = Math.min(minY, y - textSpatial.getHeight());
+            x += textWidth + extraSpace;
+
+            if (actionName.equals(AbstractDemo.asToggleHelp)) {
+                textSpatial.setColor(highlightColor); // alias created
+            } else {
+                textSpatial.setColor(fgColor); // alias created
+            }
+        }
+
+        Geometry backgroundGeometry = buildBackground(bounds, maxX, minY);
+        result.attachChild(backgroundGeometry);
+
+        return result;
+    }
+
+    /**
+     * Build a Node to describe the "toggle help" hotkey mappings of the
+     * specified InputMode.
+     *
+     * @param inputMode the InputMode to describe (not null, unaffected)
+     * @param bounds (in pixels, relative to the resulting node, not null,
+     * unaffected)
+     * @param font the font to use (not null, unaffected)
+     * @return a new orphan Node, suitable for attachment to the GUI node
+     */
+    public Node buildMinimalNode(InputMode inputMode, Rectangle bounds,
+            BitmapFont font) {
         Validate.nonNull(inputMode, "input mode");
         Validate.nonNull(bounds, "bounds");
         Validate.nonNull(font, "font");
 
         Map<String, String> actionToList = mapActions(inputMode);
+        String hotkeyList = actionToList.get(asToggleHelp);
+        if (hotkeyList == null) {
+            /*
+             * The InputMode appears to lack any toggle mechanism.
+             * Generate a detailed help node instead.
+             */
+            return buildDetailedNode(inputMode, bounds, font);
+        }
+        
 
-        Node result = new Node("help node");
+        Node result = new Node("minimal help node");
+        BitmapText textSpatial = new BitmapText(font);
+        result.attachChild(textSpatial);
+
+        String text = asToggleHelp + ": " + hotkeyList;
+        textSpatial.setText(text);
+
+        ColorRGBA color = highlightForegroundColor.clone();
+        textSpatial.setColor(color); // alias created
+
         float x = bounds.x;
         float y = bounds.y;
-        float maxX = x + 1f;
-        float minY = y - 1f;
+        textSpatial.setLocalTranslation(x, y, zText);
 
-        for (Map.Entry<String, String> entry : actionToList.entrySet()) {
-            BitmapText spatial = new BitmapText(font);
-            result.attachChild(spatial);
-            spatial.setSize(font.getCharSet().getRenderedSize());
+        float size = font.getCharSet().getRenderedSize();
+        textSpatial.setSize(size);
 
-            String actionName = entry.getKey();
-            String hotkeyList = entry.getValue();
-            String string = actionName + ": " + hotkeyList;
-            spatial.setText(string);
-            float textWidth = spatial.getLineWidth();
-            if (x > bounds.x
-                    && x + textWidth > bounds.x + bounds.width) {
-                // start a new line of text
-                y -= spatial.getHeight();
-                x = bounds.x;
-            }
-            spatial.setLocalTranslation(x, y, zText);
-            maxX = Math.max(maxX, x + textWidth);
-            minY = Math.min(minY, y - spatial.getHeight());
-            x += textWidth + space;
-
-            if (actionName.equals("toggle help")) {
-                spatial.setColor(highlightForegroundColor);
-            }
-        }
-
-        Geometry backgroundGeometry
-                = buildBackground(bounds, maxX, minY, backgroundColor);
+        float textWidth = textSpatial.getLineWidth();
+        float maxX = x + Math.max(1f, textWidth);
+        float textHeight = textSpatial.getHeight();
+        float minY = y - Math.max(1f, textHeight);
+        Geometry backgroundGeometry = buildBackground(bounds, maxX, minY);
         result.attachChild(backgroundGeometry);
 
         return result;
@@ -178,6 +255,17 @@ final public class HelpUtils {
         result.append(hotkeyName);
 
         return result.toString();
+    }
+
+    /**
+     * Alter the color for backgrounds.
+     *
+     * @param newColor the desired color (not null, unaffected, default=opaque
+     * black)
+     */
+    public void setBackgroundColor(ColorRGBA newColor) {
+        Validate.nonNull(newColor, "new color");
+        backgroundColor.set(newColor);
     }
     // *************************************************************************
     // private methods
@@ -216,26 +304,22 @@ final public class HelpUtils {
      * @param bounds (in screen coordinates, not null, unaffected)
      * @param maxX the highest screen X of the text
      * @param minY the lowest screen Y of the text
-     * @param color the desired color (not null, unaffected)
      * @return a new Geometry, suitable for attachment to the help node
      */
-    private static Geometry buildBackground(Rectangle bounds, float maxX,
-            float minY, ColorRGBA color) {
-        assert color != null;
-
+    private Geometry buildBackground(Rectangle bounds, float maxX, float minY) {
         float x1 = bounds.x - padding;
         float x2 = maxX + padding;
         float y1 = minY - padding;
         float y2 = bounds.y + padding;
         float zNorm = 1f;
-        Mesh backgroundMesh
-                = new RoundedRectangle(x1, x2, y1, y2, padding, zNorm);
+        Mesh mesh = new RoundedRectangle(x1, x2, y1, y2, padding, zNorm);
 
-        Geometry result = new Geometry("help background", backgroundMesh);
+        Geometry result = new Geometry("help background", mesh);
         result.setLocalTranslation(0f, 0f, zBackground);
 
         AssetManager assetManager = Locators.getAssetManager();
-        Material material = MyAsset.createUnshadedMaterial(assetManager, color);
+        Material material
+                = MyAsset.createUnshadedMaterial(assetManager, backgroundColor);
         result.setMaterial(material);
 
         return result;
@@ -261,7 +345,7 @@ final public class HelpUtils {
 
     /**
      * For the specified InputMode, construct a Map from beautified action names
-     * to comma-separated, compressed hotkey names.
+     * to compressed hotkey names.
      *
      * @param inputMode (not null, unaffected)
      * @return a new String-to-String Map
@@ -279,7 +363,7 @@ final public class HelpUtils {
                 String description = compress(localHotkeyName);
                 if (actionsToHots.containsKey(action)) {
                     String oldList = actionsToHots.get(action);
-                    String newList = oldList + "/" + description;
+                    String newList = oldList + chnSeparator + description;
                     actionsToHots.put(action, newList);
                 } else {
                     actionsToHots.put(action, description);
@@ -291,7 +375,7 @@ final public class HelpUtils {
                 String description = describe(combo);
                 if (actionsToHots.containsKey(action)) {
                     String oldList = actionsToHots.get(action);
-                    String newList = oldList + "/" + description;
+                    String newList = oldList + chnSeparator + description;
                     actionsToHots.put(action, newList);
                 } else {
                     actionsToHots.put(action, description);

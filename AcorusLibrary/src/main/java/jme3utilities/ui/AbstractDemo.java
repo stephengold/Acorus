@@ -44,7 +44,6 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.texture.FrameBuffer;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -95,6 +94,13 @@ abstract public class AbstractDemo extends ActionApplication {
      */
     final public static String asToggleWorldAxes = "toggle worldAxes";
     // *************************************************************************
+    // fields
+
+    /**
+     * generate help nodes
+     */
+    final private HelpBuilder helpBuilder = new HelpBuilder();
+    // *************************************************************************
     // constructors
 
     /**
@@ -126,10 +132,6 @@ abstract public class AbstractDemo extends ActionApplication {
      * visualizer for the world axes
      */
     private AxesVisualizer worldAxes = null;
-    /**
-     * color for the backgrounds of new help nodes
-     */
-    final private ColorRGBA helpBackgroundColor = new ColorRGBA(0f, 0f, 0f, 1f);
     /**
      * which version of the help node is displayed (or would be if there were an
      * active InputMode)
@@ -328,6 +330,16 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
+     * Access the HelpBuilder for this application.
+     *
+     * @return the pre-existing instance (not null)
+     */
+    public HelpBuilder getHelpBuilder() {
+        assert helpBuilder != null;
+        return helpBuilder;
+    }
+
+    /**
      * Callback invoked when the active InputMode changes.
      *
      * @param oldMode the old mode, or null if none
@@ -407,19 +419,7 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Set the background color for help nodes. TODO move to new HelpBuilder
-     * class
-     *
-     * @param newColor the desired color going forward (not null, unaffected)
-     */
-    public void setHelpBackgroundColor(ColorRGBA newColor) {
-        Validate.nonNull(newColor, "new color");
-        helpBackgroundColor.set(newColor);
-    }
-
-    /**
-     * Display the specified version of the help node. TODO move to new
-     * HelpBuilder class
+     * Display the specified version of the help node.
      *
      * @param newVersion which version to display (not null)
      */
@@ -434,8 +434,7 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Toggle between the detailed help node and the minimal version. TODO move
-     * to new HelpBuilder class
+     * Toggle between the detailed help node and the minimal version.
      */
     public void toggleHelp() {
         switch (helpVersion) {
@@ -470,8 +469,7 @@ abstract public class AbstractDemo extends ActionApplication {
     }
 
     /**
-     * Update the help node to reflect changed bindings. TODO move to new
-     * HelpBuilder class
+     * Update the help node to reflect changed bindings.
      */
     public void updateHelp() {
         InputMode activeMode = InputMode.getActiveMode();
@@ -483,7 +481,7 @@ abstract public class AbstractDemo extends ActionApplication {
 
     /**
      * Update the help node for the specified input mode, viewport dimensions,
-     * and version. TODO move to new HelpBuilder class
+     * and version.
      *
      * @param inputMode the active input mode (unaffected) or null if none
      * @param viewPortWidth (in pixels, &gt;0)
@@ -501,7 +499,6 @@ abstract public class AbstractDemo extends ActionApplication {
 
     /**
      * Update the help node for the specified input mode, bounds, and version.
-     * TODO move to new HelpBuilder class
      *
      * @param inputMode the active input mode (unaffected) or null if none
      * @param bounds the desired screen coordinates (not null, unaffected)
@@ -524,11 +521,15 @@ abstract public class AbstractDemo extends ActionApplication {
 
         switch (displayVersion) {
             case Detailed:
-                generateDetailedHelp(inputMode, bounds, guiNode);
+                helpNode = helpBuilder.buildDetailedNode(
+                        inputMode, bounds, guiFont);
+                guiNode.attachChild(helpNode);
                 break;
 
             case Minimal:
-                generateMinimalHelp(inputMode, bounds, guiNode);
+                helpNode = helpBuilder.buildMinimalNode(
+                        inputMode, bounds, guiFont);
+                guiNode.attachChild(helpNode);
                 break;
 
             default:
@@ -632,78 +633,5 @@ abstract public class AbstractDemo extends ActionApplication {
         };
 
         guiViewPort.addProcessor(sceneProcessor);
-    }
-
-    /**
-     * Generate (or re-generate) the detailed help node for the specified input
-     * mode and bounds and attach it to the specified parent. TODO move to new
-     * HelpBuilder class
-     *
-     * @param inputMode the input mode (not null, unaffected)
-     * @param bounds the desired screen coordinates (not null, unaffected)
-     * @param parent where to attach, or null to leave detached
-     */
-    private void generateDetailedHelp(InputMode inputMode, Rectangle bounds,
-            Node parent) {
-        float extraSpace = 20f; // separation between actions, in pixels
-        helpNode = HelpUtils.buildNode(
-                inputMode, bounds, guiFont, extraSpace, helpBackgroundColor);
-
-        helpNode.setLocalTranslation(0f, 0f, 1f); // move to the front
-
-        if (parent != null) {
-            parent.attachChild(helpNode);
-        }
-    }
-
-    /**
-     * Generate (or re-generate) the minimal help node for the specified bounds
-     * and attach it to the specified parent. TODO move to new HelpBuilder class
-     *
-     * @param inputMode the input mode (not null, unaffected)
-     * @param bounds the desired screen coordinates (not null, unaffected)
-     * @param parent where to attach, or null to leave detached
-     */
-    private void generateMinimalHelp(InputMode inputMode, Rectangle bounds,
-            Node parent) {
-        Collection<Combo> combos = inputMode.listCombos(asToggleHelp);
-        Collection<String> hotkeys = inputMode.listHotkeysLocal(asToggleHelp);
-        if (combos.isEmpty() && hotkeys.isEmpty()) {
-            /*
-             * The input mode appears to lack any toggle mechanism.
-             * Generate a detailed help node instead.
-             */
-            generateDetailedHelp(inputMode, bounds, parent);
-            return;
-        }
-        /*
-         * Create a temporary InputMode with only the "toggle help" bindings.
-         */
-        InputMode tmpInputMode = new InputMode("dummy") {
-            @Override
-            protected void defaultBindings() {
-                // do nothing
-            }
-
-            @Override
-            public void onAction(String s, boolean b, float f) {
-                // do nothing
-            }
-        };
-        for (Combo combo : combos) {
-            tmpInputMode.bind(asToggleHelp, combo);
-        }
-        for (String hotkey : hotkeys) {
-            tmpInputMode.bind(asToggleHelp, hotkey);
-        }
-        float extraSpace = 0f; // separation between actions, in pixels
-        helpNode = HelpUtils.buildNode(
-                tmpInputMode, bounds, guiFont, extraSpace, helpBackgroundColor);
-
-        helpNode.setLocalTranslation(0f, 0f, 1f); // move to the front
-
-        if (parent != null) {
-            parent.attachChild(helpNode);
-        }
     }
 }

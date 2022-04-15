@@ -40,7 +40,7 @@ import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AbstractDemo;
 import jme3utilities.ui.Combo;
-import jme3utilities.ui.HelpUtils;
+import jme3utilities.ui.HelpBuilder;
 import jme3utilities.ui.InputMode;
 
 /**
@@ -169,7 +169,7 @@ public class HelloCombo extends AbstractDemo {
         System.out.println();
         System.out.print("Use ");
         for (int arrayIndex = 0; arrayIndex < numCombos; ++arrayIndex) {
-            String comboName = HelpUtils.describe(array[arrayIndex]);
+            String comboName = HelpBuilder.describe(array[arrayIndex]);
             System.out.print(comboName);
             if (arrayIndex != lastIndex) {
                 if (numCombos > 2) {
