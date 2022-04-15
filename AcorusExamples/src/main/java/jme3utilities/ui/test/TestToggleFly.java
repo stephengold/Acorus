@@ -91,8 +91,8 @@ public class TestToggleFly extends AbstractDemo {
      * Initialize this application.
      */
     @Override
-    public void actionInitializeApplication() {
-        super.actionInitializeApplication();
+    public void acorusInit() {
+        super.acorusInit();
         /*
          * Create a 3-D scene with something to look at:  a lit green cube.
          */

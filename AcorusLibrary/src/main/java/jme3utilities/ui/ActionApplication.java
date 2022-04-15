@@ -128,9 +128,9 @@ abstract public class ActionApplication
     // new methods exposed
 
     /**
-     * Invoke the user's application startup code. TODO rename acorusInit()
+     * Invoke the user's application startup code.
      */
-    abstract public void actionInitializeApplication();
+    abstract public void acorusInit();
 
     /**
      * Activate the named InputMode.
@@ -463,7 +463,7 @@ abstract public class ActionApplication
         /*
          * Invoke the startup code of the subclass.
          */
-        actionInitializeApplication();
+        acorusInit();
     }
 
     /**

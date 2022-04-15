@@ -86,14 +86,14 @@ public class HelloCoas extends AbstractDemo {
      * Initialize this application.
      */
     @Override
-    public void actionInitializeApplication() {
+    public void acorusInit() {
         DemoScene.setup(this);
 
         CameraOrbitAppState orbitState
                 = new CameraOrbitAppState(cam, "orbitLeft", "orbitRight");
         stateManager.attach(orbitState);
 
-        super.actionInitializeApplication();
+        super.acorusInit();
     }
 
     /**

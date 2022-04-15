@@ -106,7 +106,7 @@ public class TestTwoModes extends AbstractDemo {
      * Initialize this application.
      */
     @Override
-    public void actionInitializeApplication() {
+    public void acorusInit() {
         DemoScene.setup(this);
         /*
          * Instantiate the status text and attach it to the GUI node.
@@ -124,7 +124,7 @@ public class TestTwoModes extends AbstractDemo {
          */
         stateManager.getState(StatsAppState.class).toggleStats();
 
-        super.actionInitializeApplication();
+        super.acorusInit();
     }
 
     /**

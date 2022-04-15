@@ -132,7 +132,7 @@ public class TestAbstractDemo extends AbstractDemo {
      * Initialize this application.
      */
     @Override
-    public void actionInitializeApplication() {
+    public void acorusInit() {
         // Set the background to light blue.
         ColorRGBA backgroundColor = new ColorRGBA(0.2f, 0.2f, 1f, 1f);
         viewPort.setBackgroundColor(backgroundColor);
@@ -153,7 +153,7 @@ public class TestAbstractDemo extends AbstractDemo {
         statusLine = new BitmapText(guiFont);
         guiNode.attachChild(statusLine);
 
-        super.actionInitializeApplication();
+        super.acorusInit();
     }
 
     /**

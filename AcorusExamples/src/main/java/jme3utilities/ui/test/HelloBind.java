@@ -120,8 +120,8 @@ public class HelloBind extends AbstractDemo {
      * Initialize this application.
      */
     @Override
-    public void actionInitializeApplication() {
-        super.actionInitializeApplication();
+    public void acorusInit() {
+        super.acorusInit();
 
         ColorRGBA gray = new ColorRGBA(0.1f, 0.1f, 0.1f, 1f);
         viewPort.setBackgroundColor(gray);

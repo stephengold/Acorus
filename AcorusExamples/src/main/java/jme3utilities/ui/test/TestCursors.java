@@ -104,8 +104,8 @@ public class TestCursors extends AbstractDemo {
      * Initialize this application.
      */
     @Override
-    public void actionInitializeApplication() {
-        super.actionInitializeApplication();
+    public void acorusInit() {
+        super.acorusInit();
         /*
          * Instantiate the status text and attach it to the GUI node.
          */
@@ -113,7 +113,7 @@ public class TestCursors extends AbstractDemo {
         statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
         guiNode.attachChild(statusText);
 
-        super.actionInitializeApplication();
+        super.acorusInit();
         /*
          * DefaultInputMode uses the "default" cursor style.
          * Create input modes for the other 3 built-in cursor styles.

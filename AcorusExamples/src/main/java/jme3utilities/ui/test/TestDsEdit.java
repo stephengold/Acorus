@@ -145,7 +145,7 @@ public class TestDsEdit extends AbstractDemo {
      * Initialize this application.
      */
     @Override
-    public void actionInitializeApplication() {
+    public void acorusInit() {
         /*
          * Log library versions.
          */
@@ -167,7 +167,7 @@ public class TestDsEdit extends AbstractDemo {
          */
         stateManager.getState(StatsAppState.class).toggleStats();
 
-        super.actionInitializeApplication();
+        super.acorusInit();
 
         DemoScene.setup(this);
         /*

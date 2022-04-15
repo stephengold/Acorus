@@ -56,8 +56,8 @@ import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 
 /**
- * An ActionApplication with additional data and methods for use in
- * demos. TODO rename AcorusDemo
+ * An ActionApplication with additional data and methods for use in demos. TODO
+ * rename AcorusDemo
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -542,7 +542,7 @@ abstract public class AbstractDemo extends ActionApplication {
      * Initialize this application.
      */
     @Override
-    public void actionInitializeApplication() {
+    public void acorusInit() {
         /*
          * Ensure that size-dependent data get initialized.
          */

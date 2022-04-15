@@ -67,8 +67,7 @@ public class TestHeadless extends ActionApplication {
          */
         TestHeadless application = new TestHeadless();
         /*
-         * Invoke the JME startup code,
-         * which in turn invokes actionInitializeApplication().
+         * Invoke the JME startup code, which in turn invokes acorusInit().
          */
         application.start(JmeContext.Type.Headless);
     }
@@ -79,7 +78,7 @@ public class TestHeadless extends ActionApplication {
      * Initialize this application.
      */
     @Override
-    public void actionInitializeApplication() {
+    public void acorusInit() {
         flyCam.setEnabled(false);
         stop();
     }

@@ -115,7 +115,7 @@ public class TestHotkeys extends ActionApplication {
      * Initialize this application.
      */
     @Override
-    public void actionInitializeApplication() {
+    public void acorusInit() {
         if (settings.isFullscreen()) {
             logger.log(Level.SEVERE, "Not designed to run full-screen.");
             stop();
