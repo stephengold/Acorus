@@ -57,11 +57,11 @@ final public class UiVersion {
     // new methods exposed
 
     /**
-     * Determine the terse version string for this library.
+     * Return the terse version string for this library.
      *
-     * @return branch and revision (not null, not empty)
+     * @return the branch name and revision (not null, not empty)
      */
     public static String versionShort() {
-        return "master 0.9.14";
+        return "master 0.9.15-SNAPSHOT";
     }
 }

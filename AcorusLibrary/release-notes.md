@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 0.9.14 released on TBD
+## Version 0.9.14 released on 15 April 2022
 
 + API changes:
   + renamed the `actionInitializeApplication()` method to `acorusInit()`
@@ -16,6 +16,7 @@
   + renamed the `TestAbstractDemo` app to `TestAcorusDemo`
 + Added the `activateInputMode()` method to the `ActionApplication` class.
 + Added 6 getters and 5 setters to the `Overlay` class.
++ Changed `DisplaySettings` to recognize OpenGL compatibility profile.
 
 ## Version 0.9.13 released on 9 April 2022
 

@@ -34,7 +34,8 @@ Examples may be found in the [Heart], [Minie], and [Wes] projects.
 ## Important features
 
 Acorus is a user-interface library for JMonkeyEngine desktop applications
-that don't require graphical widgets such as checkboxes, menus, and dialogs.
+that don't require graphical widgets
+such as checkboxes, radio buttons, and sliders.
 
 Acorus provides simple mechanisms to:
 + bind keyboard keys, mouse buttons, and joystick buttons (hotkeys)
@@ -42,20 +43,20 @@ Acorus provides simple mechanisms to:
 + determine which hotkeys are active (signals)
 + detect input combinations such as "Ctrl+C" (combos)
 + use different hotkey bindings in different contexts (input modes)
-+ display on-screen UI help for an input mode,
++ display on-screen UI help for the active input mode,
   localized for the system's keyboard layout (help nodes)
 
 Input modes can be configured dynamically and/or loaded from files.
 
 Help nodes make Acorus-based user interfaces (somewhat) self-documenting.
 
-Acorus also provides:
-+ 2 implementations of `Application` tailored for demos
+The Acorus library also includes:
++ 2 implementations of the `Application` interface, tailored for demos
   (`ActionApplication` and `AcorusDemo`)
 + an input mode for emulating a `SimpleApplication` (`DefaultInputMode`)
-+ classes to simplify the management of:
-  + asset locators (for asset editors) and
-  + display settings (for settings dialogs).
++ a camera controller for orbiting the world's Y axis (`CameraOrbitAppState`)
++ an display-setting editor (`DsEditInputMode` and `DsEditOverlay`)
++ a class to simplify the management of asset locators (for asset editors)
 
 [Jump to table of contents](#toc)
 
@@ -82,7 +83,7 @@ Add to the project’s "build.gradle" file:
         mavenCentral()
     }
     dependencies {
-        implementation 'com.github.stephengold:Acorus:0.9.13'
+        implementation 'com.github.stephengold:Acorus:0.9.14'
     }
 
 For some older versions of Gradle,
@@ -102,7 +103,7 @@ Add to the project’s "pom.xml" file:
     <dependency>
       <groupId>com.github.stephengold</groupId>
       <artifactId>Acorus</artifactId>
-      <version>0.9.13</version>
+      <version>0.9.14</version>
     </dependency>
 
 ### Ant-built projects
@@ -159,7 +160,7 @@ Open the project's properties in the IDE (JME 3.2 SDK or NetBeans 8.2):
   + using Git:
     + `git clone https://github.com/stephengold/Acorus.git`
     + `cd Acorus`
-    + `git checkout -b latest 0.9.13`
+    + `git checkout -b latest 0.9.14`
   + using a web browser:
     + browse to [the latest release][latest]
     + follow the "Source code (zip)" link
@@ -224,15 +225,14 @@ The following example apps are found in the AcorusExamples sub-project:
 
 ### HelloAcorus
 
-All Acorus applications extend the `ActionApplication` class
+Every Acorus application extends the `ActionApplication` class
 or one of its subclasses, usually `AcorusDemo`.
 
 `HelloAcorus` is a very simple example of an `AcorusDemo`:
 one without a `FlyByCamera`, a `DebugKeysAppState`,
 a `ScreenshotAppState`, or a `StatsAppState`.
 
-Note that the initialization method
-is named `actionInitializeApplication`, not `simpleInitApp`!
+Note that the initialization method is named `acorusInit`, not `simpleInitApp`!
 
 A help node is displayed in the upper right of the viewport.
 It describes the available user actions.
@@ -245,10 +245,10 @@ It causes the application to terminate.
 
 Because action names are displayed in the help node,
 they should ideally be short and descriptive.
-However, since "SIMPLEAPP_Exit" is part of the JMonkeyEngine legacy,
+Since "SIMPLEAPP_Exit" is part of the JMonkeyEngine legacy,
 the `buildNode()` utility method that constructs the help node
 gives it special treatment.
-That's why "exit" is displayed in place of the actual action name.
+That's why "exit" is displayed in place of the actual name.
 
 ### TestHotkeys
 
@@ -259,7 +259,7 @@ but also mouse buttons and joystick buttons.
 Each `Hotkey` is identified in 3 ways:
  + by its "universal code" (integer value)
  + by its US name (String value), and
- + by its localized name (String value).
+ + by its localized name (also a String).
 
 On systems with "US" QWERTY keyboards,
 the US name and the localized name are identical.
@@ -273,7 +273,7 @@ making it a convenient tool for identifying hotkeys.
 Those actions cause squares to appear on (or disappear from) the display.
 
 Acorus groups action bindings into input modes.
-In this example, the custom bindings are added
+In this example, the 12 custom bindings are added
 to an automatically created mode called the default input mode.
 
 An input mode's bindings don't become effective (mapped)
@@ -281,7 +281,7 @@ until the mode is activated (enabled).
 Acorus activates the default mode during initialization,
 just after invoking the `moreDefaultBindings()` callback.
 That makes `moreDefaultBindings()`
-the ideal place to add bindings to the default mode.
+the ideal place to customize the default mode.
 
 An action handler is simply a method
 with the `onAction(String, boolean, float)` signature.
@@ -296,7 +296,7 @@ NOTE:  When multiple hotkeys are bound to a single action (as here),
 the help node separates the alternatives with slashes.
 
 NOTE:  To conserve screen area in the help node,
-the `buildNode()` method sometimes abbreviates hotkey names.
+the `buildNode()` method often abbreviates hotkey names.
 For example, the `HelloBind` help node indicates "num4",
 which is an abbreviated form of "numpad 4",
 which is the US/local name for the "4" key on the numeric keypad.
@@ -307,7 +307,7 @@ Just as hotkeys can be bound to actions, they can also be bound to signals.
 
 Signals keep track of which hotkeys are active.
 They are used to monitor modal keys (like Shift, Ctrl, and Alt)
-and also to control motion.
+and sometimes to control motion.
 
 `HelloSignals` binds 12 hotkeys to 4 custom actions.
 The signals cause squares to appear on (or disappear from) the display.
@@ -345,7 +345,7 @@ When the default input mode detects a `FlyByCamera`,
 it binds 6 hotkeys (W/A/S/D/Q/Z on "US" QWERTY keyboards)
 to signals that control camera motion.
 
-Users accustomed to `SimpleApplication` tend to expect these bindings.
+Users accustomed to `SimpleApplication` will expect these bindings.
 
 ### HelloToggleHelp
 
@@ -375,7 +375,7 @@ to an action that captures a screenshot and writes it to the sandbox.
 + pause animations without disabling camera motion
 + scale a C-G model to a specified height
 + position a C-G model so that it rests on the X-Z plane
-  with center on the Y axis
+  with its center on the Y axis
 + select among string values, as in a menu
 + store materials in a "library" and retrieve them by name
 
@@ -395,7 +395,7 @@ but it's not convenient for studying a 3-D object from all sides.
 
 This example adds a `CameraOrbitAppState` to `TestSimpleApplication`.
 The left- and right-arrow keys
-cause the camera to orbit around the center of the scene.
+cause the camera to orbit around the world's Y axis.
 
 `CameraOrbitAppState` is entirely controlled by 2 signals,
 and it doesn't care which hotkeys are bound to those signals.
@@ -404,7 +404,7 @@ This makes it very easy to customize which hotkeys do what.
 ### TestTwoModes
 
 In Acorus, an application can attach multiple input modes,
-but it can only enable them one at a time.
+but it can only enable one at a time.
 
 This example illustrates an `AcorusDemo` with 2 input modes:
 The default mode (initially active) enables `FlyByCamera` for camera movement.
@@ -420,7 +420,7 @@ This example demonstrates 4 input modes, each with its own cursor style.
 ### TestDsEdit
 
 This example demonstrates how to use the built-in `DsEditOverlay` appstate
-to edit display settings from within an `AcorusDemo`.
+to edit display settings from within an application.
 
 ### TestHeadless
 
