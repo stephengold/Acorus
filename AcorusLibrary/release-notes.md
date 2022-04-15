@@ -1,5 +1,22 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.14 released on TBD
+
++ API changes:
+  + renamed the `actionInitializeApplication()` method to `acorusInit()`
+  + renamed the `AbstractDemo` class to `AcorusDemo`
+  + renamed the `ActionAppState` class to `AcorusAppState`
+  + renamed the `inputModeChange()` method to `onInputModeChange()`
+  + renamed the `resize()` method to `onViewPortResize()`
+  + replaced the `HelpUtils` class with `HelpBuilder`
++ Bugfix:  `TestCursors` fails to compile in Java 8
++ Changed the action string (in `DsEditInputMode`) that closes the overlay.
++ In the examples:
+  + stopped using `setRenderer()` to automatically override the graphics API
+  + renamed the `TestAbstractDemo` app to `TestAcorusDemo`
++ Added the `activateInputMode()` method to the `ActionApplication` class.
++ Added 6 getters and 5 setters to the `Overlay` class.
+
 ## Version 0.9.13 released on 9 April 2022
 
 + Bugfix:  shift key not working in the `EditMode` example class
