@@ -88,7 +88,7 @@ public class Overlay extends SimpleAppState {
      */
     final private ColorRGBA backgroundColor;
     /**
-     * Z-coordinate for the background (in case the framebuffer gets resized)
+     * Z coordinate for the background (in case the framebuffer gets resized)
      */
     private float backgroundZ = -2f;
     /**
@@ -153,8 +153,8 @@ public class Overlay extends SimpleAppState {
      * is to locate the overlay 10px inward from the upper-left corner of the
      * viewport. TODO alternative policies
      *
-     * @param newWidth the new width (in pixels, &gt;0)
-     * @param newHeight the new height (in pixels; &gt;0)
+     * @param newWidth the new viewport width (in framebuffer pixels, &gt;0)
+     * @param newHeight the new viewport height (in framebuffer pixels; &gt;0)
      */
     public void resize(int newWidth, int newHeight) {
         Validate.positive(newWidth, "new width");
