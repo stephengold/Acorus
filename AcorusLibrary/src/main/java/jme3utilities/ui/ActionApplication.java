@@ -271,12 +271,12 @@ abstract public class ActionApplication
 
     /**
      * Callback invoked when the active InputMode changes. Meant to be
-     * overridden.
+     * overridden. TODO re-order methods
      *
      * @param oldMode the old mode, or null if none
      * @param newMode the new mode, or null if none
      */
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+    public void onInputModeChange(InputMode oldMode, InputMode newMode) {
         // do nothing
     }
 

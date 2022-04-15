@@ -970,7 +970,7 @@ abstract public class InputMode
             app = activeMode.getActionApplication();
         }
         if (app != null) {
-            app.inputModeChange(activeMode, mode);
+            app.onInputModeChange(activeMode, mode);
         }
 
         activeMode = mode;

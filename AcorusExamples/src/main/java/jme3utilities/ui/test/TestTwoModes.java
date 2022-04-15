@@ -128,13 +128,13 @@ public class TestTwoModes extends AcorusDemo {
     }
 
     /**
-     * Callback invoked when the active InputMode changes.
+     * Callback invoked when the active InputMode changes. TODO re-order methods
      *
      * @param oldMode the old mode, or null if none
      * @param newMode the new mode, or null if none
      */
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
-        super.inputModeChange(oldMode, newMode);
+    public void onInputModeChange(InputMode oldMode, InputMode newMode) {
+        super.onInputModeChange(oldMode, newMode);
 
         if (oldMode != null) {
             logger.log(Level.WARNING, "leaving mode {0}", oldMode.shortName());

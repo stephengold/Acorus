@@ -339,13 +339,13 @@ abstract public class AcorusDemo extends ActionApplication {
     }
 
     /**
-     * Callback invoked when the active InputMode changes.
+     * Callback invoked when the active InputMode changes. TODO re-order methods
      *
      * @param oldMode the old mode, or null if none
      * @param newMode the new mode, or null if none
      */
     @Override
-    public void inputModeChange(InputMode oldMode, InputMode newMode) {
+    public void onInputModeChange(InputMode oldMode, InputMode newMode) {
         if (newMode != null) {
             Camera guiCamera = guiViewPort.getCamera();
             int viewPortWidth = guiCamera.getWidth();
