@@ -339,7 +339,20 @@ abstract public class AcorusDemo extends ActionApplication {
     }
 
     /**
-     * Callback invoked when the active InputMode changes. TODO re-order methods
+     * Test whether animation is paused.
+     *
+     * @return true if paused, otherwise false
+     */
+    public boolean isPaused() {
+        if (speed <= pausedSpeed) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Callback invoked when the active InputMode changes.
      *
      * @param oldMode the old mode, or null if none
      * @param newMode the new mode, or null if none
@@ -351,19 +364,6 @@ abstract public class AcorusDemo extends ActionApplication {
             int viewPortWidth = guiCamera.getWidth();
             int viewPortHeight = guiCamera.getHeight();
             updateHelp(newMode, viewPortWidth, viewPortHeight, helpVersion);
-        }
-    }
-
-    /**
-     * Test whether animation is paused.
-     *
-     * @return true if paused, otherwise false
-     */
-    public boolean isPaused() {
-        if (speed <= pausedSpeed) {
-            return true;
-        } else {
-            return false;
         }
     }
 

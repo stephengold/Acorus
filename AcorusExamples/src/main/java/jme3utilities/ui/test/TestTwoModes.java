@@ -128,23 +128,6 @@ public class TestTwoModes extends AcorusDemo {
     }
 
     /**
-     * Callback invoked when the active InputMode changes. TODO re-order methods
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    public void onInputModeChange(InputMode oldMode, InputMode newMode) {
-        super.onInputModeChange(oldMode, newMode);
-
-        if (oldMode != null) {
-            logger.log(Level.WARNING, "leaving mode {0}", oldMode.shortName());
-        }
-        if (newMode != null) {
-            logger.log(Level.WARNING, "entering mode {0}", newMode.shortName());
-        }
-    }
-
-    /**
      * Callback invoked immediately after initializing the hotkey bindings of
      * the default input mode.
      */
@@ -177,6 +160,23 @@ public class TestTwoModes extends AcorusDemo {
         }
 
         super.onAction(actionString, ongoing, tpf);
+    }
+
+    /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    public void onInputModeChange(InputMode oldMode, InputMode newMode) {
+        super.onInputModeChange(oldMode, newMode);
+
+        if (oldMode != null) {
+            logger.log(Level.WARNING, "leaving mode {0}", oldMode.shortName());
+        }
+        if (newMode != null) {
+            logger.log(Level.WARNING, "entering mode {0}", newMode.shortName());
+        }
     }
 
     /**

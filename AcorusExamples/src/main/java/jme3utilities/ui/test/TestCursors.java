@@ -155,21 +155,6 @@ public class TestCursors extends AcorusDemo {
     }
 
     /**
-     * Callback invoked when the active InputMode changes. TODO re-order methods
-     *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
-     */
-    public void onInputModeChange(InputMode oldMode, InputMode newMode) {
-        super.onInputModeChange(oldMode, newMode);
-
-        if (newMode != null) {
-            String message = "mode = " + newMode.shortName();
-            statusText.setText(message);
-        }
-    }
-
-    /**
      * Callback invoked immediately after initializing the hotkey bindings of
      * the default input mode.
      */
@@ -201,6 +186,21 @@ public class TestCursors extends AcorusDemo {
             }
         }
         super.onAction(actionString, ongoing, tpf);
+    }
+
+    /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    public void onInputModeChange(InputMode oldMode, InputMode newMode) {
+        super.onInputModeChange(oldMode, newMode);
+
+        if (newMode != null) {
+            String message = "mode = " + newMode.shortName();
+            statusText.setText(message);
+        }
     }
     // *************************************************************************
     // private methods
