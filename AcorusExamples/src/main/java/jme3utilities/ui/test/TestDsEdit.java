@@ -308,7 +308,6 @@ public class TestDsEdit extends AbstractDemo {
             protected void applyOverrides(AppSettings settings) {
                 setShowDialog(showDialog);
                 settings.setAudioRenderer(null);
-                settings.setRenderer(AppSettings.LWJGL_OPENGL32);
                 if (settings.getSamples() < 1) {
                     settings.setSamples(1);
                 }

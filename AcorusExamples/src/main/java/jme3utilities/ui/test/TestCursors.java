@@ -92,7 +92,6 @@ public class TestCursors extends AbstractDemo {
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
-        settings.setRenderer(AppSettings.LWJGL_OPENGL32);
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
 
