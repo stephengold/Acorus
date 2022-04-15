@@ -192,20 +192,9 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
-     * Return the amount of padding between the content lines and
-     * top/bottom/left edges of the background.
-     *
-     * @return the padding (in framebuffer pixels, &ge;0)
-     */
-    public float padding() {
-        assert padding >= 0f : padding;
-        return padding;
-    }
-
-    /**
      * Relocate this overlay for the specified viewport dimensions. The policy
      * is to locate the overlay 10px inward from the upper-left corner of the
-     * viewport. TODO alternative policies, re-order methods
+     * viewport. TODO alternative policies
      *
      * @param newViewPortWidth the new viewport width (in framebuffer pixels,
      * &gt;0)
@@ -220,6 +209,17 @@ public class Overlay extends SimpleAppState {
         Vector3f location
                 = new Vector3f(margin, newViewPortHeight - margin, backgroundZ);
         setLocation(location);
+    }
+
+    /**
+     * Return the amount of padding between the content lines and
+     * top/bottom/left edges of the background.
+     *
+     * @return the padding (in framebuffer pixels, &ge;0)
+     */
+    public float padding() {
+        assert padding >= 0f : padding;
+        return padding;
     }
 
     /**
