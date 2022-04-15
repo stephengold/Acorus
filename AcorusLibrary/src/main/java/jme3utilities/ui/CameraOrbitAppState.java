@@ -43,7 +43,7 @@ import jme3utilities.math.VectorXZ;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class CameraOrbitAppState extends ActionAppState {
+public class CameraOrbitAppState extends AcorusAppState {
     // *************************************************************************
     // constants and loggers
 
@@ -170,7 +170,7 @@ public class CameraOrbitAppState extends ActionAppState {
         angularRate = desiredRate;
     }
     // *************************************************************************
-    // ActionAppState methods
+    // AcorusAppState methods
 
     /**
      * Callback invoked once per frame while the state is attached and enabled.

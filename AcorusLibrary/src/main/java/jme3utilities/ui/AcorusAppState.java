@@ -36,11 +36,11 @@ import jme3utilities.InitialState;
 import jme3utilities.SimpleAppState;
 
 /**
- * A SimpleAppState in an ActionApplication. TODO rename AcorusAppState
+ * A SimpleAppState in an ActionApplication.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class ActionAppState extends SimpleAppState {
+public class AcorusAppState extends SimpleAppState {
     // *************************************************************************
     // constants and loggers
 
@@ -48,7 +48,7 @@ public class ActionAppState extends SimpleAppState {
      * message logger for this class
      */
     final private static Logger logger
-            = Logger.getLogger(ActionAppState.class.getName());
+            = Logger.getLogger(AcorusAppState.class.getName());
     // *************************************************************************
     // constructor
 
@@ -57,7 +57,7 @@ public class ActionAppState extends SimpleAppState {
      *
      * @param enabled true &rarr; enabled, false &rarr; disabled
      */
-    public ActionAppState(boolean enabled) {
+    public AcorusAppState(boolean enabled) {
         super(enabled);
     }
 
@@ -66,7 +66,7 @@ public class ActionAppState extends SimpleAppState {
      *
      * @param initialState Enabled or Disabled (null means disabled)
      */
-    public ActionAppState(InitialState initialState) {
+    public AcorusAppState(InitialState initialState) {
         super(initialState);
     }
     // *************************************************************************

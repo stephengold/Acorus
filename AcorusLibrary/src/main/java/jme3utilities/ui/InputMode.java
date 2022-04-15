@@ -87,7 +87,7 @@ import jme3utilities.Validate;
  * @author Stephen Gold sgold@sonic.net
  */
 abstract public class InputMode
-        extends ActionAppState
+        extends AcorusAppState
         implements ActionListener {
     // *************************************************************************
     // constants and loggers
@@ -650,7 +650,7 @@ abstract public class InputMode
         }
     }
     // *************************************************************************
-    // ActionAppState methods
+    // AcorusAppState methods
 
     /**
      * Initialize this (disabled) mode prior to its first update.
