@@ -34,15 +34,15 @@ import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.AbstractDemo;
+import jme3utilities.ui.AcorusDemo;
 
 /**
- * An example of a very simple AbstractDemo: one without a FlyByCamera, a
- * DebugKeysAppState, a ScreenshotAppState, or a StatsAppState.
+ * An example of a very simple AcorusDemo: one without a FlyByCamera, a
+ DebugKeysAppState, a ScreenshotAppState, or a StatsAppState.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloAcorus extends AbstractDemo {
+public class HelloAcorus extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -60,7 +60,7 @@ public class HelloAcorus extends AbstractDemo {
     // constructors
 
     /**
-     * Instantiate an AbstractDemo without any initial appstates.
+     * Instantiate an AcorusDemo without any initial appstates.
      */
     private HelloAcorus() {
         super((AppState[]) null);
@@ -88,7 +88,7 @@ public class HelloAcorus extends AbstractDemo {
         application.start();
     }
     // *************************************************************************
-    // AbstractDemo methods
+    // AcorusDemo methods
 
     /**
      * Initialize this application.

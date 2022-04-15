@@ -55,12 +55,11 @@ import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 
 /**
- * An ActionApplication with additional data and methods for use in demos. TODO
- * rename AcorusDemo
+ * An ActionApplication with additional data and methods for use in demos.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-abstract public class AbstractDemo extends ActionApplication {
+abstract public class AcorusDemo extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
@@ -72,7 +71,7 @@ abstract public class AbstractDemo extends ActionApplication {
      * message logger for this class
      */
     final public static Logger loggerA
-            = Logger.getLogger(AbstractDemo.class.getName());
+            = Logger.getLogger(AcorusDemo.class.getName());
     /**
      * action string to request JVM garbage collection
      */
@@ -111,7 +110,7 @@ abstract public class AbstractDemo extends ActionApplication {
      * A DefaultInputMode and a ScreenshotAppState will be attached during
      * initialization.
      */
-    protected AbstractDemo() {
+    protected AcorusDemo() {
     }
 
     /**
@@ -122,7 +121,7 @@ abstract public class AbstractDemo extends ActionApplication {
      * @param initialAppStates the appstates to be pre-attached (may be null,
      * unaffected)
      */
-    protected AbstractDemo(AppState... initialAppStates) {
+    protected AcorusDemo(AppState... initialAppStates) {
         super(initialAppStates);
     }
     // *************************************************************************

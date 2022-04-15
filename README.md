@@ -51,7 +51,7 @@ Help nodes make Acorus-based user interfaces (somewhat) self-documenting.
 
 Acorus also provides:
 + 2 implementations of `Application` tailored for demos
-  (`ActionApplication` and `AbstractDemo`)
+  (`ActionApplication` and `AcorusDemo`)
 + an input mode for emulating a `SimpleApplication` (`DefaultInputMode`)
 + classes to simplify the management of:
   + asset locators (for asset editors) and
@@ -225,9 +225,9 @@ The following example apps are found in the AcorusExamples sub-project:
 ### HelloAcorus
 
 All Acorus applications extend the `ActionApplication` class
-or one of its subclasses, usually `AbstractDemo`.
+or one of its subclasses, usually `AcorusDemo`.
 
-`HelloAcorus` is a very simple example of an `AbstractDemo`:
+`HelloAcorus` is a very simple example of an `AcorusDemo`:
 one without a `FlyByCamera`, a `DebugKeysAppState`,
 a `ScreenshotAppState`, or a `StatsAppState`.
 
@@ -369,7 +369,7 @@ to an action that captures a screenshot and writes it to the sandbox.
 
 ### TestAbstractDemo
 
-`TestAbstractDemo` demonstrates a few more features of `AbstractDemo`:
+`TestAbstractDemo` demonstrates a few more features of `AcorusDemo`:
 
 + add world axes to a scene
 + pause animations without disabling camera motion
@@ -406,7 +406,7 @@ This makes it very easy to customize which hotkeys do what.
 In Acorus, an application can attach multiple input modes,
 but it can only enable them one at a time.
 
-This example illustrates an `AbstractDemo` with 2 input modes:
+This example illustrates an `AcorusDemo` with 2 input modes:
 The default mode (initially active) enables `FlyByCamera` for camera movement.
 The other mode (named "edit") allows you to type a line of text.
 
@@ -420,7 +420,7 @@ This example demonstrates 4 input modes, each with its own cursor style.
 ### TestDsEdit
 
 This example demonstrates how to use the built-in `DsEditOverlay` appstate
-to edit display settings from within an `AbstractDemo`.
+to edit display settings from within an `AcorusDemo`.
 
 ### TestHeadless
 

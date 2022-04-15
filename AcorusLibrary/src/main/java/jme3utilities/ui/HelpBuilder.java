@@ -47,7 +47,7 @@ import jme3utilities.MyAsset;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
 import jme3utilities.mesh.RoundedRectangle;
-import static jme3utilities.ui.AbstractDemo.asToggleHelp;
+import static jme3utilities.ui.AcorusDemo.asToggleHelp;
 
 /**
  * Generate hotkey clues for action-oriented applications.
@@ -159,7 +159,7 @@ public class HelpBuilder {
             minY = Math.min(minY, y - textSpatial.getHeight());
             x += textWidth + extraSpace;
 
-            if (actionName.equals(AbstractDemo.asToggleHelp)) {
+            if (actionName.equals(AcorusDemo.asToggleHelp)) {
                 textSpatial.setColor(highlightColor); // alias created
             } else {
                 textSpatial.setColor(fgColor); // alias created

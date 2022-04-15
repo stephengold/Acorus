@@ -34,7 +34,7 @@ import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.AbstractDemo;
+import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.DefaultInputMode;
 import jme3utilities.ui.InputMode;
 
@@ -44,7 +44,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestToggleFly extends AbstractDemo {
+public class TestToggleFly extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -85,7 +85,7 @@ public class TestToggleFly extends AbstractDemo {
         application.start();
     }
     // *************************************************************************
-    // AbstractDemo methods
+    // AcorusDemo methods
 
     /**
      * Initialize this application.

@@ -43,7 +43,7 @@ import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.debug.Dumper;
 import jme3utilities.math.RectSizeLimits;
-import jme3utilities.ui.AbstractDemo;
+import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.DisplaySettings;
 import jme3utilities.ui.DsEditOverlay;
 import jme3utilities.ui.DsUtils;
@@ -57,7 +57,7 @@ import jme3utilities.ui.UiVersion;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestDsEdit extends AbstractDemo {
+public class TestDsEdit extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -139,7 +139,7 @@ public class TestDsEdit extends AbstractDemo {
         mainStartup(resetOnly, showDialog, title);
     }
     // *************************************************************************
-    // AbstractDemo methods
+    // AcorusDemo methods
 
     /**
      * Initialize this application.

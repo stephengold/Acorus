@@ -156,7 +156,7 @@ public class DsEditInputMode extends InputMode {
         bind(asPreviousValue,
                 KeyInput.KEY_MINUS, KeyInput.KEY_NUMPAD4, KeyInput.KEY_LEFT);
 
-        bind(AbstractDemo.asToggleHelp, KeyInput.KEY_H);
+        bind(AcorusDemo.asToggleHelp, KeyInput.KEY_H);
         bind(SimpleApplication.INPUT_MAPPING_HIDE_STATS, KeyInput.KEY_F5);
     }
 

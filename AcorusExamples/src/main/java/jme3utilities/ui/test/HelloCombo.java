@@ -38,7 +38,7 @@ import java.util.Collection;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.AbstractDemo;
+import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.Combo;
 import jme3utilities.ui.HelpBuilder;
 import jme3utilities.ui.InputMode;
@@ -48,7 +48,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloCombo extends AbstractDemo {
+public class HelloCombo extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -66,7 +66,7 @@ public class HelloCombo extends AbstractDemo {
     // constructors
 
     /**
-     * Instantiate an AbstractDemo without any initial appstates.
+     * Instantiate an AcorusDemo without any initial appstates.
      */
     private HelloCombo() {
         super((AppState[]) null);
@@ -93,7 +93,7 @@ public class HelloCombo extends AbstractDemo {
         application.start();
     }
     // *************************************************************************
-    // AbstractDemo methods
+    // AcorusDemo methods
 
     /**
      * Initialize this application.

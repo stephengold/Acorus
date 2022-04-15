@@ -387,7 +387,7 @@ public class DsEditOverlay extends Overlay {
         }
 
         int depth = proposedSettings.colorDepth();
-        depth = AbstractDemo.advanceInt(depthArray, depth, amount);
+        depth = AcorusDemo.advanceInt(depthArray, depth, amount);
         proposedSettings.setColorDepth(depth);
     }
 
@@ -441,7 +441,7 @@ public class DsEditOverlay extends Overlay {
         int height = proposedSettings.height();
         int width = proposedSettings.width();
         String description = DsUtils.describeDimensions(width, height);
-        description = AbstractDemo.advanceString(
+        description = AcorusDemo.advanceString(
                 descriptionArray, description, amount);
 
         int[] wh = DsUtils.parseDisplaySize(description);
@@ -457,7 +457,7 @@ public class DsEditOverlay extends Overlay {
         String[] values = DisplaySettings.listGraphicsApis();
         String api = proposedSettings.graphicsAPI();
 
-        api = AbstractDemo.advanceString(values, api, amount);
+        api = AcorusDemo.advanceString(values, api, amount);
         proposedSettings.setGraphicsApi(api);
     }
 
@@ -510,7 +510,7 @@ public class DsEditOverlay extends Overlay {
         }
 
         int rate = proposedSettings.refreshRate();
-        rate = AbstractDemo.advanceInt(rateArray, rate, amount);
+        rate = AcorusDemo.advanceInt(rateArray, rate, amount);
         proposedSettings.setRefreshRate(rate);
     }
 

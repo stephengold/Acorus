@@ -37,7 +37,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.AbstractDemo;
+import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.InputMode;
 
 /**
@@ -45,7 +45,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestTwoModes extends AbstractDemo {
+public class TestTwoModes extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -100,7 +100,7 @@ public class TestTwoModes extends AbstractDemo {
         dim.setEnabled(true);
     }
     // *************************************************************************
-    // AbstractDemo methods
+    // AcorusDemo methods
 
     /**
      * Initialize this application.

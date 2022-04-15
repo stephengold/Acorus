@@ -41,7 +41,7 @@ import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyAsset;
 import jme3utilities.MyString;
-import jme3utilities.ui.AbstractDemo;
+import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.InputMode;
 
 /**
@@ -50,7 +50,7 @@ import jme3utilities.ui.InputMode;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloBind extends AbstractDemo {
+public class HelloBind extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -87,7 +87,7 @@ public class HelloBind extends AbstractDemo {
     // constructors
 
     /**
-     * Instantiate an AbstractDemo without any initial appstates.
+     * Instantiate an AcorusDemo without any initial appstates.
      */
     private HelloBind() {
         super((AppState[]) null);
@@ -114,7 +114,7 @@ public class HelloBind extends AbstractDemo {
         application.start();
     }
     // *************************************************************************
-    // AbstractDemo methods
+    // AcorusDemo methods
 
     /**
      * Initialize this application.

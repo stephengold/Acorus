@@ -35,7 +35,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
-import jme3utilities.ui.AbstractDemo;
+import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.ActionApplication;
 import jme3utilities.ui.HelpVersion;
 
@@ -44,7 +44,7 @@ import jme3utilities.ui.HelpVersion;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloSandbox extends AbstractDemo {
+public class HelloSandbox extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 
@@ -62,7 +62,7 @@ public class HelloSandbox extends AbstractDemo {
     // constructors
 
     /**
-     * Instantiate an AbstractDemo without any initial appstates.
+     * Instantiate an AcorusDemo without any initial appstates.
      */
     private HelloSandbox() {
         super((AppState[]) null);
@@ -98,7 +98,7 @@ public class HelloSandbox extends AbstractDemo {
         application.start();
     }
     // *************************************************************************
-    // AbstractDemo methods
+    // AcorusDemo methods
 
     /**
      * Initialize this application.
