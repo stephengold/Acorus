@@ -59,20 +59,6 @@ public class Overlay extends SimpleAppState {
     // constants and loggers
 
     /**
-     * vertical interval between successive content lines (in framebuffer
-     * pixels)
-     */
-    final private static float lineSpacing = 20f;
-    /**
-     * padding between the content lines and top/bottom/left edges of the
-     * background (in framebuffer pixels)
-     */
-    final private static float padding = 5f;
-    /**
-     * Z offset of content relative to the background
-     */
-    final private static float contentZOffset = 0.1f;
-    /**
      * message logger for this class
      */
     final static Logger logger = Logger.getLogger(Overlay.class.getName());
@@ -91,6 +77,20 @@ public class Overlay extends SimpleAppState {
      * Z coordinate for the background (in case the framebuffer gets resized)
      */
     private float backgroundZ = -2f;
+    /**
+     * Z offset of content relative to the background (&gt;0)
+     */
+    private float contentZOffset = 0.1f;
+    /**
+     * vertical interval between successive content lines (in framebuffer
+     * pixels, &gt;0)
+     */
+    private float lineSpacing = 20f;
+    /**
+     * padding between the content lines and top/bottom/left edges of the
+     * background (in framebuffer pixels, &ge;0)
+     */
+    private float padding = 5f;
     /**
      * width of the background (in framebuffer pixels, &gt;0)
      */
@@ -178,6 +178,50 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
+     * Alter the Z coordinate for the background.
+     *
+     * @param newZ the desired Z coordinate (default=-2)
+     */
+    public void setBackgroundZ(float newZ) {
+        this.backgroundZ = newZ;
+
+        Camera guiCamera = guiViewPort.getCamera();
+        int viewPortWidth = guiCamera.getWidth();
+        int viewPortHeight = guiCamera.getHeight();
+        resize(viewPortWidth, viewPortHeight);
+    }
+
+    /**
+     * Alter the Z offset of content relative to the background.
+     *
+     * @param newOffset the desired offset (&gt;0, default=0.1)
+     */
+    public void setContentZOffset(float newOffset) {
+        Validate.positive(newOffset, "new offset");
+
+        this.contentZOffset = newOffset;
+        updateContentOffsets();
+    }
+
+    /**
+     * Alter the vertical interval between successive content lines.
+     *
+     * @param newSpacing the desired Y offset (in framebuffer pixels, &gt;0,
+     * default=20)
+     */
+    public void setLineSpacing(float newSpacing) {
+        Validate.positive(newSpacing, "new spacing");
+
+        if (newSpacing != lineSpacing) {
+            this.lineSpacing = newSpacing;
+            updateContentOffsets();
+
+            Mesh backgroundMesh = createBackgroundMesh();
+            background.setMesh(backgroundMesh);
+        }
+    }
+
+    /**
      * Relocate this overlay.
      *
      * @param newLocation the desired framebuffer coordinates for the upper-left
@@ -188,6 +232,25 @@ public class Overlay extends SimpleAppState {
 
         node.setLocalTranslation(newLocation);
         this.backgroundZ = newLocation.z;
+    }
+
+    /**
+     * Alter the padding between the content lines and top/bottom/left edges of
+     * the background.
+     *
+     * @param newPadding the desired padding (in framebuffer pixels, &ge;0,
+     * default=5)
+     */
+    public void setPadding(float newPadding) {
+        Validate.nonNegative(newPadding, "new padding");
+
+        if (newPadding != padding) {
+            this.padding = newPadding;
+            updateContentOffsets();
+
+            Mesh backgroundMesh = createBackgroundMesh();
+            background.setMesh(backgroundMesh);
+        }
     }
 
     /**
@@ -209,6 +272,21 @@ public class Overlay extends SimpleAppState {
         }
 
         line.setText(text);
+    }
+
+    /**
+     * Alter the width of the background.
+     *
+     * @param newWidth the width (in framebuffer pixels, &gt;0)
+     */
+    public void setWidth(float newWidth) {
+        Validate.positive(newWidth, "new width");
+
+        if (newWidth != width) {
+            this.width = newWidth;
+            Mesh backgroundMesh = createBackgroundMesh();
+            background.setMesh(backgroundMesh);
+        }
     }
     // *************************************************************************
     // new protected methods
