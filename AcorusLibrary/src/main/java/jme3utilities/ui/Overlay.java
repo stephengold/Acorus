@@ -142,6 +142,67 @@ public class Overlay extends SimpleAppState {
     // new methods exposed
 
     /**
+     * Return the Z offset of the content lines relative to the background.
+     *
+     * @return the offset (&gt;0)
+     */
+    public float contentZOffset() {
+        assert contentZOffset > 0f : contentZOffset;
+        return contentZOffset;
+    }
+
+    /**
+     * Copy the color of the background.
+     *
+     * @param storeResult storage for the result (modified if not null)
+     * @return the color (either {@code storeResult} or a new instance)
+     */
+    public ColorRGBA copyBackgroundColor(ColorRGBA storeResult) {
+        if (storeResult == null) {
+            return backgroundColor.clone();
+        } else {
+            return storeResult.set(backgroundColor);
+        }
+    }
+
+    /**
+     * Copy the location of upper-left corner of the background.
+     *
+     * @param storeResult storage for the result (modified if not null)
+     * @return the location vector (either {@code storeResult} or a new
+     * instance)
+     */
+    public Vector3f copyLocation(Vector3f storeResult) {
+        Vector3f result = (storeResult == null) ? new Vector3f() : storeResult;
+
+        Vector3f location = background.getLocalTranslation(); // alias
+        result.set(location);
+
+        return result;
+    }
+
+    /**
+     * Return the vertical interval between successive content lines.
+     *
+     * @return the Y interval (in framebuffer pixels, &gt;0)
+     */
+    public float lineSpacing() {
+        assert lineSpacing > 0f : lineSpacing;
+        return lineSpacing;
+    }
+
+    /**
+     * Return the amount of padding between the content lines and
+     * top/bottom/left edges of the background.
+     *
+     * @return the padding (in framebuffer pixels, &ge;0)
+     */
+    public float padding() {
+        assert padding >= 0f : padding;
+        return padding;
+    }
+
+    /**
      * Relocate this overlay for the specified viewport dimensions. The policy
      * is to locate the overlay 10px inward from the upper-left corner of the
      * viewport. TODO alternative policies
@@ -287,6 +348,16 @@ public class Overlay extends SimpleAppState {
             Mesh backgroundMesh = createBackgroundMesh();
             background.setMesh(backgroundMesh);
         }
+    }
+
+    /**
+     * Return width of the background.
+     *
+     * @return the width (in framebuffer pixels, &gt;0)
+     */
+    public float width() {
+        assert width > 0f : width;
+        return width;
     }
     // *************************************************************************
     // new protected methods
