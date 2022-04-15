@@ -86,11 +86,15 @@ public class Overlay extends SimpleAppState {
     /**
      * color of the background
      */
-    final private ColorRGBA backgroundColor;
+    final private ColorRGBA backgroundColor = new ColorRGBA(0f, 0f, 0f, 1f);
     /**
      * Z coordinate for the background (in case the framebuffer gets resized)
      */
     private float backgroundZ = -2f;
+    /**
+     * width of the background (in framebuffer pixels, &gt;0)
+     */
+    private float width;
     /**
      * rounded-rectangle geometry to ensure content visibility
      */
@@ -127,21 +131,10 @@ public class Overlay extends SimpleAppState {
 
         this.contentLines = new BitmapText[numLines];
         this.numLines = numLines;
-
-        this.backgroundColor = new ColorRGBA(0f, 0f, 0f, 1f);
-        /*
-         * background
-         */
-        float height = 2f * padding + lineSpacing * numLines;
-        float x1 = 0f;
-        float x2 = width;
-        float y1 = -height;
-        float y2 = 0f;
-        float zNorm = 1f;
-        Mesh backgroundMesh
-                = new RoundedRectangle(x1, x2, y1, y2, padding, zNorm);
+        this.width = width;
 
         String geometryName = "overlay background for " + getId();
+        Mesh backgroundMesh = createBackgroundMesh();
         this.background = new Geometry(geometryName, backgroundMesh);
         node.attachChild(background);
     }
@@ -153,16 +146,18 @@ public class Overlay extends SimpleAppState {
      * is to locate the overlay 10px inward from the upper-left corner of the
      * viewport. TODO alternative policies
      *
-     * @param newWidth the new viewport width (in framebuffer pixels, &gt;0)
-     * @param newHeight the new viewport height (in framebuffer pixels; &gt;0)
+     * @param newViewPortWidth the new viewport width (in framebuffer pixels,
+     * &gt;0)
+     * @param newViewPortHeight the new viewport height (in framebuffer pixels;
+     * &gt;0)
      */
-    public void resize(int newWidth, int newHeight) {
-        Validate.positive(newWidth, "new width");
-        Validate.positive(newHeight, "new height");
+    public void resize(int newViewPortWidth, int newViewPortHeight) {
+        Validate.positive(newViewPortWidth, "new viewport width");
+        Validate.positive(newViewPortHeight, "new viewport height");
 
         float margin = 10f; // in framebuffer pixels
         Vector3f location
-                = new Vector3f(margin, newHeight - margin, backgroundZ);
+                = new Vector3f(margin, newViewPortHeight - margin, backgroundZ);
         setLocation(location);
     }
 
@@ -227,10 +222,10 @@ public class Overlay extends SimpleAppState {
 
         super.setEnabled(true);
 
-        Camera camera = guiViewPort.getCamera();
-        int width = camera.getWidth();
-        int height = camera.getHeight();
-        resize(width, height);
+        Camera guiCamera = guiViewPort.getCamera();
+        int viewPortWidth = guiCamera.getWidth();
+        int viewPortHeight = guiCamera.getHeight();
+        resize(viewPortWidth, viewPortHeight);
 
         guiNode.attachChild(node);
     }
@@ -285,10 +280,8 @@ public class Overlay extends SimpleAppState {
             BitmapText bitmap = new BitmapText(font);
             contentLines[lineIndex] = bitmap;
             node.attachChild(bitmap);
-
-            float y = -(padding + lineSpacing * lineIndex);
-            bitmap.setLocalTranslation(padding, y, contentZOffset);
         }
+        updateContentOffsets();
 
         if (isEnabled()) {
             activate();
@@ -306,6 +299,38 @@ public class Overlay extends SimpleAppState {
             activate();
         } else if (!newSetting && isEnabled()) {
             deactivate();
+        }
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Create a new background mesh after a change to lineSpacing, padding, or
+     * width.
+     *
+     * @return a new Mesh
+     */
+    private Mesh createBackgroundMesh() {
+        float height = 2 * padding + lineSpacing * numLines;
+        float x1 = 0f;
+        float x2 = width;
+        float y1 = -height;
+        float y2 = 0f;
+        float zNorm = 1f;
+        Mesh result = new RoundedRectangle(x1, x2, y1, y2, padding, zNorm);
+
+        return result;
+    }
+
+    /**
+     * Update the local translation of each content line after a change to
+     * padding, lineSpacing, or contentZOffset.
+     */
+    private void updateContentOffsets() {
+        for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
+            BitmapText content = contentLines[lineIndex];
+            float y = -(padding + lineSpacing * lineIndex);
+            content.setLocalTranslation(padding, y, contentZOffset);
         }
     }
 }
