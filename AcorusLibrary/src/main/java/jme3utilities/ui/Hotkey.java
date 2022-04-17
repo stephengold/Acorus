@@ -369,6 +369,27 @@ final public class Hotkey {
     // private methods
 
     /**
+     * Add function keys F1 through F15.
+     */
+    private static void addFunctionKeys() {
+        addKey(KeyInput.KEY_F1, "f1");
+        addKey(KeyInput.KEY_F2, "f2");
+        addKey(KeyInput.KEY_F3, "f3");
+        addKey(KeyInput.KEY_F4, "f4");
+        addKey(KeyInput.KEY_F5, "f5");
+        addKey(KeyInput.KEY_F6, "f6");
+        addKey(KeyInput.KEY_F7, "f7");
+        addKey(KeyInput.KEY_F8, "f8");
+        addKey(KeyInput.KEY_F9, "f9");
+        addKey(KeyInput.KEY_F10, "f10");
+        addKey(KeyInput.KEY_F11, "f11");
+        addKey(KeyInput.KEY_F12, "f12");
+        addKey(KeyInput.KEY_F13, "f13");
+        addKey(KeyInput.KEY_F14, "f14");
+        addKey(KeyInput.KEY_F15, "f15");
+    }
+
+    /**
      * Add a new hotkey for a joystick button.
      *
      * @param joystickIndex the JME joystick index (&ge;0)
@@ -424,7 +445,7 @@ final public class Hotkey {
     }
 
     /**
-     * Add a hotkey for a keyboard key.
+     * Add a hotkey for a keyboard key. TODO re-order methods
      *
      * @param keyCode the JME key code from {@link com.jme3.input.KeyInput} that
      * isn't already assigned to a hotkey
@@ -506,6 +527,31 @@ final public class Hotkey {
         byUniversalCode.put(universalCode, instance);
         byLocalName.put(localName, instance);
         byUsName.put(usName, instance);
+    }
+
+    /**
+     * Add numeric keypad keys.
+     */
+    private static void addNumpadKeys() {
+        addKey(KeyInput.KEY_NUMLOCK, "num lock");
+        addKey(KeyInput.KEY_DECIMAL, "numpad decimal");
+        addKey(KeyInput.KEY_DIVIDE, "numpad divide");
+        addKey(KeyInput.KEY_MULTIPLY, "numpad multiply");
+        addKey(KeyInput.KEY_NUMPAD7, "numpad 7");
+        addKey(KeyInput.KEY_NUMPAD8, "numpad 8");
+        addKey(KeyInput.KEY_NUMPAD9, "numpad 9");
+        addKey(KeyInput.KEY_ADD, "numpad add");
+        addKey(KeyInput.KEY_NUMPAD4, "numpad 4");
+        addKey(KeyInput.KEY_NUMPAD5, "numpad 5");
+        addKey(KeyInput.KEY_NUMPAD6, "numpad 6");
+        addKey(KeyInput.KEY_NUMPAD1, "numpad 1");
+        addKey(KeyInput.KEY_NUMPAD2, "numpad 2");
+        addKey(KeyInput.KEY_NUMPAD3, "numpad 3");
+        addKey(KeyInput.KEY_NUMPADENTER, "numpad enter");
+        addKey(KeyInput.KEY_NUMPAD0, "numpad 0");
+        addKey(KeyInput.KEY_NUMPADCOMMA, "numpad comma");
+        addKey(KeyInput.KEY_NUMPADEQUALS, "numpad equals");
+        addKey(KeyInput.KEY_SUBTRACT, "numpad subtract");
     }
 
     /**
@@ -847,24 +893,8 @@ final public class Hotkey {
         addKey(KeyInput.KEY_TAB, "tab");
         addKey(KeyInput.KEY_RETURN, "enter");
         addKey(KeyInput.KEY_SPACE, "space");
-        /*
-         * function keys
-         */
-        addKey(KeyInput.KEY_F1, "f1");
-        addKey(KeyInput.KEY_F2, "f2");
-        addKey(KeyInput.KEY_F3, "f3");
-        addKey(KeyInput.KEY_F4, "f4");
-        addKey(KeyInput.KEY_F5, "f5");
-        addKey(KeyInput.KEY_F6, "f6");
-        addKey(KeyInput.KEY_F7, "f7");
-        addKey(KeyInput.KEY_F8, "f8");
-        addKey(KeyInput.KEY_F9, "f9");
-        addKey(KeyInput.KEY_F10, "f10");
-        addKey(KeyInput.KEY_F11, "f11");
-        addKey(KeyInput.KEY_F12, "f12");
-        addKey(KeyInput.KEY_F13, "f13");
-        addKey(KeyInput.KEY_F14, "f14");
-        addKey(KeyInput.KEY_F15, "f15");
+
+        addFunctionKeys();
         /*
          * editing and arrow keys
          */
@@ -885,28 +915,8 @@ final public class Hotkey {
         addKey(KeyInput.KEY_SCROLL, "scroll lock");
         addKey(KeyInput.KEY_PAUSE, "pause");
         addKey(KeyInput.KEY_PRTSCR, "prtscr");
-        /*
-         * the numeric keypad
-         */
-        addKey(KeyInput.KEY_NUMLOCK, "num lock");
-        addKey(KeyInput.KEY_DECIMAL, "numpad decimal");
-        addKey(KeyInput.KEY_DIVIDE, "numpad divide");
-        addKey(KeyInput.KEY_MULTIPLY, "numpad multiply");
-        addKey(KeyInput.KEY_NUMPAD7, "numpad 7");
-        addKey(KeyInput.KEY_NUMPAD8, "numpad 8");
-        addKey(KeyInput.KEY_NUMPAD9, "numpad 9");
-        addKey(KeyInput.KEY_ADD, "numpad add");
-        addKey(KeyInput.KEY_NUMPAD4, "numpad 4");
-        addKey(KeyInput.KEY_NUMPAD5, "numpad 5");
-        addKey(KeyInput.KEY_NUMPAD6, "numpad 6");
-        addKey(KeyInput.KEY_NUMPAD1, "numpad 1");
-        addKey(KeyInput.KEY_NUMPAD2, "numpad 2");
-        addKey(KeyInput.KEY_NUMPAD3, "numpad 3");
-        addKey(KeyInput.KEY_NUMPADENTER, "numpad enter");
-        addKey(KeyInput.KEY_NUMPAD0, "numpad 0");
-        addKey(KeyInput.KEY_NUMPADCOMMA, "numpad comma");
-        addKey(KeyInput.KEY_NUMPADEQUALS, "numpad equals");
-        addKey(KeyInput.KEY_SUBTRACT, "numpad subtract");
+
+        addNumpadKeys();
         /*
          * miscellaneous keys
          *

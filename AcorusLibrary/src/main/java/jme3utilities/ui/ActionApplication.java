@@ -350,21 +350,7 @@ abstract public class ActionApplication
                     break;
 
                 case SimpleApplication.INPUT_MAPPING_CAMERA_POS:
-                    if (cam != null) {
-                        Vector3f loc = cam.getLocation();
-                        Quaternion rot = cam.getRotation();
-                        System.out.println("Camera Position: ("
-                                + loc.x + ", " + loc.y + ", " + loc.z + ")");
-                        System.out.println("Camera Rotation: " + rot);
-                        System.out.println("Camera Direction: "
-                                + cam.getDirection());
-                        System.out.println("cam.setLocation(new Vector3f("
-                                + loc.x + "f, " + loc.y + "f, " + loc.z
-                                + "f));");
-                        System.out.println("cam.setRotation(new Quaternion("
-                                + rot.getX() + "f, " + rot.getY() + "f, "
-                                + rot.getZ() + "f, " + rot.getW() + "f));");
-                    }
+                    dumpCameraPosition();
                     break;
 
                 case SimpleApplication.INPUT_MAPPING_HIDE_STATS:
@@ -485,6 +471,26 @@ abstract public class ActionApplication
                     flyCam.onAnalog(signalName, realTpf, realTpf);
                 }
             }
+        }
+    }
+    // *************************************************************************
+    // private methods
+
+    private void dumpCameraPosition() {
+        if (cam != null) {
+            Vector3f loc = cam.getLocation();
+            Quaternion rot = cam.getRotation();
+            System.out.println("Camera Position: ("
+                    + loc.x + ", " + loc.y + ", " + loc.z + ")");
+            System.out.println("Camera Rotation: " + rot);
+            System.out.println("Camera Direction: "
+                    + cam.getDirection());
+            System.out.println("cam.setLocation(new Vector3f("
+                    + loc.x + "f, " + loc.y + "f, " + loc.z
+                    + "f));");
+            System.out.println("cam.setRotation(new Quaternion("
+                    + rot.getX() + "f, " + rot.getY() + "f, "
+                    + rot.getZ() + "f, " + rot.getW() + "f));");
         }
     }
 }
