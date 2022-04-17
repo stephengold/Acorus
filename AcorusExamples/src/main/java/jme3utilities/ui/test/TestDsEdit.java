@@ -306,14 +306,14 @@ public class TestDsEdit extends AcorusDemo {
         proposedSettings = new DisplaySettings(application, applicationName,
                 sizeLimits) {
             @Override
-            protected void applyOverrides(AppSettings settings) {
+            protected void applyOverrides(AppSettings appSettings) {
                 setShowDialog(showDialog);
-                settings.setAudioRenderer(null);
-                if (settings.getSamples() < 1) {
-                    settings.setSamples(1);
+                appSettings.setAudioRenderer(null);
+                if (appSettings.getSamples() < 1) {
+                    appSettings.setSamples(1);
                 }
-                settings.setResizable(true);
-                settings.setTitle(title); // Customize the window's title bar.
+                appSettings.setResizable(true);
+                appSettings.setTitle(title); // Customize the window's title bar.
             }
         };
 

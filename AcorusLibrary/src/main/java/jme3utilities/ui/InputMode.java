@@ -168,13 +168,13 @@ abstract public class InputMode
     /**
      * Instantiate a disabled, uninitialized mode.
      *
-     * @param shortName terse name for the mode (not null)
+     * @param name terse name for the mode (not null)
      */
-    public InputMode(String shortName) {
+    public InputMode(String name) {
         super(InitialState.Disabled);
 
-        Validate.nonNull(shortName, "name");
-        this.shortName = shortName;
+        Validate.nonNull(name, "name");
+        this.shortName = name;
 
         for (int universalCode = 0; universalCode < numCodes; ++universalCode) {
             comboBindings[universalCode] = new HashMap<>(8);
@@ -986,9 +986,9 @@ abstract public class InputMode
         assert actionName != null;
 
         int keyCode = hotkey.keyCode();
-        String actionString = String.format("%s %d", actionName, keyCode);
+        String result = String.format("%s %d", actionName, keyCode);
 
-        return actionString;
+        return result;
     }
 
     /**

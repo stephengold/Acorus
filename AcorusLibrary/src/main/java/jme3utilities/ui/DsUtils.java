@@ -253,8 +253,8 @@ final public class DsUtils {
         Validate.positive(width, "width");
         Validate.positive(height, "height");
 
-        String description = String.format("%d x %d", width, height);
-        return description;
+        String result = String.format("%d x %d", width, height);
+        return result;
     }
 
     /**
