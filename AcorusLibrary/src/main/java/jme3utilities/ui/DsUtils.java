@@ -677,10 +677,8 @@ final public class DsUtils {
      * @param glMode the AWT display mode (not null, unaffected)
      * @return a new instance
      *
-     * @throws ClassNotFoundException if LWJGL v2 isn't on the classpath
      * @throws IllegalAccessException ?
      * @throws InvocationTargetException ?
-     * @throws NoSuchMethodException ?
      */
     private static DisplayMode makeDisplayMode2(Object glMode)
             throws IllegalAccessException, InvocationTargetException {
@@ -709,10 +707,8 @@ final public class DsUtils {
      * @param glfwVidMode (not null, unaffected)
      * @return a new instance
      *
-     * @throws ClassNotFoundException if LWJGL v3 isn't on the classpath
      * @throws IllegalAccessException ?
      * @throws InvocationTargetException ?
-     * @throws NoSuchMethodException ?
      */
     private static DisplayMode makeDisplayMode3(Object glfwVidMode)
             throws IllegalAccessException, InvocationTargetException {
