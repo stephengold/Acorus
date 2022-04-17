@@ -92,7 +92,7 @@ public class TestTwoModes extends AcorusDemo {
     /**
      * Switch from edit mode to default mode.
      */
-    void switchToDefault() {
+    static void switchToDefault() {
         InputMode dim = InputMode.findMode("default");
         InputMode editMode = InputMode.findMode("edit");
 

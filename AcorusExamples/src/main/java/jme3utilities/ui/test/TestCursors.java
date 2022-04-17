@@ -205,7 +205,7 @@ public class TestCursors extends AcorusDemo {
     // *************************************************************************
     // private methods
 
-    private void setMode(String modeName) {
+    private static void setMode(String modeName) {
         InputMode oldMode = InputMode.getActiveMode();
         InputMode newMode = InputMode.findMode(modeName);
 
