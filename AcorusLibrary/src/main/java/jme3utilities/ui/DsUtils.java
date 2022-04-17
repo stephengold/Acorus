@@ -548,8 +548,8 @@ final public class DsUtils {
     private static int framebufferHeight3(JmeContext context) {
         assert hasLwjglVersion3;
 
-        int width[] = new int[1];
-        int height[] = new int[1];
+        int[] width = new int[1];
+        int[] height = new int[1];
         try {
             // long windowId = context.getWindowHandle();
             Object windowId = getHandle.invoke(context);
@@ -592,8 +592,8 @@ final public class DsUtils {
     private static int framebufferWidth3(JmeContext context) {
         assert hasLwjglVersion3;
 
-        int width[] = new int[1];
-        int height[] = new int[1];
+        int[] width = new int[1];
+        int[] height = new int[1];
         try {
             // long windowId = context.getWindowHandle();
             Object windowId = getHandle.invoke(context);
@@ -771,8 +771,8 @@ final public class DsUtils {
     private static int windowXPosition3(JmeContext context) {
         assert hasLwjglVersion3;
 
-        int x[] = new int[1];
-        int y[] = new int[1];
+        int[] x = new int[1];
+        int[] y = new int[1];
         try {
             // long windowId = context.getWindowHandle();
             Object windowId = getHandle.invoke(context);
@@ -817,8 +817,8 @@ final public class DsUtils {
     private static int windowYPosition3(JmeContext context) {
         assert hasLwjglVersion3;
 
-        int x[] = new int[1];
-        int y[] = new int[1];
+        int[] x = new int[1];
+        int[] y = new int[1];
         try {
             // long windowId = context.getWindowHandle();
             Object windowId = getHandle.invoke(context);
