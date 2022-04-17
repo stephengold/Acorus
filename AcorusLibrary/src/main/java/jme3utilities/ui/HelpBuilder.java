@@ -100,14 +100,6 @@ public class HelpBuilder {
      */
     private float zText = 0.1f;
     // *************************************************************************
-    // constructors
-
-    /**
-     * Instantiate a new builder with the specified font.
-     */
-    public HelpBuilder() {
-    }
-    // *************************************************************************
     // new methods exposed
 
     /**
