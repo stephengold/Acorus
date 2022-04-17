@@ -58,8 +58,8 @@
     + renamed `setMinDimensions()` to `setMinSize()`
 + Other potential breaking changes:
   + `ActionApplication` no longer designates the sandbox,
-    so (by default) neither does it add an asset locator
-    or attach a `ScreenshotAppState`.
+    so (by default) it does not add an asset locator
+    nor does it attach a `ScreenshotAppState`.
     Applications that desire these features
     should invoke `designateSandbox()` prior to initialization.
 + Other important changes to the `DisplaySettings` class:
