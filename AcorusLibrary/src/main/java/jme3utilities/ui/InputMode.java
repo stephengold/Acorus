@@ -867,7 +867,7 @@ abstract public class InputMode
         assert hotkey != null;
 
         String signalName
-                = MyString.remainder(actionName, InputMode.signalActionPrefix);
+                = MyString.remainder(actionName, signalActionPrefix);
         Signals uiSignals = getSignals();
         uiSignals.add(signalName);
         /*
