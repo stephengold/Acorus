@@ -303,7 +303,7 @@ public class DisplaySettings {
                 return result;
             }
         }
-        throw new RuntimeException("value = " + value);
+        throw new IllegalStateException("value = " + value);
     }
 
     /**

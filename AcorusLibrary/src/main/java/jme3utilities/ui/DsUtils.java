@@ -351,7 +351,7 @@ final public class DsUtils {
             return result;
 
         } catch (IllegalAccessException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalArgumentException(exception);
         }
     }
 
@@ -494,7 +494,7 @@ final public class DsUtils {
             return result;
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
     }
 
@@ -517,7 +517,7 @@ final public class DsUtils {
             return result;
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
     }
 
@@ -535,7 +535,7 @@ final public class DsUtils {
             return result;
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
     }
 
@@ -558,7 +558,7 @@ final public class DsUtils {
             getFramebufferSize.invoke(null, windowId, width, height);
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
 
         int result = height[0];
@@ -579,7 +579,7 @@ final public class DsUtils {
             return result;
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
     }
 
@@ -602,7 +602,7 @@ final public class DsUtils {
             getFramebufferSize.invoke(null, windowId, width, height);
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
 
         int result = width[0];
@@ -629,7 +629,7 @@ final public class DsUtils {
             return result;
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
     }
 
@@ -666,7 +666,7 @@ final public class DsUtils {
             return result;
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
     }
 
@@ -757,7 +757,7 @@ final public class DsUtils {
             return result;
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
     }
 
@@ -781,7 +781,7 @@ final public class DsUtils {
             getWindowPos.invoke(null, windowId, x, y);
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
 
         int result = x[0];
@@ -803,7 +803,7 @@ final public class DsUtils {
             return result;
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
     }
 
@@ -827,7 +827,7 @@ final public class DsUtils {
             getWindowPos.invoke(null, windowId, x, y);
 
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            throw new RuntimeException(exception);
+            throw new IllegalStateException(exception);
         }
 
         int result = y[0];
