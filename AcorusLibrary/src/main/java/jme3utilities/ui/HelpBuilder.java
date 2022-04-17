@@ -47,7 +47,7 @@ import jme3utilities.MyAsset;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
 import jme3utilities.mesh.RoundedRectangle;
-import static jme3utilities.ui.AcorusDemo.asToggleHelp;
+import jme3utilities.ui.AcorusDemo;
 
 /**
  * Generate hotkey clues for action-oriented applications.
@@ -189,7 +189,7 @@ public class HelpBuilder {
         Validate.nonNull(font, "font");
 
         Map<String, String> actionToList = mapActions(inputMode);
-        String hotkeyList = actionToList.get(asToggleHelp);
+        String hotkeyList = actionToList.get(AcorusDemo.asToggleHelp);
         if (hotkeyList == null) {
             /*
              * The InputMode appears to lack any toggle mechanism.
@@ -203,7 +203,7 @@ public class HelpBuilder {
         BitmapText textSpatial = new BitmapText(font);
         result.attachChild(textSpatial);
 
-        String text = asToggleHelp + ": " + hotkeyList;
+        String text = AcorusDemo.asToggleHelp + ": " + hotkeyList;
         textSpatial.setText(text);
 
         ColorRGBA color = highlightForegroundColor.clone();
