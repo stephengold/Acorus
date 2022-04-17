@@ -55,7 +55,7 @@ The Acorus library also includes:
   (`ActionApplication` and `AcorusDemo`)
 + an input mode for emulating a `SimpleApplication` (`DefaultInputMode`)
 + a camera controller for orbiting the world's Y axis (`CameraOrbitAppState`)
-+ an display-setting editor (`DsEditInputMode` and `DsEditOverlay`)
++ a display-setting editor (`DsEditInputMode` and `DsEditOverlay`)
 + a class to simplify the management of asset locators (for asset editors)
 
 [Jump to table of contents](#toc)
