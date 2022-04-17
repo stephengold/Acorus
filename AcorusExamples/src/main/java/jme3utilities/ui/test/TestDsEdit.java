@@ -174,26 +174,26 @@ public class TestDsEdit extends AcorusDemo {
          * Print the available and current display modes to the console.
          */
         for (DisplayMode mode : DsUtils.listDisplayModes()) {
-            System.out.printf("%d x %d, %d bits, %d Hz\n",
+            System.out.printf("%d x %d, %d bits, %d Hz%n",
                     mode.getWidth(), mode.getHeight(),
                     mode.getBitDepth(), mode.getRefreshRate());
         }
 
         DisplayMode mode = DsUtils.displayMode();
-        System.out.printf("Current mode:  %d x %d, %d bits, %d Hz\n",
+        System.out.printf("Current mode:  %d x %d, %d bits, %d Hz%n",
                 mode.getWidth(), mode.getHeight(),
                 mode.getBitDepth(), mode.getRefreshRate());
 
         boolean v3 = DsUtils.hasLwjglVersion3();
-        System.out.printf("LWJGL v3 is %s.\n", v3);
+        System.out.printf("LWJGL v3 is %s.%n", v3);
 
         int fbWidth = DsUtils.framebufferWidth(context);
         int fbHeight = DsUtils.framebufferHeight(context);
-        System.out.printf("Framebuffer:  %d x %d\n", fbWidth, fbHeight);
+        System.out.printf("Framebuffer:  %d x %d%n", fbWidth, fbHeight);
 
         int x = DsUtils.windowXPosition(context);
         int y = DsUtils.windowYPosition(context);
-        System.out.printf("Window position:  x=%d, y=%d\n", x, y);
+        System.out.printf("Window position:  x=%d, y=%d%n", x, y);
 
         System.out.flush();
     }
