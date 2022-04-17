@@ -170,7 +170,7 @@ abstract public class ActionApplication
         }
 
         if (desiredPath == null) {
-            sandboxDirectory = new File("./Written Assets");
+            sandboxDirectory = new File("Written Assets");
         } else {
             sandboxDirectory = new File(desiredPath);
         }
@@ -454,7 +454,7 @@ abstract public class ActionApplication
              * Capture a screenshot to the sandbox
              * each time a "ScreenShot" action is triggered.
              */
-            String waPath = sandboxPath() + "/";
+            String waPath = sandboxPath() + File.separator;
             screenshotAppState
                     = new ScreenshotAppState(waPath, "screenshot");
             boolean success = stateManager.attach(screenshotAppState);
