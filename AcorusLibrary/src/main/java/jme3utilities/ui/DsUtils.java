@@ -428,8 +428,10 @@ final public class DsUtils {
             AppSettings settings = context.getSettings();
             settings.setResolution(width, height);
 
-            SystemListener listener = getSystemListener(context);
-            listener.reshape(width, height);
+            if (width > 0 && height > 0) {
+                SystemListener listener = getSystemListener(context);
+                listener.reshape(width, height);
+            }
 
             oldFramebufferWidth = width;
             oldFramebufferHeight = height;
