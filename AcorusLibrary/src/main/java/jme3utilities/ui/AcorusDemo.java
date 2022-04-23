@@ -491,70 +491,6 @@ abstract public class AcorusDemo extends ActionApplication {
         updateHelp(activeMode, viewPortWidth, viewPortHeight, helpVersion,
                 oldColorSpace);
     }
-
-    /**
-     * Update the help node for the specified input mode, viewport dimensions,
-     * version, and ColorSpace. TODO privatize
-     *
-     * @param inputMode the active input mode (unaffected) or null if none
-     * @param viewPortWidth (in pixels, &gt;0)
-     * @param viewPortHeight (in pixels, &gt;0)
-     * @param displayVersion which version to display, or null for none
-     * @param colorSpace (not null)
-     */
-    public void updateHelp(InputMode inputMode, int viewPortWidth,
-            int viewPortHeight, HelpVersion displayVersion,
-            ColorSpace colorSpace) {
-        Validate.positive(viewPortWidth, "viewport width");
-        Validate.positive(viewPortHeight, "viewport height");
-        Validate.nonNull(colorSpace, "color space");
-
-        Rectangle bounds = detailedHelpBounds(viewPortWidth, viewPortHeight);
-        updateHelp(inputMode, bounds, displayVersion, colorSpace);
-    }
-
-    /**
-     * Update the help node for the specified input mode, bounds, version, and
-     * ColorSpace. TODO privatize
-     *
-     * @param inputMode the active input mode (unaffected) or null if none
-     * @param bounds the desired screen coordinates (not null, unaffected)
-     * @param displayVersion which version to display, or null for none
-     * @param colorSpace (not null)
-     */
-    public void updateHelp(InputMode inputMode, Rectangle bounds,
-            HelpVersion displayVersion, ColorSpace colorSpace) {
-        Validate.nonNull(bounds, "bounds");
-        Validate.nonNull(colorSpace, "color space");
-        /*
-         * If a help node already exists, remove it from the scene graph.
-         */
-        if (helpNode != null) {
-            helpNode.removeFromParent();
-        }
-
-        this.helpVersion = displayVersion;
-        if (inputMode == null) {
-            return;
-        }
-
-        switch (displayVersion) {
-            case Detailed:
-                helpNode = helpBuilder.buildDetailedNode(
-                        inputMode, bounds, guiFont, colorSpace);
-                guiNode.attachChild(helpNode);
-                break;
-
-            case Minimal:
-                helpNode = helpBuilder.buildMinimalNode(
-                        inputMode, bounds, guiFont, colorSpace);
-                guiNode.attachChild(helpNode);
-                break;
-
-            default:
-                break;
-        }
-    }
     // *************************************************************************
     // ActionApplication methods
 
@@ -722,6 +658,70 @@ abstract public class AcorusDemo extends ActionApplication {
 
             oldFramebufferWidth = width;
             oldFramebufferHeight = height;
+        }
+    }
+
+    /**
+     * Update the help node for the specified input mode, viewport dimensions,
+     * version, and ColorSpace.
+     *
+     * @param inputMode the active input mode (unaffected) or null if none
+     * @param viewPortWidth (in pixels, &gt;0)
+     * @param viewPortHeight (in pixels, &gt;0)
+     * @param displayVersion which version to display, or null for none
+     * @param colorSpace (not null)
+     */
+    private void updateHelp(InputMode inputMode, int viewPortWidth,
+            int viewPortHeight, HelpVersion displayVersion,
+            ColorSpace colorSpace) {
+        assert viewPortHeight > 0 : viewPortHeight;
+        assert viewPortWidth > 0 : viewPortWidth;
+        assert colorSpace != null;
+
+        Rectangle bounds = detailedHelpBounds(viewPortWidth, viewPortHeight);
+        updateHelp(inputMode, bounds, displayVersion, colorSpace);
+    }
+
+    /**
+     * Update the help node for the specified input mode, bounds, version, and
+     * ColorSpace.
+     *
+     * @param inputMode the active input mode (unaffected) or null if none
+     * @param bounds the desired screen coordinates (not null, unaffected)
+     * @param displayVersion which version to display, or null for none
+     * @param colorSpace (not null)
+     */
+    private void updateHelp(InputMode inputMode, Rectangle bounds,
+            HelpVersion displayVersion, ColorSpace colorSpace) {
+        assert bounds != null;
+        assert colorSpace != null;
+        /*
+         * If a help node already exists, remove it from the scene graph.
+         */
+        if (helpNode != null) {
+            helpNode.removeFromParent();
+        }
+
+        this.helpVersion = displayVersion;
+        if (inputMode == null) {
+            return;
+        }
+
+        switch (displayVersion) {
+            case Detailed:
+                helpNode = helpBuilder.buildDetailedNode(
+                        inputMode, bounds, guiFont, colorSpace);
+                guiNode.attachChild(helpNode);
+                break;
+
+            case Minimal:
+                helpNode = helpBuilder.buildMinimalNode(
+                        inputMode, bounds, guiFont, colorSpace);
+                guiNode.attachChild(helpNode);
+                break;
+
+            default:
+                break;
         }
     }
 }
