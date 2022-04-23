@@ -38,9 +38,11 @@ import com.jme3.material.Materials;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.Renderer;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
+import com.jme3.texture.image.ColorSpace;
 import java.util.logging.Logger;
 import jme3utilities.InitialState;
 import jme3utilities.SimpleAppState;
@@ -70,9 +72,13 @@ public class Overlay extends SimpleAppState {
      */
     final private BitmapText[] contentLines;
     /**
-     * color of the background
+     * gamma-encoded color of the background
      */
-    final private ColorRGBA backgroundColor = new ColorRGBA(0f, 0f, 0f, 1f);
+    final private ColorRGBA backgroundColor = ColorRGBA.Black.clone();
+    /**
+     * gamma-encoded foreground color of each content line
+     */
+    final private ColorRGBA[] contentColors;
     /**
      * Z coordinate for the background (in case the framebuffer gets resized)
      */
@@ -130,6 +136,7 @@ public class Overlay extends SimpleAppState {
         this.node = new Node("overlay node for " + id);
 
         this.contentLines = new BitmapText[numLines];
+        this.contentColors = new ColorRGBA[numLines];
         this.numLines = numLines;
         this.width = width;
 
@@ -155,7 +162,8 @@ public class Overlay extends SimpleAppState {
      * Copy the color of the background.
      *
      * @param storeResult storage for the result (modified if not null)
-     * @return the color (either {@code storeResult} or a new instance)
+     * @return the gamma-encoded color (either {@code storeResult} or a new
+     * instance)
      */
     public ColorRGBA copyBackgroundColor(ColorRGBA storeResult) {
         if (storeResult == null) {
@@ -192,6 +200,20 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
+     * Update colors after the renderer's ColorSpace changes.
+     *
+     * @param newColorSpace the new ColorSpace (not null)
+     */
+    public void onColorSpaceChange(ColorSpace newColorSpace) {
+        Validate.nonNull(newColorSpace, "new ColorSpace");
+
+        if (isInitialized()) {
+            updateBackgroundMaterialColor(newColorSpace);
+            updateBitmapColors(newColorSpace);
+        }
+    }
+
+    /**
      * Relocate this overlay for the specified viewport dimensions. The policy
      * is to locate the overlay 10px inward from the upper-left corner of the
      * viewport. TODO alternative policies
@@ -225,7 +247,7 @@ public class Overlay extends SimpleAppState {
     /**
      * Alter the color of the background.
      *
-     * @param newColor the desired background color (not null, unaffected,
+     * @param newColor the desired color (not null, unaffected, gamma-encoded,
      * default=opaque black)
      */
     public void setBackgroundColor(ColorRGBA newColor) {
@@ -233,8 +255,10 @@ public class Overlay extends SimpleAppState {
 
         backgroundColor.set(newColor);
         if (isInitialized()) {
-            Material material = background.getMaterial();
-            material.setColor("Color", backgroundColor.clone());
+            Renderer renderer = simpleApplication.getRenderer();
+            ColorSpace colorSpace = renderer.isMainFrameBufferSrgb()
+                    ? ColorSpace.sRGB : ColorSpace.Linear;
+            updateBackgroundMaterialColor(colorSpace);
         }
     }
 
@@ -319,7 +343,8 @@ public class Overlay extends SimpleAppState {
      *
      * @param lineIndex which line to modify (&ge;0, &lt;numLines)
      * @param text the desired text (not null)
-     * @param color the desired foreground color (not null, unaffected)
+     * @param color the desired foreground color (not null, unaffected,
+     * gamma-encoded)
      */
     public void setText(int lineIndex, String text, ColorRGBA color) {
         Validate.inRange(lineIndex, "line index", 0, numLines);
@@ -327,9 +352,9 @@ public class Overlay extends SimpleAppState {
         Validate.nonNull(color, "color");
 
         BitmapText line = contentLines[lineIndex];
-        ColorRGBA oldColor = line.getColor();
-        if (!color.equals(oldColor)) {
+        if (!color.equals(contentColors[lineIndex])) {
             line.setColor(color.clone());
+            contentColors[lineIndex].set(color);
         }
 
         line.setText(text);
@@ -353,7 +378,7 @@ public class Overlay extends SimpleAppState {
     /**
      * Return width of the background.
      *
-     * @return the width (in framebuffer pixels, &gt;0)
+     * @return the width (including padding, in framebuffer pixels, &gt;0)
      */
     public float width() {
         assert width > 0f : width;
@@ -419,17 +444,23 @@ public class Overlay extends SimpleAppState {
          * background
          */
         Material material = new Material(assetManager, Materials.UNSHADED);
-        material.setColor("Color", backgroundColor.clone());
         background.setMaterial(material);
+
+        Renderer renderer = simpleApplication.getRenderer();
+        ColorSpace colorSpace = renderer.isMainFrameBufferSrgb()
+                ? ColorSpace.sRGB : ColorSpace.Linear;
+        updateBackgroundMaterialColor(colorSpace);
         /*
-         * content lines
+         * content lines and their colors
          */
         BitmapFont font = assetManager.loadFont("Interface/Fonts/Default.fnt");
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
             BitmapText bitmap = new BitmapText(font);
+            contentColors[lineIndex] = ColorRGBA.White.clone();
             contentLines[lineIndex] = bitmap;
             node.attachChild(bitmap);
         }
+        updateBitmapColors(colorSpace);
         updateContentOffsets();
 
         if (isEnabled()) {
@@ -469,6 +500,42 @@ public class Overlay extends SimpleAppState {
         Mesh result = new RoundedRectangle(x1, x2, y1, y2, padding, zNorm);
 
         return result;
+    }
+
+    /**
+     * Adjust the "Color" parameter of the background material for the specified
+     * ColorSpace.
+     *
+     * @param colorSpace the desired ColorSpace (not null)
+     */
+    private void updateBackgroundMaterialColor(ColorSpace colorSpace) {
+        Material material = background.getMaterial();
+        ColorRGBA color = DsUtils.renderColor(colorSpace, backgroundColor);
+        material.setColor("Color", color);
+    }
+
+    /**
+     * Adjust the color of the indexed bitmap for the specified ColorSpace.
+     *
+     * @param lineIndex (&ge;0)
+     * @param colorSpace the desired ColorSpace (not null)
+     */
+    private void updateBitmapColor(int lineIndex, ColorSpace colorSpace) {
+        BitmapText bitmap = contentLines[lineIndex];
+        ColorRGBA color = contentColors[lineIndex];
+        color = DsUtils.renderColor(colorSpace, color);
+        bitmap.setColor(color);
+    }
+
+    /**
+     * Adjust the colors of all bitmaps for the specified ColorSpace.
+     *
+     * @param colorSpace the desired ColorSpace (not null)
+     */
+    private void updateBitmapColors(ColorSpace colorSpace) {
+        for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
+            updateBitmapColor(lineIndex, colorSpace);
+        }
     }
 
     /**
