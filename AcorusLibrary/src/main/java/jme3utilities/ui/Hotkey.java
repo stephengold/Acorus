@@ -418,34 +418,7 @@ final public class Hotkey {
     }
 
     /**
-     * Add a new hotkey for a mouse button.
-     *
-     * @param buttonCode the JME mouse-button code (from
-     * {@link com.jme3.input.MouseInput}) that isn't already assigned to a
-     * hotkey
-     * @param name a name not already assigned (not null, not empty)
-     */
-    private static void addMouseButton(int buttonCode, String name) {
-        assert buttonCode >= 0 : buttonCode;
-        assert buttonCode < maxMouseButtons : buttonCode;
-        assert name != null;
-        assert !name.isEmpty();
-        assert findButton(buttonCode) == null :
-                "button" + buttonCode + " is already assigned to a hotkey";
-        assert findLocal(name) == null;
-        assert findUs(name) == null;
-
-        int universalCode = firstMouseButton + buttonCode;
-        Trigger trigger = new MouseButtonTrigger(buttonCode);
-        Hotkey instance = new Hotkey(universalCode, name, name, trigger);
-
-        byUniversalCode.put(universalCode, instance);
-        byLocalName.put(name, instance);
-        byUsName.put(name, instance);
-    }
-
-    /**
-     * Add a hotkey for a keyboard key. TODO re-order methods
+     * Add a hotkey for a keyboard key.
      *
      * @param keyCode the JME key code from {@link com.jme3.input.KeyInput} that
      * isn't already assigned to a hotkey
@@ -527,6 +500,33 @@ final public class Hotkey {
         byUniversalCode.put(universalCode, instance);
         byLocalName.put(localName, instance);
         byUsName.put(usName, instance);
+    }
+
+    /**
+     * Add a new hotkey for a mouse button.
+     *
+     * @param buttonCode the JME mouse-button code (from
+     * {@link com.jme3.input.MouseInput}) that isn't already assigned to a
+     * hotkey
+     * @param name a name not already assigned (not null, not empty)
+     */
+    private static void addMouseButton(int buttonCode, String name) {
+        assert buttonCode >= 0 : buttonCode;
+        assert buttonCode < maxMouseButtons : buttonCode;
+        assert name != null;
+        assert !name.isEmpty();
+        assert findButton(buttonCode) == null :
+                "button" + buttonCode + " is already assigned to a hotkey";
+        assert findLocal(name) == null;
+        assert findUs(name) == null;
+
+        int universalCode = firstMouseButton + buttonCode;
+        Trigger trigger = new MouseButtonTrigger(buttonCode);
+        Hotkey instance = new Hotkey(universalCode, name, name, trigger);
+
+        byUniversalCode.put(universalCode, instance);
+        byLocalName.put(name, instance);
+        byUsName.put(name, instance);
     }
 
     /**
