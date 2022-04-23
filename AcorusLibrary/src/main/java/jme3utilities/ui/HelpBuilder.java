@@ -38,6 +38,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
+import com.jme3.texture.image.ColorSpace;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,6 @@ import jme3utilities.MyAsset;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
 import jme3utilities.mesh.RoundedRectangle;
-import jme3utilities.ui.AcorusDemo;
 
 /**
  * Generate hotkey clues for action-oriented applications.
@@ -71,15 +71,15 @@ public class HelpBuilder {
     // fields
 
     /**
-     * color of the background
+     * gamma-encoded color for the background
      */
     final private ColorRGBA backgroundColor = new ColorRGBA(0f, 0f, 0f, 1f);
     /**
-     * default foreground color for text
+     * gamma-encoded foreground color for non-highlighted text
      */
     final private ColorRGBA foregroundColor = new ColorRGBA(1f, 1f, 1f, 1f);
     /**
-     * foreground color for highlighted text
+     * gamma-encoded foreground color for highlighted text
      */
     final private ColorRGBA highlightForegroundColor
             = new ColorRGBA(1f, 1f, 0f, 1f);
@@ -110,13 +110,15 @@ public class HelpBuilder {
      * @param bounds (in pixels, relative to the resulting node, not null,
      * unaffected)
      * @param font the font to use (not null, unaffected)
+     * @param colorSpace the ColorSpace to use (not null)
      * @return a new orphan Node, suitable for attachment to the GUI node
      */
     public Node buildDetailedNode(InputMode inputMode, Rectangle bounds,
-            BitmapFont font) {
+            BitmapFont font, ColorSpace colorSpace) {
         Validate.nonNull(inputMode, "input mode");
         Validate.nonNull(bounds, "bounds");
         Validate.nonNull(font, "font");
+        Validate.nonNull(colorSpace, "color space");
 
         ColorRGBA fgColor = foregroundColor.clone();
         ColorRGBA highlightColor = highlightForegroundColor.clone();
@@ -158,7 +160,8 @@ public class HelpBuilder {
             }
         }
 
-        Geometry backgroundGeometry = buildBackground(bounds, maxX, minY);
+        Geometry backgroundGeometry
+                = buildBackground(bounds, maxX, minY, colorSpace);
         result.attachChild(backgroundGeometry);
 
         return result;
@@ -172,13 +175,15 @@ public class HelpBuilder {
      * @param bounds (in pixels, relative to the resulting node, not null,
      * unaffected)
      * @param font the font to use (not null, unaffected)
+     * @param colorSpace the ColorSpace to use (not null)
      * @return a new orphan Node, suitable for attachment to the GUI node
      */
     public Node buildMinimalNode(InputMode inputMode, Rectangle bounds,
-            BitmapFont font) {
+            BitmapFont font, ColorSpace colorSpace) {
         Validate.nonNull(inputMode, "input mode");
         Validate.nonNull(bounds, "bounds");
         Validate.nonNull(font, "font");
+        Validate.nonNull(colorSpace, "color space");
 
         Map<String, String> actionToList = mapActions(inputMode);
         String hotkeyList = actionToList.get(AcorusDemo.asToggleHelp);
@@ -187,9 +192,8 @@ public class HelpBuilder {
              * The InputMode appears to lack any toggle mechanism.
              * Generate a detailed help node instead.
              */
-            return buildDetailedNode(inputMode, bounds, font);
+            return buildDetailedNode(inputMode, bounds, font, colorSpace);
         }
-        
 
         Node result = new Node("minimal help node");
         BitmapText textSpatial = new BitmapText(font);
@@ -212,7 +216,8 @@ public class HelpBuilder {
         float maxX = x + Math.max(1f, textWidth);
         float textHeight = textSpatial.getHeight();
         float minY = y - Math.max(1f, textHeight);
-        Geometry backgroundGeometry = buildBackground(bounds, maxX, minY);
+        Geometry backgroundGeometry
+                = buildBackground(bounds, maxX, minY, colorSpace);
         result.attachChild(backgroundGeometry);
 
         return result;
@@ -252,8 +257,8 @@ public class HelpBuilder {
     /**
      * Alter the color for backgrounds.
      *
-     * @param newColor the desired color (not null, unaffected, default=opaque
-     * black)
+     * @param newColor the desired color (not null, unaffected, gamma-encoded,
+     * default=opaque black)
      */
     public void setBackgroundColor(ColorRGBA newColor) {
         Validate.nonNull(newColor, "new color");
@@ -296,9 +301,11 @@ public class HelpBuilder {
      * @param bounds (in screen coordinates, not null, unaffected)
      * @param maxX the highest screen X of the text
      * @param minY the lowest screen Y of the text
+     * @param colorSpace (not null)
      * @return a new Geometry, suitable for attachment to the help node
      */
-    private Geometry buildBackground(Rectangle bounds, float maxX, float minY) {
+    private Geometry buildBackground(Rectangle bounds, float maxX, float minY,
+            ColorSpace colorSpace) {
         float x1 = bounds.x - padding;
         float x2 = maxX + padding;
         float y1 = minY - padding;
@@ -310,8 +317,9 @@ public class HelpBuilder {
         result.setLocalTranslation(0f, 0f, zBackground);
 
         AssetManager assetManager = Locators.getAssetManager();
+        ColorRGBA color = DsUtils.renderColor(colorSpace, backgroundColor);
         Material material
-                = MyAsset.createUnshadedMaterial(assetManager, backgroundColor);
+                = MyAsset.createUnshadedMaterial(assetManager, color);
         result.setMaterial(material);
 
         return result;

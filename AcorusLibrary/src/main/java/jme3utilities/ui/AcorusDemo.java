@@ -45,6 +45,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
 import com.jme3.system.SystemListener;
 import com.jme3.texture.FrameBuffer;
+import com.jme3.texture.image.ColorSpace;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
@@ -101,6 +102,10 @@ abstract public class AcorusDemo extends ActionApplication {
      * visualizer for the world axes
      */
     private AxesVisualizer worldAxes;
+    /**
+     * renderer's ColorSpace the last time updateColorSpace() was invoked
+     */
+    private ColorSpace oldColorSpace;
     /**
      * framebuffer height (in pixels) the last time updateFramebufferSize() was
      * invoked
@@ -361,6 +366,20 @@ abstract public class AcorusDemo extends ActionApplication {
     }
 
     /**
+     * Update colors after the renderer's ColorSpace changes.
+     *
+     * @param newSpace the new ColorSpace (not null)
+     */
+    public void onColorSpaceChange(ColorSpace newSpace) {
+        InputMode activeMode = InputMode.getActiveMode();
+        Camera guiCamera = guiViewPort.getCamera();
+        int viewPortWidth = guiCamera.getWidth();
+        int viewPortHeight = guiCamera.getHeight();
+        updateHelp(activeMode, viewPortWidth, viewPortHeight, helpVersion,
+                newSpace);
+    }
+
+    /**
      * Update the GUI layout after the ViewPort gets resized.
      *
      * @param newWidth the new width of the ViewPort (in pixels, &gt;0)
@@ -371,7 +390,7 @@ abstract public class AcorusDemo extends ActionApplication {
         Validate.positive(newHeight, "new height");
 
         InputMode activeMode = InputMode.getActiveMode();
-        updateHelp(activeMode, newWidth, newHeight, helpVersion);
+        updateHelp(activeMode, newWidth, newHeight, helpVersion, oldColorSpace);
     }
 
     /**
@@ -422,7 +441,8 @@ abstract public class AcorusDemo extends ActionApplication {
         Camera guiCamera = guiViewPort.getCamera();
         int viewPortWidth = guiCamera.getWidth();
         int viewPortHeight = guiCamera.getHeight();
-        updateHelp(activeMode, viewPortWidth, viewPortHeight, newVersion);
+        updateHelp(activeMode, viewPortWidth, viewPortHeight, newVersion,
+                oldColorSpace);
     }
 
     /**
@@ -468,37 +488,44 @@ abstract public class AcorusDemo extends ActionApplication {
         Camera guiCamera = guiViewPort.getCamera();
         int viewPortWidth = guiCamera.getWidth();
         int viewPortHeight = guiCamera.getHeight();
-        updateHelp(activeMode, viewPortWidth, viewPortHeight, helpVersion);
+        updateHelp(activeMode, viewPortWidth, viewPortHeight, helpVersion,
+                oldColorSpace);
     }
 
     /**
      * Update the help node for the specified input mode, viewport dimensions,
-     * and version.
+     * version, and ColorSpace. TODO privatize
      *
      * @param inputMode the active input mode (unaffected) or null if none
      * @param viewPortWidth (in pixels, &gt;0)
      * @param viewPortHeight (in pixels, &gt;0)
      * @param displayVersion which version to display, or null for none
+     * @param colorSpace (not null)
      */
     public void updateHelp(InputMode inputMode, int viewPortWidth,
-            int viewPortHeight, HelpVersion displayVersion) {
+            int viewPortHeight, HelpVersion displayVersion,
+            ColorSpace colorSpace) {
         Validate.positive(viewPortWidth, "viewport width");
         Validate.positive(viewPortHeight, "viewport height");
+        Validate.nonNull(colorSpace, "color space");
 
         Rectangle bounds = detailedHelpBounds(viewPortWidth, viewPortHeight);
-        updateHelp(inputMode, bounds, displayVersion);
+        updateHelp(inputMode, bounds, displayVersion, colorSpace);
     }
 
     /**
-     * Update the help node for the specified input mode, bounds, and version.
+     * Update the help node for the specified input mode, bounds, version, and
+     * ColorSpace. TODO privatize
      *
      * @param inputMode the active input mode (unaffected) or null if none
      * @param bounds the desired screen coordinates (not null, unaffected)
      * @param displayVersion which version to display, or null for none
+     * @param colorSpace (not null)
      */
     public void updateHelp(InputMode inputMode, Rectangle bounds,
-            HelpVersion displayVersion) {
+            HelpVersion displayVersion, ColorSpace colorSpace) {
         Validate.nonNull(bounds, "bounds");
+        Validate.nonNull(colorSpace, "color space");
         /*
          * If a help node already exists, remove it from the scene graph.
          */
@@ -514,13 +541,13 @@ abstract public class AcorusDemo extends ActionApplication {
         switch (displayVersion) {
             case Detailed:
                 helpNode = helpBuilder.buildDetailedNode(
-                        inputMode, bounds, guiFont);
+                        inputMode, bounds, guiFont, colorSpace);
                 guiNode.attachChild(helpNode);
                 break;
 
             case Minimal:
                 helpNode = helpBuilder.buildMinimalNode(
-                        inputMode, bounds, guiFont);
+                        inputMode, bounds, guiFont, colorSpace);
                 guiNode.attachChild(helpNode);
                 break;
 
@@ -536,6 +563,11 @@ abstract public class AcorusDemo extends ActionApplication {
      */
     @Override
     public void acorusInit() {
+        /*
+         * Ensure that ColorSpace-dependent data get initialized.
+         */
+        assert oldColorSpace == null;
+        updateColorSpace();
         /*
          * Ensure that size-dependent data get initialized.
          */
@@ -588,7 +620,8 @@ abstract public class AcorusDemo extends ActionApplication {
             Camera guiCamera = guiViewPort.getCamera();
             int viewPortWidth = guiCamera.getWidth();
             int viewPortHeight = guiCamera.getHeight();
-            updateHelp(newMode, viewPortWidth, viewPortHeight, helpVersion);
+            updateHelp(newMode, viewPortWidth, viewPortHeight, helpVersion,
+                    oldColorSpace);
         }
     }
 
@@ -599,7 +632,9 @@ abstract public class AcorusDemo extends ActionApplication {
      */
     @Override
     public void simpleUpdate(float tpf) {
+        updateColorSpace();
         updateFramebufferSize();
+
         super.simpleUpdate(tpf);
     }
     // *************************************************************************
@@ -655,14 +690,25 @@ abstract public class AcorusDemo extends ActionApplication {
     }
 
     /**
+     * Invoke onColorSpaceChange() if the renderer's ColorSpace has changed
+     * since the last time this method was invoked.
+     */
+    private void updateColorSpace() {
+        ColorSpace space = renderer.isMainFrameBufferSrgb()
+                ? ColorSpace.sRGB : ColorSpace.Linear;
+        if (space != oldColorSpace) {
+            onColorSpaceChange(space);
+            oldColorSpace = space;
+        }
+    }
+
+    /**
      * Invoke SystemListener.reshape() if the framebuffer has been resized since
-     * the last time updateFramebufferSize() was invoked.
+     * the last time this method was invoked.
      * <p>
      * This is intended to work around JMonkeyEngine issue #1793.
      */
     private void updateFramebufferSize() {
-        Validate.nonNull(context, "context");
-
         int width = DsUtils.framebufferWidth(context);
         int height = DsUtils.framebufferHeight(context);
         if (width != oldFramebufferWidth || height != oldFramebufferHeight) {
