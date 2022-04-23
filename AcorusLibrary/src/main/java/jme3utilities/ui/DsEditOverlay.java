@@ -262,10 +262,6 @@ public class DsEditOverlay extends Overlay {
     public void update(float tpf) {
         super.update(tpf);
         JmeContext context = simpleApplication.getContext();
-        /*
-         * Work around JME issue #1793. TODO remove when the issue is resolved
-         */
-        DsUtils.updateFramebufferSize(context);
 
         String message = "";
         boolean areValid = proposedSettings.areValid();

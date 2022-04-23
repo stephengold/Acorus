@@ -42,6 +42,8 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.system.AppSettings;
+import com.jme3.system.SystemListener;
 import com.jme3.texture.FrameBuffer;
 import java.util.Arrays;
 import java.util.Map;
@@ -98,7 +100,17 @@ abstract public class AcorusDemo extends ActionApplication {
     /**
      * visualizer for the world axes
      */
-    private AxesVisualizer worldAxes = null;
+    private AxesVisualizer worldAxes;
+    /**
+     * framebuffer height (in pixels) the last time updateFramebufferSize() was
+     * invoked
+     */
+    private int oldFramebufferHeight;
+    /**
+     * framebuffer width (in pixels) the last time updateFramebufferSize() was
+     * invoked
+     */
+    private int oldFramebufferWidth;
     /**
      * generate help nodes
      */
@@ -109,7 +121,7 @@ abstract public class AcorusDemo extends ActionApplication {
      */
     private HelpVersion helpVersion = HelpVersion.Minimal;
     /**
-     * library of named geometry materials
+     * library of named materials
      */
     final private Map<String, Material> namedMaterials = new TreeMap<>();
     /**
@@ -579,6 +591,17 @@ abstract public class AcorusDemo extends ActionApplication {
             updateHelp(newMode, viewPortWidth, viewPortHeight, helpVersion);
         }
     }
+
+    /**
+     * Callback invoked once per frame.
+     *
+     * @param tpf time interval between frames (in seconds, &ge;0)
+     */
+    @Override
+    public void simpleUpdate(float tpf) {
+        updateFramebufferSize();
+        super.simpleUpdate(tpf);
+    }
     // *************************************************************************
     // private methods
 
@@ -629,5 +652,30 @@ abstract public class AcorusDemo extends ActionApplication {
         };
 
         guiViewPort.addProcessor(sceneProcessor);
+    }
+
+    /**
+     * Invoke SystemListener.reshape() if the framebuffer has been resized since
+     * the last time updateFramebufferSize() was invoked.
+     * <p>
+     * This is intended to work around JMonkeyEngine issue #1793.
+     */
+    private void updateFramebufferSize() {
+        Validate.nonNull(context, "context");
+
+        int width = DsUtils.framebufferWidth(context);
+        int height = DsUtils.framebufferHeight(context);
+        if (width != oldFramebufferWidth || height != oldFramebufferHeight) {
+            AppSettings appSettings = getSettings();
+            appSettings.setResolution(width, height);
+
+            if (width > 0 && height > 0) {
+                SystemListener listener = DsUtils.getSystemListener(context);
+                listener.reshape(width, height);
+            }
+
+            oldFramebufferWidth = width;
+            oldFramebufferHeight = height;
+        }
     }
 }
