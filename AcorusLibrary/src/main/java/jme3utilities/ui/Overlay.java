@@ -61,7 +61,7 @@ public class Overlay extends SimpleAppState {
     /**
      * message logger for this class
      */
-    final static Logger logger = Logger.getLogger(Overlay.class.getName());
+    final static Logger loggerO = Logger.getLogger(Overlay.class.getName());
     // *************************************************************************
     // fields
 
