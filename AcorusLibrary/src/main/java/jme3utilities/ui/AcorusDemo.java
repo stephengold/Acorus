@@ -96,9 +96,26 @@ abstract public class AcorusDemo extends ActionApplication {
     // fields
 
     /**
+     * visualizer for the world axes
+     */
+    private AxesVisualizer worldAxes = null;
+    /**
      * generate help nodes
      */
     final private HelpBuilder helpBuilder = new HelpBuilder();
+    /**
+     * which version of the help node is displayed (or would be if there were an
+     * active InputMode)
+     */
+    private HelpVersion helpVersion = HelpVersion.Minimal;
+    /**
+     * library of named geometry materials
+     */
+    final private Map<String, Material> namedMaterials = new TreeMap<>();
+    /**
+     * Node for displaying hotkey help in the GUI scene
+     */
+    private Node helpNode;
     // *************************************************************************
     // constructors
 
@@ -124,26 +141,6 @@ abstract public class AcorusDemo extends ActionApplication {
     protected AcorusDemo(AppState... initialAppStates) {
         super(initialAppStates);
     }
-    // *************************************************************************
-    // fields
-
-    /**
-     * visualizer for the world axes
-     */
-    private AxesVisualizer worldAxes = null;
-    /**
-     * which version of the help node is displayed (or would be if there were an
-     * active InputMode)
-     */
-    private HelpVersion helpVersion = HelpVersion.Minimal;
-    /**
-     * library of named geometry materials
-     */
-    final private Map<String, Material> namedMaterials = new TreeMap<>();
-    /**
-     * Node for displaying hotkey help in the GUI scene
-     */
-    private Node helpNode;
     // *************************************************************************
     // new methods exposed
 
@@ -352,19 +349,17 @@ abstract public class AcorusDemo extends ActionApplication {
     }
 
     /**
-     * Callback invoked when the active InputMode changes.
+     * Update the GUI layout after the ViewPort gets resized.
      *
-     * @param oldMode the old mode, or null if none
-     * @param newMode the new mode, or null if none
+     * @param newWidth the new width of the ViewPort (in pixels, &gt;0)
+     * @param newHeight the new height of the ViewPort (in pixels, &gt;0)
      */
-    @Override
-    public void onInputModeChange(InputMode oldMode, InputMode newMode) {
-        if (newMode != null) {
-            Camera guiCamera = guiViewPort.getCamera();
-            int viewPortWidth = guiCamera.getWidth();
-            int viewPortHeight = guiCamera.getHeight();
-            updateHelp(newMode, viewPortWidth, viewPortHeight, helpVersion);
-        }
+    public void onViewPortResize(int newWidth, int newHeight) {
+        Validate.positive(newWidth, "new width");
+        Validate.positive(newHeight, "new height");
+
+        InputMode activeMode = InputMode.getActiveMode();
+        updateHelp(activeMode, newWidth, newHeight, helpVersion);
     }
 
     /**
@@ -381,20 +376,6 @@ abstract public class AcorusDemo extends ActionApplication {
 
         material.setName(name);
         namedMaterials.put(name, material);
-    }
-
-    /**
-     * Update the GUI layout after the ViewPort gets resized.
-     *
-     * @param newWidth the new width of the ViewPort (in pixels, &gt;0)
-     * @param newHeight the new height of the ViewPort (in pixels, &gt;0)
-     */
-    public void onViewPortResize(int newWidth, int newHeight) {
-        Validate.positive(newWidth, "new width");
-        Validate.positive(newHeight, "new height");
-
-        InputMode activeMode = InputMode.getActiveMode();
-        updateHelp(activeMode, newWidth, newHeight, helpVersion);
     }
 
     /**
@@ -581,6 +562,22 @@ abstract public class AcorusDemo extends ActionApplication {
             }
         }
         super.onAction(actionString, ongoing, tpf);
+    }
+
+    /**
+     * Callback invoked when the active InputMode changes.
+     *
+     * @param oldMode the old mode, or null if none
+     * @param newMode the new mode, or null if none
+     */
+    @Override
+    public void onInputModeChange(InputMode oldMode, InputMode newMode) {
+        if (newMode != null) {
+            Camera guiCamera = guiViewPort.getCamera();
+            int viewPortWidth = guiCamera.getWidth();
+            int viewPortHeight = guiCamera.getHeight();
+            updateHelp(newMode, viewPortWidth, viewPortHeight, helpVersion);
+        }
     }
     // *************************************************************************
     // private methods
