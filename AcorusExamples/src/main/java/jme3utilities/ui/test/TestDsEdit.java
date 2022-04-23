@@ -34,6 +34,7 @@ import com.jme3.input.KeyInput;
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeVersion;
+import com.jme3.texture.image.ColorSpace;
 import java.awt.DisplayMode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -237,6 +238,17 @@ public class TestDsEdit extends AcorusDemo {
          * The action was not handled here: forward it to the superclass.
          */
         super.onAction(actionString, ongoing, tpf);
+    }
+
+    /**
+     * Update colors after the renderer's ColorSpace changes.
+     *
+     * @param newSpace the new ColorSpace (not null)
+     */
+    @Override
+    public void onColorSpaceChange(ColorSpace newSpace) {
+        super.onColorSpaceChange(newSpace);
+        dseOverlay.onColorSpaceChange(newSpace);
     }
 
     /**
