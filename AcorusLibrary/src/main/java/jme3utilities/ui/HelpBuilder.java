@@ -73,24 +73,25 @@ public class HelpBuilder {
     /**
      * gamma-encoded color for the background
      */
-    final private ColorRGBA backgroundColor = new ColorRGBA(0f, 0f, 0f, 1f);
+    final private ColorRGBA backgroundColor = ColorRGBA.Black.clone();
     /**
      * gamma-encoded foreground color for non-highlighted text
      */
-    final private ColorRGBA foregroundColor = new ColorRGBA(1f, 1f, 1f, 1f);
+    final private ColorRGBA foregroundColor = ColorRGBA.White.clone();
     /**
      * gamma-encoded foreground color for highlighted text
      */
-    final private ColorRGBA highlightForegroundColor
-            = new ColorRGBA(1f, 1f, 0f, 1f);
+    final private ColorRGBA highlightForegroundColor = ColorRGBA.Yellow.clone();
     /**
-     * horizontal space between hotkey descriptions (in pixels)
-     */
-    private float extraSpace = 20f;
-    /**
-     * padding added to all 4 sides of the background (in pixels)
+     * padding added to all 4 sides of the background (in framebuffer pixels,
+     * &ge;0)
      */
     private float padding = 5f;
+    /**
+     * horizontal space between hotkey descriptions (in framebuffer pixels,
+     * &gt;0)
+     */
+    private float separation = 20f;
     /**
      * Z offset of background geometries relative to their nodes
      */
@@ -107,8 +108,8 @@ public class HelpBuilder {
      * in detail.
      *
      * @param inputMode the InputMode to describe (not null, unaffected)
-     * @param bounds (in pixels, relative to the resulting node, not null,
-     * unaffected)
+     * @param bounds (in framebuffer pixels, relative to the resulting node, not
+     * null, unaffected)
      * @param font the font to use (not null, unaffected)
      * @param colorSpace the ColorSpace to use (not null)
      * @return a new orphan Node, suitable for attachment to the GUI node
@@ -151,7 +152,7 @@ public class HelpBuilder {
             textSpatial.setLocalTranslation(x, y, zText);
             maxX = Math.max(maxX, x + textWidth);
             minY = Math.min(minY, y - textSpatial.getHeight());
-            x += textWidth + extraSpace;
+            x += textWidth + separation;
 
             if (actionName.equals(AcorusDemo.asToggleHelp)) {
                 textSpatial.setColor(highlightColor); // alias created
@@ -172,8 +173,8 @@ public class HelpBuilder {
      * specified InputMode.
      *
      * @param inputMode the InputMode to describe (not null, unaffected)
-     * @param bounds (in pixels, relative to the resulting node, not null,
-     * unaffected)
+     * @param bounds (in framebuffer pixels, relative to the resulting node, not
+     * null, unaffected)
      * @param font the font to use (not null, unaffected)
      * @param colorSpace the ColorSpace to use (not null)
      * @return a new orphan Node, suitable for attachment to the GUI node
