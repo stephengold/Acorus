@@ -64,6 +64,18 @@ public class TestAcorusDemo extends AcorusDemo {
     // constants and loggers
 
     /**
+     * index of the status line that indicates the animation clip
+     */
+    final private static int clipStatusLine = 0;
+    /**
+     * index of the status line that indicates when animation is paused
+     */
+    final private static int pausedStatusLine = 1;
+    /**
+     * number of status line in the overlay
+     */
+    final private static int numStatusLines = 2;
+    /**
      * message logger for this class
      */
     final public static Logger logger
@@ -220,9 +232,9 @@ public class TestAcorusDemo extends AcorusDemo {
         /*
          * Update the status overlay.
          */
-        statusOverlay.setText(0, clipName, ColorRGBA.White);
+        statusOverlay.setText(clipStatusLine, clipName);
         String pausedString = isPaused() ? "paused" : "";
-        statusOverlay.setText(1, pausedString, ColorRGBA.White);
+        statusOverlay.setText(pausedStatusLine, pausedString);
     }
     // *************************************************************************
     // private methods
@@ -289,8 +301,7 @@ public class TestAcorusDemo extends AcorusDemo {
      */
     private void addStatusOverlay() {
         float width = 75f; // in pixels
-        int numLines = 2;
-        statusOverlay = new Overlay("status", width, numLines);
+        statusOverlay = new Overlay("status", width, numStatusLines);
 
         boolean success = stateManager.attach(statusOverlay);
         assert success;
