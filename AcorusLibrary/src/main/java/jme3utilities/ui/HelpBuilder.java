@@ -225,6 +225,21 @@ public class HelpBuilder {
     }
 
     /**
+     * Copy the color of the background.
+     *
+     * @param storeResult storage for the result (modified if not null)
+     * @return the gamma-encoded color (either {@code storeResult} or a new
+     * instance)
+     */
+    public ColorRGBA copyBackgroundColor(ColorRGBA storeResult) {
+        if (storeResult == null) {
+            return backgroundColor.clone();
+        } else {
+            return storeResult.set(backgroundColor);
+        }
+    }
+
+    /**
      * Compactly describe the specified Combo using compressed local hotkey
      * names. Compare with {@link jme3utilities.ui.Combo#toStringLocal()}.
      *
@@ -256,6 +271,27 @@ public class HelpBuilder {
     }
 
     /**
+     * Return the amount of padding between the content bounds and the edges of
+     * the background.
+     *
+     * @return the padding (in framebuffer pixels, &ge;0)
+     */
+    public float padding() {
+        assert padding >= 0f : padding;
+        return padding;
+    }
+
+    /**
+     * Return the amount of horizontal space between hotkey descriptions.
+     *
+     * @return the separation (in framebuffer pixels, &gt;0)
+     */
+    public float separation() {
+        assert separation > 0f : separation;
+        return separation;
+    }
+
+    /**
      * Alter the color for backgrounds.
      *
      * @param newColor the desired color (not null, unaffected, gamma-encoded,
@@ -264,6 +300,29 @@ public class HelpBuilder {
     public void setBackgroundColor(ColorRGBA newColor) {
         Validate.nonNull(newColor, "new color");
         backgroundColor.set(newColor);
+    }
+
+    /**
+     * Alter the amount of padding between the content bounds and the edges of
+     * the background.
+     *
+     * @param newPadding the desired padding (in framebuffer pixels, &ge;0,
+     * default=5)
+     */
+    public void setPadding(float newPadding) {
+        Validate.nonNegative(newPadding, "new padding");
+        this.padding = newPadding;
+    }
+
+    /**
+     * Alter the amount of horizontal space between hotkey descriptions.
+     *
+     * @param newSeparation the desired separation (in framebuffer pixels,
+     * &gt;0, default=20)
+     */
+    public void setSeparation(float newSeparation) {
+        Validate.positive(newSeparation, "new separation");
+        this.separation = newSeparation;
     }
     // *************************************************************************
     // private methods
