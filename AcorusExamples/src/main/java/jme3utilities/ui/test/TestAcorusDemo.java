@@ -31,7 +31,6 @@ package jme3utilities.ui.test;
 
 import com.jme3.anim.AnimComposer;
 import com.jme3.anim.util.AnimMigrationUtils;
-import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
@@ -53,6 +52,7 @@ import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.InputMode;
+import jme3utilities.ui.Overlay;
 
 /**
  * Demonstrate some features of the AcorusDemo class.
@@ -95,9 +95,9 @@ public class TestAcorusDemo extends AcorusDemo {
      */
     private AnimComposer composer;
     /**
-     * status line displayed in the upper-left corner of the GUI node
+     * status overlay, displayed in the upper-left corner of the GUI node
      */
-    private BitmapText statusLine;
+    private Overlay statusOverlay;
     /**
      * name of the clip that's playing
      */
@@ -145,13 +145,9 @@ public class TestAcorusDemo extends AcorusDemo {
         addFloor();
         addJaime();
         addLighting();
+        addStatusOverlay();
         configureCamera();
         getHelpBuilder().setBackgroundColor(ColorRGBA.Blue);
-        /*
-         * Add the status text to the GUI.
-         */
-        statusLine = new BitmapText(guiFont);
-        guiNode.attachChild(statusLine);
 
         super.acorusInit();
     }
@@ -210,7 +206,7 @@ public class TestAcorusDemo extends AcorusDemo {
     @Override
     public void onViewPortResize(int newWidth, int newHeight) {
         super.onViewPortResize(newWidth, newHeight);
-        statusLine.setLocalTranslation(0f, newHeight, 0f);
+        statusOverlay.onViewPortResize(newWidth, newHeight);
     }
 
     /**
@@ -221,7 +217,12 @@ public class TestAcorusDemo extends AcorusDemo {
     @Override
     public void simpleUpdate(float tpf) {
         super.simpleUpdate(tpf);
-        updateStatusLine();
+        /*
+         * Update the status overlay.
+         */
+        statusOverlay.setText(0, clipName, ColorRGBA.White);
+        String pausedString = isPaused() ? "paused" : "";
+        statusOverlay.setText(1, pausedString, ColorRGBA.White);
     }
     // *************************************************************************
     // private methods
@@ -284,6 +285,20 @@ public class TestAcorusDemo extends AcorusDemo {
     }
 
     /**
+     * Add a status overlay to the GUI scene.
+     */
+    private void addStatusOverlay() {
+        float width = 75f; // in pixels
+        int numLines = 2;
+        statusOverlay = new Overlay("status", width, numLines);
+
+        boolean success = stateManager.attach(statusOverlay);
+        assert success;
+
+        statusOverlay.setEnabled(true);
+    }
+
+    /**
      * Configure the camera during startup.
      */
     private void configureCamera() {
@@ -292,16 +307,5 @@ public class TestAcorusDemo extends AcorusDemo {
 
         cam.setLocation(new Vector3f(-3.6f, 2.1f, 2.3f));
         cam.setRotation(new Quaternion(0.0533f, 0.829563f, -0.081f, 0.549922f));
-    }
-
-    /**
-     * Update the status line in the GUI.
-     */
-    private void updateStatusLine() {
-        String message = clipName;
-        if (isPaused()) {
-            message += "  PAUSED";
-        }
-        statusLine.setText(message);
     }
 }
