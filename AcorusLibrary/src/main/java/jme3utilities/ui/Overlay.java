@@ -42,7 +42,6 @@ import com.jme3.renderer.Renderer;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
-import com.jme3.system.JmeContext;
 import com.jme3.texture.image.ColorSpace;
 import java.util.logging.Logger;
 import jme3utilities.InitialState;
@@ -238,9 +237,7 @@ public class Overlay extends SimpleAppState {
         Validate.positive(newViewPortWidth, "new viewport width");
         Validate.positive(newViewPortHeight, "new viewport height");
 
-        float topY = newViewPortHeight - yMargin;
-        Vector3f location = new Vector3f(xMargin, topY, backgroundZ);
-        setLocation(location);
+        updateLocation(newViewPortWidth, newViewPortHeight);
     }
 
     /**
@@ -279,11 +276,7 @@ public class Overlay extends SimpleAppState {
      */
     public void setBackgroundZ(float newZ) {
         this.backgroundZ = newZ;
-
-        Camera guiCamera = guiViewPort.getCamera();
-        int viewPortWidth = guiCamera.getWidth();
-        int viewPortHeight = guiCamera.getHeight();
-        onViewPortResize(viewPortWidth, viewPortHeight);
+        updateLocation();
     }
 
     /**
@@ -317,7 +310,7 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
-     * Relocate this overlay.
+     * Move this Overlay to the specified location.
      *
      * @param newLocation the desired framebuffer coordinates for the upper-left
      * corner of the background (not null, unaffected)
@@ -397,13 +390,7 @@ public class Overlay extends SimpleAppState {
 
         if (newMargin != xMargin) {
             this.xMargin = newMargin;
-
-            JmeContext context = simpleApplication.getContext();
-            float viewPortHeight = DsUtils.framebufferHeight(context);
-            float topY = viewPortHeight - yMargin;
-
-            Vector3f location = new Vector3f(xMargin, topY, backgroundZ);
-            setLocation(location);
+            updateLocation();
         }
     }
 
@@ -419,13 +406,7 @@ public class Overlay extends SimpleAppState {
 
         if (newMargin != yMargin) {
             this.yMargin = newMargin;
-
-            JmeContext context = simpleApplication.getContext();
-            float viewPortHeight = DsUtils.framebufferHeight(context);
-            float topY = viewPortHeight - yMargin;
-
-            Vector3f location = new Vector3f(xMargin, topY, backgroundZ);
-            setLocation(location);
+            updateLocation();
         }
     }
 
@@ -438,7 +419,7 @@ public class Overlay extends SimpleAppState {
         assert width > 0f : width;
         return width;
     }
-    
+
     /**
      * Return the horizontal margin between the background and the edges of the
      * viewport.
@@ -449,7 +430,7 @@ public class Overlay extends SimpleAppState {
         assert xMargin >= 0f : xMargin;
         return xMargin;
     }
-    
+
     /**
      * Return the vertical margin between the background and the edges of the
      * viewport.
@@ -471,12 +452,7 @@ public class Overlay extends SimpleAppState {
         assert !isEnabled();
 
         super.setEnabled(true);
-
-        Camera guiCamera = guiViewPort.getCamera();
-        int viewPortWidth = guiCamera.getWidth();
-        int viewPortHeight = guiCamera.getHeight();
-        onViewPortResize(viewPortWidth, viewPortHeight);
-
+        updateLocation();
         guiNode.attachChild(node);
     }
 
@@ -624,5 +600,26 @@ public class Overlay extends SimpleAppState {
             float y = -(padding + lineSpacing * lineIndex);
             content.setLocalTranslation(padding, y, contentZOffset);
         }
+    }
+
+    /**
+     * Update the location of the Overlay after a change to backgroundZ or
+     * margin.
+     */
+    private void updateLocation() {
+        Camera guiCamera = guiViewPort.getCamera();
+        int viewPortWidth = guiCamera.getWidth();
+        int viewPortHeight = guiCamera.getHeight();
+        updateLocation(viewPortWidth, viewPortHeight);
+    }
+
+    /**
+     * Update the location of the Overlay after a change to backgroundZ, margin,
+     * or viewport dimensions.
+     */
+    private void updateLocation(int viewPortWidth, int viewPortHeight) {
+        float topY = viewPortHeight - yMargin;
+        Vector3f location = new Vector3f(xMargin, topY, backgroundZ);
+        setLocation(location);
     }
 }
