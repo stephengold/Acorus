@@ -337,7 +337,7 @@ public class Overlay extends SimpleAppState {
     /**
      * Alter the location policy.
      *
-     * @param newPolicy the desired policy (not null, unaffected)
+     * @param newPolicy the desired policy (not null, default=UpperLeft)
      */
     public void setLocationPolicy(LocationPolicy newPolicy) {
         Validate.nonNull(newPolicy, "new policy");
@@ -469,13 +469,12 @@ public class Overlay extends SimpleAppState {
     // new protected methods
 
     /**
-     * Enable this overlay, assuming it is initialized and disabled.
+     * Enable this overlay, assuming it is initialized.
      */
     protected void activate() {
         assert isInitialized();
-        assert !isEnabled();
-
         super.setEnabled(true);
+
         updateLocation();
         guiNode.attachChild(node);
     }
@@ -551,10 +550,14 @@ public class Overlay extends SimpleAppState {
      */
     @Override
     final public void setEnabled(boolean newSetting) {
-        if (newSetting && !isEnabled()) {
-            activate();
-        } else if (!newSetting && isEnabled()) {
-            deactivate();
+        if (isInitialized()) {
+            if (newSetting && !isEnabled()) {
+                activate();
+            } else if (!newSetting && isEnabled()) {
+                deactivate();
+            }
+        } else {
+            super.setEnabled(newSetting);
         }
     }
     // *************************************************************************
