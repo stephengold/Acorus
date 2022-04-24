@@ -42,6 +42,7 @@ import com.jme3.renderer.Renderer;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
+import com.jme3.system.JmeContext;
 import com.jme3.texture.image.ColorSpace;
 import java.util.logging.Logger;
 import jme3utilities.InitialState;
@@ -102,6 +103,16 @@ public class Overlay extends SimpleAppState {
      */
     private float width;
     /**
+     * horizontal margin between the background and the edges of the viewport
+     * (in framebuffer pixels, &ge;0)
+     */
+    private float xMargin = 10f;
+    /**
+     * vertical margin between the background and the edges of the viewport (in
+     * framebuffer pixels, &ge;0)
+     */
+    private float yMargin = 10f;
+    /**
      * rounded-rectangle geometry to ensure content visibility
      */
     final private Geometry background;
@@ -140,7 +151,7 @@ public class Overlay extends SimpleAppState {
         this.numLines = numLines;
         this.width = width;
 
-        String geometryName = "overlay background for " + getId();
+        String geometryName = "overlay background for " + id;
         Mesh backgroundMesh = createBackgroundMesh();
         this.background = new Geometry(geometryName, backgroundMesh);
         node.attachChild(background);
@@ -214,22 +225,21 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
-     * Relocate this overlay for the specified viewport dimensions. The policy
-     * is to locate the overlay 10px inward from the upper-left corner of the
+     * Relocate this overlay for the specified viewport dimensions. The default
+     * policy is to locate the overlay near the upper-left corner of the
      * viewport. TODO alternative policies
      *
      * @param newViewPortWidth the new viewport width (in framebuffer pixels,
      * &gt;0)
-     * @param newViewPortHeight the new viewport height (in framebuffer pixels;
+     * @param newViewPortHeight the new viewport height (in framebuffer pixels,
      * &gt;0)
      */
     public void onViewPortResize(int newViewPortWidth, int newViewPortHeight) {
         Validate.positive(newViewPortWidth, "new viewport width");
         Validate.positive(newViewPortHeight, "new viewport height");
 
-        float margin = 10f; // in framebuffer pixels
-        Vector3f location
-                = new Vector3f(margin, newViewPortHeight - margin, backgroundZ);
+        float topY = newViewPortHeight - yMargin;
+        Vector3f location = new Vector3f(xMargin, topY, backgroundZ);
         setLocation(location);
     }
 
@@ -363,7 +373,7 @@ public class Overlay extends SimpleAppState {
     /**
      * Alter the width of the background.
      *
-     * @param newWidth the width (in framebuffer pixels, &gt;0)
+     * @param newWidth the desired width (in framebuffer pixels, &gt;0)
      */
     public void setWidth(float newWidth) {
         Validate.positive(newWidth, "new width");
@@ -376,6 +386,50 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
+     * Alter the horizontal margin between the background and the edges of the
+     * viewport.
+     *
+     * @param newMargin the desired margin (in framebuffer pixels, &ge;0,
+     * default=10)
+     */
+    public void setXMargin(float newMargin) {
+        Validate.nonNegative(newMargin, "new margin");
+
+        if (newMargin != xMargin) {
+            this.xMargin = newMargin;
+
+            JmeContext context = simpleApplication.getContext();
+            float viewPortHeight = DsUtils.framebufferHeight(context);
+            float topY = viewPortHeight - yMargin;
+
+            Vector3f location = new Vector3f(xMargin, topY, backgroundZ);
+            setLocation(location);
+        }
+    }
+
+    /**
+     * Alter the vertical margin between the background and the edges of the
+     * viewport.
+     *
+     * @param newMargin the desired margin (in framebuffer pixels, &ge;0,
+     * default=10)
+     */
+    public void setYMargin(float newMargin) {
+        Validate.nonNegative(newMargin, "new margin");
+
+        if (newMargin != yMargin) {
+            this.yMargin = newMargin;
+
+            JmeContext context = simpleApplication.getContext();
+            float viewPortHeight = DsUtils.framebufferHeight(context);
+            float topY = viewPortHeight - yMargin;
+
+            Vector3f location = new Vector3f(xMargin, topY, backgroundZ);
+            setLocation(location);
+        }
+    }
+
+    /**
      * Return width of the background.
      *
      * @return the width (including padding, in framebuffer pixels, &gt;0)
@@ -383,6 +437,28 @@ public class Overlay extends SimpleAppState {
     public float width() {
         assert width > 0f : width;
         return width;
+    }
+    
+    /**
+     * Return the horizontal margin between the background and the edges of the
+     * viewport.
+     *
+     * @return the margin (in framebuffer pixels, &ge;0)
+     */
+    public float xMargin() {
+        assert xMargin >= 0f : xMargin;
+        return xMargin;
+    }
+    
+    /**
+     * Return the vertical margin between the background and the edges of the
+     * viewport.
+     *
+     * @return the margin (in framebuffer pixels, &ge;0)
+     */
+    public float yMargin() {
+        assert yMargin >= 0f : yMargin;
+        return yMargin;
     }
     // *************************************************************************
     // new protected methods
