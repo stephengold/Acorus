@@ -105,12 +105,12 @@ public class Overlay extends SimpleAppState {
      * horizontal margin between the background and the edges of the viewport
      * (in framebuffer pixels, &ge;0)
      */
-    private float xMargin = 10f;
+    private float xMargin = 5f;
     /**
      * vertical margin between the background and the edges of the viewport (in
      * framebuffer pixels, &ge;0)
      */
-    private float yMargin = 10f;
+    private float yMargin = 5f;
     /**
      * rounded-rectangle geometry to ensure content visibility
      */
@@ -383,7 +383,7 @@ public class Overlay extends SimpleAppState {
      * viewport.
      *
      * @param newMargin the desired margin (in framebuffer pixels, &ge;0,
-     * default=10)
+     * default=5)
      */
     public void setXMargin(float newMargin) {
         Validate.nonNegative(newMargin, "new margin");
@@ -399,7 +399,7 @@ public class Overlay extends SimpleAppState {
      * viewport.
      *
      * @param newMargin the desired margin (in framebuffer pixels, &ge;0,
-     * default=10)
+     * default=5)
      */
     public void setYMargin(float newMargin) {
         Validate.nonNegative(newMargin, "new margin");
