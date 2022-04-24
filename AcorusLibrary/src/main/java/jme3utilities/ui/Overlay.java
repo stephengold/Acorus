@@ -116,10 +116,6 @@ public class Overlay extends SimpleAppState {
      */
     final private Geometry background;
     /**
-     * number of content lines: set by constructor
-     */
-    final private int numLines;
-    /**
      * location policy (not null)
      */
     private LocationPolicy locationPolicy = LocationPolicy.UpperLeft;
@@ -142,7 +138,7 @@ public class Overlay extends SimpleAppState {
      * application)
      * @param width the desired width of the background in framebuffer pixels
      * (&gt;0)
-     * @param numLines the number of content lines (&gt;0)
+     * @param numLines the desired number of content lines (&gt;0)
      */
     public Overlay(String id, float width, int numLines) {
         super(InitialState.Disabled);
@@ -160,7 +156,6 @@ public class Overlay extends SimpleAppState {
             contentColors[lineIndex] = ColorRGBA.White.clone();
             contentStrings[lineIndex] = "";
         }
-        this.numLines = numLines; // TODO redundant
         this.width = width;
 
         String geometryName = "overlay background for " + id;
@@ -213,6 +208,17 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
+     * Determine the number of the content lines.
+     *
+     * @return the count (&gt;0)
+     */
+    public int countLines() {
+        int result = contentLines.length;
+        assert result > 0 : result;
+        return result;
+    }
+
+    /**
      * Return the location policy.
      *
      * @return the enum value (not null)
@@ -220,6 +226,19 @@ public class Overlay extends SimpleAppState {
     public LocationPolicy getLocationPolicy() {
         assert locationPolicy != null;
         return locationPolicy;
+    }
+
+    /**
+     * Return height of the background.
+     *
+     * @return the height (including padding, in framebuffer pixels, &gt;0)
+     */
+    public float height() {
+        int numLines = countLines();
+        float result = 2 * padding + lineSpacing * numLines;
+
+        assert result > 0f : result;
+        return result;
     }
 
     /**
@@ -301,6 +320,25 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
+     * Alter the color of the indexed content line.
+     *
+     * @param lineIndex which line to modify (&ge;0, &lt;countLines)
+     * @param color the desired foreground color (not null, unaffected,
+     * gamma-encoded)
+     */
+    public void setColor(int lineIndex, ColorRGBA color) {
+        int numLines = countLines();
+        Validate.inRange(lineIndex, "line index", 0, numLines);
+        Validate.nonNull(color, "color");
+
+        contentColors[lineIndex].set(color);
+        if (isInitialized()) {
+            BitmapText line = contentLines[lineIndex];
+            line.setColor(color.clone());
+        }
+    }
+
+    /**
      * Alter the Z offset of content relative to the background.
      *
      * @param newOffset the desired offset (&gt;0, default=0.1)
@@ -375,6 +413,24 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
+     * Alter the text of the indexed content line.
+     *
+     * @param lineIndex which line to modify (&ge;0, &lt;countLines)
+     * @param text the desired text (not null)
+     */
+    public void setText(int lineIndex, String text) {
+        int numLines = countLines();
+        Validate.inRange(lineIndex, "line index", 0, numLines);
+        Validate.nonNull(text, "text");
+
+        contentStrings[lineIndex] = text;
+        if (isInitialized()) {
+            BitmapText line = contentLines[lineIndex];
+            line.setText(text);
+        }
+    }
+
+    /**
      * Alter the indexed content line.
      *
      * @param lineIndex which line to modify (&ge;0, &lt;numLines)
@@ -383,6 +439,7 @@ public class Overlay extends SimpleAppState {
      * gamma-encoded)
      */
     public void setText(int lineIndex, String text, ColorRGBA color) {
+        int numLines = countLines();
         Validate.inRange(lineIndex, "line index", 0, numLines);
         Validate.nonNull(text, "text");
         Validate.nonNull(color, "color");
@@ -538,6 +595,7 @@ public class Overlay extends SimpleAppState {
          * content lines
          */
         BitmapFont font = assetManager.loadFont("Interface/Fonts/Default.fnt");
+        int numLines = countLines();
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
             BitmapText bitmap = new BitmapText(font);
             contentLines[lineIndex] = bitmap;
@@ -581,7 +639,7 @@ public class Overlay extends SimpleAppState {
      * @return a new Mesh
      */
     private Mesh createBackgroundMesh() {
-        float height = 2 * padding + lineSpacing * numLines;
+        float height = height();
         float x1 = 0f;
         float x2 = width;
         float y1 = -height;
@@ -623,6 +681,7 @@ public class Overlay extends SimpleAppState {
      * @param colorSpace the desired ColorSpace (not null)
      */
     private void updateBitmapColors(ColorSpace colorSpace) {
+        int numLines = countLines();
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
             updateBitmapColor(lineIndex, colorSpace);
         }
@@ -633,6 +692,7 @@ public class Overlay extends SimpleAppState {
      * padding, lineSpacing, or contentZOffset.
      */
     private void updateContentOffsets() {
+        int numLines = countLines();
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
             BitmapText content = contentLines[lineIndex];
             float y = -(padding + lineSpacing * lineIndex);
@@ -663,7 +723,7 @@ public class Overlay extends SimpleAppState {
         assert viewPortHeight > 0f : viewPortHeight;
         assert locationPolicy != null;
 
-        float height = 2 * padding + lineSpacing * numLines;
+        float height = height();
         float leftX;
         float topY;
         switch (locationPolicy) {
