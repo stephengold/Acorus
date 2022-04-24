@@ -128,6 +128,10 @@ public class Overlay extends SimpleAppState {
      * upper-left corner of the background.
      */
     final private Node node;
+    /**
+     * text of each content line
+     */
+    final private String[] contentStrings;
     // *************************************************************************
     // constructors
 
@@ -151,7 +155,12 @@ public class Overlay extends SimpleAppState {
 
         this.contentLines = new BitmapText[numLines];
         this.contentColors = new ColorRGBA[numLines];
-        this.numLines = numLines;
+        this.contentStrings = new String[numLines];
+        for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
+            contentColors[lineIndex] = ColorRGBA.White.clone();
+            contentStrings[lineIndex] = "";
+        }
+        this.numLines = numLines; // TODO redundant
         this.width = width;
 
         String geometryName = "overlay background for " + id;
@@ -378,13 +387,13 @@ public class Overlay extends SimpleAppState {
         Validate.nonNull(text, "text");
         Validate.nonNull(color, "color");
 
-        BitmapText line = contentLines[lineIndex];
-        if (!color.equals(contentColors[lineIndex])) {
+        contentColors[lineIndex].set(color);
+        contentStrings[lineIndex] = text;
+        if (isInitialized()) {
+            BitmapText line = contentLines[lineIndex];
             line.setColor(color.clone());
-            contentColors[lineIndex].set(color);
+            line.setText(text);
         }
-
-        line.setText(text);
     }
 
     /**
@@ -526,14 +535,16 @@ public class Overlay extends SimpleAppState {
                 ? ColorSpace.sRGB : ColorSpace.Linear;
         updateBackgroundMaterialColor(colorSpace);
         /*
-         * content lines and their colors
+         * content lines
          */
         BitmapFont font = assetManager.loadFont("Interface/Fonts/Default.fnt");
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
             BitmapText bitmap = new BitmapText(font);
-            contentColors[lineIndex] = ColorRGBA.White.clone();
             contentLines[lineIndex] = bitmap;
             node.attachChild(bitmap);
+
+            String text = contentStrings[lineIndex];
+            bitmap.setText(text);
         }
         updateBitmapColors(colorSpace);
         updateContentOffsets();
