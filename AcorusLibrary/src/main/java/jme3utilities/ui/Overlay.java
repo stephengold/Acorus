@@ -103,12 +103,12 @@ public class Overlay extends SimpleAppState {
     private float width;
     /**
      * horizontal margin between the background and the edges of the viewport
-     * (in framebuffer pixels, &ge;0)
+     * (in framebuffer pixels, &ge;0) Ignored if locationPolicy=Center.
      */
     private float xMargin = 5f;
     /**
      * vertical margin between the background and the edges of the viewport (in
-     * framebuffer pixels, &ge;0)
+     * framebuffer pixels, &ge;0) Ignored if locationPolicy=Center.
      */
     private float yMargin = 5f;
     /**
@@ -119,6 +119,10 @@ public class Overlay extends SimpleAppState {
      * number of content lines: set by constructor
      */
     final private int numLines;
+    /**
+     * location policy (not null)
+     */
+    private LocationPolicy locationPolicy = LocationPolicy.UpperLeft;
     /**
      * node to attach (to the application's GUI node) It's corresponds to the
      * upper-left corner of the background.
@@ -142,7 +146,7 @@ public class Overlay extends SimpleAppState {
         Validate.positive(width, "width");
         Validate.positive(numLines, "number of lines");
 
-        this.setId(id);
+        super.setId(id);
         this.node = new Node("overlay node for " + id);
 
         this.contentLines = new BitmapText[numLines];
@@ -200,6 +204,16 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
+     * Return the location policy.
+     *
+     * @return the enum value (not null)
+     */
+    public LocationPolicy getLocationPolicy() {
+        assert locationPolicy != null;
+        return locationPolicy;
+    }
+
+    /**
      * Return the vertical interval between successive content lines.
      *
      * @return the Y interval (in framebuffer pixels, &gt;0)
@@ -224,9 +238,7 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
-     * Relocate this overlay for the specified viewport dimensions. The default
-     * policy is to locate the overlay near the upper-left corner of the
-     * viewport. TODO alternative policies
+     * Relocate this overlay for the specified viewport dimensions.
      *
      * @param newViewPortWidth the new viewport width (in framebuffer pixels,
      * &gt;0)
@@ -310,7 +322,7 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
-     * Move this Overlay to the specified location.
+     * Move to the specified location.
      *
      * @param newLocation the desired framebuffer coordinates for the upper-left
      * corner of the background (not null, unaffected)
@@ -320,6 +332,18 @@ public class Overlay extends SimpleAppState {
 
         node.setLocalTranslation(newLocation);
         this.backgroundZ = newLocation.z;
+    }
+
+    /**
+     * Alter the location policy.
+     *
+     * @param newPolicy the desired policy (not null, unaffected)
+     */
+    public void setLocationPolicy(LocationPolicy newPolicy) {
+        Validate.nonNull(newPolicy, "new policy");
+
+        this.locationPolicy = newPolicy;
+        updateLocation();
     }
 
     /**
@@ -380,7 +404,7 @@ public class Overlay extends SimpleAppState {
 
     /**
      * Alter the horizontal margin between the background and the edges of the
-     * viewport.
+     * viewport. (Ignored if the location policy is Center.)
      *
      * @param newMargin the desired margin (in framebuffer pixels, &ge;0,
      * default=5)
@@ -396,7 +420,7 @@ public class Overlay extends SimpleAppState {
 
     /**
      * Alter the vertical margin between the background and the edges of the
-     * viewport.
+     * viewport. (Ignored if the location policy is Center.)
      *
      * @param newMargin the desired margin (in framebuffer pixels, &ge;0,
      * default=5)
@@ -603,23 +627,50 @@ public class Overlay extends SimpleAppState {
     }
 
     /**
-     * Update the location of the Overlay after a change to backgroundZ or
-     * margin.
+     * Update the location of the Overlay after a change.
      */
     private void updateLocation() {
-        Camera guiCamera = guiViewPort.getCamera();
-        int viewPortWidth = guiCamera.getWidth();
-        int viewPortHeight = guiCamera.getHeight();
-        updateLocation(viewPortWidth, viewPortHeight);
+        if (isInitialized()) {
+            Camera guiCamera = guiViewPort.getCamera();
+            int viewPortWidth = guiCamera.getWidth();
+            int viewPortHeight = guiCamera.getHeight();
+            updateLocation(viewPortWidth, viewPortHeight);
+        }
     }
 
     /**
-     * Update the location of the Overlay after a change to backgroundZ, margin,
-     * or viewport dimensions.
+     * Update the location of the Overlay after a change.
+     *
+     * @param viewPortWidth the viewport width (in framebuffer pixels, &gt;0)
+     * @param viewPortHeight the viewport height (in framebuffer pixels, &gt;0)
      */
     private void updateLocation(int viewPortWidth, int viewPortHeight) {
-        float topY = viewPortHeight - yMargin;
-        Vector3f location = new Vector3f(xMargin, topY, backgroundZ);
+        assert viewPortWidth > 0f : viewPortWidth;
+        assert viewPortHeight > 0f : viewPortHeight;
+        assert locationPolicy != null;
+
+        float height = 2 * padding + lineSpacing * numLines;
+        float leftX;
+        float topY;
+        switch (locationPolicy) {
+            case Center:
+                topY = (viewPortHeight + height) / 2;
+                leftX = (viewPortWidth - width) / 2;
+                break;
+            case LowerLeft:
+                leftX = xMargin;
+                topY = height + yMargin;
+                break;
+            case UpperLeft:
+                leftX = xMargin;
+                topY = viewPortHeight - yMargin;
+                break;
+            default:
+                String message = "locationPolicy = " + locationPolicy;
+                throw new IllegalStateException(message);
+        }
+
+        Vector3f location = new Vector3f(leftX, topY, backgroundZ);
         setLocation(location);
     }
 }
