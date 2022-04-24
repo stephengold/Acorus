@@ -30,7 +30,6 @@
 package jme3utilities.ui.test;
 
 import com.jme3.app.StatsAppState;
-import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.system.AppSettings;
 import java.util.logging.Level;
@@ -39,6 +38,7 @@ import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.InputMode;
+import jme3utilities.ui.Overlay;
 
 /**
  * Test/demonstrate multiple input modes in a single application.
@@ -50,6 +50,18 @@ public class TestTwoModes extends AcorusDemo {
     // constants and loggers
 
     /**
+     * index of the status line that indicates the active input mode
+     */
+    final private static int modeStatusLine = 0;
+    /**
+     * index of the editable status line
+     */
+    final private static int editableStatusLine = 2;
+    /**
+     * number of status line in the overlay
+     */
+    final private static int numStatusLines = 3;
+    /**
      * message logger for this class
      */
     final public static Logger logger
@@ -59,13 +71,17 @@ public class TestTwoModes extends AcorusDemo {
      */
     final private static String applicationName
             = TestTwoModes.class.getSimpleName();
+    /**
+     * action string to switch to "edit" mode
+     */
+    final private static String asEditText = "edit text";
     // *************************************************************************
     // fields
 
     /**
-     * status displayed in the upper-left corner of the GUI node
+     * status overlay, displayed in the upper-left corner of the GUI node
      */
-    private BitmapText statusText;
+    private Overlay statusOverlay;
     // *************************************************************************
     // new methods exposed
 
@@ -82,6 +98,7 @@ public class TestTwoModes extends AcorusDemo {
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
+        settings.setResizable(true);
         settings.setSamples(4); // anti-aliasing
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
@@ -90,7 +107,7 @@ public class TestTwoModes extends AcorusDemo {
     }
 
     /**
-     * Switch from edit mode to default mode.
+     * Switch from "edit" mode to default mode.
      */
     static void switchToDefault() {
         InputMode dim = InputMode.findMode("default");
@@ -108,14 +125,9 @@ public class TestTwoModes extends AcorusDemo {
     @Override
     public void acorusInit() {
         DemoScene.setup(this);
+        addStatusOverlay();
         /*
-         * Instantiate the status text and attach it to the GUI node.
-         */
-        statusText = new BitmapText(guiFont);
-        statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
-        guiNode.attachChild(statusText);
-        /*
-         * Attach a (disabled) edit mode to the state manager.
+         * Attach a (disabled) "edit" mode to the state manager.
          */
         InputMode editMode = new EditMode();
         stateManager.attach(editMode);
@@ -134,7 +146,7 @@ public class TestTwoModes extends AcorusDemo {
     @Override
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
-        dim.bind("edit text", KeyInput.KEY_RETURN, KeyInput.KEY_TAB);
+        dim.bind(asEditText, KeyInput.KEY_RETURN, KeyInput.KEY_TAB);
         dim.bind(asToggleHelp, KeyInput.KEY_H);
     }
 
@@ -147,9 +159,9 @@ public class TestTwoModes extends AcorusDemo {
      */
     @Override
     public void onAction(String actionString, boolean ongoing, float tpf) {
-        if (ongoing && actionString.equals("edit text")) {
+        if (ongoing && actionString.equals(asEditText)) {
             /*
-             * Switch from default mode to edit mode.
+             * Switch from default mode to "edit" mode.
              */
             InputMode dim = InputMode.findMode("default");
             InputMode editMode = InputMode.findMode("edit");
@@ -168,14 +180,19 @@ public class TestTwoModes extends AcorusDemo {
      * @param oldMode the old mode, or null if none
      * @param newMode the new mode, or null if none
      */
+    @Override
     public void onInputModeChange(InputMode oldMode, InputMode newMode) {
         super.onInputModeChange(oldMode, newMode);
 
         if (oldMode != null) {
-            logger.log(Level.WARNING, "leaving mode {0}", oldMode.shortName());
+            logger.log(Level.WARNING, "leaving {0} mode", oldMode.shortName());
+            statusOverlay.setText(modeStatusLine, "");
         }
         if (newMode != null) {
-            logger.log(Level.WARNING, "entering mode {0}", newMode.shortName());
+            String text = newMode.shortName() + " mode";
+            statusOverlay.setText(modeStatusLine, text);
+
+            logger.log(Level.WARNING, "entering {0} mode", newMode.shortName());
         }
     }
 
@@ -188,17 +205,31 @@ public class TestTwoModes extends AcorusDemo {
     public void simpleUpdate(float tpf) {
         super.simpleUpdate(tpf);
         /*
-         * Update the displayed status.
+         * Update the status overlay.
          */
         EditMode editMode = (EditMode) InputMode.findMode("edit");
         String text = editMode.getText();
-
         if (editMode.isEnabled()) { // fake a blinking text cursor
             long now = System.nanoTime() % 1_000_000_000L;
             if (now > 500_000_000L) {
                 text += "_";
             }
         }
-        statusText.setText("Text: " + text);
+        statusOverlay.setText(editableStatusLine, "Text: " + text);
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Add a status overlay to the GUI scene.
+     */
+    private void addStatusOverlay() {
+        float width = 200f; // in pixels
+        statusOverlay = new Overlay("status", width, numStatusLines);
+
+        boolean success = stateManager.attach(statusOverlay);
+        assert success;
+
+        statusOverlay.setEnabled(true);
     }
 }
