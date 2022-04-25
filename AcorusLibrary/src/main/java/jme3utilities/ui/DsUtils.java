@@ -94,6 +94,9 @@ final public class DsUtils {
     final private static Method getX;
     final private static Method getY;
     final private static Method hasRemaining;
+    final private static Method setMethod;
+
+    final private static Object glfwLibraryName;
 
     static {
         boolean foundVersion2;
@@ -133,6 +136,8 @@ final public class DsUtils {
                 getRedBits = null;
                 getWindowPos = null;
                 hasRemaining = null;
+                setMethod = null;
+                glfwLibraryName = null;
 
                 Class<?> displayClass
                         = Class.forName("org.lwjgl.opengl.Display");
@@ -160,6 +165,12 @@ final public class DsUtils {
                 getWidth = null;
                 getX = null;
                 getY = null;
+
+                Class<?> configClass
+                        = Class.forName("org.lwjgl.system.Configuration");
+                Field field = configClass.getDeclaredField("GLFW_LIBRARY_NAME");
+                glfwLibraryName = field.get(null);
+                setMethod = configClass.getDeclaredMethod("set", Object.class);
 
                 Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
                 getFramebufferSize = glfwClass.getDeclaredMethod(
@@ -213,9 +224,12 @@ final public class DsUtils {
                 getX = null;
                 getY = null;
                 hasRemaining = null;
+                setMethod = null;
+                glfwLibraryName = null;
             }
-        } catch (ClassNotFoundException | NoSuchFieldException
-                | NoSuchMethodException | SecurityException exception) {
+        } catch (ClassNotFoundException | IllegalAccessException
+                | NoSuchFieldException | NoSuchMethodException
+                | SecurityException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -417,6 +431,24 @@ final public class DsUtils {
         }
 
         return result;
+    }
+
+    /**
+     * Select a GLFW library in LWJGL v3.
+     *
+     * @param name the name of the desired library (not null)
+     */
+    public static void setGlfwLibraryName(String name) {
+        if (hasLwjglVersion3) {
+            try {
+                // Configuration.GLFW_LIBRARY_NAME.set(name);
+                setMethod.invoke(glfwLibraryName, name);
+
+            } catch (IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException exception) {
+                throw new IllegalStateException(exception);
+            }
+        }
     }
 
     /**
