@@ -37,6 +37,7 @@ import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
+import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.InputMode;
 import jme3utilities.ui.Overlay;
 
@@ -91,6 +92,7 @@ public class TestTwoModes extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        DsUtils.selectGlfwLibrary();
         String title = applicationName + " " + MyString.join(arguments);
         TestTwoModes application = new TestTwoModes();
         Heart.parseAppArgs(application, arguments);
@@ -102,12 +104,16 @@ public class TestTwoModes extends AcorusDemo {
         settings.setSamples(4); // anti-aliasing
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
-
+        /*
+         * The AWT settings dialog interferes with LWJGL v3
+         * on macOS and Raspbian, so don't show it!
+         */
+        application.setShowSettings(false);
         application.start();
     }
 
     /**
-     * Switch from "edit" mode to default mode.
+     * Switch from "edit" mode to the default mode.
      */
     static void switchToDefault() {
         InputMode dim = InputMode.findMode("default");

@@ -36,6 +36,7 @@ import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.CameraOrbitAppState;
+import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.InputMode;
 
 /**
@@ -66,6 +67,7 @@ public class HelloCoas extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        DsUtils.selectGlfwLibrary();
         String title = applicationName + " " + MyString.join(arguments);
         HelloCoas application = new HelloCoas();
         Heart.parseAppArgs(application, arguments);
@@ -76,7 +78,11 @@ public class HelloCoas extends AcorusDemo {
         settings.setSamples(4); // anti-aliasing
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
-
+        /*
+         * The AWT settings dialog interferes with LWJGL v3
+         * on macOS and Raspbian, so don't show it!
+         */
+        application.setShowSettings(false);
         application.start();
     }
     // *************************************************************************

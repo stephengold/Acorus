@@ -40,6 +40,7 @@ import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.Combo;
+import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.HelpBuilder;
 import jme3utilities.ui.InputMode;
 
@@ -80,6 +81,7 @@ public class HelloCombo extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        DsUtils.selectGlfwLibrary();
         String title = applicationName + " " + MyString.join(arguments);
         HelloCombo application = new HelloCombo();
         Heart.parseAppArgs(application, arguments);
@@ -89,7 +91,11 @@ public class HelloCombo extends AcorusDemo {
         settings.setAudioRenderer(null);
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
-
+        /*
+         * The AWT settings dialog interferes with LWJGL v3
+         * on macOS and Raspbian, so don't show it!
+         */
+        application.setShowSettings(false);
         application.start();
     }
     // *************************************************************************

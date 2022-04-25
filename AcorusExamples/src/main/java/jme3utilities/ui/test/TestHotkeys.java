@@ -40,6 +40,7 @@ import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.ActionApplication;
+import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.Hotkey;
 import jme3utilities.ui.InputMode;
 
@@ -95,6 +96,7 @@ public class TestHotkeys extends ActionApplication {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        DsUtils.selectGlfwLibrary();
         String title = applicationName + " " + MyString.join(arguments);
         TestHotkeys application = new TestHotkeys();
         Heart.parseAppArgs(application, arguments);
@@ -105,7 +107,11 @@ public class TestHotkeys extends ActionApplication {
         settings.setUseJoysticks(true);
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
-
+        /*
+         * The AWT settings dialog interferes with LWJGL v3
+         * on macOS and Raspbian, so don't show it!
+         */
+        application.setShowSettings(false);
         application.start();
     }
     // *************************************************************************

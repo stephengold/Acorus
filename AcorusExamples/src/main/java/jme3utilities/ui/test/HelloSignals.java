@@ -41,6 +41,7 @@ import jme3utilities.Heart;
 import jme3utilities.MyAsset;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
+import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.InputMode;
 import jme3utilities.ui.Signals;
 
@@ -101,6 +102,7 @@ public class HelloSignals extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        DsUtils.selectGlfwLibrary();
         String title = applicationName + " " + MyString.join(arguments);
         HelloSignals application = new HelloSignals();
         Heart.parseAppArgs(application, arguments);
@@ -110,7 +112,11 @@ public class HelloSignals extends AcorusDemo {
         settings.setAudioRenderer(null);
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
-
+        /*
+         * The AWT settings dialog interferes with LWJGL v3
+         * on macOS and Raspbian, so don't show it!
+         */
+        application.setShowSettings(false);
         application.start();
     }
     // *************************************************************************

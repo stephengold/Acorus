@@ -100,6 +100,7 @@ public class TestDsEdit extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        DsUtils.selectGlfwLibrary();
         /*
          * Mute the chatty loggers in certain packages.
          */
@@ -119,10 +120,6 @@ public class TestDsEdit extends AcorusDemo {
 
                 case "--resetOnly":
                     resetOnly = true;
-                    break;
-
-                case "--showSettingsDialog":
-                    showDialog = ShowDialog.FirstTime;
                     break;
 
                 case "--verbose":
@@ -169,7 +166,9 @@ public class TestDsEdit extends AcorusDemo {
         stateManager.getState(StatsAppState.class).toggleStats();
 
         super.acorusInit();
-
+        /*
+         * Create a 3-D scene with something to look at:  a lit green cube.
+         */
         DemoScene.setup(this);
         /*
          * Print the available and current display modes to the console.

@@ -25,7 +25,7 @@
  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- OF THIS SOFTWARE, EVEN IF ADVISED OFHelpUtils THE POSSIBILITY OF SUCH DAMAGE.
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package jme3utilities.ui.test;
 
@@ -37,6 +37,7 @@ import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.ActionApplication;
+import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.HelpVersion;
 
 /**
@@ -76,6 +77,7 @@ public class HelloSandbox extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        DsUtils.selectGlfwLibrary();
         String title = applicationName + " " + MyString.join(arguments);
         HelloSandbox application = new HelloSandbox();
         Heart.parseAppArgs(application, arguments);
@@ -94,7 +96,11 @@ public class HelloSandbox extends AcorusDemo {
             ActionApplication.designateSandbox("./Written Assets");
         } catch (IOException exception) {
         }
-
+        /*
+         * The AWT settings dialog interferes with LWJGL v3
+         * on macOS and Raspbian, so don't show it!
+         */
+        application.setShowSettings(false);
         application.start();
     }
     // *************************************************************************
@@ -106,7 +112,7 @@ public class HelloSandbox extends AcorusDemo {
     @Override
     public void acorusInit() {
         super.acorusInit();
-        this.setHelpVersion(HelpVersion.Detailed);
+        setHelpVersion(HelpVersion.Detailed);
         /*
          * Create a 3-D scene with something to look at:  a lit green cube.
          */

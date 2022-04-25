@@ -35,10 +35,11 @@ import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
+import jme3utilities.ui.DsUtils;
 
 /**
  * An example of a very simple AcorusDemo: one without a FlyByCamera, a
- DebugKeysAppState, a ScreenshotAppState, or a StatsAppState.
+ * DebugKeysAppState, a ScreenshotAppState, or a StatsAppState.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -74,6 +75,7 @@ public class HelloAcorus extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        DsUtils.selectGlfwLibrary();
         String title = applicationName + " " + MyString.join(arguments);
         HelloAcorus application = new HelloAcorus();
         Heart.parseAppArgs(application, arguments);
@@ -84,7 +86,11 @@ public class HelloAcorus extends AcorusDemo {
         settings.setSamples(4); // anti-aliasing
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
-
+        /*
+         * The AWT settings dialog interferes with LWJGL v3
+         * on macOS and Raspbian, so don't show it!
+         */
+        application.setShowSettings(false);
         application.start();
     }
     // *************************************************************************
