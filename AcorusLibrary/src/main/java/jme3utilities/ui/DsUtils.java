@@ -31,7 +31,9 @@ package jme3utilities.ui;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.JmeContext;
+import com.jme3.system.JmeSystem;
 import com.jme3.system.NullContext;
+import com.jme3.system.Platform;
 import com.jme3.system.SystemListener;
 import com.jme3.texture.image.ColorSpace;
 import java.awt.DisplayMode;
@@ -431,6 +433,27 @@ final public class DsUtils {
         }
 
         return result;
+    }
+
+    /**
+     * Select the preferred GLFW library for the current platform. In LWJGL v2
+     * this has no effect.
+     */
+    public static void selectGlfwLibrary() {
+        Platform platform = JmeSystem.getPlatform();
+        if (platform.getOs() == Platform.Os.MacOS) {
+            /*
+             * Select the "glfw_async" library so we don't have to pass
+             * the "-XstartOnFirstThread" command-line argument to the JVM.
+             */
+            setGlfwLibraryName("glfw_async");
+
+        } else {
+            /*
+             * "glfw_async" doesn't exist for non-macOS platforms.
+             */
+            setGlfwLibraryName("glfw");
+        }
     }
 
     /**
