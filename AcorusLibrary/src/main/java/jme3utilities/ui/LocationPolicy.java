@@ -43,6 +43,10 @@ public enum LocationPolicy {
      */
     Center,
     /**
+     * set in by the horizontal margin from the left edge of the ViewPort
+     */
+    CenterLeft,
+    /**
      * set in by margins from the lower-left corner of the ViewPort
      */
     LowerLeft,

@@ -728,8 +728,12 @@ public class Overlay extends SimpleAppState {
         float topY;
         switch (locationPolicy) {
             case Center:
-                topY = (viewPortHeight + height) / 2;
                 leftX = (viewPortWidth - width) / 2;
+                topY = (viewPortHeight + height) / 2;
+                break;
+            case CenterLeft:
+                topY = (viewPortHeight + height) / 2;
+                leftX = xMargin;
                 break;
             case LowerLeft:
                 leftX = xMargin;
