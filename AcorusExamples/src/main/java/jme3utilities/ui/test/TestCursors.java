@@ -32,14 +32,15 @@ package jme3utilities.ui.test;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
 import com.jme3.cursors.plugins.JmeCursor;
-import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
+import com.jme3.math.ColorRGBA;
 import com.jme3.system.AppSettings;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.InputMode;
+import jme3utilities.ui.Overlay;
 
 /**
  * Test/demonstrate the cursors that are built in to Acorus.
@@ -64,9 +65,9 @@ public class TestCursors extends AcorusDemo {
     // fields
 
     /**
-     * status displayed in the upper-left corner of the GUI node
+     * status overlay, displayed in the upper-left corner of the GUI node
      */
-    private BitmapText statusText;
+    private Overlay statusOverlay;
     // *************************************************************************
     // constructors
 
@@ -92,6 +93,8 @@ public class TestCursors extends AcorusDemo {
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
+        settings.setResizable(true);
+        settings.setSamples(4); // anti-aliasing
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
 
@@ -105,14 +108,7 @@ public class TestCursors extends AcorusDemo {
      */
     @Override
     public void acorusInit() {
-        super.acorusInit();
-        /*
-         * Instantiate the status text and attach it to the GUI node.
-         */
-        statusText = new BitmapText(guiFont);
-        statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
-        guiNode.attachChild(statusText);
-
+        addStatusOverlay();
         super.acorusInit();
         /*
          * DefaultInputMode uses the "default" cursor style.
@@ -185,6 +181,7 @@ public class TestCursors extends AcorusDemo {
                     return;
             }
         }
+
         super.onAction(actionString, ongoing, tpf);
     }
 
@@ -194,16 +191,45 @@ public class TestCursors extends AcorusDemo {
      * @param oldMode the old mode, or null if none
      * @param newMode the new mode, or null if none
      */
+    @Override
     public void onInputModeChange(InputMode oldMode, InputMode newMode) {
         super.onInputModeChange(oldMode, newMode);
 
         if (newMode != null) {
-            String message = "mode = " + newMode.shortName();
-            statusText.setText(message);
+            String text = "cursor = " + newMode.shortName();
+            statusOverlay.setText(0, text);
         }
+    }
+
+    /**
+     * Update the GUI layout and proposed settings after the GUI viewport gets
+     * resized.
+     *
+     * @param newWidth the new width of the ViewPort (in pixels, &gt;0)
+     * @param newHeight the new height of the ViewPort (in pixels, &gt;0)
+     */
+    @Override
+    public void onViewPortResize(int newWidth, int newHeight) {
+        super.onViewPortResize(newWidth, newHeight);
+        statusOverlay.onViewPortResize(newWidth, newHeight);
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Add a status overlay to the GUI scene.
+     */
+    private void addStatusOverlay() {
+        float width = 125f; // in pixels
+        int numStatusLines = 1;
+        statusOverlay = new Overlay("status", width, numStatusLines);
+
+        boolean success = stateManager.attach(statusOverlay);
+        assert success;
+
+        statusOverlay.setBackgroundColor(new ColorRGBA(0f, 0f, 0.5f, 1f));
+        statusOverlay.setEnabled(true);
+    }
 
     private static void setMode(String modeName) {
         InputMode oldMode = InputMode.getActiveMode();
