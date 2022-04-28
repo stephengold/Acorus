@@ -45,6 +45,10 @@ tasks.register('cleanSOs', Delete) { // extracted Linux and Android native libra
 
 // tasks to run the example apps:
 
+tasks.register('AppChooser', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.AppChooser'
+}
+
 tasks.register('HelloAcorus', JavaExec) {
     mainClass = 'jme3utilities.ui.test.HelloAcorus'
 }
