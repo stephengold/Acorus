@@ -35,13 +35,15 @@ import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.input.KeyInput;
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.AppSettings;
+import com.jme3.system.JmeSystem;
+import com.jme3.system.Platform;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
-import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.InputMode;
 import jme3utilities.ui.Overlay;
+import org.lwjgl.system.Configuration;
 
 /**
  * Test/demonstrate the cursors that are built in to Acorus.
@@ -87,7 +89,11 @@ public class TestCursors extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        DsUtils.selectGlfwLibrary();
+        Platform platform = JmeSystem.getPlatform();
+        if (platform.getOs() == Platform.Os.MacOS) {
+            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+        }
+
         String title = applicationName + " " + MyString.join(arguments);
         TestCursors application = new TestCursors();
         Heart.parseAppArgs(application, arguments);

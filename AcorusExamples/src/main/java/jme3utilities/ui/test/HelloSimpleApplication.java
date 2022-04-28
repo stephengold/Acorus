@@ -30,11 +30,13 @@
 package jme3utilities.ui.test;
 
 import com.jme3.system.AppSettings;
+import com.jme3.system.JmeSystem;
+import com.jme3.system.Platform;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
-import jme3utilities.ui.DsUtils;
+import org.lwjgl.system.Configuration;
 
 /**
  * Test/demonstrate the built-in hotkey bindings that emulate JMonkeyEngine's
@@ -65,7 +67,11 @@ public class HelloSimpleApplication extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        DsUtils.selectGlfwLibrary();
+        Platform platform = JmeSystem.getPlatform();
+        if (platform.getOs() == Platform.Os.MacOS) {
+            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+        }
+
         String title = applicationName + " " + MyString.join(arguments);
         HelloSimpleApplication application = new HelloSimpleApplication();
         Heart.parseAppArgs(application, arguments);

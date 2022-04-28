@@ -34,15 +34,17 @@ import com.jme3.app.state.AppState;
 import com.jme3.input.KeyInput;
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.AppSettings;
+import com.jme3.system.JmeSystem;
+import com.jme3.system.Platform;
 import java.util.Collection;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.Combo;
-import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.HelpBuilder;
 import jme3utilities.ui.InputMode;
+import org.lwjgl.system.Configuration;
 
 /**
  * Test/demonstrate combo bindings.
@@ -81,7 +83,11 @@ public class HelloCombo extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        DsUtils.selectGlfwLibrary();
+        Platform platform = JmeSystem.getPlatform();
+        if (platform.getOs() == Platform.Os.MacOS) {
+            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+        }
+
         String title = applicationName + " " + MyString.join(arguments);
         HelloCombo application = new HelloCombo();
         Heart.parseAppArgs(application, arguments);

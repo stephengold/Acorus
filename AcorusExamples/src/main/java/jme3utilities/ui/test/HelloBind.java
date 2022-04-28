@@ -37,13 +37,15 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
 import com.jme3.system.AppSettings;
+import com.jme3.system.JmeSystem;
+import com.jme3.system.Platform;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyAsset;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
-import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.InputMode;
+import org.lwjgl.system.Configuration;
 
 /**
  * This example binds hotkeys to 4 custom actions in the default input mode. The
@@ -102,7 +104,11 @@ public class HelloBind extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        DsUtils.selectGlfwLibrary();
+        Platform platform = JmeSystem.getPlatform();
+        if (platform.getOs() == Platform.Os.MacOS) {
+            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+        }
+
         String title = applicationName + " " + MyString.join(arguments);
         HelloBind application = new HelloBind();
         Heart.parseAppArgs(application, arguments);
