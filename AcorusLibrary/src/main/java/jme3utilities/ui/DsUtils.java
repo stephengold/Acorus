@@ -31,9 +31,7 @@ package jme3utilities.ui;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.JmeContext;
-import com.jme3.system.JmeSystem;
 import com.jme3.system.NullContext;
-import com.jme3.system.Platform;
 import com.jme3.system.SystemListener;
 import com.jme3.texture.image.ColorSpace;
 import java.awt.DisplayMode;
@@ -96,9 +94,6 @@ final public class DsUtils {
     final private static Method getX;
     final private static Method getY;
     final private static Method hasRemaining;
-    final private static Method setMethod;
-
-    final private static Object glfwLibraryName;
 
     static {
         boolean foundVersion2;
@@ -138,8 +133,6 @@ final public class DsUtils {
                 getRedBits = null;
                 getWindowPos = null;
                 hasRemaining = null;
-                setMethod = null;
-                glfwLibraryName = null;
 
                 Class<?> displayClass
                         = Class.forName("org.lwjgl.opengl.Display");
@@ -167,12 +160,6 @@ final public class DsUtils {
                 getWidth = null;
                 getX = null;
                 getY = null;
-
-                Class<?> configClass
-                        = Class.forName("org.lwjgl.system.Configuration");
-                Field field = configClass.getDeclaredField("GLFW_LIBRARY_NAME");
-                glfwLibraryName = field.get(null);
-                setMethod = configClass.getDeclaredMethod("set", Object.class);
 
                 Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
                 getFramebufferSize = glfwClass.getDeclaredMethod(
@@ -226,12 +213,9 @@ final public class DsUtils {
                 getX = null;
                 getY = null;
                 hasRemaining = null;
-                setMethod = null;
-                glfwLibraryName = null;
             }
-        } catch (ClassNotFoundException | IllegalAccessException
-                | NoSuchFieldException | NoSuchMethodException
-                | SecurityException exception) {
+        } catch (ClassNotFoundException | NoSuchFieldException
+                | NoSuchMethodException | SecurityException exception) {
             throw new RuntimeException(exception);
         }
     }
@@ -433,45 +417,6 @@ final public class DsUtils {
         }
 
         return result;
-    }
-
-    /**
-     * Select the preferred GLFW library for the current platform. In LWJGL v2
-     * this has no effect.
-     */
-    public static void selectGlfwLibrary() {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            /*
-             * Select the "glfw_async" library so we don't have to pass
-             * the "-XstartOnFirstThread" command-line argument to the JVM.
-             */
-            setGlfwLibraryName("glfw_async");
-
-        } else {
-            /*
-             * "glfw_async" doesn't exist for non-macOS platforms.
-             */
-            setGlfwLibraryName("glfw");
-        }
-    }
-
-    /**
-     * Select a GLFW library in LWJGL v3.
-     *
-     * @param name the name of the desired library (not null)
-     */
-    public static void setGlfwLibraryName(String name) {
-        if (hasLwjglVersion3) {
-            try {
-                // Configuration.GLFW_LIBRARY_NAME.set(name);
-                setMethod.invoke(glfwLibraryName, name);
-
-            } catch (IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException exception) {
-                throw new IllegalStateException(exception);
-            }
-        }
     }
 
     /**
