@@ -28,9 +28,6 @@ tasks.withType(JavaCompile) { // Java compile-time options:
     }
 }
 
-import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
-Boolean isMacOS = DefaultNativePlatform.currentOperatingSystem.isMacOsX()
-
 tasks.withType(JavaExec) { // Java runtime options:
     //args '--verbose' // to enable additional log output
     classpath sourceSets.main.runtimeClasspath
