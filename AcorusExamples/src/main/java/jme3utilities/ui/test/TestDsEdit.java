@@ -40,8 +40,6 @@ import com.jme3.texture.image.ColorSpace;
 import java.awt.DisplayMode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.debug.Dumper;
@@ -121,7 +119,7 @@ public class TestDsEdit extends AcorusDemo {
         for (String arg : arguments) {
             switch (arg) {
                 case "--deleteOnly":
-                    deleteStoredSettings();
+                    Heart.deleteStoredSettings(applicationName);
                     System.exit(0);
                     break;
 
@@ -279,29 +277,6 @@ public class TestDsEdit extends AcorusDemo {
      */
     private void configureDumper() {
         dumper.setDumpTransform(true);
-    }
-
-    /**
-     * Delete the application's stored settings, if any. TODO use Heart library
-     */
-    private static void deleteStoredSettings() {
-        try {
-            if (Preferences.userRoot().nodeExists(applicationName)) {
-                Preferences.userRoot().node(applicationName).removeNode();
-                logger.log(Level.WARNING,
-                        "The stored settings for \"{0}\" were deleted.",
-                        applicationName);
-            } else {
-                logger.log(Level.WARNING,
-                        "No stored settings for \"{0}\" were found.",
-                        applicationName);
-            }
-
-        } catch (BackingStoreException exception) {
-            logger.log(Level.SEVERE,
-                    "The stored settings for \"{0}\" are inaccessible.",
-                    applicationName);
-        }
     }
 
     /**

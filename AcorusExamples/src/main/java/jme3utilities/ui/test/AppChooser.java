@@ -37,10 +37,7 @@ import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
@@ -208,7 +205,7 @@ public class AppChooser extends AcorusDemo {
                 case asDeleteSettings:
                     Class<?> mainClass = mainClasses[selectedAppIndex];
                     String appName = mainClass.getSimpleName();
-                    deleteStoredSettings(appName);
+                    Heart.deleteStoredSettings(appName);
                     return;
 
                 case asExecute:
@@ -272,31 +269,6 @@ public class AppChooser extends AcorusDemo {
 
         menuOverlay.setEnabled(true);
         updateMenuOverlay();
-    }
-
-    /**
-     * Delete an application's stored settings, if any. TODO use Heart library
-     *
-     * @param applicationName the name of the application
-     */
-    private static void deleteStoredSettings(String applicationName) {
-        try {
-            if (Preferences.userRoot().nodeExists(applicationName)) {
-                Preferences.userRoot().node(applicationName).removeNode();
-                logger.log(Level.WARNING,
-                        "The stored settings for \"{0}\" were deleted.",
-                        applicationName);
-            } else {
-                logger.log(Level.WARNING,
-                        "No stored settings for \"{0}\" were found.",
-                        applicationName);
-            }
-
-        } catch (BackingStoreException exception) {
-            logger.log(Level.SEVERE,
-                    "The stored settings for \"{0}\" are inaccessible.",
-                    applicationName);
-        }
     }
 
     /**
