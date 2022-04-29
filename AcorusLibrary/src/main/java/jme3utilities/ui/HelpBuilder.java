@@ -47,6 +47,7 @@ import java.util.logging.Logger;
 import jme3utilities.MyAsset;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
+import jme3utilities.math.MyColor;
 import jme3utilities.mesh.RoundedRectangle;
 
 /**
@@ -377,7 +378,7 @@ public class HelpBuilder {
         result.setLocalTranslation(0f, 0f, zBackground);
 
         AssetManager assetManager = Locators.getAssetManager();
-        ColorRGBA color = DsUtils.renderColor(colorSpace, backgroundColor);
+        ColorRGBA color = MyColor.renderColor(colorSpace, backgroundColor);
         Material material
                 = MyAsset.createUnshadedMaterial(assetManager, color);
         result.setMaterial(material);

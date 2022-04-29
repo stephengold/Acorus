@@ -47,6 +47,7 @@ import java.util.logging.Logger;
 import jme3utilities.InitialState;
 import jme3utilities.SimpleAppState;
 import jme3utilities.Validate;
+import jme3utilities.math.MyColor;
 import jme3utilities.mesh.RoundedRectangle;
 
 /**
@@ -658,7 +659,7 @@ public class Overlay extends SimpleAppState {
      */
     private void updateBackgroundMaterialColor(ColorSpace colorSpace) {
         Material material = background.getMaterial();
-        ColorRGBA color = DsUtils.renderColor(colorSpace, backgroundColor);
+        ColorRGBA color = MyColor.renderColor(colorSpace, backgroundColor);
         material.setColor("Color", color);
     }
 
@@ -671,7 +672,7 @@ public class Overlay extends SimpleAppState {
     private void updateBitmapColor(int lineIndex, ColorSpace colorSpace) {
         BitmapText bitmap = contentLines[lineIndex];
         ColorRGBA color = contentColors[lineIndex];
-        color = DsUtils.renderColor(colorSpace, color);
+        color = MyColor.renderColor(colorSpace, color);
         bitmap.setColor(color);
     }
 

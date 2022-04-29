@@ -29,11 +29,9 @@
  */
 package jme3utilities.ui;
 
-import com.jme3.math.ColorRGBA;
 import com.jme3.system.JmeContext;
 import com.jme3.system.NullContext;
 import com.jme3.system.SystemListener;
-import com.jme3.texture.image.ColorSpace;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -394,26 +392,6 @@ final public class DsUtils {
             result[0] = Integer.parseInt(widthText);
             String heightText = matcher.group(2);
             result[1] = Integer.parseInt(heightText);
-        }
-
-        return result;
-    }
-
-    /**
-     * Convert a gamma-encoded color to the specified ColorSpace.
-     *
-     * @param colorSpace the target ColorSpace (not null)
-     * @param encodedColor the input color (not null, unaffected, gamma-encoded)
-     * @return a new instance, suitable for use as the color of a viewport
-     * background or an unshaded material
-     */
-    public static ColorRGBA renderColor(ColorSpace colorSpace,
-            ColorRGBA encodedColor) {
-        ColorRGBA result;
-        if (colorSpace == ColorSpace.sRGB) {
-            result = encodedColor.clone(); // clone the encoded color
-        } else {
-            result = encodedColor.getAsSrgb(); // decode to linear ColorSpace
         }
 
         return result;
