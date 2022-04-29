@@ -84,11 +84,11 @@ tasks.register('TestCursors', JavaExec) {
 tasks.register('TestDsEdit', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestDsEdit'
 }
-tasks.register('TestDsEditDeleteSettings', JavaExec) {
+tasks.register('TestDsEdit-deleteSettings', JavaExec) {
     args '--deleteOnly'
     mainClass = 'jme3utilities.ui.test.TestDsEdit'
 }
-tasks.register('TestDsEditResetSettings', JavaExec) {
+tasks.register('TestDsEdit-resetSettings', JavaExec) {
     args '--resetOnly'
     mainClass = 'jme3utilities.ui.test.TestDsEdit'
 }
