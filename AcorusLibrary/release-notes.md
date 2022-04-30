@@ -1,5 +1,35 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.15 released on TBD
+
++ API changes:
+  + privatized 2 `updateHelp()` methods in `AcorusDemo`
+  + moved `updateFramebufferSize()` from `DsUtils` to `AcorusDemo`
+  + added `ColorSpace` args to `HelpBuilder` methods
++ Added the `onColorSpaceChange()` callback
+  to the `AcorusDemo` and `Overlay` classes.
++ Added methods to the `Overlay` class:
+  + `countLines()`
+  + `height()`
+  + `getLocationPolicy()`
+  + `setColor()`
+  + `setLocationPolicy()`
+  + `setText()`
+  + `setXMargin()`
+  + `setYMargin()`
+  + `xMargin()`
+  + `yMargin()`
++ Added accessors to the `HelpBuilder` class:
+  + `copyBackgrounColor()`
+  + `padding()`
+  + `separation()`
+  + `setPadding()`
+  + `setSeparation()`
++ Implemeted `setEnabled()` and `setText()` for an uninitialized `Overlay`.
++ Changed the examples to require LWJGL v3.
++ Added the `AppChooser` application.
++ Based on jMonkeyEngine v3.5.2-stable and version 7.6.0 of the Heart Library.
+
 ## Version 0.9.14 released on 15 April 2022
 
 + API changes:
