@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 0.9.15 released on TBD
+## Version 0.9.15 released on 29 April 2022
 
 + API changes:
   + privatized 2 `updateHelp()` methods in `AcorusDemo`

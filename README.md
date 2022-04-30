@@ -71,7 +71,7 @@ the standard "jme3-core" library from jMonkeyEngine.
 Adding Acorus to an existing [jMonkeyEngine][jme] project should be
 a simple matter of adding these libraries to the classpath.
 
-For projects built using Maven or [Gradle], it is sufficient to add a
+For projects built using [Maven] or [Gradle], it is sufficient to add a
 dependency on the Acorus Library.  The build tools should automatically
 resolve the remaining dependencies.
 
@@ -83,7 +83,7 @@ Add to the project’s "build.gradle" file:
         mavenCentral()
     }
     dependencies {
-        implementation 'com.github.stephengold:Acorus:0.9.14'
+        implementation 'com.github.stephengold:Acorus:0.9.15'
     }
 
 For some older versions of Gradle,
@@ -103,7 +103,7 @@ Add to the project’s "pom.xml" file:
     <dependency>
       <groupId>com.github.stephengold</groupId>
       <artifactId>Acorus</artifactId>
-      <version>0.9.14</version>
+      <version>0.9.15</version>
     </dependency>
 
 ### Ant-built projects
@@ -112,7 +112,7 @@ For projects built using [Ant], download the Acorus and [Heart]
 libraries from GitHub:
 
 + https://github.com/stephengold/Acorus/releases/tag/latest
-+ https://github.com/stephengold/Heart/releases/tag/7.5.0
++ https://github.com/stephengold/Heart/releases/tag/7.6.0
 
 You'll want both class jars
 and probably the `-sources` and `-javadoc` jars as well.
@@ -126,15 +126,15 @@ Open the project's properties in the IDE (JME 3.2 SDK or NetBeans 8.2):
 5. Add the [Heart] class jar:
   + Click on the "Add JAR/Folder" button.
   + Navigate to the download folder.
-  + Select the "Heart-7.5.0.jar" file.
+  + Select the "Heart-7.6.0.jar" file.
   + Click on the "Open" button.
 6. (optional) Add jars for javadoc and sources:
   + Click on the "Edit" button.
   + Click on the "Browse..." button to the right of "Javadoc:"
-  + Select the "Heart-7.5.0-javadoc.jar" file.
+  + Select the "Heart-7.6.0-javadoc.jar" file.
   + Click on the "Open" button.
   + Click on the "Browse..." button to the right of "Sources:"
-  + Select the "Heart-7.5.0-sources.jar" file.
+  + Select the "Heart-7.6.0-sources.jar" file.
   + Click on the "Open" button again.
   + Click on the "OK" button to close the "Edit Jar Reference" dialog.
 7. Similarly, add the Acorus jar(s).
@@ -160,7 +160,7 @@ Open the project's properties in the IDE (JME 3.2 SDK or NetBeans 8.2):
   + using Git:
     + `git clone https://github.com/stephengold/Acorus.git`
     + `cd Acorus`
-    + `git checkout -b latest 0.9.14`
+    + `git checkout -b latest 0.9.15`
   + using a web browser:
     + browse to [the latest release][latest]
     + follow the "Source code (zip)" link
@@ -221,7 +221,17 @@ The pre-built libraries are compatible with JDK 8.
 ## An overview of the example applications
 
 Applications have been created to illustrate key concepts of Acorus.
-The following example apps are found in the AcorusExamples sub-project:
+They are found in the AcorusExamples sub-project.
+Since they aren't distributed in binary form,
+you must build the project from source in order to run them.
+
+To run them using the included AppChooser:
++ using Bash or PowerShell or Zsh: `./gradlew --no-daemon AppChooser`
++ using Windows Command Prompt: `.\gradlew --no-daemon AppChooser`
+
+To run a specific app:
++ using Bash or PowerShell or Zsh: `./gradlew --no-daemon ` *appName*
++ using Windows Command Prompt: `.\gradlew --no-daemon ` *appName*
 
 ### HelloAcorus
 
@@ -266,13 +276,19 @@ the US name and the localized name are identical.
 
 The `TestHotKeys` example displays a continuously-updated list active hotkeys,
 making it a convenient tool for identifying hotkeys.
+Press some keyboard keys, click some mouse buttons, and see what appears!
+
+`TestHotkeys` doesn't bind the Esc key to "SIMPLEAPP_Exit".
+To close the window,
+you'll have to use whatever mechanisms your window manager provides:
+typically the window decorations ("X" button or red dot) or Alt+F4.
 
 ### HelloBind
 
 `HelloBind` binds 12 hotkeys to 4 custom actions.
 Those actions cause squares to appear on (or disappear from) the display.
 
-Acorus groups action bindings into input modes.
+In, Acorus action bindings are grouped into input modes.
 In this example, the 12 custom bindings are added
 to an automatically created mode called the default input mode.
 
@@ -325,7 +341,7 @@ The `HelloCombo` example binds 2 signals and 6 combos.
 
 Help nodes indicate combo bindings alongside simple hotkey bindings:
 + "shift+y" mean pressing the "y" key while the "shift" signal is active
-+ "noshift+y" means pressing the "y" key while "shift" isn't active
++ "noshift+y" means pressing the "y" key when "shift" isn't active.
 
 ### HelloSimpleApplication
 
@@ -354,7 +370,7 @@ you'll often want to display it only when the user explicitly requests it.
 
 This example adds an action to toggle the help node between 2 versions:
 detailed and minimal.
-The minimal version merely indicates how to display the detailed one.
+The minimal version merely indicates how to display detailed help.
 
 ### HelloSandbox
 
@@ -430,6 +446,8 @@ will want to utilize these features.
 
 `TestHeadless` is a simple example of a headless `ActionApplication`.
 
+NOTE:  `TestHeadless` can't be run from the app chooser.
+
 [Jump to table of contents](#toc)
 
 
@@ -503,6 +521,7 @@ correct the situation: sgold@sonic.net
 [license]: https://github.com/stephengold/Acorus/blob/master/LICENSE "Acorus license"
 [log]: https://github.com/stephengold/Acorus/blob/master/AcorusLibrary/release-notes.md "release log"
 [markdown]: https://daringfireball.net/projects/markdown "Markdown Project"
+[maven]: https://maven.apache.org "Maven Project"
 [meld]: https://meldmerge.org "Meld Tool"
 [minie]: https://github.com/stephengold/Minie "Minie Project"
 [mint]: https://linuxmint.com "Linux Mint Project"
