@@ -10,13 +10,14 @@
   to the `AcorusDemo` and `Overlay` classes.
 + Added methods to the `Overlay` class:
   + `countLines()`
-  + `height()`
   + `getLocationPolicy()`
+  + `height()`
   + `setColor()`
   + `setLocationPolicy()`
   + `setText()`
   + `setXMargin()`
   + `setYMargin()`
+  + `width()`
   + `xMargin()`
   + `yMargin()`
 + Added accessors to the `HelpBuilder` class:
