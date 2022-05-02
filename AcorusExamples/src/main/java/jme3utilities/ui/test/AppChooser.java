@@ -96,7 +96,7 @@ public class AppChooser extends AcorusDemo {
      */
     final private static String asExecute = "execute";
     /**
-     * action string to chose the next app
+     * action string to choose the next app
      */
     final private static String asNext = "down";
     /**
