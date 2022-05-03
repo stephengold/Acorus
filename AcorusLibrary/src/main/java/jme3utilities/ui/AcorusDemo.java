@@ -552,8 +552,16 @@ abstract public class AcorusDemo extends ActionApplication {
             Camera guiCamera = guiViewPort.getCamera();
             int viewPortWidth = guiCamera.getWidth();
             int viewPortHeight = guiCamera.getHeight();
+
+            ColorSpace space;
+            if (oldColorSpace == null) {
+                space = renderer.isMainFrameBufferSrgb()
+                        ? ColorSpace.sRGB : ColorSpace.Linear;
+            } else {
+                space = oldColorSpace;
+            }
             updateHelp(newMode, viewPortWidth, viewPortHeight, helpVersion,
-                    oldColorSpace);
+                    space);
         }
     }
 
