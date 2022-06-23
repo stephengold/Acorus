@@ -26,7 +26,7 @@
   + `separation()`
   + `setPadding()`
   + `setSeparation()`
-+ Implemeted `setEnabled()` and `setText()` for an uninitialized `Overlay`.
++ Implemented `setEnabled()` and `setText()` for an uninitialized `Overlay`.
 + Changed the examples to require LWJGL v3.
 + Added the `AppChooser` application.
 + Based on jMonkeyEngine v3.5.2-stable and version 7.6.0 of the Heart Library.
