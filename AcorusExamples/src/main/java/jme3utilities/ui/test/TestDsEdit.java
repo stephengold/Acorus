@@ -308,7 +308,7 @@ public class TestDsEdit extends AcorusDemo {
                     appSettings.setSamples(1);
                 }
                 appSettings.setResizable(true);
-                appSettings.setTitle(title); // Customize the window's title bar.
+                appSettings.setTitle(title);
             }
         };
 
