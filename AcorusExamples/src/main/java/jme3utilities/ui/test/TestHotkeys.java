@@ -71,7 +71,7 @@ public class TestHotkeys extends ActionApplication {
     /**
      * multi-line status displayed in the upper-left corner of the GUI node
      */
-    private static BitmapText statusText;
+    private BitmapText statusText;
     /**
      * list of active hotkeys
      */
@@ -135,7 +135,7 @@ public class TestHotkeys extends ActionApplication {
         /*
          * Instantiate the status text and attach it to the GUI node.
          */
-        statusText = new BitmapText(guiFont);
+        this.statusText = new BitmapText(guiFont);
         statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
         guiNode.attachChild(statusText);
     }
