@@ -1,5 +1,11 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.16 released on TBD
+
++ Bugfix:  null colorSpace in `HelpBuilder`
++ Based on version 8.0.0 of the Heart Library.
++ Added the "checkstyle" plugin to the build.
+
 ## Version 0.9.15 released on 29 April 2022
 
 + API changes:
