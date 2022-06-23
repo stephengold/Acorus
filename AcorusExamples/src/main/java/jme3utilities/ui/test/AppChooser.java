@@ -298,7 +298,7 @@ public class AppChooser extends AcorusDemo {
      * Look for the shell script (or batch file) to execute in
      * "./build/install/AcorusExamples/bin".
      */
-    private File findScriptToExecute() {
+    private static File findScriptToExecute() {
         File buildDir = new File("build");
         File installDir = new File(buildDir, "install");
         File examplesDir = new File(installDir, "AcorusExamples");
