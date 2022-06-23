@@ -608,8 +608,8 @@ abstract public class AcorusDemo extends ActionApplication {
             appSettings.setResolution(width, height);
 
             if (width > 0 && height > 0) {
-                SystemListener listener = DsUtils.getSystemListener(context);
-                listener.reshape(width, height);
+                SystemListener sl = DsUtils.getSystemListener(context);
+                sl.reshape(width, height);
             }
 
             oldFramebufferWidth = width;
