@@ -72,9 +72,11 @@ public class Signals
         /*
          * Parse the action string.
          */
-        boolean hasPrefix = actionString.startsWith(InputMode.signalActionPrefix);
+        boolean hasPrefix
+                = actionString.startsWith(InputMode.signalActionPrefix);
         Validate.require(hasPrefix, "the required action prefix");
-        String args = MyString.remainder(actionString, InputMode.signalActionPrefix);
+        String args = MyString.remainder(
+                actionString, InputMode.signalActionPrefix);
         Validate.require(args.contains(" "), "a source index");
 
         int spacePosition = args.lastIndexOf(' ');

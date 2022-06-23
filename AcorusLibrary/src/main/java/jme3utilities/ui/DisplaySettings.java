@@ -93,6 +93,7 @@ public class DisplaySettings {
         apiNameMap.put("OpenGL 4.5", AppSettings.LWJGL_OPENGL45);
         apiNameMap.put("OpenGL compatibility", AppSettings.LWJGL_OPENGL2);
     }
+
     /**
      * framebuffer-size limits (not null)
      */

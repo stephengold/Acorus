@@ -73,7 +73,8 @@ final public class Hotkey {
     /**
      * universal code for the last mouse button
      */
-    final private static int lastMouseButton = KeyInput.KEY_LAST + maxMouseButtons;
+    final private static int lastMouseButton
+            = KeyInput.KEY_LAST + maxMouseButtons;
     /**
      * universal code for the first joystick button
      */
@@ -98,7 +99,8 @@ final public class Hotkey {
      * firstMouseButton + a JME button code (from
      * {@link com.jme3.input.MouseInput}) or
      * <p>
-     * {@code firstJoystickButton + maxButtonsPerJoystick * joystickIndex + buttonIndex}
+     * {@code firstJoystickButton + maxButtonsPerJoystick * joystickIndex
+     * + buttonIndex}
      */
     final private int universalCode;
     /**
@@ -465,9 +467,10 @@ final public class Hotkey {
             }
         }
         /*
-         * In case of a duplicate local name (such as "circumflex"), the hotkey with
-         * the localized name is preferred.  If both hotkeys have localized
-         * names, the new hotkey overrides the pre-existing one.
+         * In case of a duplicate local name (such as "circumflex"),
+         * the hotkey with the localized name is preferred.
+         * If both hotkeys have localized names,
+         * the new hotkey overrides the pre-existing one.
          */
         Hotkey preexistingHotkey = findLocal(localName);
         if (preexistingHotkey != null) {
