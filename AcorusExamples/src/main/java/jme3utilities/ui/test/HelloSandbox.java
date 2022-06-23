@@ -101,6 +101,7 @@ public class HelloSandbox extends AcorusDemo {
         try {
             ActionApplication.designateSandbox("./Written Assets");
         } catch (IOException exception) {
+            // do nothing
         }
         /*
          * The AWT settings dialog interferes with LWJGL v3

@@ -334,6 +334,7 @@ public class DisplaySettings {
                 loadedFromStore = true;
             }
         } catch (BackingStoreException e) {
+            // do nothing
         }
         /*
          * Apply overrides to the loaded settings.
@@ -473,6 +474,7 @@ public class DisplaySettings {
                 success = true;
             }
         } catch (BackingStoreException exception) {
+            // do nothing
         }
 
         if (!success) {
