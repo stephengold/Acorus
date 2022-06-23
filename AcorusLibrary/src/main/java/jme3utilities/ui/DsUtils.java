@@ -632,7 +632,7 @@ final public class DsUtils {
     }
 
     /**
-     * Convert a org.lwjgl.opengl.DisplayMode to a java.awt.DisplayMode via
+     * Convert an org.lwjgl.opengl.DisplayMode to a java.awt.DisplayMode via
      * reflection of LWJGL v2.
      *
      * @param glMode the AWT display mode (not null, unaffected)
