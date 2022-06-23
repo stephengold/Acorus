@@ -535,6 +535,7 @@ abstract public class AcorusDemo extends ActionApplication {
                 case asToggleWorldAxes:
                     toggleWorldAxes();
                     return;
+                default:
             }
         }
         super.onAction(actionString, ongoing, tpf);

@@ -227,6 +227,8 @@ public class DsEditInputMode extends InputMode {
                 case asSaveChanges:
                     save();
                     return;
+
+                default:
             }
         }
         /*

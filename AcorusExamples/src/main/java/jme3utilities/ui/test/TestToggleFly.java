@@ -135,6 +135,8 @@ public class TestToggleFly extends AcorusDemo {
                 case asToggleFlyCam:
                     toggleFlyCam();
                     return;
+
+                default:
             }
         }
 

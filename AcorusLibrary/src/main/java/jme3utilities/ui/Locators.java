@@ -314,6 +314,8 @@ public class Locators {
                 case "class com.jme3.asset.plugins.FileLocator":
                 case "class com.jme3.asset.plugins.ZipLocator":
                     result = rootPaths.get(0);
+                    break;
+                default:
             }
         }
 

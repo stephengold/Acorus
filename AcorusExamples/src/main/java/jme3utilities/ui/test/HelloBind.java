@@ -210,6 +210,7 @@ public class HelloBind extends AcorusDemo {
                 case "toggle white":
                     toggle(whiteSquare);
                     return;
+                default:
             }
         }
 

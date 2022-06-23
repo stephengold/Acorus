@@ -236,6 +236,8 @@ public class TestDsEdit extends AcorusDemo {
                 case asToggleHelp:
                     toggleHelp();
                     return;
+
+                default:
             }
         }
         /*

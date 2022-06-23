@@ -213,6 +213,8 @@ public class TestAcorusDemo extends AcorusDemo {
                     clipName = advanceString(nameArray, clipName, -1);
                     composer.setCurrentAction(clipName);
                     return;
+
+                default:
             }
         }
         /*

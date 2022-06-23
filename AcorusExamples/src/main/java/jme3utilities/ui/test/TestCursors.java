@@ -191,6 +191,8 @@ public class TestCursors extends AcorusDemo {
                 case "menu":
                     setMode(actionString);
                     return;
+
+                default:
             }
         }
 

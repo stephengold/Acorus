@@ -157,6 +157,8 @@ public class HelloCombo extends AcorusDemo {
                 case "hint":
                     printQuitHint();
                     return;
+
+                default:
             }
         }
 
