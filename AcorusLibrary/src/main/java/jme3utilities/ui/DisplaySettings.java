@@ -333,7 +333,7 @@ public class DisplaySettings {
                 proposedSettings.load(applicationName);
                 loadedFromStore = true;
             }
-        } catch (BackingStoreException e) {
+        } catch (BackingStoreException exception) {
             // do nothing
         }
         /*
@@ -557,7 +557,7 @@ public class DisplaySettings {
             proposedSettings.save(applicationName);
             areSaved = true;
             result = true;
-        } catch (BackingStoreException e) {
+        } catch (BackingStoreException exception) {
             logger.log(Level.WARNING, "Failed to write settings for \"{0}\" "
                     + "to persistent storage.", applicationName);
         }
