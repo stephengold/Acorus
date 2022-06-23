@@ -198,6 +198,7 @@ public class TestHotkeys extends ActionApplication {
         /*
          * Update the displayed status:  one line for each active hotkey.
          */
+        String eol = System.lineSeparator();
         statusBuffer.setLength(0);
         for (Hotkey active : activeHotkeys) {
             statusBuffer.append("code(");
@@ -209,7 +210,8 @@ public class TestHotkeys extends ActionApplication {
             statusBuffer.append(" )  local( ");
             String local = active.localName();
             statusBuffer.append(local);
-            statusBuffer.append(" )\n");
+            statusBuffer.append(" )");
+            statusBuffer.append(eol);
         }
         statusText.setText(statusBuffer);
     }
