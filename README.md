@@ -476,9 +476,11 @@ have gone before.  I therefore acknowledge the creators of (and contributors to)
 the following software:
 
 + the [Ant] and [Gradle] build tools
++ the [Checkstyle] tool
 + the [FindBugs] source-code analyzer
 + the [Firefox] and [Google Chrome][chrome] web browsers
 + the [Git] and Subversion revision-control systems
++ the [GitKraken] client
 + the [IntelliJ IDEA][idea] and [NetBeans] integrated development environments
 + the [Java] compiler, standard doclet, and virtual machine
 + [jMonkeyEngine][jme] and the jME3 Software Development Kit
@@ -506,11 +508,13 @@ correct the situation: sgold@sonic.net
 [acorus]: https://github.com/stephengold/Acorus "Acorus Project"
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
 [ant]: https://ant.apache.org "Apache Ant Project"
+[checkstyle]: https://checkstyle.org "Checkstyle"
 [chrome]: https://www.google.com/chrome "Chrome"
 [findbugs]: http://findbugs.sourceforge.net "FindBugs Project"
 [firefox]: https://www.mozilla.org/en-US/firefox "Firefox"
 [git]: https://git-scm.com "Git"
 [github]: https://github.com "GitHub"
+[gitkraken]: https://www.gitkraken.com "GitKraken client"
 [gradle]: https://gradle.org "Gradle Project"
 [heart]: https://github.com/stephengold/Heart "Heart Project"
 [idea]: https://www.jetbrains.com/idea/ "IntelliJ IDEA"
