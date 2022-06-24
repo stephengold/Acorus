@@ -8,7 +8,7 @@ ext {
     heartCoordinates = 'com.github.stephengold:Heart:8.0.0'
 
     // current versions of libraries:
-    acorusVersion = '0.9.16'
+    acorusVersion = '0.9.17-SNAPSHOT'
     jme3Version = '3.5.2-stable'
 }
 
