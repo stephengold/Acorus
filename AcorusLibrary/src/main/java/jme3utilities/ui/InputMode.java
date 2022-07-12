@@ -306,7 +306,7 @@ abstract public class InputMode
     }
 
     /**
-     * Determine the path to the configuration asset.
+     * Determine the path to the bindings asset.
      *
      * @return the current asset path (or null if the bindings are not
      * loadable/savable)
@@ -496,9 +496,9 @@ abstract public class InputMode
     }
 
     /**
-     * Alter the path to the configuration asset.
+     * Alter the path to the configuration asset for bindings.
      *
-     * @param assetPath desired asset path (or null to make the bindings not
+     * @param assetPath the desired asset path (or null to make the bindings not
      * loadable/savable)
      */
     public void setConfigPath(String assetPath) {
@@ -785,7 +785,6 @@ abstract public class InputMode
 
             hotkeyBindings.clear();
             defaultBindings();
-
         }
     }
 
