@@ -754,7 +754,7 @@ abstract public class InputMode
              * case and whitespace.
              */
             if (name.equals(actionName)) {
-                count++;
+                ++count;
             }
         }
 

@@ -289,7 +289,7 @@ public class Locators {
         Validate.nonEmpty(rootPath, "root path");
 
         int result = -1;
-        for (int index = 0; index < rootPaths.size(); index++) {
+        for (int index = 0; index < rootPaths.size(); ++index) {
             if (locatorTypes.get(index).equals(locatorType)
                     && rootPaths.get(index).equals(rootPath)) {
                 result = index;
@@ -446,7 +446,7 @@ public class Locators {
     private void justRegisterAll() {
         int numLocators = locatorTypes.size();
         assert rootPaths.size() == numLocators : numLocators;
-        for (int i = 0; i < numLocators; i++) {
+        for (int i = 0; i < numLocators; ++i) {
             Class<? extends AssetLocator> locatorType = locatorTypes.get(i);
             String rootPath = rootPaths.get(i);
             manager.registerLocator(rootPath, locatorType);
@@ -460,7 +460,7 @@ public class Locators {
     private void justUnregisterAll() {
         int numLocators = locatorTypes.size();
         assert rootPaths.size() == numLocators : numLocators;
-        for (int i = 0; i < numLocators; i++) {
+        for (int i = 0; i < numLocators; ++i) {
             Class<? extends AssetLocator> locatorType = locatorTypes.get(i);
             String rootPath = rootPaths.get(i);
             manager.unregisterLocator(rootPath, locatorType);
