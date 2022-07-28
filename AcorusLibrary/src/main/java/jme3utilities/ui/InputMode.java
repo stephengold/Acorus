@@ -306,6 +306,23 @@ abstract public class InputMode
     }
 
     /**
+     * Bind the named signal to the named hotkey, but don't map it yet. Any
+     * existing binding for the hotkey is removed.
+     *
+     * @param signalName the name of the signal (not null)
+     * @param usHotkeyName the hotkey's US name (not null)
+     */
+    public void bindSignal(String signalName, String usHotkeyName) {
+        Validate.nonNull(signalName, "signal name");
+        Validate.nonNull(usHotkeyName, "US hotkey name");
+        boolean hotkeyExists = (Hotkey.findUs(usHotkeyName) != null);
+        Validate.require(hotkeyExists, "the US name of a hotkey");
+
+        String actionName = signalActionPrefix + signalName;
+        bind(actionName, usHotkeyName);
+    }
+
+    /**
      * Determine the path to the bindings asset.
      *
      * @return the current asset path (or null if the bindings are not
