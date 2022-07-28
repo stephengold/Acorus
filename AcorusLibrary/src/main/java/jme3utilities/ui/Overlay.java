@@ -55,6 +55,8 @@ import jme3utilities.mesh.RoundedRectangle;
  * <p>
  * The overlay appears in the upper-left portion of the display.
  *
+ * TODO rewrite as BaseAppState, option to center text horizontally
+ *
  * @author Stephen Gold sgold@sonic.net
  */
 public class Overlay extends SimpleAppState {
