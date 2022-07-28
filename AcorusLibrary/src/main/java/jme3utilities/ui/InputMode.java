@@ -299,7 +299,7 @@ abstract public class InputMode
      * @param keyCodes key codes from {@link com.jme3.input.KeyInput}
      */
     public void bindSignal(String signalName, int... keyCodes) {
-        Validate.nonNull(signalName, "action name");
+        Validate.nonNull(signalName, "signal name");
 
         String actionName = signalActionPrefix + signalName;
         bind(actionName, keyCodes);
