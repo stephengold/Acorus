@@ -295,7 +295,7 @@ public class DisplaySettings {
      *
      * @return a name found in {@code listGraphicsApis()} (not null, not empty)
      */
-    public String graphicsAPI() {
+    public String graphicsApi() {
         String result;
         String value = proposedSettings.getRenderer();
         for (Map.Entry<String, String> entry : apiNameMap.entrySet()) {
@@ -678,7 +678,7 @@ public class DisplaySettings {
         Validate.require(apiNameMap.containsKey(apiName), "be a known API");
 
         String newSetting = apiNameMap.get(apiName);
-        String oldSetting = graphicsAPI();
+        String oldSetting = graphicsApi();
         if (!newSetting.equals(oldSetting)) {
             proposedSettings.setRenderer(newSetting);
             areApplied = false;

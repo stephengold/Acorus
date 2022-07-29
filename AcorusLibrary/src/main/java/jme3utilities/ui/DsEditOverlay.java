@@ -320,7 +320,7 @@ public class DsEditOverlay extends Overlay {
         message = "MSAA factor:  " + DsUtils.describeMsaaFactor(msaaFactor);
         updateStatusLine(msaaStatusLine, message);
 
-        String api = proposedSettings.graphicsAPI();
+        String api = proposedSettings.graphicsApi();
         message = "Graphics API:  " + api;
         updateStatusLine(apiStatusLine, message);
 
@@ -451,7 +451,7 @@ public class DsEditOverlay extends Overlay {
      */
     private void advanceGraphicsApi(int amount) {
         String[] values = DisplaySettings.listGraphicsApis();
-        String api = proposedSettings.graphicsAPI();
+        String api = proposedSettings.graphicsApi();
 
         api = AcorusDemo.advanceString(values, api, amount);
         proposedSettings.setGraphicsApi(api);
