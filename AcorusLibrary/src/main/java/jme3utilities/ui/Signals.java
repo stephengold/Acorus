@@ -53,6 +53,15 @@ public class Signals
     final private static Logger logger2
             = Logger.getLogger(Signals.class.getName());
     // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public Signals() {
+        // do nothing
+    }
+    // *************************************************************************
     // ActionListener methods
 
     /**

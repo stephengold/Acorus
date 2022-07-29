@@ -69,6 +69,15 @@ public class HelpBuilder {
      */
     final private static String chnSeparator = "/";
     // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public HelpBuilder() {
+        // do nothing
+    }
+    // *************************************************************************
     // fields
 
     /**

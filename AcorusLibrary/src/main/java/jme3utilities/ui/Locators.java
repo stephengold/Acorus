@@ -83,6 +83,15 @@ public class Locators {
      */
     final private List<String> rootPaths = new ArrayList<>(6);
     // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public Locators() {
+        // do nothing
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**
