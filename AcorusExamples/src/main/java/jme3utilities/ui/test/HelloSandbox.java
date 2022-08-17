@@ -47,7 +47,7 @@ import org.lwjgl.system.Configuration;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloSandbox extends AcorusDemo {
+final public class HelloSandbox extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 

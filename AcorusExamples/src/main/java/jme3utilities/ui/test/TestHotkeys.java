@@ -51,7 +51,7 @@ import org.lwjgl.system.Configuration;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestHotkeys extends ActionApplication {
+final public class TestHotkeys extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 

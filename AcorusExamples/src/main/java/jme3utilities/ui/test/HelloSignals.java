@@ -53,7 +53,7 @@ import org.lwjgl.system.Configuration;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloSignals extends AcorusDemo {
+final public class HelloSignals extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 

@@ -51,7 +51,7 @@ import org.lwjgl.system.Configuration;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloCombo extends AcorusDemo {
+final public class HelloCombo extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 

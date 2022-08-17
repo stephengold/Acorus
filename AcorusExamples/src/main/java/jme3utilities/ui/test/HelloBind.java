@@ -53,7 +53,7 @@ import org.lwjgl.system.Configuration;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloBind extends AcorusDemo {
+final public class HelloBind extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 

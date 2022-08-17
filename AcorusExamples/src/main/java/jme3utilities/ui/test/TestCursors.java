@@ -50,7 +50,7 @@ import org.lwjgl.system.Configuration;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestCursors extends AcorusDemo {
+final public class TestCursors extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 
