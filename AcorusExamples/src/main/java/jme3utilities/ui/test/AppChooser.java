@@ -88,19 +88,19 @@ final public class AppChooser extends AcorusDemo {
     final private static String applicationName
             = AppChooser.class.getSimpleName();
     /**
-     * action string to delete any persistent settings of the chosen app
+     * action string to delete any persistent settings of the selected app
      */
     final private static String asDeleteSettings = "delete settings";
     /**
-     * action string to execute the chosen app
+     * action string to execute the selected app
      */
     final private static String asExecute = "execute";
     /**
-     * action string to choose the next app
+     * action string to select the next app
      */
     final private static String asNext = "down";
     /**
-     * action string to choose the previous app
+     * action string to select the previous app
      */
     final private static String asPrevious = "up";
     // *************************************************************************
@@ -111,7 +111,7 @@ final public class AppChooser extends AcorusDemo {
      */
     private File script;
     /**
-     * index of the chosen app in the {@code mainClasses} array
+     * index of the selected app in the {@code mainClasses} array
      */
     private int chosenAppIndex = 0;
     /**
@@ -122,7 +122,7 @@ final public class AppChooser extends AcorusDemo {
     // constructors
 
     /**
-     * Instantiate an AcorusDemo without the usual initial appstates.
+     * Instantiate an AcorusDemo without any initial appstates.
      */
     private AppChooser() {
         super((AppState[]) null);
@@ -221,7 +221,7 @@ final public class AppChooser extends AcorusDemo {
                     return;
 
                 case asNext:
-                    // Choose the next app.
+                    // Select the next app.
                     if (chosenAppIndex < mainClasses.length - 1) {
                         ++chosenAppIndex;
                         updateMenuOverlay();
@@ -229,7 +229,7 @@ final public class AppChooser extends AcorusDemo {
                     return;
 
                 case asPrevious:
-                    // Choose the previous app.
+                    // Select the previous app.
                     if (chosenAppIndex > 0) {
                         --chosenAppIndex;
                         updateMenuOverlay();
@@ -276,7 +276,7 @@ final public class AppChooser extends AcorusDemo {
     }
 
     /**
-     * Execute the chosen app.
+     * Execute the selected app.
      */
     private void executeChosenApp() {
         CommandLine commandLine = new CommandLine(script);
@@ -297,6 +297,8 @@ final public class AppChooser extends AcorusDemo {
     /**
      * Look for the shell script (or batch file) to execute in
      * "./build/install/AcorusExamples/bin".
+     *
+     * @return a new instance
      */
     private static File findScriptToExecute() {
         File buildDir = new File("build");

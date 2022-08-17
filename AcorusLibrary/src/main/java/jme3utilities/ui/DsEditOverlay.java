@@ -599,6 +599,9 @@ public class DsEditOverlay extends Overlay {
 
     /**
      * Update the indexed status line.
+     *
+     * @param lineIndex which line to update (&ge;0)
+     * @param text the text to display (not null)
      */
     private void updateStatusLine(int lineIndex, String text) {
         if (lineIndex == selectedLine) {

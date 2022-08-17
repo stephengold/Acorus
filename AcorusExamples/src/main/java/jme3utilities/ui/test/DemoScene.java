@@ -126,6 +126,8 @@ final public class DemoScene {
 
     /**
      * Configure the camera for the demo scene.
+     *
+     * @param app (not null)
      */
     private static void configureCamera(SimpleApplication app) {
         FlyByCamera flyByCamera = app.getFlyByCamera();
