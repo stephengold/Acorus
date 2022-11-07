@@ -66,6 +66,7 @@ final public class AppChooser extends AcorusDemo {
         HelloBind.class,
         HelloCoas.class,
         HelloCombo.class,
+        HelloRecorder.class,
         HelloSandbox.class,
         HelloSignals.class,
         HelloSimpleApplication.class,
