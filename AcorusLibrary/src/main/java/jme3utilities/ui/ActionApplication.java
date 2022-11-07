@@ -538,7 +538,7 @@ abstract public class ActionApplication
             int frameRate = mode.getRefreshRate();
             assert frameRate > 0 : frameRate;
 
-            float quality = 0.5f;
+            float quality = 1f; // highest JPEG quality
             AppState recorder
                     = new VideoRecorderAppState(file, quality, frameRate);
             stateManager.attach(recorder);
