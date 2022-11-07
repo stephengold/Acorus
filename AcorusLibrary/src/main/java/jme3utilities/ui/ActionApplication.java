@@ -33,6 +33,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.app.state.AppState;
 import com.jme3.app.state.ScreenshotAppState;
+import com.jme3.app.state.VideoRecorderAppState;
 import com.jme3.asset.plugins.ClasspathLocator;
 import com.jme3.input.CameraInput;
 import com.jme3.input.controls.ActionListener;
@@ -40,8 +41,10 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.system.AppSettings;
 import com.jme3.util.BufferUtils;
+import java.awt.DisplayMode;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
@@ -80,6 +83,10 @@ abstract public class ActionApplication
      * action string to generate a screenshot
      */
     final public static String asScreenShot = "ScreenShot";
+    /**
+     * action string to toggle video recording
+     */
+    final public static String asToggleRecorder = "toggle recorder";
     // *************************************************************************
     // fields
 
@@ -343,6 +350,10 @@ abstract public class ActionApplication
                     }
                     break;
 
+                case asToggleRecorder:
+                    toggleRecorder();
+                    break;
+
                 case SimpleApplication.INPUT_MAPPING_EXIT:
                     stop();
                     break;
@@ -492,6 +503,55 @@ abstract public class ActionApplication
             System.out.println("cam.setRotation(new Quaternion("
                     + rot.getX() + "f, " + rot.getY() + "f, "
                     + rot.getZ() + "f, " + rot.getW() + "f));");
+        }
+    }
+
+    /**
+     * Generate a timestamp.
+     *
+     * @return the timestamp value
+     */
+    private static String hhmmss() {
+        Calendar rightNow = Calendar.getInstance();
+        int hours = rightNow.get(Calendar.HOUR_OF_DAY);
+        int minutes = rightNow.get(Calendar.MINUTE);
+        int seconds = rightNow.get(Calendar.SECOND);
+        String result = String.format("%02d%02d%02d", hours, minutes, seconds);
+
+        return result;
+    }
+
+    /**
+     * Process a "toggle recorder" action.
+     */
+    private void toggleRecorder() {
+        VideoRecorderAppState vras
+                = stateManager.getState(VideoRecorderAppState.class);
+
+        if (vras == null) {
+            String hhmmss = hhmmss();
+            String fileName = String.format("recording-%s.avi", hhmmss);
+            String path = ActionApplication.filePath(fileName);
+            File file = new File(path);
+
+            DisplayMode mode = DsUtils.displayMode();
+            int frameRate = mode.getRefreshRate();
+            assert frameRate > 0 : frameRate;
+
+            float quality = 0.5f;
+            AppState recorder
+                    = new VideoRecorderAppState(file, quality, frameRate);
+            stateManager.attach(recorder);
+
+            String quotedPath = MyString.quote(file.getAbsolutePath());
+            logger.log(Level.WARNING, "Began recording to {0}", quotedPath);
+
+        } else {
+            File file = vras.getFile();
+            stateManager.detach(vras);
+
+            String quotedPath = MyString.quote(file.getAbsolutePath());
+            logger.log(Level.WARNING, "Stopped recording to {0}", quotedPath);
         }
     }
 }

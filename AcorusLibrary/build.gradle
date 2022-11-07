@@ -18,6 +18,7 @@ ext {
 
 dependencies {
     api heartCoordinates
+    implementation 'org.jmonkeyengine:jme3-desktop:' + jme3Version // for VideoRecorderAppState
 }
 
 // publishing tasks
