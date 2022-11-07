@@ -246,7 +246,7 @@ public class TestTwoModes extends AcorusDemo {
      */
     private void addStatusOverlay() {
         float width = 200f; // in pixels
-        statusOverlay = new Overlay("status", width, numStatusLines);
+        this.statusOverlay = new Overlay("status", width, numStatusLines);
 
         boolean success = stateManager.attach(statusOverlay);
         assert success;

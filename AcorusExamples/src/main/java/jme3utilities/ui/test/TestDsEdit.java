@@ -159,7 +159,7 @@ public class TestDsEdit extends AcorusDemo {
         logger.log(Level.INFO, "Acorus version is {0}",
                 MyString.quote(UiVersion.versionShort()));
 
-        dseOverlay = new DsEditOverlay(proposedSettings);
+        this.dseOverlay = new DsEditOverlay(proposedSettings);
         dseOverlay.setBackgroundColor(new ColorRGBA(0f, 0.05f, 0f, 1f));
         boolean success = stateManager.attach(dseOverlay);
         assert success;
