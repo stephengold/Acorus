@@ -105,9 +105,8 @@ public class TestToggleFly extends AcorusDemo {
     @Override
     public void acorusInit() {
         super.acorusInit();
-        /*
-         * Create a 3-D scene with something to look at:  a lit green cube.
-         */
+
+        // Create a 3-D scene with something to look at:  a lit green cube.
         DemoScene.setup(this);
     }
 
@@ -151,14 +150,12 @@ public class TestToggleFly extends AcorusDemo {
     private void toggleFlyCam() {
         boolean isEnabled = flyCam.isEnabled();
         flyCam.setEnabled(!isEnabled);
-        /*
-         * Update the bindings to reflect the new state.
-         */
+
+        // Update the bindings to reflect the new state.
         DefaultInputMode dim = (DefaultInputMode) getDefaultInputMode();
         dim.updateBindings();
-        /*
-         * Update the help node to reflect the changed bindings.
-         */
+
+        // Update the help node to reflect the changed bindings.
         updateHelp();
     }
 }

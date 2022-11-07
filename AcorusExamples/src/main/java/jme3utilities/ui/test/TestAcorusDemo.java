@@ -217,9 +217,8 @@ public class TestAcorusDemo extends AcorusDemo {
                 default:
             }
         }
-        /*
-         * The action was not handled here: forward it to the superclass.
-         */
+
+        // The action has not been handled: forward it to the superclass.
         super.onAction(actionString, ongoing, tpf);
     }
 
@@ -243,9 +242,8 @@ public class TestAcorusDemo extends AcorusDemo {
     @Override
     public void simpleUpdate(float tpf) {
         super.simpleUpdate(tpf);
-        /*
-         * Update the status overlay.
-         */
+
+        // Update the status overlay.
         statusOverlay.setText(clipStatusLine, clipName);
         String pausedString = isPaused() ? "paused" : "";
         statusOverlay.setText(pausedStatusLine, pausedString);

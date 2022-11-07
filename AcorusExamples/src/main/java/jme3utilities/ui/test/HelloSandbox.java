@@ -43,7 +43,7 @@ import jme3utilities.ui.HelpVersion;
 import org.lwjgl.system.Configuration;
 
 /**
- * Test/demonstrate the Acorus sandbox and the built-in "screenshot" action.
+ * Test/demonstrate the Acorus sandbox and the built-in "ScreenShot" action.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -120,9 +120,8 @@ final public class HelloSandbox extends AcorusDemo {
     public void acorusInit() {
         super.acorusInit();
         setHelpVersion(HelpVersion.Detailed);
-        /*
-         * Create a 3-D scene with something to look at:  a lit green cube.
-         */
+
+        // Create a 3-D scene with something to look at:  a lit green cube.
         DemoScene.setup(this);
     }
 }

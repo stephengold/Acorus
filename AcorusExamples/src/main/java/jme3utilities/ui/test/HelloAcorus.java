@@ -108,9 +108,8 @@ final public class HelloAcorus extends AcorusDemo {
     @Override
     public void acorusInit() {
         super.acorusInit();
-        /*
-         * Create a 3-D scene with something to look at:  a lit green cube.
-         */
+
+        // Create a 3-D scene with something to look at:  a lit green cube.
         DemoScene.setup(this);
     }
 }

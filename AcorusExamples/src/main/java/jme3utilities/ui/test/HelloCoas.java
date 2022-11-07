@@ -99,6 +99,7 @@ public class HelloCoas extends AcorusDemo {
      */
     @Override
     public void acorusInit() {
+        // Create a 3-D scene with something to look at:  a lit green cube.
         DemoScene.setup(this);
 
         CameraOrbitAppState orbitState

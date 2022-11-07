@@ -165,19 +165,16 @@ public class TestDsEdit extends AcorusDemo {
         assert success;
 
         configureDumper();
-        /*
-         * Hide the render-statistics overlay.
-         */
+
+        // Hide the render-statistics overlay.
         stateManager.getState(StatsAppState.class).toggleStats();
 
         super.acorusInit();
-        /*
-         * Create a 3-D scene with something to look at:  a lit green cube.
-         */
+
+        // Create a 3-D scene with something to look at:  a lit green cube.
         DemoScene.setup(this);
-        /*
-         * Print the available and current display modes to the console.
-         */
+
+        // Print the available and current display modes to the console.
         for (DisplayMode mode : DsUtils.listDisplayModes()) {
             System.out.printf("%d x %d, %d bits, %d Hz%n",
                     mode.getWidth(), mode.getHeight(),
@@ -240,9 +237,8 @@ public class TestDsEdit extends AcorusDemo {
                 default:
             }
         }
-        /*
-         * The action was not handled here: forward it to the superclass.
-         */
+
+        // The action has not been handled: forward it to the superclass.
         super.onAction(actionString, ongoing, tpf);
     }
 

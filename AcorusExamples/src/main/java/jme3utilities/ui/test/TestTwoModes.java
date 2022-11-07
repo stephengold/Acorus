@@ -136,16 +136,15 @@ public class TestTwoModes extends AcorusDemo {
      */
     @Override
     public void acorusInit() {
+        // Create a 3-D scene with something to look at:  a lit green cube.
         DemoScene.setup(this);
         addStatusOverlay();
-        /*
-         * Attach a (disabled) "edit" mode to the state manager.
-         */
+
+        // Attach a (disabled) "edit" mode to the state manager.
         InputMode editMode = new EditMode();
         stateManager.attach(editMode);
-        /*
-         * Hide the render-statistics overlay.
-         */
+
+        // Hide the render-statistics overlay.
         stateManager.getState(StatsAppState.class).toggleStats();
 
         super.acorusInit();
@@ -172,9 +171,7 @@ public class TestTwoModes extends AcorusDemo {
     @Override
     public void onAction(String actionString, boolean ongoing, float tpf) {
         if (ongoing && actionString.equals(asEditText)) {
-            /*
-             * Switch from default mode to "edit" mode.
-             */
+            // Switch from default mode to "edit" mode.
             InputMode dim = InputMode.findMode("default");
             InputMode editMode = InputMode.findMode("edit");
 
@@ -229,9 +226,8 @@ public class TestTwoModes extends AcorusDemo {
     @Override
     public void simpleUpdate(float tpf) {
         super.simpleUpdate(tpf);
-        /*
-         * Update the status overlay.
-         */
+
+        // Update the status overlay.
         EditMode editMode = (EditMode) InputMode.findMode("edit");
         String text = editMode.getText();
         if (editMode.isEnabled()) { // fake a blinking text cursor

@@ -319,9 +319,7 @@ abstract public class ActionApplication
     public void onAction(String actionString, boolean ongoing, float tpf) {
         assert isInitialized;
         if (ongoing) {
-            /*
-             * Process combo actions.
-             */
+            // Process combo actions.
             if (actionString.startsWith(InputMode.comboActionPrefix)) {
                 InputMode mode = InputMode.getActiveMode();
                 if (mode != null) {
@@ -476,6 +474,9 @@ abstract public class ActionApplication
     // *************************************************************************
     // private methods
 
+    /**
+     * Process a "SIMPLEAPP_CameraPos" action.
+     */
     private void dumpCameraPosition() {
         if (cam != null) {
             Vector3f loc = cam.getLocation();

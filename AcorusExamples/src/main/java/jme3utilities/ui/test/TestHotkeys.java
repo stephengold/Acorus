@@ -187,17 +187,15 @@ final public class TestHotkeys extends ActionApplication {
 
         String localName = actionString.substring(beginIndex, closeIndex);
         Hotkey hotkey = Hotkey.findLocal(localName);
-        /*
-         * Update the list of active keys.
-         */
+
+        // Update the list of active keys.
         if (ongoing) {
             activeHotkeys.add(hotkey);
         } else {
             activeHotkeys.remove(hotkey);
         }
-        /*
-         * Update the displayed status:  one line for each active hotkey.
-         */
+
+        // Update the displayed status:  one line for each active hotkey.
         String eol = System.lineSeparator();
         statusBuffer.setLength(0);
         for (Hotkey active : activeHotkeys) {
