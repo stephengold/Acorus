@@ -30,7 +30,10 @@
 package jme3utilities.ui;
 
 import com.jme3.app.Application;
-import com.jme3.app.state.AppStateManager;
+import com.jme3.app.LegacyApplication;
+import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.BaseAppState;
+import com.jme3.asset.AssetManager;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.material.Material;
@@ -39,13 +42,12 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.Renderer;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.texture.image.ColorSpace;
 import java.util.logging.Logger;
-import jme3utilities.InitialState;
-import jme3utilities.SimpleAppState;
 import jme3utilities.Validate;
 import jme3utilities.math.MyColor;
 import jme3utilities.mesh.RoundedRectangle;
@@ -55,11 +57,11 @@ import jme3utilities.mesh.RoundedRectangle;
  * <p>
  * The overlay appears in the upper-left portion of the display.
  *
- * TODO rewrite as BaseAppState, option to center text horizontally
+ * TODO option to center text horizontally
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class Overlay extends SimpleAppState {
+public class Overlay extends BaseAppState {
     // *************************************************************************
     // constants and loggers
 
@@ -144,12 +146,12 @@ public class Overlay extends SimpleAppState {
      * @param numLines the desired number of content lines (&gt;0)
      */
     public Overlay(String id, float width, int numLines) {
-        super(InitialState.Disabled);
+        super(id);
         Validate.nonNull(id, "name");
         Validate.positive(width, "width");
         Validate.positive(numLines, "number of lines");
 
-        super.setId(id);
+        this.setEnabled(false);
         this.node = new Node("overlay node for " + id);
 
         this.contentLines = new BitmapText[numLines];
@@ -305,7 +307,8 @@ public class Overlay extends SimpleAppState {
 
         backgroundColor.set(newColor);
         if (isInitialized()) {
-            Renderer renderer = simpleApplication.getRenderer();
+            LegacyApplication legacyApp = (LegacyApplication) getApplication();
+            Renderer renderer = legacyApp.getRenderer();
             ColorSpace colorSpace = renderer.isMainFrameBufferSrgb()
                     ? ColorSpace.sRGB : ColorSpace.Linear;
             updateBackgroundMaterialColor(colorSpace);
@@ -535,68 +538,42 @@ public class Overlay extends SimpleAppState {
         return yMargin;
     }
     // *************************************************************************
-    // new protected methods
+    // BaseAppState methods
 
     /**
-     * Enable this overlay, assuming it is initialized.
-     */
-    protected void activate() {
-        assert isInitialized();
-        super.setEnabled(true);
-
-        updateLocation();
-        guiNode.attachChild(node);
-    }
-
-    /**
-     * Disable this overlay, assuming it is initialized and enabled.
-     */
-    protected void deactivate() {
-        assert isInitialized();
-        assert isEnabled();
-
-        node.removeFromParent();
-        super.setEnabled(false);
-    }
-    // *************************************************************************
-    // SimpleAppState methods
-
-    /**
-     * Clean up this AppState during the first update after it gets detached.
-     * Should be invoked only by a subclass or by the AppStateManager.
-     */
-    @Override
-    public void cleanup() {
-        if (isEnabled()) {
-            deactivate();
-        }
-
-        super.cleanup();
-    }
-
-    /**
-     * Initialize this AppState on the first update after it gets attached.
+     * Transition this AppState from terminating to detached. Should be invoked
+     * only by a subclass or by the AppStateManager.
+     * <p>
+     * Invoked once for each time {@link #initialize(com.jme3.app.Application)}
+     * is invoked.
      *
-     * @param stateManager application's state manager (not null)
-     * @param application application which owns this state (not null)
+     * @param application the application which owns this AppState (not null)
      */
     @Override
-    public void initialize(AppStateManager stateManager,
-            Application application) {
-        super.initialize(stateManager, application);
-        /*
-         * background
-         */
+    protected void cleanup(Application application) {
+        // do nothing
+    }
+
+    /**
+     * Initialize this AppState prior to its first update. Should be invoked
+     * only by a subclass or by the AppStateManager.
+     *
+     * @param application the application which owns this AppState (not null)
+     */
+    @Override
+    protected void initialize(Application application) {
+        // background
+        LegacyApplication legacyApp = (LegacyApplication) getApplication();
+        AssetManager assetManager = legacyApp.getAssetManager();
         Material material = new Material(assetManager, Materials.UNSHADED);
         background.setMaterial(material);
 
-        Renderer renderer = simpleApplication.getRenderer();
+        Renderer renderer = legacyApp.getRenderer();
         ColorSpace colorSpace = renderer.isMainFrameBufferSrgb()
                 ? ColorSpace.sRGB : ColorSpace.Linear;
         updateBackgroundMaterialColor(colorSpace);
-        /*
-         * content lines
-         */
+
+        // content lines
         BitmapFont font = assetManager.loadFont("Interface/Fonts/Default.fnt");
         int numLines = countLines();
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
@@ -609,28 +586,26 @@ public class Overlay extends SimpleAppState {
         }
         updateBitmapColors(colorSpace);
         updateContentOffsets();
-
-        if (isEnabled()) {
-            activate();
-        }
     }
 
     /**
-     * Enable or disable this overlay.
-     *
-     * @param newSetting true &rarr; activate, false &rarr; deactivate
+     * Transition this AppState from enabled to disabled.
      */
     @Override
-    final public void setEnabled(boolean newSetting) {
-        if (isInitialized()) {
-            if (newSetting && !isEnabled()) {
-                activate();
-            } else if (!newSetting && isEnabled()) {
-                deactivate();
-            }
-        } else {
-            super.setEnabled(newSetting);
-        }
+    protected void onDisable() {
+        node.removeFromParent();
+    }
+
+    /**
+     * Transition this AppState from disabled to enabled.
+     */
+    @Override
+    protected void onEnable() {
+        updateLocation();
+
+        SimpleApplication simpleApp = (SimpleApplication) getApplication();
+        Node guiNode = simpleApp.getGuiNode();
+        guiNode.attachChild(node);
     }
     // *************************************************************************
     // private methods
@@ -708,6 +683,8 @@ public class Overlay extends SimpleAppState {
      */
     private void updateLocation() {
         if (isInitialized()) {
+            LegacyApplication legacyApp = (LegacyApplication) getApplication();
+            ViewPort guiViewPort = legacyApp.getGuiViewPort();
             Camera guiCamera = guiViewPort.getCamera();
             int viewPortWidth = guiCamera.getWidth();
             int viewPortHeight = guiCamera.getHeight();

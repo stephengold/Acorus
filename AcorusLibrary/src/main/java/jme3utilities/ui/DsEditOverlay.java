@@ -30,7 +30,7 @@
 package jme3utilities.ui;
 
 import com.jme3.app.Application;
-import com.jme3.app.state.AppStateManager;
+import com.jme3.app.LegacyApplication;
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.JmeContext;
 import java.awt.DisplayMode;
@@ -227,29 +227,32 @@ public class DsEditOverlay extends Overlay {
         }
     }
     // *************************************************************************
-    // SimpleAppState methods
+    // Overlay methods
 
     /**
-     * Clean up this AppState during the first update after it gets detached.
-     * Should be invoked only by a subclass or by the AppStateManager.
+     * Transition this AppState from terminating to detached. Should be invoked
+     * only by a subclass or by the AppStateManager.
+     * <p>
+     * Invoked once for each time {@link #initialize(com.jme3.app.Application)}
+     * is invoked.
+     *
+     * @param application the application which owns this AppState (not null)
      */
     @Override
-    public void cleanup() {
-        stateManager.detach(inputMode);
-        super.cleanup();
+    public void cleanup(Application application) {
+        getStateManager().detach(inputMode);
+        super.cleanup(application);
     }
 
     /**
      * Initialize this AppState on the first update after it gets attached.
      *
-     * @param stateManager application's state manager (not null)
      * @param application application which owns this state (not null)
      */
     @Override
-    public void initialize(AppStateManager stateManager,
-            Application application) {
-        super.initialize(stateManager, application);
-        stateManager.attach(inputMode);
+    public void initialize(Application application) {
+        super.initialize(application);
+        getStateManager().attach(inputMode);
     }
 
     /**
@@ -261,7 +264,8 @@ public class DsEditOverlay extends Overlay {
     @Override
     public void update(float tpf) {
         super.update(tpf);
-        JmeContext context = simpleApplication.getContext();
+        LegacyApplication legacyApp = (LegacyApplication) getApplication();
+        JmeContext context = legacyApp.getContext();
 
         String message = "";
         boolean areValid = proposedSettings.areValid();
@@ -521,7 +525,8 @@ public class DsEditOverlay extends Overlay {
 
         boolean isCentered = proposedSettings.isCentered();
         if (isCentered) { // switch to specifying screen coordinates
-            JmeContext context = simpleApplication.getContext();
+            LegacyApplication legacyApp = (LegacyApplication) getApplication();
+            JmeContext context = legacyApp.getContext();
             int x = DsUtils.windowXPosition(context);
             int y = DsUtils.windowYPosition(context);
             proposedSettings.setStartLocation(x, y);
