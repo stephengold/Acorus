@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 0.9.17 released on TBD
+## Version 0.9.17 released on 7 November 2022
 
 + API changes:
   + Based the `Overlay` class on `BaseAppState` instead of `SimpleAppState`.
