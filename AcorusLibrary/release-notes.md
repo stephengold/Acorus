@@ -1,5 +1,15 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.17 released on TBD
+
++ API changes:
+  + Based the `Overlay` class on `BaseAppState` instead of `SimpleAppState`.
+  + Renamed the `DisplaySettings.graphicsAPI()` method.
++ Added the `bindSignal(String, String)` method to the `InputMode` class.
++ Added a "toggle recorder" action to the `ActionApplication` class.
++ Added the `HelloRecorder` tutorial app.
++ Based on version 8.2.0 of the Heart Library.
+
 ## Version 0.9.16 released on 23 June 2022
 
 + Bugfix:  null `colorSpace` in `HelpBuilder`
