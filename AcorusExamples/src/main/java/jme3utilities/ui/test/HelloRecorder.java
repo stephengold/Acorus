@@ -30,11 +30,14 @@
 package jme3utilities.ui.test;
 
 import com.jme3.app.state.AppState;
+import com.jme3.app.state.VideoRecorderAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
+import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
@@ -135,5 +138,26 @@ final public class HelloRecorder extends AcorusDemo {
     public void moreDefaultBindings() {
         InputMode dim = getDefaultInputMode();
         dim.bind(asToggleRecorder, KeyInput.KEY_F3);
+    }
+
+    /**
+     * Invoked when asking the JmeContext to close.
+     *
+     * @param waitFor true&rarr;wait for the context to be fully destroyed,
+     * true&rarr;don't wait
+     */
+    @Override
+    public void stop(boolean waitFor) {
+        VideoRecorderAppState vras
+                = stateManager.getState(VideoRecorderAppState.class);
+        if (vras != null) {
+            File file = vras.getFile();
+            stateManager.detach(vras);
+
+            String quotedPath = MyString.quote(file.getAbsolutePath());
+            logger.log(Level.WARNING, "Stopped recording to {0}", quotedPath);
+        }
+
+        super.stop(waitFor);
     }
 }
