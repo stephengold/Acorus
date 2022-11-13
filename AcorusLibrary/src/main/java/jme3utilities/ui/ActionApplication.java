@@ -441,26 +441,20 @@ abstract public class ActionApplication
 
         Locators.setAssetManager(assetManager);
         if (sandboxDirectory != null) {
-            /*
-             * Initialize asset locators to the default list.
-             */
+            // Initialize asset locators to the default list.
             assetManager.unregisterLocator("/", ClasspathLocator.class);
             Locators.useDefault();
         }
-        /*
-         * Register a loader for Properties assets.
-         */
+
+        // Register a loader for Properties assets.
         assetManager.registerLoader(PropertiesLoader.class, "properties");
-        /*
-         * Initialize hotkeys.
-         */
+
+        // Initialize hotkeys.
         Hotkey.initialize(inputManager);
 
         defaultInputMode = stateManager.getState(DefaultInputMode.class);
         if (defaultInputMode == null) {
-            /*
-             * Attach and enable the standard initial input mode.
-             */
+            // Attach and enable the standard initial input mode.
             defaultInputMode = new DefaultInputMode();
             stateManager.attach(defaultInputMode);
             defaultInputMode.setEnabled(true);
@@ -482,10 +476,8 @@ abstract public class ActionApplication
             boolean success = stateManager.attach(screenshotAppState);
             assert success;
         }
-        /*
-         * Invoke the startup code of the subclass.
-         */
-        acorusInit();
+
+        acorusInit(); // Invoke the startup code of the subclass.
     }
 
     /**
