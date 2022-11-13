@@ -370,6 +370,7 @@ abstract public class ActionApplication
                             = stateManager.getState(ScreenshotAppState.class);
                     if (screenshotAppState != null) {
                         screenshotAppState.onAction(actionString, ongoing, tpf);
+                        logger.log(Level.WARNING, "Captured a screenshot.");
                     }
                     break;
 
