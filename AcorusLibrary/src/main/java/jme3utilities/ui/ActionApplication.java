@@ -468,12 +468,15 @@ abstract public class ActionApplication
 
         ScreenshotAppState screenshotAppState
                 = stateManager.getState(ScreenshotAppState.class);
-        if (screenshotAppState == null && sandboxDirectory != null) {
-            /*
-             * Capture a screenshot to the sandbox
-             * each time a "ScreenShot" action is triggered.
-             */
-            String waPath = sandboxPath() + File.separator;
+        if (screenshotAppState == null) {
+            String waPath;
+            if (sandboxDirectory == null) {
+                // Capture screenshots to the working directory.
+                String workingDirectory = System.getProperty("user.dir");
+                waPath = Heart.fixPath(workingDirectory) + File.separator;
+            } else { // Capture screenshots to the sandbox.
+                waPath = sandboxPath() + File.separator;
+            }
             screenshotAppState
                     = new ScreenshotAppState(waPath, "screenshot");
             boolean success = stateManager.attach(screenshotAppState);
@@ -555,7 +558,13 @@ abstract public class ActionApplication
         if (vras == null) {
             String hhmmss = hhmmss();
             String fileName = String.format("recording-%s.avi", hhmmss);
-            String path = ActionApplication.filePath(fileName);
+            String path;
+            if (sandboxDirectory == null) {
+                // Record video to the working directory.
+                path = Heart.fixPath(fileName);
+            } else { // Record video to the sandbox.
+                path = ActionApplication.filePath(fileName);
+            }
             File file = new File(path);
 
             DisplayMode mode = DsUtils.displayMode();
