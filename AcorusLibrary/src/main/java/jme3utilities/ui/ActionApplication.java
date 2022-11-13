@@ -103,6 +103,10 @@ abstract public class ActionApplication
      */
     private InputMode defaultInputMode = null;
     /**
+     * quality level for recorded video (&ge;0, &lt;1)
+     */
+    private float recordingQuality = 1f;
+    /**
      * track input signals
      */
     final private Signals signals = new Signals();
@@ -297,6 +301,15 @@ abstract public class ActionApplication
     }
 
     /**
+     * Return the quality level for new video recordings.
+     *
+     * @return the level (&ge;0, &le;1)
+     */
+    public float recordingQuality() {
+        return recordingQuality;
+    }
+
+    /**
      * Determine the filesystem path to the directory for writing assets.
      * Assumes that {@link #designateSandbox(java.lang.String)} has been
      * invoked.
@@ -311,6 +324,16 @@ abstract public class ActionApplication
 
         assert !path.isEmpty();
         return path;
+    }
+
+    /**
+     * Alter the quality level for new video recordings.
+     *
+     * @param qualityLevel (&ge;0, &le;1, default=1)
+     */
+    public void setRecordingQuality(float qualityLevel) {
+        Validate.fraction(qualityLevel, "quality level");
+        this.recordingQuality = qualityLevel;
     }
     // *************************************************************************
     // ActionListener methods
@@ -538,9 +561,8 @@ abstract public class ActionApplication
             int frameRate = mode.getRefreshRate();
             assert frameRate > 0 : frameRate;
 
-            float quality = 1f; // highest JPEG quality
-            AppState recorder
-                    = new VideoRecorderAppState(file, quality, frameRate);
+            AppState recorder = new VideoRecorderAppState(
+                    file, recordingQuality, frameRate);
             stateManager.attach(recorder);
 
             String quotedPath = MyString.quote(file.getAbsolutePath());
