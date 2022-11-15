@@ -182,9 +182,8 @@ public class DefaultInputMode extends InputMode {
                 MyString.quote(actionString), ongoing
             });
         }
-        /*
-         * Forward all actions to the ActionApplication subclass for processing.
-         */
+
+        // Forward all actions to the ActionApplication subclass for processing.
         getActionApplication().onAction(actionString, ongoing, tpf);
     }
     // *************************************************************************
@@ -210,9 +209,7 @@ public class DefaultInputMode extends InputMode {
     private void bindScreenshotKey() {
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.Linux) {
-            /*
-             * Some Linux window managers intercept the SYSRQ key.
-             */
+            // Some Linux window managers intercept the SYSRQ key.
             bind(ActionApplication.asScreenShot, KeyInput.KEY_SCROLL);
         } else {
             bind(ActionApplication.asScreenShot, KeyInput.KEY_SYSRQ);

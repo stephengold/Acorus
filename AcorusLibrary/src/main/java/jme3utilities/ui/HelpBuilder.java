@@ -151,9 +151,8 @@ public class HelpBuilder {
             textSpatial.setSize(size);
             textSpatial.setText(text);
             float textWidth = textSpatial.getLineWidth();
-            /*
-             * Position the textSpatial relative to the Node.
-             */
+
+            // Position the textSpatial relative to the Node.
             if (x > bounds.x && x + textWidth > bounds.x + bounds.width) {
                 // start a new line of text
                 y -= textSpatial.getHeight();

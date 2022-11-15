@@ -621,17 +621,14 @@ abstract public class InputMode
      * Map all Hotkey and Combo actions.
      */
     protected void mapAll() {
-        /*
-         * Map all bound hotkeys to their actions.
-         */
+        // Map all bound hotkeys to their actions.
         for (String usHotkeyName : hotkeyBindings.stringPropertyNames()) {
             String actionName = hotkeyBindings.getProperty(usHotkeyName);
             Hotkey hotkey = Hotkey.findUs(usHotkeyName);
             mapActionName(actionName, hotkey);
         }
-        /*
-         * Map all bound combos to their actions.
-         */
+
+        // Map all bound combos to their actions.
         for (int code = 0; code < numCodes; ++code) {
             Map<Combo, String> map = comboBindings[code];
             if (!map.isEmpty()) {
@@ -646,17 +643,14 @@ abstract public class InputMode
      * Unmap all Hotkey and Combo actions.
      */
     protected void unmapAll() {
-        /*
-         * Unmap all Hotkey actions.
-         */
+        // Unmap all Hotkey actions.
         for (String usHotkeyName : hotkeyBindings.stringPropertyNames()) {
             String actionName = hotkeyBindings.getProperty(usHotkeyName);
             Hotkey hotkey = Hotkey.findUs(usHotkeyName);
             unmapHotkey(actionName, hotkey);
         }
-        /*
-         * Unmap all Combo actions.
-         */
+
+        // Unmap all Combo actions.
         for (int code = 0; code < numCodes; ++code) {
             Map<Combo, String> map = comboBindings[code];
             if (!map.isEmpty()) {
@@ -682,9 +676,8 @@ abstract public class InputMode
 
         InputMode prior = modes.put(shortName, this);
         assert prior == null : shortName;
-        /*
-         * Load the initial hotkey bindings.
-         */
+
+        // Load the initial hotkey bindings.
         initializeHotkeyBindings();
 
         ActionApplication actionApplication = (ActionApplication) application;
@@ -886,18 +879,16 @@ abstract public class InputMode
                 = MyString.remainder(actionName, signalActionPrefix);
         Signals uiSignals = getSignals();
         uiSignals.add(signalName);
-        /*
-         * Append the decimal keyCode to ensure a unique action string.
-         */
+
+        // Append the decimal keyCode to ensure a unique action string.
         String actionString = signalActionString(actionName, hotkey);
 
         int count = countBindings(actionString);
         boolean isUnique = (count == 0);
         assert isUnique : count;
         inputManager.addListener(uiSignals, actionString);
-        /*
-         * Add the mapping to the input manager.
-         */
+
+        // Add the mapping to the input manager.
         hotkey.map(actionString);
     }
 
@@ -1027,18 +1018,16 @@ abstract public class InputMode
      */
     private static void unmapHotkey(String actionName, Hotkey hotkey) {
         assert hotkey != null;
-        /*
-         * Reconstruct the action string.
-         */
+
+        // Reconstruct the action string.
         String actionString;
         if (actionName.startsWith(signalActionPrefix)) {
             actionString = signalActionString(actionName, hotkey);
         } else {
             actionString = actionName;
         }
-        /*
-         * Delete the mapping, if it exists.
-         */
+
+        // Delete the mapping, if it exists.
         hotkey.unmap(actionString);
     }
 }

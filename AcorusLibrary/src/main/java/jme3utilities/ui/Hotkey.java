@@ -263,17 +263,15 @@ final public class Hotkey {
     static void initialize(InputManager inputManager) {
         assert inputManager != null;
         Hotkey.inputManager = inputManager;
-        /*
-         * mouse buttons
-         */
+
+        // mouse buttons:
         addMouseButton(MouseInput.BUTTON_LEFT, "LMB");
         addMouseButton(MouseInput.BUTTON_MIDDLE, "MMB");
         addMouseButton(MouseInput.BUTTON_RIGHT, "RMB");
 
         initializeKeys();
-        /*
-         * joystick buttons, if any
-         */
+
+        // joystick buttons, if any:
         Joystick[] sticks = inputManager.getJoysticks();
         if (sticks != null) {
             for (Joystick joystick : sticks) {
@@ -434,9 +432,8 @@ final public class Hotkey {
                 "key" + keyCode + " is already assigned to a hotkey";
         assert usName != null;
         assert !usName.isEmpty();
-        /*
-         * Attempt to localize the name for HelpUtils and BindScreen.
-         */
+
+        // Attempt to localize the name for HelpUtils and BindScreen.
         String localName = usName;
         if (!usName.startsWith("numpad ")) { // not a numpad key
             String glfwName = null;
@@ -818,9 +815,8 @@ final public class Hotkey {
         if (keyInputClassName.equals("DummyKeyInput")) {
             return; // probably in a Headless context
         }
-        /*
-         * mode keys
-         */
+
+        // mode keys:
         addKey(KeyInput.KEY_LCONTROL, "left ctrl");
         addKey(KeyInput.KEY_LMENU, "left alt");
         addKey(KeyInput.KEY_LMETA, "left meta");
@@ -832,9 +828,8 @@ final public class Hotkey {
         addKey(KeyInput.KEY_RSHIFT, "right shift");
 
         addKey(KeyInput.KEY_CAPITAL, "caps lock");
-        /*
-         * main keyboard letters
-         */
+
+        // main keyboard letters:
         addKey(KeyInput.KEY_A, "a");
         addKey(KeyInput.KEY_B, "b");
         addKey(KeyInput.KEY_C, "c");
@@ -861,9 +856,8 @@ final public class Hotkey {
         addKey(KeyInput.KEY_X, "x");
         addKey(KeyInput.KEY_Y, "y");
         addKey(KeyInput.KEY_Z, "z");
-        /*
-         * main keyboard digits
-         */
+
+        // main keyboard digits:
         addKey(KeyInput.KEY_1, "1");
         addKey(KeyInput.KEY_2, "2");
         addKey(KeyInput.KEY_3, "3");
@@ -874,9 +868,8 @@ final public class Hotkey {
         addKey(KeyInput.KEY_8, "8");
         addKey(KeyInput.KEY_9, "9");
         addKey(KeyInput.KEY_0, "0");
-        /*
-         * main keyboard punctuation
-         */
+
+        // main keyboard punctuation:
         addKey(KeyInput.KEY_GRAVE, "backtick");
         addKey(KeyInput.KEY_MINUS, "minus");
         addKey(KeyInput.KEY_EQUALS, "equals");
@@ -888,9 +881,8 @@ final public class Hotkey {
         addKey(KeyInput.KEY_COMMA, "comma");
         addKey(KeyInput.KEY_PERIOD, "period");
         addKey(KeyInput.KEY_SLASH, "slash");
-        /*
-         * ASCII control and whitespace keys
-         */
+
+        // ASCII control and whitespace keys:
         addKey(KeyInput.KEY_ESCAPE, "esc");
         addKey(KeyInput.KEY_BACK, "backspace");
         addKey(KeyInput.KEY_TAB, "tab");
@@ -898,9 +890,8 @@ final public class Hotkey {
         addKey(KeyInput.KEY_SPACE, "space");
 
         addFunctionKeys();
-        /*
-         * editing and arrow keys
-         */
+
+        // editing and arrow keys:
         addKey(KeyInput.KEY_INSERT, "insert");
         addKey(KeyInput.KEY_HOME, "home");
         addKey(KeyInput.KEY_PGUP, "page up");
@@ -911,9 +902,8 @@ final public class Hotkey {
         addKey(KeyInput.KEY_LEFT, "left arrow");
         addKey(KeyInput.KEY_DOWN, "down arrow");
         addKey(KeyInput.KEY_RIGHT, "right arrow");
-        /*
-         * system keys
-         */
+
+        // system keys:
         addKey(KeyInput.KEY_SYSRQ, "sys rq");
         addKey(KeyInput.KEY_SCROLL, "scroll lock");
         addKey(KeyInput.KEY_PAUSE, "pause");
@@ -921,7 +911,7 @@ final public class Hotkey {
 
         addNumpadKeys();
         /*
-         * miscellaneous keys
+         * miscellaneous keys:
          *
          * None of these are listed in GlfwKeyMap, so I believe they aren't
          * needed for LWJGL v3.

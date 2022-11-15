@@ -231,9 +231,8 @@ public class DsEditInputMode extends InputMode {
                 default:
             }
         }
-        /*
-         * Forward the unhandled action to the application.
-         */
+
+        // Forward the unhandled action to the application.
         getActionApplication().onAction(actionString, ongoing, tpf);
     }
     // *************************************************************************

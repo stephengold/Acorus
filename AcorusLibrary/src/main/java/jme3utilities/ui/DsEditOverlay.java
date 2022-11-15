@@ -154,9 +154,7 @@ public class DsEditOverlay extends Overlay {
      * @param amount the number of fields to move downward
      */
     void advanceSelectedField(int amount) {
-        /*
-         * Not all status lines are fields!
-         */
+        // Not all status lines are fields!
         int firstField = fullscreenStatusLine;
         int numFields;
         if (proposedSettings.isFullscreen()) {
@@ -402,9 +400,8 @@ public class DsEditOverlay extends Overlay {
         int depth = proposedSettings.colorDepth();
         int rate = proposedSettings.refreshRate();
         RectSizeLimits sizeLimits = proposedSettings.getSizeLimits();
-        /*
-         * Enumerate the most relevant display sizes.
-         */
+
+        // Enumerate the most relevant display sizes.
         for (DisplayMode mode : modes) {
             int modeDepth = mode.getBitDepth();
             if (modeDepth <= 0 || depth <= 0 || modeDepth == depth) {
@@ -486,9 +483,8 @@ public class DsEditOverlay extends Overlay {
         Iterable<DisplayMode> modes = DsUtils.listDisplayModes();
         int height = proposedSettings.height();
         int width = proposedSettings.width();
-        /*
-         * Enumerate the most relevant refresh rates.
-         */
+
+        // Enumerate the most relevant refresh rates.
         Set<Integer> rateSet = new TreeSet<>();
         for (DisplayMode mode : modes) {
             if (mode.getHeight() == height && mode.getWidth() == width) {

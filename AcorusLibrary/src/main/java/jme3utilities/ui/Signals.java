@@ -78,9 +78,8 @@ public class Signals
                     Level.INFO, "action = {0}", MyString.quote(actionString));
         }
         Validate.nonNull(actionString, "action string");
-        /*
-         * Parse the action string.
-         */
+
+        // Parse the action string.
         boolean hasPrefix
                 = actionString.startsWith(InputMode.signalActionPrefix);
         Validate.require(hasPrefix, "the required action prefix");

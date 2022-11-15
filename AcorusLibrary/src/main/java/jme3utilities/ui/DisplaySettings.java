@@ -325,9 +325,7 @@ public class DisplaySettings {
      * "Cancel" button
      */
     public AppSettings initialize() {
-        /*
-         * Attempt to load settings from user preferences (persistent storage).
-         */
+        // Attempt to load settings from user preferences (persistent storage).
         boolean loadedFromStore = false;
         try {
             if (Preferences.userRoot().nodeExists(applicationName)) {
@@ -337,9 +335,8 @@ public class DisplaySettings {
         } catch (BackingStoreException exception) {
             // do nothing
         }
-        /*
-         * Apply overrides to the loaded settings.
-         */
+
+        // Apply overrides to the loaded settings.
         applyOverrides(proposedSettings);
 
         boolean show;
@@ -362,16 +359,12 @@ public class DisplaySettings {
         }
 
         if (show) {
-            /*
-             * Show JME's settings dialog.
-             */
+            // Show JME's settings dialog.
             boolean loadFlag = false;
             boolean proceed
                     = JmeSystem.showSettingsDialog(proposedSettings, loadFlag);
             if (!proceed) {
-                /*
-                 * The user clicked on the "Cancel" button.
-                 */
+                // The user clicked on the "Cancel" button.
                 return null;
             }
         }

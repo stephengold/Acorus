@@ -302,9 +302,7 @@ abstract public class AcorusDemo extends ActionApplication {
      * @return a new instance
      */
     public Rectangle detailedHelpBounds(int viewPortWidth, int viewPortHeight) {
-        /*
-         * Position help nodes near the upper-right corner of the viewport.
-         */
+        // Position help nodes near the upper-right corner of the viewport.
         float margin = 10f; // in pixels
         float height = viewPortHeight - (2f * margin);
         float width = 250f; // in pixels
@@ -494,20 +492,16 @@ abstract public class AcorusDemo extends ActionApplication {
      */
     @Override
     public void acorusInit() {
-        /*
-         * Ensure that ColorSpace-dependent data get initialized.
-         */
+        // Ensure that ColorSpace-dependent data get initialized.
         assert oldColorSpace == null;
         updateColorSpace();
-        /*
-         * Ensure that size-dependent data get initialized.
-         */
+
+        // Ensure that size-dependent data get initialized.
         int width = cam.getWidth();
         int height = cam.getHeight();
         onViewPortResize(width, height);
-        /*
-         * Ensure that size-dependent data get updated.
-         */
+
+        // Ensure that size-dependent data get updated.
         SceneProcessor sceneProcessor = new AcorusProcessor(this);
         guiViewPort.addProcessor(sceneProcessor);
     }
@@ -651,9 +645,8 @@ abstract public class AcorusDemo extends ActionApplication {
             HelpVersion displayVersion, ColorSpace colorSpace) {
         assert bounds != null;
         assert colorSpace != null;
-        /*
-         * If a help node already exists, remove it from the scene graph.
-         */
+
+        // If a help node already exists, remove it from the scene graph.
         if (helpNode != null) {
             helpNode.removeFromParent();
         }
