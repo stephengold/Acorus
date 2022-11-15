@@ -353,8 +353,8 @@ abstract public class ActionApplication
             if (actionString.startsWith(InputMode.comboActionPrefix)) {
                 InputMode mode = InputMode.getActiveMode();
                 if (mode != null) {
-                    String arg = MyString.remainder(actionString,
-                            InputMode.comboActionPrefix);
+                    String arg = MyString.remainder(
+                            actionString, InputMode.comboActionPrefix);
                     int code = Integer.parseInt(arg);
                     mode.processCombos(code, tpf);
                     return;
@@ -514,11 +514,9 @@ abstract public class ActionApplication
             System.out.println("Camera Position: ("
                     + loc.x + ", " + loc.y + ", " + loc.z + ")");
             System.out.println("Camera Rotation: " + rot);
-            System.out.println("Camera Direction: "
-                    + cam.getDirection());
+            System.out.println("Camera Direction: " + cam.getDirection());
             System.out.println("cam.setLocation(new Vector3f("
-                    + loc.x + "f, " + loc.y + "f, " + loc.z
-                    + "f));");
+                    + loc.x + "f, " + loc.y + "f, " + loc.z + "f));");
             System.out.println("cam.setRotation(new Quaternion("
                     + rot.getX() + "f, " + rot.getY() + "f, "
                     + rot.getZ() + "f, " + rot.getW() + "f));");
@@ -546,7 +544,6 @@ abstract public class ActionApplication
     private void toggleRecorder() {
         VideoRecorderAppState vras
                 = stateManager.getState(VideoRecorderAppState.class);
-
         if (vras == null) {
             String hhmmss = hhmmss();
             String fileName = String.format("recording-%s.avi", hhmmss);

@@ -92,8 +92,8 @@ public class CameraOrbitAppState extends AcorusAppState {
      * @param cwSignalName the signal name to orbit in the -Y direction (not
      * null, not empty)
      */
-    public CameraOrbitAppState(Camera camera, String ccwSignalName,
-            String cwSignalName) {
+    public CameraOrbitAppState(
+            Camera camera, String ccwSignalName, String cwSignalName) {
         super(InitialState.Enabled);
         Validate.nonNull(camera, "camera");
         Validate.nonEmpty(ccwSignalName, "counter-clockwise signal name");

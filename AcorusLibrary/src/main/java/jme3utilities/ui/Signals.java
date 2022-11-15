@@ -74,8 +74,8 @@ public class Signals
     @Override
     public void onAction(String actionString, boolean isOngoing, float unused) {
         if (logger2.isLoggable(Level.INFO)) {
-            logger2.log(Level.INFO, "action = {0}",
-                    MyString.quote(actionString));
+            logger2.log(
+                    Level.INFO, "action = {0}", MyString.quote(actionString));
         }
         Validate.nonNull(actionString, "action string");
         /*

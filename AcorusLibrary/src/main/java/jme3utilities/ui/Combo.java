@@ -171,8 +171,8 @@ public class Combo {
      * @return true if the signal is required, false if it is excluded
      */
     boolean isPositive(int signalIndex) {
-        Validate.inRange(signalIndex, "signal index", 0,
-                positiveFlags.length - 1);
+        Validate.inRange(
+                signalIndex, "signal index", 0, positiveFlags.length - 1);
         boolean result = positiveFlags[signalIndex];
 
         return result;
@@ -193,8 +193,8 @@ public class Combo {
      * @return the name
      */
     String signalName(int signalIndex) {
-        Validate.inRange(signalIndex, "signal index", 0,
-                signalNames.length - 1);
+        Validate.inRange(
+                signalIndex, "signal index", 0, signalNames.length - 1);
         String result = signalNames[signalIndex];
         return result;
     }

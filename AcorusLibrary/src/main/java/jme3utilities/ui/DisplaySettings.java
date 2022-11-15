@@ -480,8 +480,7 @@ public class DisplaySettings {
 
         if (!success) {
             logger.log(Level.WARNING, "Failed to read settings for \"{0}\""
-                    + " from persistent storage.",
-                    applicationName);
+                    + " from persistent storage.", applicationName);
         }
 
         return success;
@@ -961,10 +960,8 @@ public class DisplaySettings {
 
         int modeDepth = mode.getBitDepth();
         if (modeDepth <= 0 || depth <= 0 || modeDepth == depth) {
-
             int modeRate = mode.getRefreshRate();
             if (modeRate <= 0 || rate <= 0 || modeRate == rate) {
-
                 if (mode.getWidth() == width && mode.getHeight() == height) {
                     result = true;
                 }

@@ -676,8 +676,8 @@ abstract public class InputMode
      * @param application (not null)
      */
     @Override
-    public void initialize(AppStateManager stateManager,
-            Application application) {
+    public void
+            initialize(AppStateManager stateManager, Application application) {
         super.initialize(stateManager, application);
 
         InputMode prior = modes.put(shortName, this);
@@ -744,8 +744,8 @@ abstract public class InputMode
                 status = "disabled";
             }
         } else {
-            status = String.format("uninitialized, startEnabled=%s",
-                    startEnabled);
+            status = String
+                    .format("uninitialized, startEnabled=%s", startEnabled);
         }
         String result = String.format("%s (%s)", shortName, status);
 
@@ -920,8 +920,8 @@ abstract public class InputMode
     private void saveBindings(OutputStream stream) throws IOException {
         assert stream != null;
 
-        String comment = String.format("custom hotkey bindings for %s mode",
-                shortName);
+        String comment = String
+                .format("custom hotkey bindings for %s mode", shortName);
         hotkeyBindings.storeToXML(stream, comment);
     }
 

@@ -146,8 +146,8 @@ public class DefaultInputMode extends InputMode {
      * @param application (not null)
      */
     @Override
-    public void initialize(AppStateManager stateManager,
-            Application application) {
+    public void
+            initialize(AppStateManager stateManager, Application application) {
         AssetManager am = application.getAssetManager();
         JmeCursor cursor = (JmeCursor) am.loadAsset(assetPath);
         setCursor(cursor);
@@ -226,8 +226,8 @@ public class DefaultInputMode extends InputMode {
      * @param inputManager which input manager (not null)
      * @param actionString which action string to unmap (not null)
      */
-    private static void deleteAnyMapping(InputManager inputManager,
-            String actionString) {
+    private static void
+            deleteAnyMapping(InputManager inputManager, String actionString) {
         assert inputManager != null;
         assert actionString != null;
 

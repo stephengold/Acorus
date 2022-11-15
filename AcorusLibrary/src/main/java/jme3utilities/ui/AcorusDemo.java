@@ -165,8 +165,8 @@ abstract public class AcorusDemo extends ActionApplication {
      * @param amount the number of values to advance (may be negative)
      * @return the new (advanced) value
      */
-    public static float advanceFloat(float[] valuesArray, float startValue,
-            int amount) {
+    public static float
+            advanceFloat(float[] valuesArray, float startValue, int amount) {
         Validate.nonEmpty(valuesArray, "values array");
 
         int index = Arrays.binarySearch(valuesArray, startValue);
@@ -192,8 +192,8 @@ abstract public class AcorusDemo extends ActionApplication {
      * @param amount the number of values to advance (may be negative)
      * @return the new (advanced) value
      */
-    public static int advanceInt(int[] valuesArray, int startValue,
-            int amount) {
+    public static int
+            advanceInt(int[] valuesArray, int startValue, int amount) {
         Validate.nonEmpty(valuesArray, "values array");
         Validate.require(valuesArray.length > 0, "non-empty values array");
 
@@ -220,8 +220,8 @@ abstract public class AcorusDemo extends ActionApplication {
      * @param amount the number of values to advance (may be negative)
      * @return the new (advanced) value
      */
-    public static String advanceString(String[] valuesArray, String startValue,
-            int amount) {
+    public static String
+            advanceString(String[] valuesArray, String startValue, int amount) {
         Validate.nonEmpty(valuesArray, "values array");
 
         int index = Arrays.binarySearch(valuesArray, startValue);
@@ -561,8 +561,8 @@ abstract public class AcorusDemo extends ActionApplication {
             } else {
                 space = oldColorSpace;
             }
-            updateHelp(newMode, viewPortWidth, viewPortHeight, helpVersion,
-                    space);
+            updateHelp(
+                    newMode, viewPortWidth, viewPortHeight, helpVersion, space);
         }
     }
 
