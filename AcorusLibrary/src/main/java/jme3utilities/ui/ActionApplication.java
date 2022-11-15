@@ -568,7 +568,7 @@ abstract public class ActionApplication
             stateManager.attach(recorder);
 
             String quotedPath = MyString.quote(file.getAbsolutePath());
-            logger.log(Level.WARNING, "Began recording to {0}", quotedPath);
+            logger.log(Level.WARNING, "Started recording to {0}", quotedPath);
 
         } else {
             File file = vras.getFile();
