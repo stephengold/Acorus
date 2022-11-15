@@ -437,7 +437,7 @@ abstract public class ActionApplication
             throw new IllegalStateException(
                     "application may only be initialized once");
         }
-        isInitialized = true;
+        this.isInitialized = true;
 
         Locators.setAssetManager(assetManager);
         if (sandboxDirectory != null) {
@@ -452,7 +452,7 @@ abstract public class ActionApplication
         // Initialize hotkeys.
         Hotkey.initialize(inputManager);
 
-        defaultInputMode = stateManager.getState(DefaultInputMode.class);
+        this.defaultInputMode = stateManager.getState(DefaultInputMode.class);
         if (defaultInputMode == null) {
             // Attach and enable the standard initial input mode.
             defaultInputMode = new DefaultInputMode();

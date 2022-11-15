@@ -157,7 +157,7 @@ public class CameraOrbitAppState extends AcorusAppState {
      */
     public void setCenter(ReadXZ desiredCenter) {
         Validate.nonNull(desiredCenter, "desired center");
-        centerXZ = desiredCenter;
+        this.centerXZ = desiredCenter;
     }
 
     /**
@@ -167,7 +167,7 @@ public class CameraOrbitAppState extends AcorusAppState {
      */
     public void setRate(float desiredRate) {
         Validate.nonNegative(desiredRate, "desired rate");
-        angularRate = desiredRate;
+        this.angularRate = desiredRate;
     }
     // *************************************************************************
     // AcorusAppState methods

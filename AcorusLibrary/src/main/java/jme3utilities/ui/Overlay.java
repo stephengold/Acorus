@@ -450,8 +450,8 @@ public class Overlay extends BaseAppState {
         Validate.nonNull(text, "text");
         Validate.nonNull(color, "color");
 
-        contentColors[lineIndex].set(color);
-        contentStrings[lineIndex] = text;
+        this.contentColors[lineIndex].set(color);
+        this.contentStrings[lineIndex] = text;
         if (isInitialized()) {
             BitmapText line = contentLines[lineIndex];
             line.setColor(color.clone());

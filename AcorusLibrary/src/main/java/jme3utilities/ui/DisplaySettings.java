@@ -155,7 +155,7 @@ public class DisplaySettings {
 
         application.setSettings(clone);
         application.restart();
-        areApplied = true;
+        this.areApplied = true;
     }
 
     /**
@@ -463,8 +463,8 @@ public class DisplaySettings {
         try {
             if (Preferences.userRoot().nodeExists(applicationName)) {
                 proposedSettings.load(applicationName);
-                areApplied = false;
-                areSaved = true;
+                this.areApplied = false;
+                this.areSaved = true;
                 success = true;
             }
         } catch (BackingStoreException exception) {
@@ -489,8 +489,8 @@ public class DisplaySettings {
         proposedSettings.copyFrom(defaults);
         applyOverrides(proposedSettings);
 
-        areApplied = false;
-        areSaved = false;
+        this.areApplied = false;
+        this.areSaved = false;
     }
 
     /**
@@ -528,13 +528,13 @@ public class DisplaySettings {
         int oldWidth = width();
         if (newWidth != oldWidth) {
             proposedSettings.setWidth(newWidth);
-            areSaved = false;
+            this.areSaved = false;
         }
 
         int oldHeight = height();
         if (newHeight != oldHeight) {
             proposedSettings.setHeight(newHeight);
-            areSaved = false;
+            this.areSaved = false;
         }
     }
 
@@ -548,7 +548,7 @@ public class DisplaySettings {
         boolean result = false;
         try {
             proposedSettings.save(applicationName);
-            areSaved = true;
+            this.areSaved = true;
             result = true;
         } catch (BackingStoreException exception) {
             logger.log(Level.WARNING, "Failed to write settings for \"{0}\" "
@@ -589,8 +589,8 @@ public class DisplaySettings {
         boolean oldSetting = isCentered();
         if (newSetting != oldSetting) {
             proposedSettings.setCenterWindow(newSetting);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
     }
 
@@ -604,8 +604,8 @@ public class DisplaySettings {
         int oldBpp = colorDepth();
         if (newDepth != oldBpp) {
             proposedSettings.setBitsPerPixel(newDepth);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
     }
 
@@ -621,14 +621,14 @@ public class DisplaySettings {
         int oldWidth = width();
         if (newWidth != oldWidth) {
             proposedSettings.setWidth(newWidth);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
         int oldHeight = height();
         if (newHeight != oldHeight) {
             proposedSettings.setHeight(newHeight);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
     }
 
@@ -641,8 +641,8 @@ public class DisplaySettings {
         boolean oldSetting = isFullscreen();
         if (newSetting != oldSetting) {
             proposedSettings.setFullscreen(newSetting);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
     }
 
@@ -655,8 +655,8 @@ public class DisplaySettings {
         boolean oldSetting = isGammaCorrection();
         if (newSetting != oldSetting) {
             proposedSettings.setGammaCorrection(newSetting);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
     }
 
@@ -673,8 +673,8 @@ public class DisplaySettings {
         String oldSetting = graphicsApi();
         if (!newSetting.equals(oldSetting)) {
             proposedSettings.setRenderer(newSetting);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
     }
 
@@ -688,7 +688,7 @@ public class DisplaySettings {
         if (newSetting != oldSetting) {
             proposedSettings.setGraphicsDebug(newSetting);
             // after init, applying has no effect
-            areSaved = false;
+            this.areSaved = false;
         }
     }
 
@@ -702,7 +702,7 @@ public class DisplaySettings {
         if (newSetting != oldSetting) {
             proposedSettings.setGraphicsTrace(newSetting);
             // after init, applying has no effect
-            areSaved = false;
+            this.areSaved = false;
         }
     }
 
@@ -731,8 +731,8 @@ public class DisplaySettings {
         int oldFactor = msaaFactor();
         if (newFactor != oldFactor) {
             proposedSettings.setSamples(newFactor);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
     }
 
@@ -745,8 +745,8 @@ public class DisplaySettings {
         int oldRate = refreshRate();
         if (newRate != oldRate) {
             proposedSettings.setFrequency(newRate);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
     }
 
@@ -772,15 +772,15 @@ public class DisplaySettings {
         int oldX = startX();
         if (newX != oldX) {
             proposedSettings.setWindowXPosition(newX);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
 
         int oldY = startY();
         if (newY != oldY) {
             proposedSettings.setWindowYPosition(newY);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
     }
 
@@ -793,8 +793,8 @@ public class DisplaySettings {
         boolean oldSetting = isVSync();
         if (newSetting != oldSetting) {
             proposedSettings.setVSync(newSetting);
-            areApplied = false;
-            areSaved = false;
+            this.areApplied = false;
+            this.areSaved = false;
         }
     }
 

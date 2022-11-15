@@ -706,7 +706,7 @@ abstract public class InputMode
         }
         assert !isSuspended;
         if (!isInitialized()) {
-            startEnabled = newState;
+            this.startEnabled = newState;
             return;
         }
 
@@ -812,7 +812,7 @@ abstract public class InputMode
         }
 
         UncachedKey key = new UncachedKey(assetPath);
-        hotkeyBindings = (Properties) assetManager.loadAsset(key);
+        this.hotkeyBindings = (Properties) assetManager.loadAsset(key);
 
         for (String usHotkeyName : hotkeyBindings.stringPropertyNames()) {
             String actionName = hotkeyBindings.getProperty(usHotkeyName);
@@ -900,7 +900,7 @@ abstract public class InputMode
         assert isSuspended;
 
         activate();
-        isSuspended = false;
+        this.isSuspended = false;
     }
 
     /**
@@ -1007,7 +1007,7 @@ abstract public class InputMode
         assert !isSuspended;
 
         deactivate();
-        isSuspended = true;
+        this.isSuspended = true;
     }
 
     /**

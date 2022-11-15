@@ -267,7 +267,7 @@ abstract public class AcorusDemo extends ActionApplication {
             rootNode.removeControl(worldAxes);
         }
 
-        worldAxes = new AxesVisualizer(assetManager, axisLength);
+        this.worldAxes = new AxesVisualizer(assetManager, axisLength);
         worldAxes.setLineWidth(AxesVisualizer.widthForSolid);
 
         rootNode.addControl(worldAxes);
@@ -584,7 +584,7 @@ abstract public class AcorusDemo extends ActionApplication {
                 ? ColorSpace.sRGB : ColorSpace.Linear;
         if (space != oldColorSpace) {
             onColorSpaceChange(space);
-            oldColorSpace = space;
+            this.oldColorSpace = space;
         }
     }
 
@@ -606,8 +606,8 @@ abstract public class AcorusDemo extends ActionApplication {
                 sl.reshape(width, height);
             }
 
-            oldFramebufferWidth = width;
-            oldFramebufferHeight = height;
+            this.oldFramebufferWidth = width;
+            this.oldFramebufferHeight = height;
         }
     }
 
@@ -658,13 +658,13 @@ abstract public class AcorusDemo extends ActionApplication {
 
         switch (displayVersion) {
             case Detailed:
-                helpNode = helpBuilder.buildDetailedNode(
+                this.helpNode = helpBuilder.buildDetailedNode(
                         inputMode, bounds, guiFont, colorSpace);
                 guiNode.attachChild(helpNode);
                 break;
 
             case Minimal:
-                helpNode = helpBuilder.buildMinimalNode(
+                this.helpNode = helpBuilder.buildMinimalNode(
                         inputMode, bounds, guiFont, colorSpace);
                 guiNode.attachChild(helpNode);
                 break;

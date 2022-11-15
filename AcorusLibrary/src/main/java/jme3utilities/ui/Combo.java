@@ -84,13 +84,13 @@ public class Combo {
         Validate.nonNegative(universalCode, "universal code");
         Validate.nonEmpty(signalName, "signal name");
 
-        hotkey = Hotkey.find(universalCode);
+        this.hotkey = Hotkey.find(universalCode);
 
-        signalNames = new String[1];
-        signalNames[0] = signalName;
+        this.signalNames = new String[1];
+        this.signalNames[0] = signalName;
 
-        positiveFlags = new boolean[1];
-        positiveFlags[0] = positiveFlag;
+        this.positiveFlags = new boolean[1];
+        this.positiveFlags[0] = positiveFlag;
     }
 
     /**
@@ -108,11 +108,11 @@ public class Combo {
 
         this.hotkey = hotkey;
 
-        signalNames = new String[1];
-        signalNames[0] = signalName;
+        this.signalNames = new String[1];
+        this.signalNames[0] = signalName;
 
-        positiveFlags = new boolean[1];
-        positiveFlags[0] = positiveFlag;
+        this.positiveFlags = new boolean[1];
+        this.positiveFlags[0] = positiveFlag;
     }
 
     /**
@@ -138,10 +138,10 @@ public class Combo {
 
         this.hotkey = hotkey;
 
-        signalNames = new String[numSignals];
+        this.signalNames = new String[numSignals];
         nameSet.toArray(signalNames);
 
-        positiveFlags = new boolean[numSignals];
+        this.positiveFlags = new boolean[numSignals];
         for (int sortedI = 0; sortedI < numSignals; ++sortedI) {
             String name = signalNames[sortedI];
             int originalI = MyString.findIndex(names, name);
