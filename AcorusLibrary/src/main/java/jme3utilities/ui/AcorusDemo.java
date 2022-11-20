@@ -289,7 +289,7 @@ abstract public class AcorusDemo extends ActionApplication {
         Vector3f center = MyVector3f.midpoint(min, max, null);
         Vector3f offset = new Vector3f(center.x, min.y, center.z);
 
-        Vector3f location = cgModel.getWorldTranslation();
+        Vector3f location = cgModel.getWorldTranslation().clone();
         location.subtractLocal(offset);
         MySpatial.setWorldLocation(cgModel, location);
     }
