@@ -509,8 +509,8 @@ abstract public class ActionApplication
      */
     private void dumpCameraPosition() {
         if (cam != null) {
-            Vector3f loc = cam.getLocation();
-            Quaternion rot = cam.getRotation();
+            Vector3f loc = cam.getLocation(); // alias
+            Quaternion rot = cam.getRotation(); // alias
             System.out.println("Camera Position: ("
                     + loc.x + ", " + loc.y + ", " + loc.z + ")");
             System.out.println("Camera Rotation: " + rot);
