@@ -360,8 +360,8 @@ public class Locators {
      * @param rootPath (not null, not empty)
      * @param locatorType type of locator
      */
-    private void configurationRegister(String rootPath,
-            Class<? extends AssetLocator> locatorType) {
+    private void configurationRegister(
+            String rootPath, Class<? extends AssetLocator> locatorType) {
         Validate.nonEmpty(rootPath, "root path");
 
         int index = configurationFind(rootPath, locatorType);

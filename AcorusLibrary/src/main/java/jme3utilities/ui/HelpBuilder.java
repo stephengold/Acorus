@@ -373,8 +373,8 @@ public class HelpBuilder {
      * @param colorSpace (not null)
      * @return a new Geometry, suitable for attachment to the help node
      */
-    private Geometry buildBackground(Rectangle bounds, float maxX, float minY,
-            ColorSpace colorSpace) {
+    private Geometry buildBackground(
+            Rectangle bounds, float maxX, float minY, ColorSpace colorSpace) {
         float x1 = bounds.x - padding;
         float x2 = maxX + padding;
         float y1 = minY - padding;

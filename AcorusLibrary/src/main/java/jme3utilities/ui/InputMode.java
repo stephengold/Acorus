@@ -441,8 +441,8 @@ abstract public class InputMode
     public void loadBindings() {
         String assetPath = configPath();
         if (assetPath == null) {
-            logger.log(Level.WARNING,
-                    "bindings not loaded: config path not set");
+            logger.log(
+                    Level.WARNING, "bindings not loaded: config path not set");
             return;
         }
 

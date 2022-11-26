@@ -119,8 +119,8 @@ public class DisplaySettings {
      * @param sizeLimits the desired framebuffer-size limits (not null, alias
      * created)
      */
-    public DisplaySettings(ActionApplication app, String appName,
-            RectSizeLimits sizeLimits) {
+    public DisplaySettings(
+            ActionApplication app, String appName, RectSizeLimits sizeLimits) {
         Validate.nonNull(app, "application");
         Validate.nonNull(appName, "application name");
         Validate.nonNull(sizeLimits, "size limits");
@@ -917,8 +917,8 @@ public class DisplaySettings {
      * @param height the desired display height (in pixels, &gt;0)
      * @return true for a match, otherwise false
      */
-    private static boolean matchesAvailableDisplayMode2(DisplayMode mode,
-            int depth, int rate, int width, int height) {
+    private static boolean matchesAvailableDisplayMode2(
+            DisplayMode mode, int depth, int rate, int width, int height) {
         boolean result = false;
 
         int modeDepth = mode.getBitDepth();
@@ -947,8 +947,8 @@ public class DisplaySettings {
      * @param height the desired display height (in pixels, &gt;0)
      * @return true for a match, otherwise false
      */
-    private static boolean matchesAvailableDisplayMode3(DisplayMode mode,
-            int depth, int rate, int width, int height) {
+    private static boolean matchesAvailableDisplayMode3(
+            DisplayMode mode, int depth, int rate, int width, int height) {
         boolean result = false;
 
         int modeDepth = mode.getBitDepth();

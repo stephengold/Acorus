@@ -452,8 +452,8 @@ final public class Hotkey {
                     if (localName.length() == 1) {
                         int ch = localName.charAt(0);
                         String unicodeName = Character.getName(ch);
-                        localQ += String.format("    (\"\\u%04x\": %s)",
-                                ch, unicodeName);
+                        localQ += String.format(
+                                "    (\"\\u%04x\": %s)", ch, unicodeName);
                     }
                     if (logger.isLoggable(Level.INFO)) {
                         logger.log(Level.INFO,
