@@ -148,25 +148,25 @@ final public class HelloSignals extends AcorusDemo {
 
         Material blueMaterial
                 = MyAsset.createUnshadedMaterial(assetManager, ColorRGBA.Blue);
-        blueSquare = new Geometry("blue square", squareMesh);
+        this.blueSquare = new Geometry("blue square", squareMesh);
         blueSquare.setMaterial(blueMaterial);
         blueSquare.move(x1, y1, z);
 
         Material greenMaterial
                 = MyAsset.createUnshadedMaterial(assetManager, ColorRGBA.Green);
-        greenSquare = new Geometry("red square", squareMesh);
+        this.greenSquare = new Geometry("red square", squareMesh);
         greenSquare.setMaterial(greenMaterial);
         greenSquare.move(x2, y1, z);
 
         Material redMaterial
                 = MyAsset.createUnshadedMaterial(assetManager, ColorRGBA.Red);
-        redSquare = new Geometry("red square", squareMesh);
+        this.redSquare = new Geometry("red square", squareMesh);
         redSquare.setMaterial(redMaterial);
         redSquare.move(x1, y2, z);
 
         Material whiteMaterial
                 = MyAsset.createUnshadedMaterial(assetManager, ColorRGBA.White);
-        whiteSquare = new Geometry("white square", squareMesh);
+        this.whiteSquare = new Geometry("white square", squareMesh);
         whiteSquare.setMaterial(whiteMaterial);
         whiteSquare.move(x2, y2, z);
     }

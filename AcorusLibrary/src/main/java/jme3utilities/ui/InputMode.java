@@ -519,7 +519,7 @@ abstract public class InputMode
      * loadable/savable)
      */
     public void setConfigPath(String assetPath) {
-        configAssetPath = assetPath;
+        this.configAssetPath = assetPath;
     }
 
     /**
@@ -529,7 +529,7 @@ abstract public class InputMode
      */
     public void setCursor(JmeCursor newCursor) {
         assert !isInitialized();
-        cursor = newCursor;
+        this.cursor = newCursor;
     }
 
     /**

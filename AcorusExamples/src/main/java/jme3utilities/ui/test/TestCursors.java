@@ -234,7 +234,7 @@ final public class TestCursors extends AcorusDemo {
     private void addStatusOverlay() {
         float width = 125f; // in pixels
         int numStatusLines = 1;
-        statusOverlay = new Overlay("status", width, numStatusLines);
+        this.statusOverlay = new Overlay("status", width, numStatusLines);
 
         boolean success = stateManager.attach(statusOverlay);
         assert success;

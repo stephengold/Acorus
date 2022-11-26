@@ -437,7 +437,7 @@ abstract public class ActionApplication
             throw new IllegalStateException(
                     "application may only be initialized once");
         }
-        this.isInitialized = true;
+        isInitialized = true;
 
         Locators.setAssetManager(assetManager);
         if (sandboxDirectory != null) {

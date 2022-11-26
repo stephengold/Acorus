@@ -285,7 +285,7 @@ public class TestAcorusDemo extends AcorusDemo {
         setCgmHeight(jaime, 2f); // Make the model 2 world units tall.
         centerCgm(jaime);        // Position it above the origin.
 
-        composer = jaime.getControl(AnimComposer.class);
+        this.composer = jaime.getControl(AnimComposer.class);
         composer.setCurrentAction(clipName);
     }
 
@@ -313,7 +313,7 @@ public class TestAcorusDemo extends AcorusDemo {
      */
     private void addStatusOverlay() {
         float width = 75f; // in pixels
-        statusOverlay = new Overlay("status", width, numStatusLines);
+        this.statusOverlay = new Overlay("status", width, numStatusLines);
 
         boolean success = stateManager.attach(statusOverlay);
         assert success;
