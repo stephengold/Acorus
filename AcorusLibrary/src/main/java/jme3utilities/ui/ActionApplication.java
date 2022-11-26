@@ -84,7 +84,7 @@ abstract public class ActionApplication
      */
     final public static String asScreenShot = "ScreenShot";
     /**
-     * action string to toggle video recording
+     * action string to toggle video recording on/off
      */
     final public static String asToggleRecorder = "toggle recorder";
     // *************************************************************************

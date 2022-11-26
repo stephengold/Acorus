@@ -50,7 +50,7 @@ import org.apache.commons.exec.DefaultExecutor;
 import org.lwjgl.system.Configuration;
 
 /**
- * Choose an application from a list, then execute it.
+ * Choose an Acorus example application from a list, then execute it.
  *
  * @author Stephen Gold sgold@sonic.net
  */
