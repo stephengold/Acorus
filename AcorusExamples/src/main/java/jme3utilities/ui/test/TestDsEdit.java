@@ -106,16 +106,13 @@ public class TestDsEdit extends AcorusDemo {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        /*
-         * Mute the chatty loggers in certain packages.
-         */
+        // Mute the chatty loggers in certain packages.
         Heart.setLoggingLevels(Level.WARNING);
 
         boolean resetOnly = false;
         ShowDialog showDialog = ShowDialog.Never;
-        /*
-         * Process any command-line arguments.
-         */
+
+        // Process any command-line arguments.
         for (String arg : arguments) {
             switch (arg) {
                 case "--deleteOnly":
@@ -149,9 +146,7 @@ public class TestDsEdit extends AcorusDemo {
      */
     @Override
     public void acorusInit() {
-        /*
-         * Log library versions.
-         */
+        // Log library versions.
         logger.log(Level.INFO, "jme3-core version is {0}",
                 MyString.quote(JmeVersion.FULL_NAME));
         logger.log(Level.INFO, "Heart version is {0}",

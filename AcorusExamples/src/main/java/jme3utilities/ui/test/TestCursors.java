@@ -147,9 +147,7 @@ final public class TestCursors extends AcorusDemo {
 
                 @Override
                 public void onAction(String as, boolean ongoing, float tpf) {
-                    /*
-                     * Forward all actions to the application for processing.
-                     */
+                    // Forward all actions to the application for processing.
                     getActionApplication().onAction(as, ongoing, tpf);
                 }
             };

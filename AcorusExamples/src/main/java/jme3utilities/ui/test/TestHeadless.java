@@ -58,17 +58,13 @@ public class TestHeadless extends ActionApplication {
      * @param ignored array of command-line arguments (not null)
      */
     public static void main(String[] ignored) {
-        /*
-         * Mute the chatty loggers in certain packages.
-         */
+        // Mute the chatty loggers in certain packages.
         Heart.setLoggingLevels(Level.WARNING);
-        /*
-         * Instantiate the application.
-         */
+
+        // Instantiate the application.
         TestHeadless application = new TestHeadless();
-        /*
-         * Invoke the JME startup code, which in turn invokes acorusInit().
-         */
+
+        // Invoke the JME startup code, which in turn invokes acorusInit().
         application.start(JmeContext.Type.Headless);
     }
     // *************************************************************************

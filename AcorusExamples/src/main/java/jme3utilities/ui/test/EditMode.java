@@ -140,9 +140,8 @@ class EditMode extends InputMode {
                 return;
             }
         }
-        /*
-         * Forward all other actions to the application for processing.
-         */
+
+        // Forward all other actions to the application for processing.
         getActionApplication().onAction(actionString, ongoing, tpf);
     }
 }

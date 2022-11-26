@@ -132,9 +132,8 @@ final public class TestHotkeys extends ActionApplication {
             logger.log(Level.SEVERE, "Not designed to run full-screen.");
             stop();
         }
-        /*
-         * Instantiate the status text and attach it to the GUI node.
-         */
+
+        // Instantiate the status text and attach it to the GUI node.
         this.statusText = new BitmapText(guiFont);
         statusText.setLocalTranslation(0f, cam.getHeight(), 0f);
         guiNode.attachChild(statusText);
