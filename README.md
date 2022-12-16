@@ -364,6 +364,11 @@ it binds 6 hotkeys (W/A/S/D/Q/Z on "US" QWERTY keyboards)
 to signals that control camera motion.
 
 Users accustomed to `SimpleApplication` will expect these bindings.
+Futhermore:
+
+When the default input mode detects a `ScreenshotAppState`,
+it binds a platform-dependent key to the action
+that generates a screenshot.
 
 ### HelloToggleHelp
 
