@@ -289,8 +289,8 @@ public class TestDsEdit extends AcorusDemo {
                 450, 380, // min width, height
                 2_048, 1_080 // max width, height
         );
-        proposedSettings = new DisplaySettings(application, applicationName,
-                sizeLimits) {
+        proposedSettings = new DisplaySettings(
+                application, applicationName, sizeLimits) {
             @Override
             protected void applyOverrides(AppSettings appSettings) {
                 setShowDialog(showDialog);
