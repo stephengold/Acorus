@@ -287,7 +287,7 @@ final public class DsUtils {
      * @return a new array containing the width and height, or null for a syntax
      * error
      */
-    public static int[] parseDisplaySize(String description) {
+    public static int[] parseDimensions(String description) {
         Validate.nonEmpty(description, "text");
 
         String lcText = description.toLowerCase(Locale.ROOT);

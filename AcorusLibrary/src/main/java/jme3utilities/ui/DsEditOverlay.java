@@ -441,7 +441,7 @@ public class DsEditOverlay extends Overlay {
         description = AcorusDemo.advanceString(
                 descriptionArray, description, amount);
 
-        int[] wh = DsUtils.parseDisplaySize(description);
+        int[] wh = DsUtils.parseDimensions(description);
         proposedSettings.setDimensions(wh[0], wh[1]);
     }
 
