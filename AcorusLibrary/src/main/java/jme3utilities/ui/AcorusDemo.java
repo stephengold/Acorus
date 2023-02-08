@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2018-2022, Stephen Gold
+ Copyright (c) 2018-2023, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -38,8 +38,6 @@ import com.jme3.post.SceneProcessor;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.system.AppSettings;
-import com.jme3.system.SystemListener;
 import com.jme3.texture.image.ColorSpace;
 import java.util.Arrays;
 import java.util.Map;
@@ -568,8 +566,6 @@ abstract public class AcorusDemo extends ActionApplication {
     @Override
     public void simpleUpdate(float tpf) {
         updateColorSpace();
-        updateFramebufferSize();
-
         super.simpleUpdate(tpf);
     }
     // *************************************************************************
@@ -585,29 +581,6 @@ abstract public class AcorusDemo extends ActionApplication {
         if (space != oldColorSpace) {
             onColorSpaceChange(space);
             this.oldColorSpace = space;
-        }
-    }
-
-    /**
-     * Invoke SystemListener.reshape() if the framebuffer has been resized since
-     * the last time this method was invoked.
-     * <p>
-     * This is intended to work around JMonkeyEngine issue #1793.
-     */
-    private void updateFramebufferSize() {
-        int width = DsUtils.framebufferWidth(context);
-        int height = DsUtils.framebufferHeight(context);
-        if (width != oldFramebufferWidth || height != oldFramebufferHeight) {
-            AppSettings appSettings = getSettings();
-            appSettings.setResolution(width, height);
-
-            if (width > 0 && height > 0) {
-                SystemListener sl = DsUtils.getSystemListener(context);
-                sl.reshape(width, height);
-            }
-
-            this.oldFramebufferWidth = width;
-            this.oldFramebufferHeight = height;
         }
     }
 
