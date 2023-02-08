@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold
+ Copyright (c) 2020-2023, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -290,8 +290,8 @@ public class DsEditOverlay extends Overlay {
         if (isCentered || isFullscreen || !DsUtils.hasLwjglVersion3()) {
             message = "Location:  centered";
         } else {
-            int x = DsUtils.windowXPosition(context);
-            int y = DsUtils.windowYPosition(context);
+            int x = context.getWindowXPosition();
+            int y = context.getWindowYPosition();
             proposedSettings.setStartLocation(x, y);
             message = "Location:  (" + x + ", " + y + ")";
         }
@@ -523,8 +523,8 @@ public class DsEditOverlay extends Overlay {
         if (isCentered) { // switch to specifying screen coordinates
             LegacyApplication legacyApp = (LegacyApplication) getApplication();
             JmeContext context = legacyApp.getContext();
-            int x = DsUtils.windowXPosition(context);
-            int y = DsUtils.windowYPosition(context);
+            int x = context.getWindowXPosition();
+            int y = context.getWindowYPosition();
             proposedSettings.setStartLocation(x, y);
         }
         proposedSettings.setCentered(!isCentered);

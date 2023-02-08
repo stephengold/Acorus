@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold
+ Copyright (c) 2020-2023, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -184,12 +184,12 @@ public class TestDsEdit extends AcorusDemo {
         boolean v3 = DsUtils.hasLwjglVersion3();
         System.out.printf("LWJGL v3 is %s.%n", v3);
 
-        int fbWidth = DsUtils.framebufferWidth(context);
-        int fbHeight = DsUtils.framebufferHeight(context);
+        int fbWidth = context.getFramebufferWidth();
+        int fbHeight = context.getFramebufferHeight();
         System.out.printf("Framebuffer:  %d x %d%n", fbWidth, fbHeight);
 
-        int x = DsUtils.windowXPosition(context);
-        int y = DsUtils.windowYPosition(context);
+        int x = context.getWindowXPosition();
+        int y = context.getWindowYPosition();
         System.out.printf("Window position:  x=%d, y=%d%n", x, y);
 
         System.out.flush();
