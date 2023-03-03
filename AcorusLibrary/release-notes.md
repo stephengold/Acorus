@@ -1,5 +1,20 @@
 # release log for the Acorus library and related examples
 
+## Version 0.9.18+for36 released on TBD
+
++ API changes:
+  + Deleted the `framebufferHeight()`, `framebufferWidth()`,
+    `getSystemListener()`, `windowXPosition()`, and `windowYPosition()` methods
+     from the `DsUtils` class.
+  + Renamed the `parseDisplaySize()` method in the `DsUtils` class.
++ Bugfix: `HelloRecorder` doesn't always shut down cleanly
++ Added the `recordingQuality()` and `setRecordingQuality()` methods
+  to the `ActionApplication` class.
++ If an `ActionApplication` lacks a sandbox, write screenshots and video
+  to the working directory instead.
++ Based on jMonkeyEngine v3.6.0-beta3 and version 8.3.1+for36
+  of the Heart Library.
+
 ## Version 0.9.17 released on 7 November 2022
 
 + API changes:
