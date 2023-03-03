@@ -8,9 +8,13 @@ subprojects {
     apply from: rootProject.file('common.gradle')
 }
 
+tasks.register('checkstyle') {
+    dependsOn ':AcorusExamples:checkstyleMain', ':AcorusLibrary:checkstyleMain'
+}
+
 tasks.register('run') {
     dependsOn ':AcorusExamples:AppChooser'
-    description = 'Runs the examples.'
+    description 'Runs the examples.'
 }
 
 // publishing tasks:
