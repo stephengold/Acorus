@@ -62,6 +62,6 @@ final public class UiVersion {
      * @return the branch name and revision (not null, not empty)
      */
     public static String versionShort() {
-        return "master 0.9.18+for36";
+        return "master 0.9.19-SNAPSHOT";
     }
 }
