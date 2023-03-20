@@ -10,6 +10,7 @@ subprojects {
 
 tasks.register('checkstyle') {
     dependsOn ':AcorusExamples:checkstyleMain', ':AcorusLibrary:checkstyleMain'
+    description = 'Runs the checkstyle tool on all sourcecode.'
 }
 
 tasks.register('run') {
