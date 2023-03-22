@@ -57,8 +57,6 @@ import jme3utilities.mesh.RoundedRectangle;
  * <p>
  * The overlay appears in the upper-left portion of the display.
  *
- * TODO option to center text horizontally
- *
  * @author Stephen Gold sgold@sonic.net
  */
 public class Overlay extends BaseAppState {
@@ -72,6 +70,10 @@ public class Overlay extends BaseAppState {
     // *************************************************************************
     // fields
 
+    /**
+     * horizontal alignment of each content line
+     */
+    final private BitmapFont.Align[] contentAlignments;
     /**
      * lines of text displayed in the overlay ([0] is the top line)
      */
@@ -98,8 +100,8 @@ public class Overlay extends BaseAppState {
      */
     private float lineSpacing = 20f;
     /**
-     * padding between the content lines and top/bottom/left edges of the
-     * background (in framebuffer pixels, &ge;0)
+     * padding between the content lines and the edges of the background (in
+     * framebuffer pixels, &ge;0)
      */
     private float padding = 5f;
     /**
@@ -154,10 +156,12 @@ public class Overlay extends BaseAppState {
         this.setEnabled(false);
         this.node = new Node("overlay node for " + id);
 
+        this.contentAlignments = new BitmapFont.Align[numLines];
         this.contentLines = new BitmapText[numLines];
         this.contentColors = new ColorRGBA[numLines];
         this.contentStrings = new String[numLines];
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
+            this.contentAlignments[lineIndex] = BitmapFont.Align.Left;
             contentColors[lineIndex] = ColorRGBA.White.clone();
             contentStrings[lineIndex] = "";
         }
@@ -170,6 +174,20 @@ public class Overlay extends BaseAppState {
     }
     // *************************************************************************
     // new methods exposed
+
+    /**
+     * Return the horizontal alignment of the indexed content line.
+     *
+     * @param lineIndex which content line to access (&ge;0, &lt;numLines)
+     * @return the enum value (not null)
+     */
+    public BitmapFont.Align alignment(int lineIndex) {
+        int numLines = countLines();
+        Validate.inRange(lineIndex, "line index", 0, numLines - 1);
+
+        BitmapFont.Align result = contentAlignments[lineIndex];
+        return result;
+    }
 
     /**
      * Return the Z offset of the content lines relative to the background.
@@ -286,14 +304,51 @@ public class Overlay extends BaseAppState {
     }
 
     /**
-     * Return the amount of padding between the content lines and
-     * top/bottom/left edges of the background.
+     * Return the amount of padding between the content lines and the edges of
+     * the background.
      *
      * @return the padding (in framebuffer pixels, &ge;0)
      */
     public float padding() {
         assert padding >= 0f : padding;
         return padding;
+    }
+
+    /**
+     * Alter the horizontal alignment of the indexed content line.
+     *
+     * @param lineIndex which line to modify (&ge;0, &lt;numLines)
+     * @param alignment the desired alignment (not null, default=Left)
+     */
+    public void setAlignment(int lineIndex, BitmapFont.Align alignment) {
+        int numLines = countLines();
+        Validate.inRange(lineIndex, "line index", 0, numLines - 1);
+        Validate.nonNull(alignment, "alignment");
+
+        if (alignment != contentAlignments[lineIndex]) {
+            this.contentAlignments[lineIndex] = alignment;
+            if (isInitialized()) {
+                updateContentOffset(lineIndex);
+            }
+        }
+    }
+
+    /**
+     * Alter the horizontal alignment of all content.
+     *
+     * @param alignment the desired alignment (not null, default=Left)
+     */
+    public void setAlignmentAll(BitmapFont.Align alignment) {
+        Validate.nonNull(alignment, "alignment");
+
+        int numLines = countLines();
+        for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
+            this.contentAlignments[lineIndex] = alignment;
+        }
+
+        if (isInitialized()) {
+            updateContentOffsets();
+        }
     }
 
     /**
@@ -400,8 +455,8 @@ public class Overlay extends BaseAppState {
     }
 
     /**
-     * Alter the padding between the content lines and top/bottom/left edges of
-     * the background.
+     * Alter the padding between the content lines and the edges of the
+     * background.
      *
      * @param newPadding the desired padding (in framebuffer pixels, &ge;0,
      * default=5)
@@ -433,6 +488,9 @@ public class Overlay extends BaseAppState {
         if (isInitialized()) {
             BitmapText line = contentLines[lineIndex];
             line.setText(text);
+            if (contentAlignments[lineIndex] != BitmapFont.Align.Left) {
+                updateContentOffset(lineIndex);
+            }
         }
     }
 
@@ -456,6 +514,9 @@ public class Overlay extends BaseAppState {
             BitmapText line = contentLines[lineIndex];
             line.setColor(color.clone());
             line.setText(text);
+            if (contentAlignments[lineIndex] != BitmapFont.Align.Left) {
+                updateContentOffset(lineIndex);
+            }
         }
     }
 
@@ -672,15 +733,33 @@ public class Overlay extends BaseAppState {
      * @param lineIndex (&ge;0)
      */
     private void updateContentOffset(int lineIndex) {
+        BitmapFont.Align hAlign = contentAlignments[lineIndex];
         BitmapText line = contentLines[lineIndex];
-        float xOffset = padding;
+
+        float xOffset;
+        float textWidth;
+        switch (hAlign) {
+            case Left:
+                xOffset = padding;
+                break;
+            case Center:
+                textWidth = line.getLineWidth();
+                xOffset = (width - textWidth) / 2f; // TODO rounding
+                break;
+            case Right:
+                textWidth = line.getLineWidth();
+                xOffset = width - padding - textWidth;
+                break;
+            default:
+                throw new IllegalStateException("hAlign = " + hAlign);
+        }
+
         float yOffset = -(padding + lineSpacing * lineIndex);
         line.setLocalTranslation(xOffset, yOffset, contentZOffset);
     }
 
     /**
-     * Update the local translation of each content line after a change to
-     * padding, lineSpacing, or contentZOffset.
+     * Update the local translation of every content line.
      */
     private void updateContentOffsets() {
         int numLines = countLines();
