@@ -53,9 +53,11 @@ import jme3utilities.math.MyColor;
 import jme3utilities.mesh.RoundedRectangle;
 
 /**
- * A rounded rectangle that displays lines of text.
+ * An AppState for displaying "content" (lines of text) against a rectangular
+ * background with rounded corners.
  * <p>
- * The overlay appears in the upper-left portion of the display.
+ * By default, an Overlay is located in the upper-left corner of the display and
+ * the text is white and left-aligned on a black background.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -75,7 +77,7 @@ public class Overlay extends BaseAppState {
      */
     final private BitmapFont.Align[] contentAlignments;
     /**
-     * lines of text displayed in the overlay ([0] is the top line)
+     * lines of text content displayed in the overlay ([0] is the top line)
      */
     final private BitmapText[] contentLines;
     /**
@@ -105,7 +107,7 @@ public class Overlay extends BaseAppState {
      */
     private float padding = 5f;
     /**
-     * width of the background (in framebuffer pixels, &gt;0)
+     * width of the background, including padding (in framebuffer pixels, &gt;0)
      */
     private float width;
     /**
@@ -123,7 +125,7 @@ public class Overlay extends BaseAppState {
      */
     final private Geometry background;
     /**
-     * location policy (not null)
+     * location policy for the background, relative to viewport edges (not null)
      */
     private LocationPolicy locationPolicy = LocationPolicy.UpperLeft;
     /**
@@ -304,8 +306,8 @@ public class Overlay extends BaseAppState {
     }
 
     /**
-     * Return the amount of padding between the content lines and the edges of
-     * the background.
+     * Return the amount of padding between the content lines and
+     * top/bottom/left/right edges of the background.
      *
      * @return the padding (in framebuffer pixels, &ge;0)
      */
@@ -387,7 +389,7 @@ public class Overlay extends BaseAppState {
      *
      * @param lineIndex which line to modify (&ge;0, &lt;countLines)
      * @param color the desired foreground color (not null, unaffected,
-     * gamma-encoded)
+     * gamma-encoded, default=White)
      */
     public void setColor(int lineIndex, ColorRGBA color) {
         int numLines = countLines();
@@ -713,7 +715,7 @@ public class Overlay extends BaseAppState {
     }
 
     /**
-     * Adjust the color of the indexed bitmap for the specified ColorSpace.
+     * Adjust the indexed content line for a new ColorSpace.
      *
      * @param lineIndex (&ge;0)
      * @param colorSpace the desired ColorSpace (not null)
@@ -726,7 +728,7 @@ public class Overlay extends BaseAppState {
     }
 
     /**
-     * Adjust the colors of all bitmaps for the specified ColorSpace.
+     * Adjust every content line for a new ColorSpace.
      *
      * @param colorSpace the desired ColorSpace (not null)
      */
