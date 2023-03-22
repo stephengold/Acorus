@@ -162,8 +162,8 @@ public class Overlay extends BaseAppState {
         this.contentStrings = new String[numLines];
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
             this.contentAlignments[lineIndex] = BitmapFont.Align.Left;
-            contentColors[lineIndex] = ColorRGBA.White.clone();
-            contentStrings[lineIndex] = "";
+            this.contentColors[lineIndex] = ColorRGBA.White.clone();
+            this.contentStrings[lineIndex] = "";
         }
         this.width = width;
 
@@ -484,7 +484,7 @@ public class Overlay extends BaseAppState {
         Validate.inRange(lineIndex, "line index", 0, numLines - 1);
         Validate.nonNull(text, "text");
 
-        contentStrings[lineIndex] = text;
+        this.contentStrings[lineIndex] = text;
         if (isInitialized()) {
             BitmapText line = contentLines[lineIndex];
             line.setText(text);
@@ -639,7 +639,7 @@ public class Overlay extends BaseAppState {
         int numLines = countLines();
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
             BitmapText bitmap = new BitmapText(font);
-            contentLines[lineIndex] = bitmap;
+            this.contentLines[lineIndex] = bitmap;
             node.attachChild(bitmap);
 
             bitmap.setName("line [" + lineIndex + "]");
