@@ -581,6 +581,7 @@ public class Overlay extends BaseAppState {
             contentLines[lineIndex] = bitmap;
             node.attachChild(bitmap);
 
+            bitmap.setName("line [" + lineIndex + "]");
             String text = contentStrings[lineIndex];
             bitmap.setText(text);
         }
