@@ -376,8 +376,10 @@ public class Overlay extends BaseAppState {
      * @param newZ the desired Z coordinate (default=-2)
      */
     public void setBackgroundZ(float newZ) {
-        this.backgroundZ = newZ;
-        updateLocation();
+        if (newZ != backgroundZ) {
+            this.backgroundZ = newZ;
+            updateLocation();
+        }
     }
 
     /**
@@ -407,8 +409,12 @@ public class Overlay extends BaseAppState {
     public void setContentZOffset(float newOffset) {
         Validate.positive(newOffset, "new offset");
 
-        this.contentZOffset = newOffset;
-        updateContentOffsets();
+        if (newOffset != contentZOffset) {
+            this.contentZOffset = newOffset;
+            if (isInitialized()) {
+                updateContentOffsets();
+            }
+        }
     }
 
     /**
