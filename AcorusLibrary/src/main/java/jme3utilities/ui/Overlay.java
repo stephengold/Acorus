@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold
+ Copyright (c) 2022-2023, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -334,7 +334,7 @@ public class Overlay extends BaseAppState {
      */
     public void setColor(int lineIndex, ColorRGBA color) {
         int numLines = countLines();
-        Validate.inRange(lineIndex, "line index", 0, numLines);
+        Validate.inRange(lineIndex, "line index", 0, numLines - 1);
         Validate.nonNull(color, "color");
 
         contentColors[lineIndex].set(color);
@@ -426,7 +426,7 @@ public class Overlay extends BaseAppState {
      */
     public void setText(int lineIndex, String text) {
         int numLines = countLines();
-        Validate.inRange(lineIndex, "line index", 0, numLines);
+        Validate.inRange(lineIndex, "line index", 0, numLines - 1);
         Validate.nonNull(text, "text");
 
         contentStrings[lineIndex] = text;
@@ -446,7 +446,7 @@ public class Overlay extends BaseAppState {
      */
     public void setText(int lineIndex, String text, ColorRGBA color) {
         int numLines = countLines();
-        Validate.inRange(lineIndex, "line index", 0, numLines);
+        Validate.inRange(lineIndex, "line index", 0, numLines - 1);
         Validate.nonNull(text, "text");
         Validate.nonNull(color, "color");
 
