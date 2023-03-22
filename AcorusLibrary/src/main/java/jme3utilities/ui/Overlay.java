@@ -428,7 +428,9 @@ public class Overlay extends BaseAppState {
 
         if (newSpacing != lineSpacing) {
             this.lineSpacing = newSpacing;
-            updateContentOffsets();
+            if (isInitialized()) {
+                updateContentOffsets();
+            }
 
             Mesh backgroundMesh = createBackgroundMesh();
             background.setMesh(backgroundMesh);
@@ -472,7 +474,9 @@ public class Overlay extends BaseAppState {
 
         if (newPadding != padding) {
             this.padding = newPadding;
-            updateContentOffsets();
+            if (isInitialized()) {
+                updateContentOffsets();
+            }
 
             Mesh backgroundMesh = createBackgroundMesh();
             background.setMesh(backgroundMesh);
