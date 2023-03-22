@@ -164,6 +164,7 @@ public class Overlay extends BaseAppState {
         this.contentStrings = new String[numLines];
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
             this.contentAlignments[lineIndex] = BitmapFont.Align.Left;
+            // contentLines are created by initialize()
             this.contentColors[lineIndex] = ColorRGBA.White.clone();
             this.contentStrings[lineIndex] = "";
         }

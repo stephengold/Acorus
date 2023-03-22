@@ -4,7 +4,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'java'
 
 ext {
-    // module coordinates of dependencies:
+    // module coordinates of external dependencies:
     heartCoordinates = 'com.github.stephengold:Heart:8.3.2'
 
     // current versions of libraries:
@@ -39,9 +39,7 @@ tasks.withType(JavaExec) { // Java runtime options:
     dependsOn 'installDist'
     enableAssertions true
     //jvmArgs '-verbose:gc'
-    //jvmArgs '-Xbatch'
-    //jvmArgs '-Xms512m', '-Xmx512m'
-    //jvmArgs '-XX:+PrintCompilation'
+    //jvmArgs '-Xms512m', '-Xmx512m' // to enlarge the Java heap
     //jvmArgs '-XX:+UseG1GC', '-XX:MaxGCPauseMillis=10'
 }
 
