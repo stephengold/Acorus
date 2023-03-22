@@ -667,15 +667,25 @@ public class Overlay extends BaseAppState {
     }
 
     /**
+     * Update the local translation of the indexed content line.
+     *
+     * @param lineIndex (&ge;0)
+     */
+    private void updateContentOffset(int lineIndex) {
+        BitmapText line = contentLines[lineIndex];
+        float xOffset = padding;
+        float yOffset = -(padding + lineSpacing * lineIndex);
+        line.setLocalTranslation(xOffset, yOffset, contentZOffset);
+    }
+
+    /**
      * Update the local translation of each content line after a change to
      * padding, lineSpacing, or contentZOffset.
      */
     private void updateContentOffsets() {
         int numLines = countLines();
         for (int lineIndex = 0; lineIndex < numLines; ++lineIndex) {
-            BitmapText content = contentLines[lineIndex];
-            float y = -(padding + lineSpacing * lineIndex);
-            content.setLocalTranslation(padding, y, contentZOffset);
+            updateContentOffset(lineIndex);
         }
     }
 
