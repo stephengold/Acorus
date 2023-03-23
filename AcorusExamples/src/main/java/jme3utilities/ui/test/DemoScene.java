@@ -77,7 +77,7 @@ final class DemoScene {
      *
      * @param app (not null)
      */
-    public static void setup(SimpleApplication app) {
+    static void setup(SimpleApplication app) {
         ViewPort viewPort = app.getViewPort();
         ColorRGBA gray = new ColorRGBA(0.1f, 0.1f, 0.1f, 1f);
         viewPort.setBackgroundColor(gray);
