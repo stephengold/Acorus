@@ -58,8 +58,7 @@ final class HelloCombo extends AcorusDemo {
     /**
      * message logger for this class
      */
-    final public static Logger logger
-            = Logger.getLogger(HelloCombo.class.getName());
+    final static Logger logger = Logger.getLogger(HelloCombo.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */

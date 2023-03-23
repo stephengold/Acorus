@@ -60,8 +60,7 @@ final class HelloBind extends AcorusDemo {
     /**
      * message logger for this class
      */
-    final public static Logger logger
-            = Logger.getLogger(HelloBind.class.getName());
+    final static Logger logger = Logger.getLogger(HelloBind.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */

@@ -60,8 +60,7 @@ final class HelloSignals extends AcorusDemo {
     /**
      * message logger for this class
      */
-    final public static Logger logger
-            = Logger.getLogger(HelloSignals.class.getName());
+    final static Logger logger = Logger.getLogger(HelloSignals.class.getName());
     /**
      * application name (for the title bar of the app's window)
      */

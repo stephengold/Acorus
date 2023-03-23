@@ -60,8 +60,7 @@ final class DemoScene {
     /**
      * message logger for this class
      */
-    final public static Logger logger
-            = Logger.getLogger(DemoScene.class.getName());
+    final static Logger logger = Logger.getLogger(DemoScene.class.getName());
     // *************************************************************************
     // constructors
 
