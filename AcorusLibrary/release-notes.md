@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 1.0.0 released on TBD
+## Version 1.0.0 released on 22 March 2023
 
 + Bugfix:  setters throw NPEs if invoked on an uninitialized `Overlay`
 + Bugfix: `Overlay` setters accept out-of-range indices
