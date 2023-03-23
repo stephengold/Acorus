@@ -44,7 +44,7 @@ import com.jme3.util.BufferUtils;
 import java.awt.DisplayMode;
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
@@ -281,15 +281,15 @@ abstract public class ActionApplication
     }
 
     /**
-     * Generate a timestamp.
+     * Generate a six-digit timestamp.
      *
      * @return the timestamp value
      */
     public static String hhmmss() {
-        Calendar rightNow = Calendar.getInstance();
-        int hours = rightNow.get(Calendar.HOUR_OF_DAY);
-        int minutes = rightNow.get(Calendar.MINUTE);
-        int seconds = rightNow.get(Calendar.SECOND);
+        LocalTime rightNow = LocalTime.now();
+        int hours = rightNow.getHour();
+        int minutes = rightNow.getMinute();
+        int seconds = rightNow.getSecond();
         String result = String.format("%02d%02d%02d", hours, minutes, seconds);
 
         return result;
