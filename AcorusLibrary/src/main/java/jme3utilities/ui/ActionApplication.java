@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2014-2022, Stephen Gold
+ Copyright (c) 2014-2023, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -281,6 +281,21 @@ abstract public class ActionApplication
     }
 
     /**
+     * Generate a timestamp.
+     *
+     * @return the timestamp value
+     */
+    public static String hhmmss() {
+        Calendar rightNow = Calendar.getInstance();
+        int hours = rightNow.get(Calendar.HOUR_OF_DAY);
+        int minutes = rightNow.get(Calendar.MINUTE);
+        int seconds = rightNow.get(Calendar.SECOND);
+        String result = String.format("%02d%02d%02d", hours, minutes, seconds);
+
+        return result;
+    }
+
+    /**
      * Callback invoked immediately after initializing the hotkey bindings of
      * the default input mode. Meant to be overridden. Can be used to add action
      * names and/or override those bindings.
@@ -521,21 +536,6 @@ abstract public class ActionApplication
                     + rot.getX() + "f, " + rot.getY() + "f, "
                     + rot.getZ() + "f, " + rot.getW() + "f));");
         }
-    }
-
-    /**
-     * Generate a timestamp.
-     *
-     * @return the timestamp value
-     */
-    private static String hhmmss() {
-        Calendar rightNow = Calendar.getInstance();
-        int hours = rightNow.get(Calendar.HOUR_OF_DAY);
-        int minutes = rightNow.get(Calendar.MINUTE);
-        int seconds = rightNow.get(Calendar.SECOND);
-        String result = String.format("%02d%02d%02d", hours, minutes, seconds);
-
-        return result;
     }
 
     /**

@@ -95,7 +95,7 @@ final class HelloSandbox extends AcorusDemo {
         application.setSettings(settings);
         /*
          * Designate a sandbox directory.
-         * This must done *prior to* initialization.
+         * This must be done *prior to* initialization.
          */
         try {
             ActionApplication.designateSandbox("./Written Assets");
