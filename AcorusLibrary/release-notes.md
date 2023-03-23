@@ -1,5 +1,13 @@
 # release log for the Acorus library and related examples
 
+## Version 1.0.0 released on TBD
+
++ Bugfix:  setters throw NPEs if invoked on an uninitialized `Overlay`
++ Bugfix: `Overlay` setters accept out-of-range indices
++ Added options to center or right-align content to the `Overlay` class.
++ Publicized the `hhmmss()` method in the `ActionApplication` class.
++ Based on jMonkeyEngine v3.6.0-stable and version 8.3.2 of the Heart Library.
+
 ## Version 0.9.18+for36 released on 2 March 2023
 
 + API changes:
