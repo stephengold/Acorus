@@ -30,7 +30,6 @@
 package jme3utilities.ui;
 
 import com.jme3.app.Application;
-import com.jme3.app.LegacyApplication;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.asset.AssetManager;
@@ -365,8 +364,8 @@ public class Overlay extends BaseAppState {
 
         backgroundColor.set(newColor);
         if (isInitialized()) {
-            LegacyApplication legacyApp = (LegacyApplication) getApplication();
-            Renderer renderer = legacyApp.getRenderer();
+            Application application = getApplication();
+            Renderer renderer = application.getRenderer();
             ColorSpace colorSpace = renderer.isMainFrameBufferSrgb()
                     ? ColorSpace.sRGB : ColorSpace.Linear;
             updateBackgroundMaterialColor(colorSpace);
@@ -637,12 +636,11 @@ public class Overlay extends BaseAppState {
     @Override
     protected void initialize(Application application) {
         // background
-        LegacyApplication legacyApp = (LegacyApplication) getApplication();
-        AssetManager assetManager = legacyApp.getAssetManager();
+        AssetManager assetManager = application.getAssetManager();
         Material material = new Material(assetManager, Materials.UNSHADED);
         background.setMaterial(material);
 
-        Renderer renderer = legacyApp.getRenderer();
+        Renderer renderer = application.getRenderer();
         ColorSpace colorSpace = renderer.isMainFrameBufferSrgb()
                 ? ColorSpace.sRGB : ColorSpace.Linear;
         updateBackgroundMaterialColor(colorSpace);
@@ -786,8 +784,8 @@ public class Overlay extends BaseAppState {
      */
     private void updateLocation() {
         if (isInitialized()) {
-            LegacyApplication legacyApp = (LegacyApplication) getApplication();
-            ViewPort guiViewPort = legacyApp.getGuiViewPort();
+            Application application = getApplication();
+            ViewPort guiViewPort = application.getGuiViewPort();
             Camera guiCamera = guiViewPort.getCamera();
             int viewPortWidth = guiCamera.getWidth();
             int viewPortHeight = guiCamera.getHeight();

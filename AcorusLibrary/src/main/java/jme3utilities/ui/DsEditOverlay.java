@@ -30,11 +30,10 @@
 package jme3utilities.ui;
 
 import com.jme3.app.Application;
-import com.jme3.app.LegacyApplication;
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.JmeContext;
 import java.awt.DisplayMode;
-import java.util.Set;
+import java.util.Collection;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 import jme3utilities.Validate;
@@ -262,8 +261,8 @@ public class DsEditOverlay extends Overlay {
     @Override
     public void update(float tpf) {
         super.update(tpf);
-        LegacyApplication legacyApp = (LegacyApplication) getApplication();
-        JmeContext context = legacyApp.getContext();
+        Application application = getApplication();
+        JmeContext context = application.getContext();
 
         String message = "";
         boolean areValid = proposedSettings.areValid();
@@ -354,7 +353,7 @@ public class DsEditOverlay extends Overlay {
      * @param amount the number of values to advance (may be negative)
      */
     private void advanceColorDepth(int amount) {
-        Set<Integer> depthSet = new TreeSet<>();
+        Collection<Integer> depthSet = new TreeSet<>();
         if (proposedSettings.isFullscreen()) {
             Iterable<DisplayMode> modes = DsUtils.listDisplayModes();
             int height = proposedSettings.height();
@@ -395,7 +394,7 @@ public class DsEditOverlay extends Overlay {
      * @param amount the number of values to advance (may be negative)
      */
     private void advanceDimensions(int amount) {
-        Set<String> descriptionSet = new TreeSet<>();
+        Collection<String> descriptionSet = new TreeSet<>();
         Iterable<DisplayMode> modes = DsUtils.listDisplayModes();
         int depth = proposedSettings.colorDepth();
         int rate = proposedSettings.refreshRate();
@@ -485,7 +484,7 @@ public class DsEditOverlay extends Overlay {
         int width = proposedSettings.width();
 
         // Enumerate the most relevant refresh rates.
-        Set<Integer> rateSet = new TreeSet<>();
+        Collection<Integer> rateSet = new TreeSet<>();
         for (DisplayMode mode : modes) {
             if (mode.getHeight() == height && mode.getWidth() == width) {
                 int rate = mode.getRefreshRate();
@@ -521,7 +520,7 @@ public class DsEditOverlay extends Overlay {
 
         boolean isCentered = proposedSettings.isCentered();
         if (isCentered) { // switch to specifying screen coordinates
-            LegacyApplication legacyApp = (LegacyApplication) getApplication();
+            Application legacyApp = getApplication();
             JmeContext context = legacyApp.getContext();
             int x = context.getWindowXPosition();
             int y = context.getWindowYPosition();

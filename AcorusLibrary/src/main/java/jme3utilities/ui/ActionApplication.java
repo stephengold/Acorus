@@ -552,7 +552,7 @@ abstract public class ActionApplication
                 // Record video to the working directory.
                 path = Heart.fixPath(fileName);
             } else { // Record video to the sandbox.
-                path = ActionApplication.filePath(fileName);
+                path = filePath(fileName);
             }
             File file = new File(path);
 
