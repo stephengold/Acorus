@@ -59,7 +59,7 @@ import org.lwjgl.system.Configuration;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestDsEdit extends AcorusDemo {
+class TestDsEdit extends AcorusDemo {
     // *************************************************************************
     // constants and loggers
 

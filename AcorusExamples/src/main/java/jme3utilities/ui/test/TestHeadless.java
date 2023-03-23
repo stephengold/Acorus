@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold
+ Copyright (c) 2022-2023, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import jme3utilities.ui.ActionApplication;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class TestHeadless extends ActionApplication {
+class TestHeadless extends ActionApplication {
     // *************************************************************************
     // constants and loggers
 
