@@ -212,8 +212,7 @@ Old Maven artifacts (v0.9.2 through v0.9.6) are available from
 
 Package names begin with `jme3utilities.ui`
 
-The source code is compatible with JDK 7.
-The pre-built libraries are compatible with JDK 8.
+The source code and pre-built libraries are compatible with JDK 8.
 
 [Jump to table of contents](#toc)
 
