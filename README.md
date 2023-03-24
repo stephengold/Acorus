@@ -116,8 +116,8 @@ libraries from GitHub:
 + https://github.com/stephengold/Acorus/releases/tag/latest
 + https://github.com/stephengold/Heart/releases/tag/8.3.2
 
-You'll want both class jars
-and probably the `-sources` and `-javadoc` jars as well.
+You'll definitely want both class jars
+and probably the "-sources" and "-javadoc" jars as well.
 
 Open the project's properties in the IDE (JME SDK or NetBeans):
 
@@ -541,7 +541,7 @@ correct the situation: sgold@sonic.net
 [log]: https://github.com/stephengold/Acorus/blob/master/AcorusLibrary/release-notes.md "release log"
 [markdown]: https://daringfireball.net/projects/markdown "Markdown Project"
 [maven]: https://maven.apache.org "Maven Project"
-[meld]: https://meldmerge.org "Meld Tool"
+[meld]: https://meldmerge.org "Meld merge tool"
 [minie]: https://stephengold.github.io/Minie/minie/overview.html "Minie Project"
 [mint]: https://linuxmint.com "Linux Mint Project"
 [netbeans]: https://netbeans.org "NetBeans Project"
