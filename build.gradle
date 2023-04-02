@@ -4,6 +4,15 @@ plugins {
     id 'base' // to add a "clean" task to the root project
 }
 
+ext {
+    // module coordinates of external dependencies:
+    heartCoordinates = 'com.github.stephengold:Heart:8.3.2'
+
+    // current versions of libraries:
+    acorusVersion = '1.0.1-SNAPSHOT'
+    jme3Version = '3.6.0-stable'
+}
+
 subprojects {
     apply from: rootProject.file('common.gradle')
 }
