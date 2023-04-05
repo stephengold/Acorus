@@ -1,0 +1,71 @@
+= Project overview
+:Project: Acorus
+:experimental:
+:page-pagination:
+:url-enwiki: https://en.wikipedia.org/wiki
+
+_{Project}_ is a simple user-interface library
+for https://jmonkeyengine.org[JMonkeyEngine] desktop applications
+that don't need graphical widgets
+such as checkboxes, radio buttons, scrollbars, and sliders.
+
+Oriented toward keyboard-driven demo/test applications,
+Acorus provides simple mechanisms to:
+
+. bind _hotkeys_ (keyboard keys, mouse buttons, and joystick buttons)
+  to _actions_ (names meaningful to the user and the application)
+. determine which hotkeys are active (using _signals_)
+. bind input combinations such as kbd:[Ctrl+C] (using _combos_)
+. activate different hotkey bindings in different contexts (using _input modes_)
+. display on-screen help/hints for the active input mode (using _help nodes_)
+
+Properly used, help nodes provide a self-documenting user interface.
+
+All software in the {Project} project is free and open-source,
+including the library itself, the example apps,
+and the software used to build, test, and run them.
+
+
+== Caveats
+
+In order to use the latest {Project} release,
+you'll need version 3.6.0 JMonkeyEngine libraries.
+
+Like JMonkeyEngine, {Project} and its documentation
+assume a certain level of proficiency with
+{url-enwiki}/Java_(programming_language)[the Java programming language].
+This project isn't aimed at non-programmers,
+nor developers without prior Java experience.
+
+https://raw.githubusercontent.com/stephengold/Acorus/master/LICENSE[The project's BSD-style license]
+disclaims liability for defects.
+Please don't use this software in safety-critical applications.
+
+
+== Getting help
+
+For self-help, make use of
+xref:add.adoc[the tutorials],
+the javadoc, and
+https://github.com/stephengold/Acorus[the source code].
+
+The JMonkeyEngine Forum/Hub is a good place to ask technical questions.
+
+For issues that are best handled privately, contact me by e-mail.
+My personal e-mail address appears
+on https://stephengold.github.io/[my homepage] and in the source code.
+
+
+== The name
+
+The project's name is a acronym for "ACtion-ORiented USer interface."
+It's also the scientific name for the botanical genus
+that includes {url-enwiki}/Acorus_calamus[Sweet Flag].
+
+The preferred English pronunciation is roughly "ACK-o-russ".
+
+
+== Next steps
+
+To gain hands-on experience,
+proceed to xref:add.adoc[the first tutorial page].
