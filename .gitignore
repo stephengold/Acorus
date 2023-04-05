@@ -4,6 +4,7 @@
 /.gradle/
 /.idea/
 /.nb-gradle/
+/build/
 /AcorusLibrary/build/
 /AcorusExamples/Written Assets/
 /AcorusExamples/build/
