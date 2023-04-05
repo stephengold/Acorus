@@ -1,0 +1,9 @@
+---
+# component/version descriptor for the "acorus-en" source directory
+
+name: acorus-en
+title: The Acorus project
+version: English
+start_page: ROOT:overview.adoc
+nav:
+  - modules/ROOT/nav.adoc
