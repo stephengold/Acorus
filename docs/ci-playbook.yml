@@ -1,0 +1,19 @@
+---
+# configure Antora for deployment by continous integration
+
+site:
+  title: The Acorus project
+  start_page: acorus-en:ROOT:overview.adoc
+  url: https://stephengold.github.io/Acorus
+content:
+  sources:
+    - url: https://github.com/stephengold/Acorus.git
+      branches: master
+      start_path: docs/en
+ui:
+  bundle:
+    url: https://github.com/stephengold/antora-ui-bundle/releases/download/v-sgold230101a/ui-bundle.zip
+    snapshot: true
+output:
+  clean: true
+  dir: build/site
