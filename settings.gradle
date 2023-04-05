@@ -1,6 +1,7 @@
 /*
- * settings.gradle: global settings shared by all subprojects
+ * settings.gradle: global settings shared by all Acorus subprojects
  */
+
 dependencyResolutionManagement {
     repositories {
         //mavenLocal() // to find local SNAPSHOTs of libraries
