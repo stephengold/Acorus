@@ -1,0 +1,19 @@
+---
+# configure Antora for a local test using the published UI bundle
+
+site:
+  title: The Acorus project (local test using the published bundle)
+  start_page: acorus-en:ROOT:overview.adoc
+  url: /home/sgold/NetBeansProjects/Acorus/build/site
+content:
+  sources:
+    - url: /home/sgold/NetBeansProjects/Acorus
+      branches: master
+      start_path: docs/en
+ui:
+  bundle:
+    url: https://github.com/stephengold/antora-ui-bundle/releases/download/v-sgold230101a/ui-bundle.zip
+    snapshot: true
+output:
+  clean: true
+  dir: build/site
