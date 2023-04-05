@@ -1,0 +1,75 @@
+= How to build Acorus from source
+:Project: Acorus
+:page-pagination:
+
+{Project} is open-source software.
+
+While pre-built artifacts
+can be downloaded from GitHub and the Maven Central Repository,
+some people prefer to build them from source.
+
+You can also build a local copy of the documentation (website content).
+This is useful if you are editing the content,
+or if your Internet access is limited or unreliable.
+
+== Library artifacts
+
+=== Standard build
+
+Here's the recommended procedure:
+
+. Install a https://adoptium.net/releases.html[Java Development Kit (JDK)],
+  if you don't already have one.
+. Point the `JAVA_HOME` environment variable to your JDK installation:
+  (The path might be something like "C:\Program Files\Java\jre1.8.0_301"
+  or "/usr/lib/jvm/java-8-openjdk-amd64/" or
+  "/Library/Java/JavaVirtualMachines/liberica-jdk-17-full.jdk/Contents/Home" .)
+.. using Bash or Zsh: `export JAVA_HOME="` *path to installation* `"`
+.. using Windows Command Prompt: `set JAVA_HOME="` *path to installation* `"`
+.. using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
+. Download and extract the {Project} source code from GitHub:
+.. using Git:
+... `git clone https://github.com/stephengold/Acorus.git`
+... `cd Acorus`
+... `git checkout -b latest 1.0.0`
+.. using a web browser:
+... browse to https://github.com/stephengold/Acorus/releases/latest
+... follow the "Source code (zip)" link
+... save the ZIP file
+... extract the contents of the saved ZIP file
+... `cd` to the extracted directory
+. Run the Gradle wrapper to build the entire project:
+.. using Bash or PowerShell or Zsh: `./gradlew build`
+.. using Windows Command Prompt: `.\gradlew build`
+
+After a successful build,
+artifacts will be found in the "AcorusLibrary/build/libs" directory.
+
+=== Install artifacts
+
+You can install the built artifacts to your local Maven repository:
+
+* using Bash or PowerShell or Zsh: `./gradlew install`
+* using Windows Command Prompt: `.\gradlew install`
+
+=== Cleanup
+
+After a build, you can restore the project to a pristine state:
+
+* using Bash or PowerShell or Zsh: `./gradlew clean`
+* using Windows Command Prompt: `.\gradlew clean`
+
+
+== Website content
+
+. Download and extract the source code from GitHub:
+.. `git clone https://github.com/stephengold/Acorus.git`
+.. `cd Acorus`
+. Edit "docs/playbook.yml" and replace "/home/sgold/NetBeansProjects/Acorus"
+  with an absolute path to your checkout directory (3 places).
+. https://docs.antora.org/antora/latest/install-and-run-quickstart/#install-nodejs[Install Node.js]
+. Run Antora:
+.. `npx antora docs/playbook.yml`
+
+After a successful build,
+the local copy of the site will be found in the "build/site" directory.
