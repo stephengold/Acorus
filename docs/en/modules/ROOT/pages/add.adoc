@@ -1,0 +1,124 @@
+= How to add Acorus to an existing project
+:Project: Acorus
+:experimental:
+:page-pagination:
+
+
+TIP: If you're creating a JMonkeyEngine desktop application from scratch,
+https://github.com/stephengold/BasicGame-on-Gradle[the BasicGame-on-Gradle project]
+provides a good starting point.
+
+Adding {Project} to an existing JMonkeyEngine project is a 3-step process:
+
+* Add libraries to the classpath.
+* Convert the application to an `ActionApplication` or `AcorusDemo`.
+* Test and tune as necessary.
+
+
+== Add libraries to the classpath
+
+{Project} comes pre-built as a single JVM library that depends on
+https://github.com/stephengold/Heart[the Heart library],
+which in turn depends on jme3-core.
+
+For projects built using Gradle or Maven, it's usually sufficient to specify the
+dependency on the {Project} Library.  Build tools should automatically
+resolve the remaining dependencies.
+
+=== Gradle-built projects
+
+Add to the project's "build.gradle" file:
+
+[source,groovy]
+----
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'com.github.stephengold:Acorus:1.0.0'
+}
+----
+
+For some older versions of Gradle,
+it's necessary to replace `implementation` with `compile`.
+
+=== Maven-built projects
+
+Add to the project's "pom.xml" file:
+
+[source,xml]
+----
+<repositories>
+    <repository>
+      <id>mvnrepository</id>
+      <url>https://repo1.maven.org/maven2/</url>
+    </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.github.stephengold</groupId>
+  <artifactId>Acorus</artifactId>
+  <version>1.0.0</version>
+</dependency>
+----
+
+=== Ant-built projects
+
+https://ant.apache.org[Ant] doesn't know about transitive dependencies,
+so you'll need to resolve them manually.
+
+Download the {Project} library and its dependencies
+from GitHub and/or Maven Central:
+
+* https://github.com/stephengold/Acorus/releases/latest
+* https://github.com/stephengold/Heart/releases/tag/8.3.2
+* https://repo1.maven.org/maven2/org/jmonkeyengine/jme3-core/3.6.0-stable/
+
+You'll definitely want the class JARs
+and probably the "-sources" and "-javadoc" JARs as well.
+
+Open the project's properties in the IDE (JME SDK or NetBeans):
+
+. Right-click on the project (not its assets) in the "Projects" window.
+. Select menu:Properties[] to open the "Project Properties" dialog.
+. Under "Categories:", click on btn:[Libraries].
+. Click on the btn:[Compile] tab.
+. Add the Heart class JAR:
+.. Click on the btn:[Add JAR/Folder] button.
+.. Navigate to the download directory.
+.. Select the "Acorus-1.0.0.jar" file.
+.. Click on the btn:[Open] button.
+. (optional) Add JARs for javadoc and sources:
+.. Click on the btn:[Edit] button.
+.. Click on the btn:[Browse...] button to the right of "Javadoc:"
+.. Select the "Acorus-1.0.0-javadoc.jar" file.
+.. Click on the btn:[Open] button.
+.. Click on the btn:[Browse...] button to the right of "Sources:"
+.. Select the "Acorus-1.0.0-sources.jar" file.
+.. Click on the btn:[Open] button button again.
+.. Click on the btn:[OK] button to close the "Edit Jar Reference" dialog.
+. Add the other JVM libraries in a similar manner.
+. Click on the btn:[OK] button to exit the "Project Properties" dialog.
+
+
+== Convert to an `ActionApplication`
+
+JMonkeyEngine applications typically extend the `SimpleApplication` class.
+To use Acorus, an application should instead
+extend `ActionApplication` or one of its subclasses, typically `AcorusDemo`.
+
+* `ActionApplication` and `AcorusDemo` are both abstract classes.
+* `ActionApplication` is simpler and easier to understand.
+* `AcorusDemo` extends `ActionApplication` with features intended for demo apps.
+
+`ActionApplication` directly extends `SimpleApplication`
+and has a similar interface (API).
+The key difference is that startup code goes in a `acorusInit()` method
+instead of `simpleInitApp()`.
+
+
+== Summary
+
+* Acorus is available as a pre-built library.
+* Apps should extend `AcorusDemo` or maybe `ActionApplication`.
+* Startup code goes in `acorusInit()`, not `simpleInitApp()`.
