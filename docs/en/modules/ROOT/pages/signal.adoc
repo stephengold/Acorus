@@ -1,0 +1,58 @@
+= Binding signals
+:Project: Acorus
+:experimental:
+:page-pagination:
+:url-enwiki: https://en.wikipedia.org/wiki
+:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+
+
+Just as hotkeys can be bound to actions, they can also be bound to signals.
+_Signals_ in Acorus aren't discrete events like Unix signals.
+Rather, they continuously track whether certain hotkeys are active.
+
+Each signal is identified by a distinct `String`, its name.
+
+* To create a signal and bind a key to it,
+  invoke `inputMode.bindSignal(signalName, code)`.
+* To test whether a signal is active,
+  invoke `app.getSignals().test(signalName)`.
+
+Typically uses for signals:
+
+* to monitor modal keys (such as kbd:[Shift], kbd:[Ctrl], and kbd:[Alt]) and
+* control smooth motion of cameras and spatials.
+
+
+== HelloSignal
+
+{url-tutorial}/HelloSignal.java[HelloSignal] binds 12 hotkeys
+to 4 custom signals:
+
+[source,java]
+----
+dim.bindSignal("show blue",
+        KeyInput.KEY_F1, KeyInput.KEY_1, KeyInput.KEY_NUMPAD1);
+dim.bindSignal("show green",
+        KeyInput.KEY_F2, KeyInput.KEY_2, KeyInput.KEY_NUMPAD2);
+dim.bindSignal("show red",
+        KeyInput.KEY_F3, KeyInput.KEY_3, KeyInput.KEY_NUMPAD3);
+dim.bindSignal("show white",
+        KeyInput.KEY_F4, KeyInput.KEY_4, KeyInput.KEY_NUMPAD4);
+----
+
+The 4 signals cause squares to appear on (or disappear from) the display.
+
+[NOTE]
+====
+When multiple hotkeys are bound to the same signal (as in `HelloSignal`),
+the signal remains active as long as *any* of the hotkeys are active.
+
+For the purposes of the signal, it's as if the hotkeys are ORed together.
+====
+
+
+== Summary
+
+* A signal keeps track of whether specific hotkeys are active.
+* Each signal is identified by its name.
+* If 2 or more hotkeys are bound to the same signal, they get ORed together.
