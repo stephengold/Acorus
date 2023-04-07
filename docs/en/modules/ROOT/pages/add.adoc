@@ -120,6 +120,13 @@ and has a similar interface (API).
 The key difference is that startup code goes in a `acorusInit()` method
 instead of `simpleInitApp()`.
 
+[NOTE]
+====
+`AcorusDemo` implements `acorusInit()`.
+If your application extends `AcorusDemo`,
+it should should always invoke `super.acorusInit()`.
+====
+
 
 == Summary
 

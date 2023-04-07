@@ -2,7 +2,7 @@
 :Project: Acorus
 :page-pagination:
 
-{Project} is open-source software.
+{Project} is free, open-source software.
 
 While pre-built artifacts
 can be downloaded from GitHub and the Maven Central Repository,
