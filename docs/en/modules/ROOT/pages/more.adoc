@@ -1,0 +1,18 @@
+= Additional features of AcorusDemo
+:page-pagination:
+:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+
+
+{url-tutorial}/TestAcorusDemo.java[TestAcorusDemo] is a test application
+that demonstrates more built-in features of `AcorusDemo`:
+
+* add world axes to a scene and toggle their visibility with "toggle pause"
+* pause animations without disabling camera motion
+* scale a model to a specified height
+* position a model so it rests on the X-Z plane,
+  with its center on the Y axis
+* select among `String` values, as in a menu
+* store materials in a "library" and retrieve them by name
+
+
+TODO discuss each feature in detail
