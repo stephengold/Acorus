@@ -490,6 +490,7 @@ have gone before.  I therefore acknowledge the creators of (and contributors to)
 the following software:
 
 + the [Ant] and [Gradle] build tools
++ the [Antora] static website generator
 + the [Checkstyle] tool
 + the [FindBugs] source-code analyzer
 + the [Firefox] and [Google Chrome][chrome] web browsers
@@ -520,6 +521,7 @@ correct the situation: sgold@sonic.net
 
 
 [acorus]: https://stephengold.github.io/Acorus "Acorus Project"
+[antora]: https://antora.org/ "Antora Project"
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
 [ant]: https://ant.apache.org "Apache Ant Project"
 [checkstyle]: https://checkstyle.org "Checkstyle"
