@@ -1,0 +1,58 @@
+= The Sandbox
+:Project: Acorus
+:experimental:
+:page-pagination:
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+
+Acorus allows you to designate a _sandbox_:
+a directory to which the application writes assets and other files.
+This directory is traditionally named "Written Assets".
+
+An Acorus sandbox is merely a convention, not a security feature;
+Acorus won't inhibit an application
+from modifying or deleting files outside its sandbox.
+
+If a sandbox is desired, it must be designated *prior to* initialization
+-- in `main()`, typically.
+For example:
+
+[source,java]
+----
+try {
+    ActionApplication.designateSandbox("./Written Assets");
+} catch (IOException exception) {
+    // handle the exception
+}
+----
+
+
+== HelloSandbox
+
+{url-examples}/HelloSandbox.java[HelloCombo] is an example application
+that modifies `HelloAcorus` by designating a sandbox.
+
+When the user triggers the "ScreenShot" action,
+the captured image is written to "./Written Assets"
+instead of the working directory.
+
+
+== HelloRecorder
+
+`ActionApplication` implements a "toggle recorder" action
+to control jMonkeyEngine's `VideoRecorderAppState`.
+
+{url-examples}/HelloRecorder.java[HelloRecorder]
+is an example application that modifies `HelloSandbox`
+by binding kbd:[F3] to the "toggle recorder" action.
+
+* Initially, pressing kbd:[F3] starts the recorder and begins capturing video.
+* Pressing kbd:[F3] again stops the recorder
+  and writes the captured video to "./Written Assets".
+
+
+== Summary
+
+* You can designate a sandbox for writing assets and other files.
+* This must be done *prior to* initialization.
+* If a sandbox is designated,
+  screenshots and video recordings will be written there.
