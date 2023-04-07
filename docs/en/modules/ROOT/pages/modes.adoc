@@ -1,0 +1,68 @@
+= Defining multiple input modes
+:Project: Acorus
+:experimental:
+:page-pagination:
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+
+An _input mode_ is a set of input bindings
+that get mapped (and unmapped) together.
+So far, the example apps have used only the default input mode,
+which is created and activated automatically.
+
+To define a custom input mode, simply instantiate a subclass of `InputMode`
+and attach it using the state manager.
+Acorus allows an application to attach any number of input modes,
+but only one of them (at most) can be active at a time.
+
+To activate or deactivate an input mode, invoke `mode.setEnabled()`
+
+`ActionApplication` invokes the `onInputModeChange()` callback
+each time the active input mode changes.
+
+In an `AcorusDemo` displaying detailed help,
+mode changes are automatically reflected in the help node.
+
+
+== TestTwoModes
+
+{url-examples}/TestTwoModes.java[TestTwoModes]
+is an example application that modifies `HelloSimpleApplication`
+by adding a custom input mode named "edit".
+
+The input bindings depend on which mode is active:
+
+* Initially, the default input mode is active,
+  with `FlyByCamera` enabled for camera movement.
+* Pressing kbd:[Enter] or kbd:[Tab] switches the app into "edit" mode,
+  allowing the user to enter a line of text.
+* Pressing kbd:[Enter] or kbd:[Tab] again returns the app to the default mode.
+
+
+== TestCursors
+
+Each input mode can specify
+how and whether the cursor (mouse pointer) is displayed.
+In a multi-mode application, giving each mode a distinct cursor image
+helps remind the user which mode is active.
+
+{url-examples}/TestCurors.java[TestCursors]
+is an example application that modifies `HelloSimpleApplication`
+by adding a 3 custom input modes, each with its own cursor image.
+
+* Initially, the default input mode is active,
+  and the cursor is a diagonal white arrow.
+* Pressing kbd:[F2] activates "dialog" mode,
+  in which the cursor is a diagonal yellow arrow.
+* Pressing kbd:[F3] activates "green" mode,
+  in which the cursor is a diagonal green arrow.
+* Pressing kbd:[F4] activates "menu" mode,
+  in which the cursor is a horizontal magenta arrow.
+* Pressing kbd:[F1] returns the app to the default input mode.
+
+
+== Summary
+
+* Applications can define any number of input modes.
+* Only one input mode can be active at a time.
+* Use `setEnabled()` to activate or deactivate an input mode.
+* Each input mode can have its own cursor style.
