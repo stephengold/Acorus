@@ -43,7 +43,7 @@ import jme3utilities.ui.HelpVersion;
 import org.lwjgl.system.Configuration;
 
 /**
- * Test/demonstrate the Acorus sandbox and the built-in "ScreenShot" action.
+ * Test/demonstrate the Acorus sandbox with the built-in "ScreenShot" action.
  *
  * @author Stephen Gold sgold@sonic.net
  */

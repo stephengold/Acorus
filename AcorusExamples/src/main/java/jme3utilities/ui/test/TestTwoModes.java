@@ -179,6 +179,7 @@ class TestTwoModes extends AcorusDemo {
             return;
         }
 
+        // The action has not been handled: forward it to the superclass.
         super.onAction(actionString, ongoing, tpf);
     }
 
