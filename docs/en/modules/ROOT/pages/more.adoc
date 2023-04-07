@@ -2,7 +2,6 @@
 :page-pagination:
 :url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
-
 {url-examples}/TestAcorusDemo.java[TestAcorusDemo] is a test application
 that demonstrates more built-in features of `AcorusDemo`:
 

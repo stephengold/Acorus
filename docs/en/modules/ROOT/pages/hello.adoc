@@ -5,7 +5,6 @@
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
-
 Ready for some actual code?
 
 

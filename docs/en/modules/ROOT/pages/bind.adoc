@@ -4,7 +4,6 @@
 :page-pagination:
 :url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
-
 The kbd:[Esc] key in `HelloAcorus` is an example of a hotkey.
 
 _Hotkeys_ in Acorus include not only keyboard keys

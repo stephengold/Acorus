@@ -4,7 +4,6 @@
 :page-pagination:
 :url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
-
 Just as hotkeys can be bound to actions, they can also be bound to signals.
 _Signals_ in Acorus aren't discrete events like Unix signals.
 Rather, they continuously track whether specific hotkeys are active.
