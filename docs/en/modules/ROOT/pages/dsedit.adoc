@@ -31,7 +31,7 @@ that demonstrates correct use of `DsEditOverlay` and `DsEditInputMode`.
 * To change which field is selected, press the up/down arrow keys.
 * To change the value of the selected field, press the left/right arrow keys.
 * To apply the proposed settings to the app, press kbd:[Enter].
-* To write the proposed settings to persistent storage, use "ctrl+s".
+* To write the proposed settings to persistent storage, use kbd:[Ctrl+s].
 * To return to default input mode, press kbd:[Esc], kbd:[F2], or kbd:[Tab].
 
 

@@ -15,7 +15,7 @@ Acorus provides simple mechanisms to:
 . bind _hotkeys_ (keyboard keys, mouse buttons, and joystick buttons)
   to _actions_ (names meaningful to the user and the application)
 . determine which hotkeys are active (using _signals_)
-. bind input combinations such as kbd:[Ctrl+C] (using _combos_)
+. bind input combinations such as kbd:[Ctrl+c] (using _combos_)
 . map different bindings in specific contexts (using _input modes_)
 . display on-screen help/hints for the active input mode (using _help nodes_)
 

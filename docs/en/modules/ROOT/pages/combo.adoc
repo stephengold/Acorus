@@ -37,5 +37,5 @@ The example provides 4 bindings to the "SIMPLEAPP_Exit" action
 
 == Summary
 
-* A combo represents a combination of hotkeys, such as "ctrl+c".
+* A combo represents a combination of hotkeys, such as kbd:[ctrl+c].
 * Combos can be bound to actions, much like simple hotkeys can.
