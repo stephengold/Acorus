@@ -1,0 +1,38 @@
+= Mimicking a simple application
+:Project: Acorus
+:experimental:
+:page-pagination:
+:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+
+The default input mode includes functionality
+to mimic certain input bindings typically provided by a `SimpleApplication`.
+
+
+== HelloSimpleApplication
+
+{url-tutorial}/HelloSimpleApplication.java[HelloSimpleApplication]
+is an example application that extends the `HelloAcorus` example
+by attaching a `StatsAppState`, a `DebugKeysAppState`, and a `FlyByCamera`.
+
+When the default input mode detects a `StatsAppState`,
+it binds kbd:[F5]
+to an action that toggles visibility of JMonkeyEngine's render statistics.
+
+When the default input mode detects a `DebugKeysAppState`,
+it bind 2 hotkeys (kbd:[C] and kbd:[M] on "US" QWERTY keyboards)
+to actions that print the camera position and memory statistics to the console.
+
+When the default input mode detects a `FlyByCamera`,
+it binds 6 hotkeys
+(kbd:[W], kbd:[A], kbd:[S], kbd:[D], kbd:[Q], and kbd:[Z] on "US" QWERTY keyboards)
+to signals that move the 3-D camera.
+
+Users accustomed to `SimpleApplication` will expect these bindings.
+However, Acorus also makes it easy
+for applications to reconfigure them.
+
+
+== Summary
+
+* In the default configuration, Acorus applications are compatible with
+  `StatsAppState`, `DebugKeysAppState`, and `FlyByCamera`.
