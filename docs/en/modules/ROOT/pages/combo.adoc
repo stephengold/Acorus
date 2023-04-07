@@ -1,0 +1,34 @@
+= Binding combos to actions
+:Project: Acorus
+:experimental:
+:page-pagination:
+:url-enwiki: https://en.wikipedia.org/wiki
+:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+
+A _combo_ represents a combination of hotkeys.
+More precisely, it consists of a hotkey
+plus a set of positive and/or negative signals.
+
+* To define a combo with a single positive signal,
+  invoke `new Combo(code, signalName, true)`
+* To bind a combo to an action,
+  invoke `inputMode.bind(actionName, combo)`
+
+
+== HelloCombo
+
+{url-tutorial}/console/HelloCombo.java[HelloCombo] is a tutorial application
+that binds 2 signals and 6 combos.
+
+Acorus help nodes display combo bindings
+alongside the simple hotkey bindings, if any.
+For example:
+
+* "shift+y" means pressing kbd:[y] while the "shift" signal is active.
+* "noshift+y" means pressing kbd:[y] while "shift" is inactive.
+
+
+== Summary
+
+* A combo represents a combination of hotkeys, such as "ctrl+c".
+* Combos can be bound to actions, much like simple hotkeys can.
