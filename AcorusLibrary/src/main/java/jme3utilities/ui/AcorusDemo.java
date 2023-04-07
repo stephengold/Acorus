@@ -100,16 +100,6 @@ abstract public class AcorusDemo extends ActionApplication {
      */
     private ColorSpace oldColorSpace;
     /**
-     * framebuffer height (in pixels) the last time updateFramebufferSize() was
-     * invoked
-     */
-    private int oldFramebufferHeight;
-    /**
-     * framebuffer width (in pixels) the last time updateFramebufferSize() was
-     * invoked
-     */
-    private int oldFramebufferWidth;
-    /**
      * generate help nodes
      */
     final private HelpBuilder helpBuilder = new HelpBuilder();
