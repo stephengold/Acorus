@@ -75,6 +75,7 @@ from GitHub and/or Maven Central:
 * https://github.com/stephengold/Acorus/releases/latest
 * https://github.com/stephengold/Heart/releases/tag/8.3.2
 * https://repo1.maven.org/maven2/org/jmonkeyengine/jme3-core/3.6.0-stable/
+* https://repo1.maven.org/maven2/org/jmonkeyengine/jme3-desktop/3.6.0-stable/
 
 You'll definitely want the class JARs
 and probably the "-sources" and "-javadoc" JARs as well.

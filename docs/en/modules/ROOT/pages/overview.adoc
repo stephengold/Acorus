@@ -21,6 +21,15 @@ Acorus provides simple mechanisms to:
 
 Properly used, help nodes make a user-interface self-documenting.
 
+Acorus also provides:
+
+* 2 implementations of the `Application` interface
+  (`ActionApplication` and `AcorusDemo`)
+* an input mode for emulating a `SimpleApplication` (`DefaultInputMode`)
+* a camera controller for orbiting the world's Y axis (`CameraOrbitAppState`)
+* a display-setting editor (`DsEditInputMode` plus `DsEditOverlay`)
+* a class to manage asset locators (for apps that edit assets)
+
 All software in the {Project} project is free and open-source,
 including the library itself, the example apps,
 and the software used to build, test, and run them.
@@ -63,6 +72,17 @@ It's also the scientific name of the botanical genus
 that includes {url-enwiki}/Acorus_calamus[Sweet Flag].
 
 The preferred English pronunciation is roughly "ACK-o-russ".
+
+
+== Summary
+
+* Java programmers are the target audience of this website.
+* Acorus is a user-interface library.
+* Acorus binds hotkeys to actions.
+* Bindings are grouped together to create input modes.
+* Acorus generates help nodes automatically,
+  so you can easily implement a self-documenting user interface.
+* Live tech support is available.
 
 
 == Next steps

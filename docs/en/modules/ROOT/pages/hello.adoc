@@ -5,6 +5,7 @@
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
+
 Ready for some actual code?
 
 
@@ -23,7 +24,8 @@ Two actions are available:
 * "SIMPLEAPP_Exit" (bound to kbd:[Esc]).
 
 Code to handle the "ScreenShot" action is built into `ActionApplication`.
-Pressing the bound key causes the application to capture a screenshot.
+Pressing the bound key causes the application to capture a screenshot
+and write it to the working directory.
 
 Pressing kbd:[Esc] triggers the "SIMPLEAPP_Exit" action.
 Code to handle that action is also built into `ActionApplication`.

@@ -72,10 +72,10 @@ to an (automatically created) mode called the _default input mode_.
 
 An input mode's bindings don't become effective (mapped)
 until the mode is activated (enabled).
-Acorus activates the default mode during initialization,
+Acorus activates the default input mode during initialization,
 just after invoking the `moreDefaultBindings()` callback.
 That makes `moreDefaultBindings()`
-the ideal place to customize the default mode.
+the ideal place to customize the default input mode.
 
 [source,java]
 ----
@@ -101,6 +101,10 @@ When a bound hotkey is pressed,
 Acorus first invokes the action handler of the active input mode.
 The mode may handle the action, ignore it, or forward it to the application.
 
+In `HelloBind`, the action handler of the (default) input mode
+doesn't handle "toggle" actions.
+It forwards them to the application's action handler,
+which includes the following:
 
 [source,java]
 ----
@@ -131,3 +135,5 @@ public void onAction(String actionString, boolean ongoing, float tpf) {
 * Bindings are grouped into input modes.
 * An input mode's bindings take effect when the mode is activated.
 * During initialization, Acorus creates a default input mode and activates it.
+* Actions not handled by the active input mode
+  can be forwarded to the application.
