@@ -20,7 +20,7 @@ by adding an action to toggle the state of the `FlyByCamera`.
 * Pressing kbd:[t] or kbd:[Tab] disables the controller.
 * Pressing kbd:[t] or kbd:[Tab] again re-enables the controller.
 
-Notice how the hotkey bindings change
+Notice how the input bindings change
 each time the camera controller gets enabled or disabled.
 Each change is reflected in the help node.
 
@@ -31,7 +31,7 @@ Each change is reflected in the help node.
 but it's inconvenient for studying a 3-D object from all sides.
 One could, of course, use `ChaseCameraAppState`, but often that's overkill.
 As an alternative, Acorus offers `CameraOrbitAppState` (COAS for short),
-a camera controller designed to augment `FlyByCamera` with orbital motion.
+a built-in camera controller to augment `FlyByCamera` with orbital motion.
 
 COAS uses 2 signals
 to make a camera _orbit_ (move in a circle around) the global Y axis

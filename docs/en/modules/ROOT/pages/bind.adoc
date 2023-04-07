@@ -66,7 +66,7 @@ which is an abbreviated form of "numpad 4",
 the name of kbd:[4] on the numeric keypad.
 ====
 
-In Acorus, action bindings are grouped into _input modes_.
+In Acorus, input bindings are grouped into _input modes_.
 In `HelloBind`, the 12 custom bindings are added
 to an (automatically created) mode called the _default input mode_.
 

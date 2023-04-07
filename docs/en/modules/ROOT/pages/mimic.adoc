@@ -11,7 +11,7 @@ to mimic certain input bindings typically provided by a `SimpleApplication`.
 == HelloSimpleApplication
 
 {url-examples}/HelloSimpleApplication.java[HelloSimpleApplication]
-is an example application that extends the `HelloAcorus` example
+is an example application that modifies `HelloAcorus`
 by attaching a `StatsAppState`, a `DebugKeysAppState`, and a `FlyByCamera`.
 
 When the default input mode detects a `StatsAppState`,

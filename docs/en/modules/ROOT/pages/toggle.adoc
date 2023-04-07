@@ -34,12 +34,12 @@ it merely indicates how to display the detailed version.
 == HelloToggleHelp
 
 {url-examples}/HelloToggleHelp.java[HelloToggleHelp]
-is an example application that extends the `HelloSimpleApplication` example.
-It binds kbd:[H] to the "toggle help" action.
+is an example application that modifies `HelloSimpleApplication`
+by binding kbd:[H] to the "toggle help" action.
 
-When the help node is minimized, pressing kbd:[H] displays the detailed version.
-
-Pressing kbd:[H] again minimizes the help node.
+* Initially, the minimal version of the help node is displayed.
+* Pressing kbd:[H] displays the detailed version.
+* Pressing kbd:[H] again minimizes the help node.
 
 [TIP]
 ====

@@ -54,7 +54,7 @@ Please don't use this software in safety-critical applications.
 == Getting help
 
 For self-help, make use of
-xref:add.adoc[the tutorials],
+xref:add.adoc[the tutorial pages],
 the javadoc, and
 https://github.com/stephengold/Acorus[the source code].
 
