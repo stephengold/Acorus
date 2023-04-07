@@ -1,0 +1,24 @@
+= Using Acorus in a headless context
+:Project: Acorus
+:page-pagination:
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+
+Acorus offers a few features that aren't directly related to user interface.
+Occasionally, an application running in a headless context
+wants to utilize these features.
+
+
+== TestHeadless
+
+{url-examples}/TestHeadless.java[TestHeadless]
+is an example of a headless application that extends `ActionApplication`.
+
+[NOTE]
+====
+`TestHeadless` can't be run from the app chooser.
+====
+
+
+== Summary
+
+* Acorus can also be useful in headless contexts.
