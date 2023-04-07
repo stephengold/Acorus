@@ -65,126 +65,14 @@ The Acorus library also includes:
 
 ## How to add Acorus to an existing project
 
-The Acorus library depends on:
-+ the standard "jme3-desktop" library and
-+ [the Heart Library][heart].
-
-These libraries depend in turn on the standard "jme3-core" library.
-Adding Acorus to an existing [jMonkeyEngine][jme] project should be
-a simple matter of adding these libraries to the classpath.
-
-For projects built using [Maven] or [Gradle], it is sufficient to add a
-dependency on the Acorus Library.  The build tools should automatically
-resolve the remaining dependencies.
-
-### Gradle-built projects
-
-Add to the project’s "build.gradle" file:
-
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        implementation 'com.github.stephengold:Acorus:1.0.0'
-    }
-
-For some older versions of Gradle,
-it's necessary to replace `implementation` with `compile`.
-
-### Maven-built projects
-
-Add to the project’s "pom.xml" file:
-
-    <repositories>
-      <repository>
-        <id>mvnrepository</id>
-        <url>https://repo1.maven.org/maven2/</url>
-      </repository>
-    </repositories>
-
-    <dependency>
-      <groupId>com.github.stephengold</groupId>
-      <artifactId>Acorus</artifactId>
-      <version>1.0.0</version>
-    </dependency>
-
-### Ant-built projects
-
-For projects built using [Ant], download the Acorus and [Heart]
-libraries from GitHub:
-
-+ https://github.com/stephengold/Acorus/releases/tag/latest
-+ https://github.com/stephengold/Heart/releases/tag/8.3.2
-
-You'll definitely want both class jars
-and probably the "-sources" and "-javadoc" jars as well.
-
-Open the project's properties in the IDE (JME SDK or NetBeans):
-
-1. Right-click on the project (not its assets) in the "Projects" window.
-2. Select "Properties" to open the "Project Properties" dialog.
-3. Under "Categories:" select "Libraries".
-4. Click on the "Compile" tab.
-5. Add the [Heart] class jar:
-  + Click on the "Add JAR/Folder" button.
-  + Navigate to the download folder.
-  + Select the "Heart-8.3.2.jar" file.
-  + Click on the "Open" button.
-6. (optional) Add jars for javadoc and sources:
-  + Click on the "Edit" button.
-  + Click on the "Browse..." button to the right of "Javadoc:"
-  + Select the "Heart-8.3.2-javadoc.jar" file.
-  + Click on the "Open" button.
-  + Click on the "Browse..." button to the right of "Sources:"
-  + Select the "Heart-8.3.2-sources.jar" file.
-  + Click on the "Open" button again.
-  + Click on the "OK" button to close the "Edit Jar Reference" dialog.
-7. Similarly, add the Acorus jar(s).
-8. Click on the "OK" button to exit the "Project Properties" dialog.
-
-[Jump to table of contents](#toc)
+[How to add Acorus to an existing project](https://stephengold.github.io/Acorus/acorus-en/English/add.html)
 
 
 <a name="build"></a>
 
 ## How to build Acorus from source
 
-1. Install a [Java Development Kit (JDK)][adoptium],
-   if you don't already have one.
-2. Point the `JAVA_HOME` environment variable to your JDK installation:
-   (The path might be something like "C:\Program Files\Java\jre1.8.0_301"
-   or "/usr/lib/jvm/java-8-openjdk-amd64/" or
-   "/Library/Java/JavaVirtualMachines/liberica-jdk-17-full.jdk/Contents/Home" .)
-  + using Bash or Zsh: `export JAVA_HOME="` *path to installation* `"`
-  + using Windows Command Prompt: `set JAVA_HOME="` *path to installation* `"`
-  + using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
-3. Download and extract the Acorus source code from GitHub:
-  + using Git:
-    + `git clone https://github.com/stephengold/Acorus.git`
-    + `cd Acorus`
-    + `git checkout -b latest 1.0.0`
-  + using a web browser:
-    + browse to [the latest release][latest]
-    + follow the "Source code (zip)" link
-    + save the ZIP file
-    + extract the contents of the saved ZIP file
-    + `cd` to the extracted directory/folder
-4. Run the [Gradle] wrapper:
-  + using Bash or PowerShell or Zsh: `./gradlew build`
-  + using Windows Command Prompt: `.\gradlew build`
-
-After a successful build,
-Maven artifacts will be found in "AcorusLibrary/build/libs".
-
-You can install the artifacts to your local Maven repository:
-+ using Bash or PowerShell or Zsh: `./gradlew install`
-+ using Windows Command Prompt: `.\gradlew install`
-
-You can restore the project to a pristine state:
-+ using Bash or PowerShell or Zsh: `./gradlew clean`
-+ using Windows Command Prompt: `.\gradlew clean`
-
-[Jump to table of contents](#toc)
+[How to build Acorus from source](https://stephengold.github.io/Acorus/acorus-en/English/build.html)
 
 
 <a name="downloads"></a>
@@ -236,231 +124,51 @@ To run a specific app:
 
 ### HelloAcorus
 
-Every Acorus application extends the `ActionApplication` class
-or one of its subclasses, usually `AcorusDemo`.
+[Getting started with Acorus](https://stephengold.github.io/Acorus/acorus-en/English/hello.html)
 
-`HelloAcorus` is a very simple example of an `AcorusDemo`:
-one without a `FlyByCamera`, a `DebugKeysAppState`,
-a `ScreenshotAppState`, or a `StatsAppState`.
+### TestHotkeys and HelloBind
 
-Note that the initialization method is named `acorusInit`, not `simpleInitApp`!
-
-A help node is displayed in the upper right of the viewport.
-It describes the available user actions.
-In the example there is just one action, named "SIMPLEAPP_Exit",
-which is bound to the Esc key.
-
-Pressing the Esc key triggers the "SIMPLEAPP_Exit" action.
-Code to handle that action is built into `ActionApplication`.
-It causes the application to terminate.
-
-Because action names are displayed in the help node,
-they should ideally be short and descriptive.
-Since "SIMPLEAPP_Exit" is part of the JMonkeyEngine legacy,
-the `buildNode()` utility method that constructs the help node
-gives it special treatment.
-That's why "exit" is displayed in place of the actual name.
-
-### TestHotkeys
-
-The Esc key in `HelloAcorus` is an example of a hotkey.
-
-Hotkeys include not only keyboard keys
-but also mouse buttons and joystick buttons.
-Each `Hotkey` is identified in 3 ways:
- + by its "universal code" (integer value)
- + by its US name (String value), and
- + by its localized name (also a String).
-
-On systems with "US" QWERTY keyboards,
-the US name and the localized name are identical.
-
-The `TestHotKeys` example displays a continuously-updated list active hotkeys,
-making it a convenient tool for identifying hotkeys.
-Press some keyboard keys, click some mouse buttons, and see what appears!
-
-`TestHotkeys` doesn't bind the Esc key to "SIMPLEAPP_Exit".
-To close the window,
-you'll have to use whatever mechanisms your window manager provides:
-typically the window decorations ("X" button or red dot) or Alt+F4.
-
-### HelloBind
-
-`HelloBind` binds 12 hotkeys to 4 custom actions.
-Those actions cause squares to appear on (or disappear from) the display.
-
-In, Acorus action bindings are grouped into input modes.
-In this example, the 12 custom bindings are added
-to an automatically created mode called the default input mode.
-
-An input mode's bindings don't become effective (mapped)
-until the mode is activated (enabled).
-Acorus activates the default mode during initialization,
-just after invoking the `moreDefaultBindings()` callback.
-That makes `moreDefaultBindings()`
-the ideal place to customize the default mode.
-
-An action handler is simply a method
-with the `onAction(String, boolean, float)` signature.
-This signature is defined in JMonkeyEngine's `ActionListener` interface.
-All Acorus applications and input modes implement this interface.
-
-When a bound hotkey is pressed, Acorus invokes the input mode's action handler.
-In the example, the input mode doesn't handle the action,
-so it falls through to the application's handler.
-
-NOTE:  When multiple hotkeys are bound to a single action (as here),
-the help node separates the alternatives with slashes.
-
-NOTE:  To conserve screen area in the help node,
-the `buildNode()` method often abbreviates hotkey names.
-For example, the `HelloBind` help node indicates "num4",
-which is an abbreviated form of "numpad 4",
-which is the US/local name for the "4" key on the numeric keypad.
+[Binding hotkeys to actions](https://stephengold.github.io/Acorus/acorus-en/English/bind.html)
 
 ### HelloSignals
 
-Just as hotkeys can be bound to actions, they can also be bound to signals.
-
-Signals keep track of which hotkeys are active.
-They are used to monitor modal keys (like Shift, Ctrl, and Alt)
-and sometimes to control motion.
-
-`HelloSignals` binds 12 hotkeys to 4 custom actions.
-The signals cause squares to appear on (or disappear from) the display.
-
-NOTE:  When multiple hotkeys are bound to the same signal (as here),
-the signal remains active as long as any of the hotkeys are active.
+[Binding hotkeys to signals](https://stephengold.github.io/Acorus/acorus-en/English/signal.html)
 
 ### HelloCombo
 
-A `Combo` represents a combination of hotkeys.
-More precisely, it consists of a hotkey
-plus a set of positive and/or negative signals.
-
-The `HelloCombo` example binds 2 signals and 6 combos.
-
-Help nodes indicate combo bindings alongside simple hotkey bindings:
-+ "shift+y" mean pressing the "y" key while the "shift" signal is active
-+ "noshift+y" means pressing the "y" key when "shift" isn't active.
+[Binding combos to actions](https://stephengold.github.io/Acorus/acorus-en/English/combo.html)
 
 ### HelloSimpleApplication
 
-This example extends the `HelloAcorus` example
-with a `FlyByCamera`, a `StatsAppState`, a `DebugKeysAppState`,
-and a `ScreenshotAppState`.
-
-When the default input mode detects a `StatsAppState`,
-it binds the F5 key to the action
-that toggles visibility of the render-statistics display.
-
-When the default input mode detects a `DebugKeysAppState`,
-it bind 2 hotkeys (C and M on "US" QWERTY keyboards)
-to actions that print the camera position and memory statistics to the console.
-
-When the default input mode detects a `FlyByCamera`,
-it binds 6 hotkeys (W/A/S/D/Q/Z on "US" QWERTY keyboards)
-to signals that control camera motion.
-
-Users accustomed to `SimpleApplication` will expect these bindings.
-Furthermore:
-
-When the default input mode detects a `ScreenshotAppState`,
-it binds a platform-dependent key to the action
-that generates a screenshot.
+[Mimicking a simple application](https://stephengold.github.io/Acorus/acorus-en/English/mimic.html)
 
 ### HelloToggleHelp
 
-Since detailed help obscures a portion of the viewport,
-you'll often want to display it only when the user explicitly requests it.
-
-This example adds an action to toggle the help node between 2 versions:
-detailed and minimal.
-The minimal version merely indicates how to display detailed help.
-
-### HelloSandbox
-
-Acorus allows you to designate a sandbox:
-a directory to which Acorus will write files.
-This directory is traditionally named "Written Assets".
-
-If there's a designated sandbox,
-`ActionApplication` attaches a `ScreenshotAppState`
-and binds a hotkey (either PrtSc or ScrLk or SysRq)
-to an action that captures a screenshot and writes it to the sandbox.
-
-### HelloRecorder
-
-`ActionApplication` recognizes a "toggle recorder" action
-to toggle video recording using jMonkeyEngine's `VideoRecorderAppState` class.
-Recorded videos are written to the sandbox.
-
-`HelloRecorder` binds the F3 key to that action.
+[Toggling the help node](https://stephengold.github.io/Acorus/acorus-en/English/toggle.html)
 
 ### TestAcorusDemo
 
-`TestAcorusDemo` demonstrates a few more features of `AcorusDemo`:
+[Additional features of AcorusDemo](https://stephengold.github.io/Acorus/acorus-en/English/more.html)
 
-+ add world axes to a scene
-+ pause animations without disabling camera motion
-+ scale a C-G model to a specified height
-+ position a C-G model so that it rests on the X-Z plane
-  with its center on the Y axis
-+ select among string values, as in a menu
-+ store materials in a "library" and retrieve them by name
+### HelloSandbox and HelloRecorder
 
-### TestToggleFly
+[The Sandbox](https://stephengold.github.io/Acorus/acorus-en/English/sandbox.html)
 
-This example extends `TestSimpleApplication`
-with an action to toggle the state of the `FlyByCamera`.
+### TestToggleFly and HelloCoas
 
-Notice how the hotkey bindings change
-when camera controller is enabled and disabled.
-Each change is reflected in the help node.
+[Controlling 3-D cameras](https://stephengold.github.io/Acorus/acorus-en/English//camera.html)
 
-### HelloCoas
+### TestTwoModes and TestCursors
 
-`FlyByCamera` is a powerful camera control,
-but it's not convenient for studying a 3-D object from all sides.
-
-This example adds a `CameraOrbitAppState` to `TestSimpleApplication`.
-The left- and right-arrow keys
-cause the camera to orbit around the world's Y axis.
-
-`CameraOrbitAppState` is entirely controlled by 2 signals,
-and it doesn't care which hotkeys are bound to those signals.
-This makes it very easy to customize which hotkeys do what.
-
-### TestTwoModes
-
-In Acorus, an application can attach multiple input modes,
-but it can only enable one at a time.
-
-This example illustrates an `AcorusDemo` with 2 input modes:
-The default mode (initially active) enables `FlyByCamera` for camera movement.
-The other mode (named "edit") allows you to type a line of text.
-
-### TestCursors
-
-To remind the user which input mode is active,
-you can give each mode its own cursor style.
-
-This example demonstrates 4 input modes, each with its own cursor style.
+[Defining multiple input modes]https://stephengold.github.io/Acorus/acorus-en/English/modes.html)
 
 ### TestDsEdit
 
-This example demonstrates how to use the built-in `DsEditOverlay` appstate
-to edit display settings from within an application.
+[Editing display settings]https://stephengold.github.io/Acorus/acorus-en/English/dsedit.html)
 
 ### TestHeadless
 
-Acorus offers some features that aren't directly related to user interface.
-Occasionally, an application that runs in a headless context
-will want to utilize these features.
-
-`TestHeadless` is a simple example of a headless `ActionApplication`.
-
-NOTE:  `TestHeadless` can't be run from the app chooser.
+[Using Acorus in a headless context]https://stephengold.github.io/Acorus/acorus-en/English/headless.html)
 
 [Jump to table of contents](#toc)
 
