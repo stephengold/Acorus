@@ -2,7 +2,7 @@
 :Project: Acorus
 :experimental:
 :page-pagination:
-:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
 Just as the default input mode implements actions to mimic `SimpleApplication`,
 the `AcorusDemo` class implements 4 additional actions:
@@ -33,7 +33,7 @@ it merely indicates how to display the detailed version.
 
 == HelloToggleHelp
 
-{url-tutorial}/HelloToggleHelp.java[HelloToggleHelp]
+{url-examples}/HelloToggleHelp.java[HelloToggleHelp]
 is an example application that extends the `HelloSimpleApplication` example.
 It binds kbd:[H] to the "toggle help" action.
 

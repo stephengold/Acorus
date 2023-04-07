@@ -3,7 +3,7 @@
 :experimental:
 :page-pagination:
 :url-enwiki: https://en.wikipedia.org/wiki
-:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
 
 Just as hotkeys can be bound to actions, they can also be bound to signals.
@@ -25,7 +25,7 @@ Typical uses for signals:
 
 == HelloSignal
 
-{url-tutorial}/HelloSignal.java[HelloSignal] is an example application
+{url-examples}/HelloSignal.java[HelloSignal] is an example application
 that binds 12 hotkeys to 4 custom signals:
 
 [source,java]

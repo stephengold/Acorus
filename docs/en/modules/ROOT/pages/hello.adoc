@@ -3,7 +3,7 @@
 :experimental:
 :page-pagination:
 :url-enwiki: https://en.wikipedia.org/wiki
-:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
 
 Ready for some actual code?
@@ -11,7 +11,7 @@ Ready for some actual code?
 
 == HelloAcorus
 
-{url-tutorial}/HelloAcorus.java[HelloAcorus] is a complete application
+{url-examples}/HelloAcorus.java[HelloAcorus] is a complete application
 that provides a starting point for studying and using Acorus.
 It's a simple extension of `AcorusDemo`:
 one without a `FlyByCamera`, a `DebugKeysAppState`, or a `StatsAppState`.
@@ -57,7 +57,7 @@ you should be able to launch example apps from a command shell, like so:
 ====
 
 Here's that link to
-{url-tutorial}/HelloAcorus.java[the HelloAcorus source code] again.
+{url-examples}/HelloAcorus.java[the HelloAcorus source code] again.
 
 
 == Summary

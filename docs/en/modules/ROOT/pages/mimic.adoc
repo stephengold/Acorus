@@ -2,7 +2,7 @@
 :Project: Acorus
 :experimental:
 :page-pagination:
-:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
 The default input mode includes functionality
 to mimic certain input bindings typically provided by a `SimpleApplication`.
@@ -10,7 +10,7 @@ to mimic certain input bindings typically provided by a `SimpleApplication`.
 
 == HelloSimpleApplication
 
-{url-tutorial}/HelloSimpleApplication.java[HelloSimpleApplication]
+{url-examples}/HelloSimpleApplication.java[HelloSimpleApplication]
 is an example application that extends the `HelloAcorus` example
 by attaching a `StatsAppState`, a `DebugKeysAppState`, and a `FlyByCamera`.
 

@@ -1,9 +1,9 @@
 = Additional features of AcorusDemo
 :page-pagination:
-:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
 
-{url-tutorial}/TestAcorusDemo.java[TestAcorusDemo] is a test application
+{url-examples}/TestAcorusDemo.java[TestAcorusDemo] is a test application
 that demonstrates more built-in features of `AcorusDemo`:
 
 * add world axes to a scene and toggle their visibility with "toggle pause"

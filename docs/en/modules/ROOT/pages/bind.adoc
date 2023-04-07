@@ -3,7 +3,7 @@
 :experimental:
 :page-pagination:
 :url-enwiki: https://en.wikipedia.org/wiki
-:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
 
 The kbd:[Esc] key in `HelloAcorus` is an example of a hotkey.
@@ -22,7 +22,7 @@ the US name and the localized name are identical.
 
 == TestHotkeys
 
-{url-tutorial}/TestHotkeys.java[TestHotkeys] is a test application that
+{url-examples}/TestHotkeys.java[TestHotkeys] is a test application that
 displays a continuously updated list active hotkeys.
 It is a useful tool for identifying hotkeys.
 Please run the app, press some keyboard keys, click some mouse buttons,
@@ -46,7 +46,7 @@ The usual way is to invoke `inputMode.bind(actionName, code1, code2, ...)`
 
 == HelloBind
 
-{url-tutorial}/HelloBind.java[HelloBind] is an example application
+{url-examples}/HelloBind.java[HelloBind] is an example application
 that binds 12 hotkeys to 4 custom actions.
 Those actions cause colored squares
 to appear in (or disappear from) the display.

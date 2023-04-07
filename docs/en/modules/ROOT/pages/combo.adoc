@@ -3,7 +3,7 @@
 :experimental:
 :page-pagination:
 :url-enwiki: https://en.wikipedia.org/wiki
-:url-tutorial: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
 A _combo_ represents a combination of hotkeys.
 More precisely, it consists of a hotkey
@@ -17,7 +17,7 @@ plus a set of positive and/or negative signals.
 
 == HelloCombo
 
-{url-tutorial}/HelloCombo.java[HelloCombo] is an example application
+{url-examples}/HelloCombo.java[HelloCombo] is an example application
 that binds 2 signals and 6 combos.
 
 Acorus help nodes display combo bindings
