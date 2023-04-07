@@ -6,10 +6,10 @@
 :url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
 A _combo_ represents a combination of hotkeys.
-More precisely, it consists of a hotkey
+More precisely, it consists of a simple hotkey
 plus a set of positive and/or negative signals.
 
-* To define a combo with a single positive signal,
+* To define a combo with a single positive signal (the typical case)
   invoke `new Combo(code, signalName, true)`
 * To bind a combo to an action,
   invoke `inputMode.bind(actionName, combo)`
@@ -26,6 +26,14 @@ For example:
 
 * "shift+y" means pressing kbd:[y] while the "shift" signal is active.
 * "noshift+y" means pressing kbd:[y] while "shift" is inactive.
+
+The example provides 4 bindings to the "SIMPLEAPP_Exit" action
+(which displays as "exit"):
+
+* kbd:[Esc] (bound by the default input mode)
+* the "ctrl+e" combo
+* the "noshift+y" combo
+* the "shift+r" combo
 
 
 == Summary

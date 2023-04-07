@@ -3,6 +3,7 @@
 :experimental:
 :page-pagination:
 
+This is the start page of a web tutorial about the {Project} library.
 
 TIP: If you're creating a JMonkeyEngine desktop application from scratch,
 https://github.com/stephengold/BasicGame-on-Gradle[the BasicGame-on-Gradle project]

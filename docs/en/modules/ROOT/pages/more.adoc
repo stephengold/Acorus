@@ -6,6 +6,7 @@
 {url-examples}/TestAcorusDemo.java[TestAcorusDemo] is a test application
 that demonstrates more built-in features of `AcorusDemo`:
 
+* display text on a solid background using an _overlay_
 * add world axes to a scene and toggle their visibility with "toggle pause"
 * pause animations without disabling camera motion
 * scale a model to a specified height
