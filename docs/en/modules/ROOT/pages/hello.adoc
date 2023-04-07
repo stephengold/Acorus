@@ -59,6 +59,10 @@ you should be able to launch example apps from a command shell, like so:
 Here's that link to
 {url-examples}/HelloAcorus.java[the HelloAcorus source code] again.
 
+[NOTE]
+====
+Like most of the example apps, `HelloAcorus` runs in a resizable window.
+====
 
 == Summary
 

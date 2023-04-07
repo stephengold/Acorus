@@ -94,6 +94,7 @@ final class HelloCombo extends AcorusDemo {
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
+        settings.setResizable(true);
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
         /*
