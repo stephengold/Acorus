@@ -1,0 +1,66 @@
+= Controlling 3-D cameras
+:Project: Acorus
+:experimental:
+:page-pagination:
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+
+Because so many JMonkeyEngine demos use the `FlyByCamera` camera controller,
+Acorus integrates closely with it.
+
+Acorus also provides a good base for implementing custom camera controllers.
+
+
+== TestToggleFly
+
+{url-examples}/TestToggleFly.java[TestToggleFly]
+is a test application that modifies `TestSimpleApplication`
+by adding an action to toggle the state of the `FlyByCamera`.
+
+* Initially, the camera controller is enabled.
+* Pressing kbd:[t] or kbd:[Tab] disables the controller.
+* Pressing kbd:[t] or kbd:[Tab] again re-enables the controller.
+
+Notice how the hotkey bindings change
+each time the camera controller gets enabled or disabled.
+Each change is reflected in the help node.
+
+
+== CameraOrbitAppState
+
+`FlyByCamera` is a useful camera controller,
+but it's inconvenient for studying a 3-D object from all sides.
+One could, of course, use `ChaseCameraAppState`, but often that's overkill.
+As an alternative, Acorus offers `CameraOrbitAppState` (COAS for short),
+a camera controller designed to augment `FlyByCamera` with orbital motion.
+
+COAS uses 2 signals
+to make a camera _orbit_ (move in a circle around) the global Y axis
+in each direction.
+
+COAS is entirely controlled signals,
+and doesn't care what hotkeys are bound to them.
+This design makes it easy to customize which hotkeys do what.
+
+=== HelloCoas
+
+{url-examples}/HelloCoas.java[HelloCoas]
+is an example application that modifies `TestSimpleApplication`
+by attaching a `CameraOrbitAppState`.
+The left- and right-arrow keys
+are bound to signals that control orbital motion.
+
+
+== Other examples
+
+For custom camera controllers, signals promote clean separation between
+the input mappings and motion logic.
+
+For more examples of Acorus-based camera controllers,
+see https://github.com/stephengold/Garrett[the Garrett project].
+
+
+== Summary
+
+* Acorus integrates closely with `FlyByCamera`.
+* It's also a good base for custom camera controllers.
+* `CameraOrbitAppState` augments `FlyByCamera` with orbital motion.
