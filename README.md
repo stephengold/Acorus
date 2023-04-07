@@ -156,19 +156,19 @@ To run a specific app:
 
 ### TestToggleFly and HelloCoas
 
-[Controlling 3-D cameras](https://stephengold.github.io/Acorus/acorus-en/English//camera.html)
+[Controlling 3-D cameras](https://stephengold.github.io/Acorus/acorus-en/English/camera.html)
 
 ### TestTwoModes and TestCursors
 
-[Defining multiple input modes]https://stephengold.github.io/Acorus/acorus-en/English/modes.html)
+[Defining multiple input modes](https://stephengold.github.io/Acorus/acorus-en/English/modes.html)
 
 ### TestDsEdit
 
-[Editing display settings]https://stephengold.github.io/Acorus/acorus-en/English/dsedit.html)
+[Editing display settings](https://stephengold.github.io/Acorus/acorus-en/English/dsedit.html)
 
 ### TestHeadless
 
-[Using Acorus in a headless context]https://stephengold.github.io/Acorus/acorus-en/English/headless.html)
+[Using Acorus in a headless context](https://stephengold.github.io/Acorus/acorus-en/English/headless.html)
 
 [Jump to table of contents](#toc)
 
