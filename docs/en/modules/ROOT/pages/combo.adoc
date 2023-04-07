@@ -2,7 +2,6 @@
 :Project: Acorus
 :experimental:
 :page-pagination:
-:url-enwiki: https://en.wikipedia.org/wiki
 :url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
 
 A _combo_ represents a combination of hotkeys.
