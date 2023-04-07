@@ -17,7 +17,7 @@ plus a set of positive and/or negative signals.
 
 == HelloCombo
 
-{url-tutorial}/console/HelloCombo.java[HelloCombo] is a tutorial application
+{url-tutorial}/HelloCombo.java[HelloCombo] is an example application
 that binds 2 signals and 6 combos.
 
 Acorus help nodes display combo bindings

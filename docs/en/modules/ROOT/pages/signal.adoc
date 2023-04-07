@@ -1,4 +1,4 @@
-= Binding signals
+= Binding hotkeys to signals
 :Project: Acorus
 :experimental:
 :page-pagination:
@@ -8,16 +8,16 @@
 
 Just as hotkeys can be bound to actions, they can also be bound to signals.
 _Signals_ in Acorus aren't discrete events like Unix signals.
-Rather, they continuously track whether certain hotkeys are active.
+Rather, they continuously track whether specific hotkeys are active.
 
 Each signal is identified by a distinct `String`, its name.
 
 * To create a signal and bind a key to it,
-  invoke `inputMode.bindSignal(signalName, code)`.
+  invoke `inputMode.bindSignal(signalName, code)`
 * To test whether a signal is active,
-  invoke `app.getSignals().test(signalName)`.
+  invoke `app.getSignals().test(signalName)`
 
-Typically uses for signals:
+Typical uses for signals:
 
 * to monitor modal keys (such as kbd:[Shift], kbd:[Ctrl], and kbd:[Alt]) and
 * control smooth motion of cameras and spatials.
@@ -40,7 +40,7 @@ dim.bindSignal("show white",
         KeyInput.KEY_F4, KeyInput.KEY_4, KeyInput.KEY_NUMPAD4);
 ----
 
-The 4 signals cause squares to appear on (or disappear from) the display.
+The signals cause squares to appear on (or disappear from) the display.
 
 [NOTE]
 ====

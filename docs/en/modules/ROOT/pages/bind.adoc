@@ -1,4 +1,4 @@
-= Binding keyboard keys to actions
+= Binding hotkeys to actions
 :Project: Acorus
 :experimental:
 :page-pagination:
@@ -8,9 +8,9 @@
 
 The kbd:[Esc] key in `HelloAcorus` is an example of a hotkey.
 
-Hotkeys in Acorus include not only keyboard keys
+_Hotkeys_ in Acorus include not only keyboard keys
 but also the buttons on mice, joysticks, and game controllers.
-Each `Hotkey` is identified in 3 ways:
+Each hotkey is identified in 3 ways:
 
 * by its "universal code" (`int` value)
 * by its US name (`String` value), and
@@ -24,7 +24,7 @@ the US name and the localized name are identical.
 
 {url-tutorial}/TestHotkeys.java[TestHotkeys] is a test application that
 displays a continuously updated list active hotkeys.
-This makes it a useful tool for identifying hotkeys.
+It is a useful tool for identifying hotkeys.
 Please run the app, press some keyboard keys, click some mouse buttons,
 and see what information appears!
 
@@ -35,13 +35,21 @@ typically a window decoration ("X" button or red disc)
 or a combination such as kbd:[Alt+F4].
 
 
+== Binding hotkeys
+
+To execute some code each time a hotkey is pressed or released,
+the hotkey should be _bound_ to an action.
+
+There are several ways to bind hotkeys to actions.
+The usual way is to invoke `inputMode.bind(actionName, code1, code2, ...)`
+
+
 == HelloBind
 
-For a hotkey to do something, it must be _bound_ to some action.
-
-{url-tutorial}/HelloBind.java[HelloBind] binds 12 hotkeys to 4 custom actions.
+{url-tutorial}/HelloBind.java[HelloBind] is an example application
+that binds 12 hotkeys to 4 custom actions.
 Those actions cause colored squares
-to appear on (or disappear from) the display.
+to appear in (or disappear from) the display.
 
 [NOTE]
 ====
@@ -58,9 +66,9 @@ which is an abbreviated form of "numpad 4",
 the name of kbd:[4] on the numeric keypad.
 ====
 
-In Acorus, action bindings are grouped into input modes.
+In Acorus, action bindings are grouped into _input modes_.
 In `HelloBind`, the 12 custom bindings are added
-to an automatically created mode called the _default input mode_.
+to an (automatically created) mode called the _default input mode_.
 
 An input mode's bindings don't become effective (mapped)
 until the mode is activated (enabled).
@@ -89,10 +97,10 @@ with the `onAction(String, boolean, float)` signature.
 This signature is defined by JMonkeyEngine's `ActionListener` interface.
 All Acorus applications and input modes implement that interface.
 
-When a bound hotkey is pressed, Acorus invokes the input mode's action handler.
-In `HelloBind`, the (default) input mode
-doesn't handle any of the "toggle" actions,
-so they fall through to the application's handler:
+When a bound hotkey is pressed,
+Acorus first invokes the action handler of the active input mode.
+The mode may handle the action, ignore it, or forward it to the application.
+
 
 [source,java]
 ----
@@ -118,8 +126,8 @@ public void onAction(String actionString, boolean ongoing, float tpf) {
 
 * Hotkeys include keyboard keys, mouse buttons, and joystick buttons.
 * Each hotkey has both a US name and a localized name; they might be identical.
-* For a hotkey to do something, it must be bound to an action.
-* Multiple hotkeys may bind to the same action.
+* To make something happen each time a hotkey is pressed, bind it to an action.
+* You can bind multiple hotkeys to the same action.
 * Bindings are grouped into input modes.
-* An input mode's bindings become effective when the mode is activated.
+* An input mode's bindings take effect when the mode is activated.
 * During initialization, Acorus creates a default input mode and activates it.

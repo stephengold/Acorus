@@ -19,27 +19,27 @@ A help node is displayed in the upper right corner of the viewport.
 The help node describes the available user actions.
 Two actions are available:
 
-* "ScreenShot" (bound to either the Sys Rq key or the Scroll Lock key) and
-* "SIMPLEAPP_Exit" (bound to the Esc key).
+* "ScreenShot" (bound to either kbd:[Sys Rq] or kbd:[Scroll Lock]) and
+* "SIMPLEAPP_Exit" (bound to kbd:[Esc]).
 
 Code to handle the "ScreenShot" action is built into `ActionApplication`.
 Pressing the bound key causes the application to capture a screenshot.
 
-Pressing the Esc key triggers the "SIMPLEAPP_Exit" action.
+Pressing kbd:[Esc] triggers the "SIMPLEAPP_Exit" action.
 Code to handle that action is also built into `ActionApplication`.
 It causes the application to terminate.
 
-Because action names are meant to be displayed in help nodes,
+Because action names are intended for display in help nodes,
 they should ideally be short and descriptive.
-Since "SIMPLEAPP_Exit" is part of the JMonkeyEngine legacy,
-the `buildNode()` utility method that constructs the help node
+"SIMPLEAPP_Exit" is part of the JMonkeyEngine legacy,
+so the `buildNode()` utility method (which constructs the help node)
 gives it special treatment.
-That's why "exit" is displayed in place of the real action name.
+That's why "exit" is displayed in place of the actual action name.
 
 [IMPORTANT]
 ====
 `HelloAcorus` is the first in a series of
-tutorial apps intended for hands-on learning.
+example apps intended for hands-on learning.
 I expect you to not only study the source code,
 but to actually run the app as well.
 Take time *now* to set up a
@@ -47,14 +47,15 @@ Take time *now* to set up a
 for this purpose!
 
 For instance, if you install Git and a Java Development Kit,
-you should be able to launch tutorial apps from a command shell, like so:
+you should be able to launch example apps from a command shell, like so:
 
 . `git clone https://github.com/stephengold/Acorus.git`
 . `cd Acorus`
 . `./gradlew HelloAcorus`
 ====
 
-{url-tutorial}/HelloAcorus.java[Here's that link to the sourcecode again.]
+Here's that link to
+{url-tutorial}/HelloAcorus.java[the HelloAcorus source code] again.
 
 
 == Summary

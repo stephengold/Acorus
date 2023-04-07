@@ -7,19 +7,19 @@
 _{Project}_ is a simple user-interface library
 for https://jmonkeyengine.org[JMonkeyEngine] desktop applications
 that don't need graphical widgets
-such as checkboxes, radio buttons, scrollbars, and sliders.
+(such as checkboxes, radio buttons, scrollbars, and sliders).
 
-Oriented toward keyboard-driven demo/test applications,
+Oriented toward keyboard-driven demos and test applications,
 Acorus provides simple mechanisms to:
 
 . bind _hotkeys_ (keyboard keys, mouse buttons, and joystick buttons)
   to _actions_ (names meaningful to the user and the application)
 . determine which hotkeys are active (using _signals_)
 . bind input combinations such as kbd:[Ctrl+C] (using _combos_)
-. activate different hotkey bindings in different contexts (using _input modes_)
+. map different bindings in specific contexts (using _input modes_)
 . display on-screen help/hints for the active input mode (using _help nodes_)
 
-Properly used, help nodes provide a self-documenting user interface.
+Properly used, help nodes make a user-interface self-documenting.
 
 All software in the {Project} project is free and open-source,
 including the library itself, the example apps,
@@ -59,7 +59,7 @@ on https://stephengold.github.io/[my homepage] and in the source code.
 == The name
 
 The project's name is a acronym for "ACtion-ORiented USer interface."
-It's also the scientific name for the botanical genus
+It's also the scientific name of the botanical genus
 that includes {url-enwiki}/Acorus_calamus[Sweet Flag].
 
 The preferred English pronunciation is roughly "ACK-o-russ".

@@ -17,9 +17,11 @@ Adding {Project} to an existing JMonkeyEngine project is a 3-step process:
 
 == Add libraries to the classpath
 
-{Project} comes pre-built as a single JVM library that depends on
-https://github.com/stephengold/Heart[the Heart library],
-which in turn depends on jme3-core.
+{Project} comes pre-built as a JVM library that depends on:
+
+* jme3-core,
+* jme3-desktop, and
+* https://github.com/stephengold/Heart[the Heart library].
 
 For projects built using Gradle or Maven, it's usually sufficient to specify the
 dependency on the {Project} Library.  Build tools should automatically
