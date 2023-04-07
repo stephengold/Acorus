@@ -1,0 +1,40 @@
+= Editing display settings
+:Project: Acorus
+:experimental:
+:page-pagination:
+:url-examples: https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test
+
+Acorus provides built-in classes
+to change an application's display settings from within the app:
+
+* `DsEditOverlay` implements an overlay to view a set of proposed settings, and
+* `DsEditInputMode` implements the "dsEdit" input mode
+  to change, apply, and save those settings.
+
+The overlay is "wired" to the input mode
+so that activating the mode automatically enables the overlay as well
+and disabling the mode disables the overlay.
+(Wiring overlays to input modes is a typical design pattern in Acorus.)
+
+
+== TestDsEdit
+
+{url-examples}/TestDsEdit.java[TestDsEdit] is an example application
+that demonstrates correct use of `DsEditOverlay` and `DsEditInputMode`.
+
+* Initially, the default input mode is active,
+  with `FlyByCamera` enabled for camera movement.
+* Pressing kbd:[F2] switches the app into "dsEdit" mode,
+  allowing the user to view and change proposed settings.
+* The proposed display settings consist of 10 fields,
+  one of which is _selected_ (indicated by -> and yellow text coloration).
+* To change which field is selected, press the up/down arrow keys.
+* To change the value of the selected field, press the left/right arrow keys.
+* To apply the proposed settings to the app, press kbd:[Enter].
+* To write the proposed settings to persistent storage, use "ctrl+s".
+* To return to default input mode, press kbd:[Esc], kbd:[F2], or kbd:[Tab].
+
+
+== Summary
+
+* Acorus provides built-in classes to edit display settings.
