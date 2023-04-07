@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Binding hotkeys to actions :: The Acorus project</title>
+    <link rel="canonical" href="https://stephengold.github.io/Acorus/acorus-en/English/bind.html">
+    <link rel="prev" href="hello.html">
+    <link rel="next" href="signal.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<meta property="og:image" content="../../_/img/iconx128.png">
+<meta property="og:description" content="Binding hotkeys to actions">
+<meta property="og:title" content="The Acorus project">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://stephengold.github.io/Acorus">
+        <img alt="" src="../../_/img/iconx128.png" width="32" type="image/x-icon" style="margin-right:16px">
+        The Acorus project
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Color themes</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" onclick="setTheme('canyon')">Canyon</a>
+            <a class="navbar-item" onclick="setTheme('dark')">Dark</a>
+            <a class="navbar-item" onclick="setTheme('jungle')">Jungle</a>
+            <a class="navbar-item" onclick="setTheme('light')">Light</a>
+            <a class="navbar-item" onclick="setTheme('pastel')">Pastel</a>
+            <a class="navbar-item" onclick="setTheme('phosphor')">Phosphor<a>
+            <a class="navbar-item" style="padding-top: 5px;padding-left: 1px;padding-right: 1px;"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="acorus-en" data-version="English">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="overview.html">Project links</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Library tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="add.html">Add to existing project</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hello.html">Getting started</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="bind.html">Binding hotkeys</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="signal.html">Signals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="combo.html">Combos</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mimic.html">Mimic a simple app</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toggle.html">Toggle the help node</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="more.html">More features</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="sandbox.html">The Sandbox</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camera.html">Controlling cameras</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="modes.html">Input modes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dsedit.html">Display settings</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="headless.html">Headless apps</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="build.html">Build procedures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://github.com/stephengold/Acorus">Git repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/releases/latest">Latest release</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/releases">Recent releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/blob/master/README.md">README file</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://raw.githubusercontent.com/stephengold/Acorus/master/LICENSE">License</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/blob/master/AcorusLibrary/release-notes.md">Release log</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/commits/master">Recent commits</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/issues">Issue tracker</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/issues/new">Open an issue</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Acorus at other sites</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://repo1.maven.org/maven2/com/github/stephengold/Acorus">Maven Central download</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://central.sonatype.com/search?q=Acorus&amp;namespace=com.github.stephengold">Maven Central search</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://jitpack.io/#stephengold/Acorus">JitPack (unofficial)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Projects using Acorus</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Garrett">Garrett</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Heart">Heart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://stephengold.github.io/Minie">Minie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/RyzomDemos">RyzomDemos</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Wes">Wes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other related projects</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://jmonkeyengine.org">JMonkeyEngine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/antora-ui-bundle">Website UI bundle</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">People</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://stephengold.github.io">Stephen Gold</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">The Acorus project</span>
+    <span class="version">English</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">The Acorus project</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="overview.html">English</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle-label">Project links</span>
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="overview.html">The Acorus project</a></li>
+    <li>Library tutorials</li>
+    <li><a href="bind.html">Binding hotkeys</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/stephengold/Acorus/edit/master/docs/en/modules/ROOT/pages/bind.adoc">Edit this page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Binding hotkeys to actions</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <kbd>Esc</kbd> key in <code>HelloAcorus</code> is an example of a hotkey.</p>
+</div>
+<div class="paragraph">
+<p><em>Hotkeys</em> in Acorus include not only keyboard keys
+but also the buttons on mice, joysticks, and game controllers.
+Each hotkey is identified in 3 ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>by its "universal code" (<code>int</code> value)</p>
+</li>
+<li>
+<p>by its US name (<code>String</code> value), and</p>
+</li>
+<li>
+<p>by its localized name (also a <code>String</code>).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>On systems with "US" QWERTY keyboards,
+the US name and the localized name are identical.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testhotkeys"><a class="anchor" href="#_testhotkeys"></a>TestHotkeys</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test/TestHotkeys.java">TestHotkeys</a> is a test application that
+displays a continuously updated list active hotkeys.
+It is a useful tool for identifying hotkeys.
+Please run the app, press some keyboard keys, click some mouse buttons,
+and see what information appears!</p>
+</div>
+<div class="paragraph">
+<p><code>TestHotkeys</code> overrides the default binding of <kbd>Esc</kbd> to "SIMPLEAPP_Exit".
+In order to terminate the application,
+you&#8217;ll have to use some mechanism provided by your window manager:
+typically a window decoration ("X" button or red disc)
+or a combination such as <span class="keyseq"><kbd>Alt</kbd>+<kbd>F4</kbd></span>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_binding_hotkeys"><a class="anchor" href="#_binding_hotkeys"></a>Binding hotkeys</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To execute some code each time a hotkey is pressed or released,
+the hotkey should be <em>bound</em> to an action.</p>
+</div>
+<div class="paragraph">
+<p>There are several ways to bind hotkeys to actions.
+The usual way is to invoke <code>inputMode.bind(actionName, code1, code2, &#8230;&#8203;)</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hellobind"><a class="anchor" href="#_hellobind"></a>HelloBind</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test/HelloBind.java">HelloBind</a> is an example application
+that binds 12 hotkeys to 4 custom actions.
+Those actions cause colored squares
+to appear in (or disappear from) the display.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When multiple hotkeys are bound to a single action (as here),
+the help node separates the alternatives with slashes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To conserve screen area in help nodes,
+the <code>buildNode()</code> method often abbreviates hotkey names.
+For example, the <code>HelloBind</code> help node indicates "num4",
+which is an abbreviated form of "numpad 4",
+the name of <kbd>4</kbd> on the numeric keypad.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In Acorus, input bindings are grouped into <em>input modes</em>.
+In <code>HelloBind</code>, the 12 custom bindings are added
+to an (automatically created) mode called the <em>default input mode</em>.</p>
+</div>
+<div class="paragraph">
+<p>An input mode&#8217;s bindings don&#8217;t become effective (mapped)
+until the mode is activated (enabled).
+Acorus activates the default input mode during initialization,
+just after invoking the <code>moreDefaultBindings()</code> callback.
+That makes <code>moreDefaultBindings()</code>
+the ideal place to customize the default input mode.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public void moreDefaultBindings() {
+    InputMode dim = getDefaultInputMode();
+    dim.bind("toggle blue",
+            KeyInput.KEY_F1, KeyInput.KEY_1, KeyInput.KEY_NUMPAD1);
+    dim.bind("toggle green",
+            KeyInput.KEY_F2, KeyInput.KEY_2, KeyInput.KEY_NUMPAD2);
+    dim.bind("toggle red",
+            KeyInput.KEY_F3, KeyInput.KEY_3, KeyInput.KEY_NUMPAD3);
+    dim.bind("toggle white",
+            KeyInput.KEY_F4, KeyInput.KEY_4, KeyInput.KEY_NUMPAD4);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An <em>action handler</em> is simply a method
+with the <code>onAction(String, boolean, float)</code> signature.
+This signature is defined by JMonkeyEngine&#8217;s <code>ActionListener</code> interface.
+All Acorus applications and input modes implement that interface.</p>
+</div>
+<div class="paragraph">
+<p>When a bound hotkey is pressed,
+Acorus first invokes the action handler of the active input mode.
+The mode may handle the action, ignore it, or forward it to the application.</p>
+</div>
+<div class="paragraph">
+<p>In <code>HelloBind</code>, the action handler of the (default) input mode
+doesn&#8217;t handle "toggle" actions.
+It forwards them to the application&#8217;s action handler,
+which includes the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public void onAction(String actionString, boolean ongoing, float tpf) {
+    if (ongoing) {
+        switch (actionString) {
+            case "toggle blue":
+                toggle(blueSquare);
+                return;
+            case "toggle green":
+                toggle(greenSquare);
+                return;
+            case "toggle red":
+                toggle(redSquare);
+                return;
+            case "toggle white":
+                toggle(whiteSquare);
+                return;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Hotkeys include keyboard keys, mouse buttons, and joystick buttons.</p>
+</li>
+<li>
+<p>Each hotkey has both a US name and a localized name; they might be identical.</p>
+</li>
+<li>
+<p>To make something happen each time a hotkey is pressed, bind it to an action.</p>
+</li>
+<li>
+<p>You can bind multiple hotkeys to the same action.</p>
+</li>
+<li>
+<p>Bindings are grouped into input modes.</p>
+</li>
+<li>
+<p>An input mode&#8217;s bindings take effect when the mode is activated.</p>
+</li>
+<li>
+<p>During initialization, Acorus creates a default input mode and activates it.</p>
+</li>
+<li>
+<p>Actions not handled by the active input mode
+can be forwarded to the application.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="hello.html">Getting started</a></span>
+  <span class="next"><a href="signal.html">Signals</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Page contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright &copy; 2020&ndash;2023 by Stephen Gold</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

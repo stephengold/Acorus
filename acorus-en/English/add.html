@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>How to add Acorus to an existing project :: The Acorus project</title>
+    <link rel="canonical" href="https://stephengold.github.io/Acorus/acorus-en/English/add.html">
+    <link rel="prev" href="overview.html">
+    <link rel="next" href="hello.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<meta property="og:image" content="../../_/img/iconx128.png">
+<meta property="og:description" content="How to add Acorus to an existing project">
+<meta property="og:title" content="The Acorus project">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://stephengold.github.io/Acorus">
+        <img alt="" src="../../_/img/iconx128.png" width="32" type="image/x-icon" style="margin-right:16px">
+        The Acorus project
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Color themes</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" onclick="setTheme('canyon')">Canyon</a>
+            <a class="navbar-item" onclick="setTheme('dark')">Dark</a>
+            <a class="navbar-item" onclick="setTheme('jungle')">Jungle</a>
+            <a class="navbar-item" onclick="setTheme('light')">Light</a>
+            <a class="navbar-item" onclick="setTheme('pastel')">Pastel</a>
+            <a class="navbar-item" onclick="setTheme('phosphor')">Phosphor<a>
+            <a class="navbar-item" style="padding-top: 5px;padding-left: 1px;padding-right: 1px;"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="acorus-en" data-version="English">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="overview.html">Project links</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Library tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="add.html">Add to existing project</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hello.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="bind.html">Binding hotkeys</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="signal.html">Signals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="combo.html">Combos</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mimic.html">Mimic a simple app</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toggle.html">Toggle the help node</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="more.html">More features</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="sandbox.html">The Sandbox</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camera.html">Controlling cameras</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="modes.html">Input modes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dsedit.html">Display settings</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="headless.html">Headless apps</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="build.html">Build procedures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://github.com/stephengold/Acorus">Git repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/releases/latest">Latest release</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/releases">Recent releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/blob/master/README.md">README file</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://raw.githubusercontent.com/stephengold/Acorus/master/LICENSE">License</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/blob/master/AcorusLibrary/release-notes.md">Release log</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/commits/master">Recent commits</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/issues">Issue tracker</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/issues/new">Open an issue</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Acorus at other sites</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://repo1.maven.org/maven2/com/github/stephengold/Acorus">Maven Central download</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://central.sonatype.com/search?q=Acorus&amp;namespace=com.github.stephengold">Maven Central search</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://jitpack.io/#stephengold/Acorus">JitPack (unofficial)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Projects using Acorus</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Garrett">Garrett</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Heart">Heart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://stephengold.github.io/Minie">Minie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/RyzomDemos">RyzomDemos</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Wes">Wes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other related projects</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://jmonkeyengine.org">JMonkeyEngine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/antora-ui-bundle">Website UI bundle</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">People</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://stephengold.github.io">Stephen Gold</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">The Acorus project</span>
+    <span class="version">English</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">The Acorus project</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="overview.html">English</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle-label">Project links</span>
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="overview.html">The Acorus project</a></li>
+    <li>Library tutorials</li>
+    <li><a href="add.html">Add to existing project</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/stephengold/Acorus/edit/master/docs/en/modules/ROOT/pages/add.adoc">Edit this page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">How to add Acorus to an existing project</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the start page of a web tutorial about the Acorus library.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you&#8217;re creating a JMonkeyEngine desktop application from scratch,
+<a href="https://github.com/stephengold/BasicGame-on-Gradle">the BasicGame-on-Gradle project</a>
+provides a good starting point.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Adding Acorus to an existing JMonkeyEngine project is a 3-step process:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add libraries to the classpath.</p>
+</li>
+<li>
+<p>Convert the application to an <code>ActionApplication</code> or <code>AcorusDemo</code>.</p>
+</li>
+<li>
+<p>Test and tune as necessary.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_libraries_to_the_classpath"><a class="anchor" href="#_add_libraries_to_the_classpath"></a>Add libraries to the classpath</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Acorus comes pre-built as a JVM library that depends on:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>jme3-core,</p>
+</li>
+<li>
+<p>jme3-desktop, and</p>
+</li>
+<li>
+<p><a href="https://github.com/stephengold/Heart">the Heart library</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For projects built using Gradle or Maven, it&#8217;s usually sufficient to specify the
+dependency on the Acorus Library.  Build tools should automatically
+resolve the remaining dependencies.</p>
+</div>
+<div class="sect2">
+<h3 id="_gradle_built_projects"><a class="anchor" href="#_gradle_built_projects"></a>Gradle-built projects</h3>
+<div class="paragraph">
+<p>Add to the project&#8217;s "build.gradle" file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'com.github.stephengold:Acorus:1.0.0'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For some older versions of Gradle,
+it&#8217;s necessary to replace <code>implementation</code> with <code>compile</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_maven_built_projects"><a class="anchor" href="#_maven_built_projects"></a>Maven-built projects</h3>
+<div class="paragraph">
+<p>Add to the project&#8217;s "pom.xml" file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;repositories&gt;
+    &lt;repository&gt;
+      &lt;id&gt;mvnrepository&lt;/id&gt;
+      &lt;url&gt;https://repo1.maven.org/maven2/&lt;/url&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;
+
+&lt;dependency&gt;
+  &lt;groupId&gt;com.github.stephengold&lt;/groupId&gt;
+  &lt;artifactId&gt;Acorus&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ant_built_projects"><a class="anchor" href="#_ant_built_projects"></a>Ant-built projects</h3>
+<div class="paragraph">
+<p><a href="https://ant.apache.org">Ant</a> doesn&#8217;t know about transitive dependencies,
+so you&#8217;ll need to resolve them manually.</p>
+</div>
+<div class="paragraph">
+<p>Download the Acorus library and its dependencies
+from GitHub and/or Maven Central:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/stephengold/Acorus/releases/latest" class="bare">https://github.com/stephengold/Acorus/releases/latest</a></p>
+</li>
+<li>
+<p><a href="https://github.com/stephengold/Heart/releases/tag/8.3.2" class="bare">https://github.com/stephengold/Heart/releases/tag/8.3.2</a></p>
+</li>
+<li>
+<p><a href="https://repo1.maven.org/maven2/org/jmonkeyengine/jme3-core/3.6.0-stable/" class="bare">https://repo1.maven.org/maven2/org/jmonkeyengine/jme3-core/3.6.0-stable/</a></p>
+</li>
+<li>
+<p><a href="https://repo1.maven.org/maven2/org/jmonkeyengine/jme3-desktop/3.6.0-stable/" class="bare">https://repo1.maven.org/maven2/org/jmonkeyengine/jme3-desktop/3.6.0-stable/</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll definitely want the class JARs
+and probably the "-sources" and "-javadoc" JARs as well.</p>
+</div>
+<div class="paragraph">
+<p>Open the project&#8217;s properties in the IDE (JME SDK or NetBeans):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click on the project (not its assets) in the "Projects" window.</p>
+</li>
+<li>
+<p>Select <b class="menuref">Properties</b> to open the "Project Properties" dialog.</p>
+</li>
+<li>
+<p>Under "Categories:", click on <b class="button">Libraries</b>.</p>
+</li>
+<li>
+<p>Click on the <b class="button">Compile</b> tab.</p>
+</li>
+<li>
+<p>Add the Heart class JAR:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click on the <b class="button">Add JAR/Folder</b> button.</p>
+</li>
+<li>
+<p>Navigate to the download directory.</p>
+</li>
+<li>
+<p>Select the "Acorus-1.0.0.jar" file.</p>
+</li>
+<li>
+<p>Click on the <b class="button">Open</b> button.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>(optional) Add JARs for javadoc and sources:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click on the <b class="button">Edit</b> button.</p>
+</li>
+<li>
+<p>Click on the <b class="button">Browse&#8230;&#8203;</b> button to the right of "Javadoc:"</p>
+</li>
+<li>
+<p>Select the "Acorus-1.0.0-javadoc.jar" file.</p>
+</li>
+<li>
+<p>Click on the <b class="button">Open</b> button.</p>
+</li>
+<li>
+<p>Click on the <b class="button">Browse&#8230;&#8203;</b> button to the right of "Sources:"</p>
+</li>
+<li>
+<p>Select the "Acorus-1.0.0-sources.jar" file.</p>
+</li>
+<li>
+<p>Click on the <b class="button">Open</b> button button again.</p>
+</li>
+<li>
+<p>Click on the <b class="button">OK</b> button to close the "Edit Jar Reference" dialog.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Add the other JVM libraries in a similar manner.</p>
+</li>
+<li>
+<p>Click on the <b class="button">OK</b> button to exit the "Project Properties" dialog.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_convert_to_an_actionapplication"><a class="anchor" href="#_convert_to_an_actionapplication"></a>Convert to an <code>ActionApplication</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>JMonkeyEngine applications typically extend the <code>SimpleApplication</code> class.
+To use Acorus, an application should instead
+extend <code>ActionApplication</code> or one of its subclasses, typically <code>AcorusDemo</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ActionApplication</code> and <code>AcorusDemo</code> are both abstract classes.</p>
+</li>
+<li>
+<p><code>ActionApplication</code> is simpler and easier to understand.</p>
+</li>
+<li>
+<p><code>AcorusDemo</code> extends <code>ActionApplication</code> with features intended for demo apps.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>ActionApplication</code> directly extends <code>SimpleApplication</code>
+and has a similar interface (API).
+The key difference is that startup code goes in a <code>acorusInit()</code> method
+instead of <code>simpleInitApp()</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>AcorusDemo</code> implements <code>acorusInit()</code>.
+If your application extends <code>AcorusDemo</code>,
+it should should always invoke <code>super.acorusInit()</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Acorus is available as a pre-built library.</p>
+</li>
+<li>
+<p>Apps should extend <code>AcorusDemo</code> or maybe <code>ActionApplication</code>.</p>
+</li>
+<li>
+<p>Startup code goes in <code>acorusInit()</code>, not <code>simpleInitApp()</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="overview.html">The Acorus project</a></span>
+  <span class="next"><a href="hello.html">Getting started</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Page contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright &copy; 2020&ndash;2023 by Stephen Gold</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

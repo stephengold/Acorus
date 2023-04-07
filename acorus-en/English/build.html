@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>How to build Acorus from source :: The Acorus project</title>
+    <link rel="canonical" href="https://stephengold.github.io/Acorus/acorus-en/English/build.html">
+    <link rel="prev" href="headless.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<meta property="og:image" content="../../_/img/iconx128.png">
+<meta property="og:description" content="How to build Acorus from source">
+<meta property="og:title" content="The Acorus project">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://stephengold.github.io/Acorus">
+        <img alt="" src="../../_/img/iconx128.png" width="32" type="image/x-icon" style="margin-right:16px">
+        The Acorus project
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Color themes</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" onclick="setTheme('canyon')">Canyon</a>
+            <a class="navbar-item" onclick="setTheme('dark')">Dark</a>
+            <a class="navbar-item" onclick="setTheme('jungle')">Jungle</a>
+            <a class="navbar-item" onclick="setTheme('light')">Light</a>
+            <a class="navbar-item" onclick="setTheme('pastel')">Pastel</a>
+            <a class="navbar-item" onclick="setTheme('phosphor')">Phosphor<a>
+            <a class="navbar-item" style="padding-top: 5px;padding-left: 1px;padding-right: 1px;"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="acorus-en" data-version="English">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="overview.html">Project links</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Library tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="add.html">Add to existing project</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hello.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="bind.html">Binding hotkeys</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="signal.html">Signals</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="combo.html">Combos</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mimic.html">Mimic a simple app</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toggle.html">Toggle the help node</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="more.html">More features</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="sandbox.html">The Sandbox</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camera.html">Controlling cameras</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="modes.html">Input modes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dsedit.html">Display settings</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="headless.html">Headless apps</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="build.html">Build procedures</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="https://github.com/stephengold/Acorus">Git repository</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/releases/latest">Latest release</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/releases">Recent releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/blob/master/README.md">README file</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://raw.githubusercontent.com/stephengold/Acorus/master/LICENSE">License</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/blob/master/AcorusLibrary/release-notes.md">Release log</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/commits/master">Recent commits</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/issues">Issue tracker</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Acorus/issues/new">Open an issue</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Acorus at other sites</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://repo1.maven.org/maven2/com/github/stephengold/Acorus">Maven Central download</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://central.sonatype.com/search?q=Acorus&amp;namespace=com.github.stephengold">Maven Central search</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://jitpack.io/#stephengold/Acorus">JitPack (unofficial)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Projects using Acorus</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Garrett">Garrett</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Heart">Heart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://stephengold.github.io/Minie">Minie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/RyzomDemos">RyzomDemos</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/Wes">Wes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other related projects</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://jmonkeyengine.org">JMonkeyEngine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://github.com/stephengold/antora-ui-bundle">Website UI bundle</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">People</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="https://stephengold.github.io">Stephen Gold</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">The Acorus project</span>
+    <span class="version">English</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">The Acorus project</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="overview.html">English</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle-label">Project links</span>
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="overview.html">The Acorus project</a></li>
+    <li><a href="build.html">Build procedures</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/stephengold/Acorus/edit/master/docs/en/modules/ROOT/pages/build.adoc">Edit this page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">How to build Acorus from source</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Acorus is free, open-source software.</p>
+</div>
+<div class="paragraph">
+<p>While pre-built artifacts
+can be downloaded from GitHub and the Maven Central Repository,
+some people prefer to build them from source.</p>
+</div>
+<div class="paragraph">
+<p>You can also build a local copy of the documentation (website content).
+This is useful if you are editing the content,
+or if your Internet access is limited or unreliable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_library_artifacts"><a class="anchor" href="#_library_artifacts"></a>Library artifacts</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_standard_build"><a class="anchor" href="#_standard_build"></a>Standard build</h3>
+<div class="paragraph">
+<p>Here&#8217;s the recommended procedure:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install a <a href="https://adoptium.net/releases.html">Java Development Kit (JDK)</a>,
+if you don&#8217;t already have one.</p>
+</li>
+<li>
+<p>Point the <code>JAVA_HOME</code> environment variable to your JDK installation:
+(The path might be something like "C:\Program Files\Java\jre1.8.0_301"
+or "/usr/lib/jvm/java-8-openjdk-amd64/" or
+"/Library/Java/JavaVirtualMachines/liberica-jdk-17-full.jdk/Contents/Home" .)</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>using Bash or Zsh: <code>export JAVA_HOME="</code> <strong>path to installation</strong> <code>"</code></p>
+</li>
+<li>
+<p>using Windows Command Prompt: <code>set JAVA_HOME="</code> <strong>path to installation</strong> <code>"</code></p>
+</li>
+<li>
+<p>using PowerShell: <code>$env:JAVA_HOME = '</code> <strong>path to installation</strong> <code>'</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Download and extract the Acorus source code from GitHub:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>using Git:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><code>git clone <a href="https://github.com/stephengold/Acorus.git" class="bare">https://github.com/stephengold/Acorus.git</a></code></p>
+</li>
+<li>
+<p><code>cd Acorus</code></p>
+</li>
+<li>
+<p><code>git checkout -b latest 1.0.0</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>using a web browser:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>browse to <a href="https://github.com/stephengold/Acorus/releases/latest" class="bare">https://github.com/stephengold/Acorus/releases/latest</a></p>
+</li>
+<li>
+<p>follow the "Source code (zip)" link</p>
+</li>
+<li>
+<p>save the ZIP file</p>
+</li>
+<li>
+<p>extract the contents of the saved ZIP file</p>
+</li>
+<li>
+<p><code>cd</code> to the extracted directory</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Run the Gradle wrapper to build the entire project:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>using Bash or PowerShell or Zsh: <code>./gradlew build</code></p>
+</li>
+<li>
+<p>using Windows Command Prompt: <code>.\gradlew build</code></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After a successful build,
+artifacts will be found in the "AcorusLibrary/build/libs" directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install_artifacts"><a class="anchor" href="#_install_artifacts"></a>Install artifacts</h3>
+<div class="paragraph">
+<p>You can install the built artifacts to your local Maven repository:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>using Bash or PowerShell or Zsh: <code>./gradlew install</code></p>
+</li>
+<li>
+<p>using Windows Command Prompt: <code>.\gradlew install</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cleanup"><a class="anchor" href="#_cleanup"></a>Cleanup</h3>
+<div class="paragraph">
+<p>After a build, you can restore the project to a pristine state:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>using Bash or PowerShell or Zsh: <code>./gradlew clean</code></p>
+</li>
+<li>
+<p>using Windows Command Prompt: <code>.\gradlew clean</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_website_content"><a class="anchor" href="#_website_content"></a>Website content</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download and extract the source code from GitHub:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>git clone <a href="https://github.com/stephengold/Acorus.git" class="bare">https://github.com/stephengold/Acorus.git</a></code></p>
+</li>
+<li>
+<p><code>cd Acorus</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Edit "docs/playbook.yml" and replace "/home/sgold/NetBeansProjects/Acorus"
+with an absolute path to your checkout directory (3 places).</p>
+</li>
+<li>
+<p><a href="https://docs.antora.org/antora/latest/install-and-run-quickstart/#install-nodejs">Install Node.js</a></p>
+</li>
+<li>
+<p>Run Antora:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>npx antora docs/playbook.yml</code></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After a successful build,
+the local copy of the site will be found in the "build/site" directory.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="headless.html">Headless apps</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Page contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright &copy; 2020&ndash;2023 by Stephen Gold</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
