@@ -1,5 +1,5 @@
 ---
-# configure Antora for deployment by continous integration
+# configure Antora for deployment by continuous integration
 
 site:
   title: The Acorus project

@@ -68,4 +68,4 @@ Like most of the example apps, `HelloAcorus` runs in a resizable window.
 * `HelloAcorus` is the starting point for both studying and using Acorus.
 * A help node lists the available actions and describes how to trigger them.
 * Action names should be short and descriptive.
-* This is a hands-on tutoral. Please run the apps!
+* This is a hands-on tutorial. Please run the apps!

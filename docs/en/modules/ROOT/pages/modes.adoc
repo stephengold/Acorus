@@ -45,7 +45,7 @@ how and whether the cursor (mouse pointer) is displayed.
 In a multi-mode application, giving each mode a distinct cursor image
 helps remind the user which mode is active.
 
-{url-examples}/TestCurors.java[TestCursors]
+{url-examples}/TestCursors.java[TestCursors]
 is an example application that modifies `HelloSimpleApplication`
 by adding a 3 custom input modes, each with its own cursor image.
 
