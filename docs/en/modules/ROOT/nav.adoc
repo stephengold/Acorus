@@ -33,6 +33,7 @@
 ** https://github.com/stephengold/RyzomDemos[RyzomDemos]
 ** https://github.com/stephengold/Wes[Wes]
 * Other related projects
+** https://github.com/stephengold/Heart[Heart]
 ** https://jmonkeyengine.org[JMonkeyEngine]
 ** https://github.com/stephengold/antora-ui-bundle[Website UI bundle]
 * People
