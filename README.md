@@ -205,7 +205,7 @@ the following software:
 + the [Git] and Subversion revision-control systems
 + the [GitKraken] client
 + the [IntelliJ IDEA][idea] and [NetBeans] integrated development environments
-+ the [Java] compiler, standard doclet, and virtual machine
++ the [Java] compiler, standard doclet, and runtime environment
 + [jMonkeyEngine][jme] and the jME3 Software Development Kit
 + the [Linux Mint][mint] operating system
 + LWJGL, the Lightweight Java Game Library
