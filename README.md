@@ -230,7 +230,6 @@ correct the situation: sgold@sonic.net
 
 [acorus]: https://stephengold.github.io/Acorus "Acorus Project"
 [antora]: https://antora.org/ "Antora Project"
-[adoptium]: https://adoptium.net/releases.html "Adoptium Project"
 [ant]: https://ant.apache.org "Apache Ant Project"
 [checkstyle]: https://checkstyle.org "Checkstyle"
 [chrome]: https://www.google.com/chrome "Chrome"
