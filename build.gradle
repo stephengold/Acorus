@@ -22,7 +22,7 @@ tasks.register('checkstyle') {
     description 'Checks the style of all Java sourcecode.'
 }
 
-tasks.register('run') {
+tasks.register('AppChooser') {
     dependsOn ':AcorusExamples:AppChooser'
     description 'Runs the examples.'
 }
