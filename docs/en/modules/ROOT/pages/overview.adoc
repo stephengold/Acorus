@@ -27,7 +27,7 @@ Acorus also provides:
   (`ActionApplication` and `AcorusDemo`)
 * an input mode for emulating a `SimpleApplication` (`DefaultInputMode`)
 * a camera controller for orbiting the world's Y axis (`CameraOrbitAppState`)
-* a display-setting editor (`DsEditInputMode` plus `DsEditOverlay`)
+* a display-settings editor (`DsEditInputMode` plus `DsEditOverlay`)
 * a class to manage asset locators (for apps that edit assets)
 
 All software in the {Project} project is free and open-source,
