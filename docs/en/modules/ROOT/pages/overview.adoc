@@ -1,12 +1,12 @@
-= Project overview
+= Acorus project overview
 :Project: Acorus
 :experimental:
 :page-pagination:
 :url-enwiki: https://en.wikipedia.org/wiki
 
 _{Project}_ is a simple user-interface library
-for https://jmonkeyengine.org[JMonkeyEngine] desktop applications
-that don't need graphical widgets
+for https://jmonkeyengine.org[JMonkeyEngine]
+desktop applications that don't need graphical widgets
 (such as checkboxes, radio buttons, scrollbars, and sliders).
 
 Oriented toward keyboard-driven demos and test applications,
