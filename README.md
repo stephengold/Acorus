@@ -216,7 +216,8 @@ the following software:
 + the RealWorld Cursor Editor
 + the [WinMerge] differencing and merging tool
 
-I am grateful to [GitHub], [Sonatype], and [JFrog]
+I am grateful to [GitHub], [Sonatype], [JFrog],
+and [Imgur]
 for providing free hosting for this project
 and many other open-source projects.
 
@@ -241,6 +242,7 @@ correct the situation: sgold@sonic.net
 [gradle]: https://gradle.org "Gradle Project"
 [heart]: https://github.com/stephengold/Heart "Heart Project"
 [idea]: https://www.jetbrains.com/idea/ "IntelliJ IDEA"
+[imgur]: https://imgur.com/ "Imgur"
 [java]: https://java.com "Java"
 [jfrog]: https://www.jfrog.com "JFrog"
 [jme]: https://jmonkeyengine.org  "jMonkeyEngine Project"
