@@ -1,4 +1,4 @@
-# Acorus Project
+<img height="150" src="https://i.imgur.com/RN3bz0h.png" alt="Acorus screenshot">
 
 [The Acorus Project][acorus] provides a simple user-interface library for
 [the jMonkeyEngine (JME) game engine][jme].
