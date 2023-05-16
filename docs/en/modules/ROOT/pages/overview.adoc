@@ -67,7 +67,7 @@ on https://stephengold.github.io/[my homepage] and in the source code.
 
 == The name
 
-The project's name is a acronym for "ACtion-ORiented USer interface."
+The project's name is an acronym for "ACtion-ORiented USer interface."
 It's also the scientific name of the botanical genus
 that includes {url-enwiki}/Acorus_calamus[Sweet Flag].
 
