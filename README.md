@@ -216,8 +216,7 @@ the following software:
 + the RealWorld Cursor Editor
 + the [WinMerge] differencing and merging tool
 
-I am grateful to [GitHub], [Sonatype], [JFrog],
-and [Imgur]
+I am grateful to [GitHub], [Sonatype], [JFrog], and [Imgur]
 for providing free hosting for this project
 and many other open-source projects.
 
@@ -245,7 +244,7 @@ correct the situation: sgold@sonic.net
 [imgur]: https://imgur.com/ "Imgur"
 [java]: https://java.com "Java"
 [jfrog]: https://www.jfrog.com "JFrog"
-[jme]: https://jmonkeyengine.org  "jMonkeyEngine Project"
+[jme]: https://jmonkeyengine.org "jMonkeyEngine Project"
 [latest]: https://github.com/stephengold/Acorus/releases/tag/latest "latest release"
 [license]: https://github.com/stephengold/Acorus/blob/master/LICENSE "Acorus license"
 [log]: https://github.com/stephengold/Acorus/blob/master/AcorusLibrary/release-notes.md "release log"
