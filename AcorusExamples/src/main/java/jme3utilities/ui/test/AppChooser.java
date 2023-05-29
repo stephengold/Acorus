@@ -278,7 +278,7 @@ final class AppChooser extends AcorusDemo {
     /**
      * Execute the selected app.
      */
-    private void executeChosenApp() {
+    private static void executeChosenApp() {
         CommandLine commandLine = new CommandLine(script);
 
         Class<?> mainClass = mainClasses[chosenAppIndex];
@@ -325,7 +325,7 @@ final class AppChooser extends AcorusDemo {
     /**
      * Update the menu overlay for the current chosenAppIndex.
      */
-    private void updateMenuOverlay() {
+    private static void updateMenuOverlay() {
         int numLines = menuOverlay.countLines();
         int chosenLineIndex = numLines / 2;
         int topLineAppIndex = chosenAppIndex - chosenLineIndex;
