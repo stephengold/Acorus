@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2018-2022, Stephen Gold
+ Copyright (c) 2018-2023, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -35,6 +35,7 @@ import com.jme3.renderer.Camera;
 import java.util.logging.Logger;
 import jme3utilities.InitialState;
 import jme3utilities.Validate;
+import jme3utilities.math.MyQuaternion;
 import jme3utilities.math.ReadXZ;
 import jme3utilities.math.VectorXZ;
 
@@ -210,12 +211,12 @@ public class CameraOrbitAppState extends AcorusAppState {
         Vector3f location = camera.getLocation().clone();
         Vector3f center = centerXZ.toVector3f(location.y);
         Vector3f xzOffset = location.subtract(center);
-        rotate.mult(xzOffset, xzOffset);
+        MyQuaternion.rotate(rotate, xzOffset, xzOffset);
         center.add(xzOffset, location);
         camera.setLocation(location);
 
         Vector3f camDirection = camera.getDirection();
-        rotate.mult(camDirection, camDirection);
+        MyQuaternion.rotate(rotate, camDirection, camDirection);
         camera.lookAtDirection(camDirection, unitY);
     }
 }
