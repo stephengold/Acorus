@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2022, Stephen Gold
+ Copyright (c) 2017-2023, Stephen Gold
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -82,7 +82,9 @@ public class DisplaySettings {
      */
     final private static Map<String, String> apiNameMap = new TreeMap<>();
 
-    static {
+    static { // TODO add these 2 entries when JME issue 2011 is solved:
+//        apiNameMap.put("OpenGL 3.0", AppSettings.LWJGL_OPENGL30);
+//        apiNameMap.put("OpenGL 3.1", AppSettings.LWJGL_OPENGL31);
         apiNameMap.put("OpenGL 3.2", AppSettings.LWJGL_OPENGL32);
         apiNameMap.put("OpenGL 3.3", AppSettings.LWJGL_OPENGL33);
         apiNameMap.put("OpenGL 4.0", AppSettings.LWJGL_OPENGL40);
