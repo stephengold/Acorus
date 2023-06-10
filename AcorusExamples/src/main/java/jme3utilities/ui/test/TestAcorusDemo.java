@@ -47,15 +47,12 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.CenterQuad;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.InputMode;
 import jme3utilities.ui.Overlay;
-import org.lwjgl.system.Configuration;
 
 /**
  * Demonstrate some features of the AcorusDemo class.
@@ -126,10 +123,7 @@ class TestAcorusDemo extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
+        AppChooser.setGlfwLibraryName();
 
         String title = applicationName + " " + MyString.join(arguments);
         TestAcorusDemo application = new TestAcorusDemo();

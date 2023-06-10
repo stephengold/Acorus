@@ -31,8 +31,6 @@ package jme3utilities.ui.test;
 
 import com.jme3.app.state.AppState;
 import com.jme3.system.AppSettings;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import java.io.IOException;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
@@ -40,7 +38,6 @@ import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.ActionApplication;
 import jme3utilities.ui.HelpVersion;
-import org.lwjgl.system.Configuration;
 
 /**
  * Test/demonstrate the Acorus sandbox with the built-in "ScreenShot" action.
@@ -78,10 +75,7 @@ final class HelloSandbox extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
+        AppChooser.setGlfwLibraryName();
 
         String title = applicationName + " " + MyString.join(arguments);
         HelloSandbox application = new HelloSandbox();

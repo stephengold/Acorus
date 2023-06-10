@@ -132,15 +132,23 @@ final class AppChooser extends AcorusDemo {
     // new methods exposed
 
     /**
+     * Configure GLFW. Acorus test apps invoke this at the start of their main()
+     * method.
+     */
+    static void setGlfwLibraryName() {
+        Platform platform = JmeSystem.getPlatform();
+        if (platform.getOs() == Platform.Os.MacOS) {
+            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+        }
+    }
+
+    /**
      * Main entry point for the AppChooser application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
+        setGlfwLibraryName();
 
         String title = applicationName + " " + MyString.join(arguments);
         AppChooser application = new AppChooser();

@@ -33,8 +33,6 @@ import com.jme3.app.state.AppState;
 import com.jme3.app.state.VideoRecorderAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.system.AppSettings;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -45,7 +43,6 @@ import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.ActionApplication;
 import jme3utilities.ui.HelpVersion;
 import jme3utilities.ui.InputMode;
-import org.lwjgl.system.Configuration;
 
 /**
  * Test/demonstrate the built-in "toggle recorder" action.
@@ -84,10 +81,7 @@ final class HelloRecorder extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
+        AppChooser.setGlfwLibraryName();
 
         String title = applicationName + " " + MyString.join(arguments);
         HelloRecorder application = new HelloRecorder();

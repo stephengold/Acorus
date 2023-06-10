@@ -36,8 +36,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Quad;
 import com.jme3.system.AppSettings;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import java.util.logging.Logger;
 import jme3utilities.Heart;
 import jme3utilities.MyAsset;
@@ -45,7 +43,6 @@ import jme3utilities.MyString;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.InputMode;
 import jme3utilities.ui.Signals;
-import org.lwjgl.system.Configuration;
 
 /**
  * This example binds signals to 4 custom actions in the default input mode. The
@@ -103,10 +100,7 @@ final class HelloSignals extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
+        AppChooser.setGlfwLibraryName();
 
         String title = applicationName + " " + MyString.join(arguments);
         HelloSignals application = new HelloSignals();

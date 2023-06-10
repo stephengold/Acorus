@@ -33,9 +33,7 @@ import com.jme3.app.StatsAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.AppSettings;
-import com.jme3.system.JmeSystem;
 import com.jme3.system.JmeVersion;
-import com.jme3.system.Platform;
 import com.jme3.texture.image.ColorSpace;
 import java.awt.DisplayMode;
 import java.util.logging.Level;
@@ -51,7 +49,6 @@ import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.InputMode;
 import jme3utilities.ui.ShowDialog;
 import jme3utilities.ui.UiVersion;
-import org.lwjgl.system.Configuration;
 
 /**
  * Demonstrate how to edit an application's display settings using
@@ -100,10 +97,7 @@ class TestDsEdit extends AcorusDemo {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
+        AppChooser.setGlfwLibraryName();
 
         // Mute the chatty loggers in certain packages.
         Heart.setLoggingLevels(Level.WARNING);
