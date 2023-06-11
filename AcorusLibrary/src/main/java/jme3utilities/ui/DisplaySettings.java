@@ -599,7 +599,7 @@ public class DisplaySettings {
     /**
      * Alter the color depth.
      *
-     * @param newDepth color depth (in bits per pixel) or &le;0 for
+     * @param newDepth the desired color depth (in bits per pixel) or &le;0 for
      * unknown/don't care
      */
     public void setColorDepth(int newDepth) {
