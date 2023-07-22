@@ -6,6 +6,11 @@ plugins {
     id 'application'
 }
 
+if (!hasProperty('mainClass')) {
+    ext.mainClass = 'jme3utilities.ui.test.AppChooser'
+}
+jar.manifest.attributes('Main-Class': 'jme3utilities.ui.test.AppChooser')
+
 dependencies {
     implementation 'org.apache.commons:commons-exec:1.3'
 
