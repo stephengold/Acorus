@@ -119,7 +119,7 @@ final class AppChooser extends AcorusDemo {
     /**
      * environment variables passed to the executor
      */
-    private static Map<String, String> env = new TreeMap<>();
+    final private static Map<String, String> env = new TreeMap<>();
     /**
      * menu overlay, displayed in the upper-left corner of the GUI node
      */
