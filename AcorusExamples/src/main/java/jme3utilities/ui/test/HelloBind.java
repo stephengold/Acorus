@@ -69,19 +69,19 @@ final class HelloBind extends AcorusDemo {
     /**
      * square controlled by F1
      */
-    private Geometry blueSquare;
+    private static Geometry blueSquare;
     /**
      * square controlled by F2
      */
-    private Geometry greenSquare;
+    private static Geometry greenSquare;
     /**
      * square controlled by F3
      */
-    private Geometry redSquare;
+    private static Geometry redSquare;
     /**
      * square controlled by F4
      */
-    private Geometry whiteSquare;
+    private static Geometry whiteSquare;
     // *************************************************************************
     // constructors
 
@@ -142,7 +142,7 @@ final class HelloBind extends AcorusDemo {
 
         Material blueMaterial
                 = MyAsset.createUnshadedMaterial(assetManager, ColorRGBA.Blue);
-        this.blueSquare = new Geometry("blue square", squareMesh);
+        blueSquare = new Geometry("blue square", squareMesh);
         blueSquare.setMaterial(blueMaterial);
         blueSquare.move(x1, y1, z);
 

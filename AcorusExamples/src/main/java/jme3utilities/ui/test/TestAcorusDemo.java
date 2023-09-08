@@ -105,15 +105,15 @@ class TestAcorusDemo extends AcorusDemo {
     /**
      * composer of the C-G model that's on display
      */
-    private AnimComposer composer;
+    private static AnimComposer composer;
     /**
      * status overlay, displayed in the upper-left corner of the GUI node
      */
-    private Overlay statusOverlay;
+    private static Overlay statusOverlay;
     /**
      * name of the clip that's playing
      */
-    private String clipName = "Punches";
+    private static String clipName = "Punches";
     // *************************************************************************
     // new methods exposed
 
@@ -279,7 +279,7 @@ class TestAcorusDemo extends AcorusDemo {
         setCgmHeight(jaime, 2f); // Make the model 2 world units tall.
         centerCgm(jaime);        // Position it above the origin.
 
-        this.composer = jaime.getControl(AnimComposer.class);
+        composer = jaime.getControl(AnimComposer.class);
         composer.setCurrentAction(clipName);
     }
 
@@ -307,7 +307,7 @@ class TestAcorusDemo extends AcorusDemo {
      */
     private void addStatusOverlay() {
         float width = 75f; // in pixels
-        this.statusOverlay = new Overlay("status", width, numStatusLines);
+        statusOverlay = new Overlay("status", width, numStatusLines);
 
         boolean success = stateManager.attach(statusOverlay);
         assert success;

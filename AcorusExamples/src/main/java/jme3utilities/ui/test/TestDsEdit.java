@@ -83,11 +83,11 @@ class TestDsEdit extends AcorusDemo {
     /**
      * AppState to manage the display-settings editor overlay
      */
-    private DsEditOverlay dseOverlay;
+    private static DsEditOverlay dseOverlay;
     /**
      * dump debugging information to System.out
      */
-    final private Dumper dumper = new Dumper();
+    final private static Dumper dumper = new Dumper();
     // *************************************************************************
     // new methods exposed
 
@@ -147,7 +147,7 @@ class TestDsEdit extends AcorusDemo {
         logger.log(Level.INFO, "Acorus version is {0}",
                 MyString.quote(UiVersion.versionShort()));
 
-        this.dseOverlay = new DsEditOverlay(proposedSettings);
+        dseOverlay = new DsEditOverlay(proposedSettings);
         dseOverlay.setBackgroundColor(new ColorRGBA(0f, 0.05f, 0f, 1f));
         boolean success = stateManager.attach(dseOverlay);
         assert success;
