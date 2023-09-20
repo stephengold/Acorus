@@ -4,9 +4,15 @@
 /AcorusExamples/Written Assets/
 /AcorusExamples/screenshot*.png
 /node_modules/
+
+# Ignore Gradle's project-specific cache directory:
 /.gradle/
+
+# Ignore Gradle's build output directories:
 /build/
 /AcorusLibrary/build/
 /AcorusExamples/build/
+
+# Ignore IDE-specific directories:
 /.idea/
 /.nb-gradle/
