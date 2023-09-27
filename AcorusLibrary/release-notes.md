@@ -1,5 +1,20 @@
 # release log for the Acorus library and related examples
 
+## Version 1.1.0 released on TBD
+
++ Bugfix:  `Locators.configurationRegisterDefault()` fails if no sandbox
+  has been designated
++ Removed the LWJGL v2 limitations from the `DisplaySettings` class, since the
+  issues they mitigated were solved in jMonkeyEngine v3.6.1-stable .
++ Added the `hasSandbox()` method to the `ActionApplication` class.
++ Added API names for OpenGL v3.0 and v3.1 to the `DisplaySettings` class.
++ Based on jMonkeyEngine v3.6.1-stable and version 8.7.0 of the Heart Library.
++ Changes to the examples:
+  + Run more of the apps in resizable windows.
+  + On macOS, launch apps with the "-XstartOnFirstThread" Java option.
+  + In `AppChooser`, indicate which apps have saved settings.
+  + In `AppChooser`, update the overlay for every frame.
+
 ## Version 1.0.0 released on 22 March 2023
 
 + Bugfix:  setters throw NPEs if invoked on an uninitialized `Overlay`
