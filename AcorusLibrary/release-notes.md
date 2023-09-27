@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 1.1.0 released on TBD
+## Version 1.1.0 released on 27 September 2023
 
 + Bugfix:  `Locators.configurationRegisterDefault()` fails if no sandbox
   has been designated

@@ -86,7 +86,7 @@ Old releases (through v0.9.6) can be downloaded from
 [the Jme3-utilities Project](https://github.com/stephengold/jme3-utilities/releases).
 
 Newer Maven artifacts (since v0.9.7) are available from
-[MavenCentral](https://central.sonatype.com/artifact/com.github.stephengold/Acorus/1.0.0/versions).
+[MavenCentral](https://central.sonatype.com/artifact/com.github.stephengold/Acorus/1.1.0/versions).
 
 Old Maven artifacts (v0.9.2 through v0.9.6) are available from
 [MavenCentral](https://central.sonatype.com/artifact/com.github.stephengold/jme3-utilities-ui/0.9.6/versions).
