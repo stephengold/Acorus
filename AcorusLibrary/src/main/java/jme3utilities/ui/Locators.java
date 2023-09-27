@@ -378,10 +378,10 @@ public class Locators {
      */
     private void configurationRegisterDefault() {
         if (ActionApplication.hasSandbox()) {
-        String wadPath = ActionApplication.sandboxPath();
-        File wadFile = new File(wadPath);
-        if (wadFile.isDirectory()) {
-            configurationRegister(wadPath, FileLocator.class);
+            String wadPath = ActionApplication.sandboxPath();
+            File wadFile = new File(wadPath);
+            if (wadFile.isDirectory()) {
+                configurationRegister(wadPath, FileLocator.class);
             }
         }
 

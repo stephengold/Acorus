@@ -3,7 +3,7 @@
 ## Version 1.0.0 released on 22 March 2023
 
 + Bugfix:  setters throw NPEs if invoked on an uninitialized `Overlay`
-+ Bugfix: `Overlay` setters accept out-of-range indices
++ Bugfix:  `Overlay` setters accept out-of-range indices
 + Added options to center or right-align content to the `Overlay` class.
 + Publicized the `hhmmss()` method in the `ActionApplication` class.
 + Based on jMonkeyEngine v3.6.0-stable and version 8.3.2 of the Heart Library.
@@ -15,7 +15,7 @@
     `getSystemListener()`, `windowXPosition()`, and `windowYPosition()` methods
      from the `DsUtils` class.
   + Renamed the `parseDisplaySize()` method in the `DsUtils` class.
-+ Bugfix: `HelloRecorder` doesn't always shut down cleanly
++ Bugfix:  `HelloRecorder` doesn't always shut down cleanly
 + Added the `recordingQuality()` and `setRecordingQuality()` methods
   to the `ActionApplication` class.
 + If an `ActionApplication` lacks a sandbox, write screenshots and video
@@ -355,7 +355,7 @@ Based on version 5.2.1 of the Heart Library.
  + Moved the `PropertiesLoader` class to the jme3-utilities-heart
    library. (API change)
  + Finalized `simpleInitApp()` in the `ActionApplication` class. (API change)
- + Bugfix: corrected the name for `KEY_NUMPADCOMMA` in the `Hotkey` class.
+ + Bugfix:  corrected the name for `KEY_NUMPADCOMMA` in the `Hotkey` class.
  + Added names for `KEY_PRTSCR`, `KEY_DECIMAL`, and `KEY_SUBTRACT`
    to the `HotKey` class.
  + Added screenshot support to the `ActionApplication` class.
@@ -505,7 +505,7 @@ overridden.
 
 ## Version 0.5.2 released on 16 May 2017
 
-Bugfix: When disabling an InputMode, remove the listener.
+Bugfix:  When disabling an InputMode, remove the listener.
 
 ## Version 0.5.1 released on 10 May 2017
 
