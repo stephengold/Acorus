@@ -185,8 +185,8 @@ public class Locators {
     }
 
     /**
-     * Register (add) the default locator(s) to the current configuration: the
-     * "Written Assets" folder (if one exists) followed by the classpath.
+     * Register (add) the default locator(s) to the current configuration,
+     * namely:  the sandbox (if one exists) followed by the classpath.
      */
     public static void registerDefault() {
         int lastIndex = stack.size() - 1;
@@ -374,7 +374,7 @@ public class Locators {
 
     /**
      * Register (add) the default locator(s) to this configuration, namely: the
-     * "Written Assets" folder (if one exists) followed by the classpath.
+     * sandbox (if one exists) followed by the classpath.
      */
     private void configurationRegisterDefault() {
         if (ActionApplication.hasSandbox()) {

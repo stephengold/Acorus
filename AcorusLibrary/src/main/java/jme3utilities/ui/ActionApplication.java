@@ -482,7 +482,7 @@ abstract public class ActionApplication
 
         this.defaultInputMode = stateManager.getState(DefaultInputMode.class);
         if (defaultInputMode == null) {
-            // Attach and enable the standard initial input mode.
+            // Attach and enable the default input mode.
             this.defaultInputMode = new DefaultInputMode();
             stateManager.attach(defaultInputMode);
             defaultInputMode.setEnabled(true);
