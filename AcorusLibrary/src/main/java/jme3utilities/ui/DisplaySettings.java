@@ -220,40 +220,7 @@ public class DisplaySettings {
      * @return message text (not null)
      */
     public String feedbackApplicable() {
-        String result = "";
-        /*
-         * With LWJGL v2, attempting to switch from fullscreen mode to
-         * windowed mode causes an LWJGLException to be thrown.
-         * See JME issue #798.
-         *
-         * Furthermore, attempting to alter the color depth or MSAA factor
-         * with LWJGL v2 causes an OpenGLException due to invalid operation.
-         *
-         * TODO simplify when these issues are resolved
-         */
-        if (!DsUtils.hasLwjglVersion3()) {
-            AppSettings currentSettings = application.getSettings();
-
-            boolean fromFullscreen = currentSettings.isFullscreen();
-            boolean toWindowed = !proposedSettings.isFullscreen();
-            if (fromFullscreen && toWindowed) {
-                result = "Can't leave fullscreen due to JME issue #798.";
-            }
-
-            int oldColorDepth = currentSettings.getBitsPerPixel();
-            int newColorDepth = proposedSettings.getBitsPerPixel();
-            if (oldColorDepth != newColorDepth) {
-                result = "Can't apply new color depth with LWJGL v2.";
-            }
-
-            int oldMsaa = currentSettings.getSamples();
-            int newMsaa = proposedSettings.getSamples();
-            if (oldMsaa != newMsaa) {
-                result = "Can't apply new MSAA factor with LWJGL v2.";
-            }
-        }
-
-        return result;
+        return "";
     }
 
     /**
