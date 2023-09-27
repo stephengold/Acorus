@@ -171,7 +171,7 @@ abstract public class ActionApplication
      * @throws IOException if directory creation fails
      */
     public static void designateSandbox(String desiredPath) throws IOException {
-        if (sandboxDirectory != null) {
+        if (hasSandbox()) {
             throw new IllegalStateException(
                     "Don't invoke this method more than once.");
         }
@@ -231,7 +231,7 @@ abstract public class ActionApplication
      */
     public static String filePath(String assetPath) {
         Validate.nonNull(assetPath, "asset path");
-        if (sandboxDirectory == null) {
+        if (!hasSandbox()) {
             throw new IllegalStateException("No sandbox been designated.");
         }
 
@@ -345,7 +345,7 @@ abstract public class ActionApplication
      * @return the canonical pathname (not null, not empty)
      */
     public static String sandboxPath() {
-        if (sandboxDirectory == null) {
+        if (!hasSandbox()) {
             throw new IllegalStateException("No sandbox has been designated.");
         }
         String path = Heart.fixedPath(sandboxDirectory);
@@ -468,7 +468,7 @@ abstract public class ActionApplication
         isInitialized = true;
 
         Locators.setAssetManager(assetManager);
-        if (sandboxDirectory != null) {
+        if (hasSandbox()) {
             // Initialize asset locators to the default list.
             assetManager.unregisterLocator("/", ClasspathLocator.class);
             Locators.useDefault();
@@ -492,12 +492,11 @@ abstract public class ActionApplication
                 = stateManager.getState(ScreenshotAppState.class);
         if (screenshotAppState == null) {
             String waPath;
-            if (sandboxDirectory == null) {
-                // Capture screenshots to the working directory.
+            if (hasSandbox()) { // Capture screenshots to the sandbox.
+                waPath = sandboxPath() + File.separator;
+            } else { // Capture screenshots to the working directory.
                 String workingDirectory = System.getProperty("user.dir");
                 waPath = Heart.fixPath(workingDirectory) + File.separator;
-            } else { // Capture screenshots to the sandbox.
-                waPath = sandboxPath() + File.separator;
             }
             screenshotAppState
                     = new ScreenshotAppState(waPath, "screenshot");
@@ -561,11 +560,10 @@ abstract public class ActionApplication
             String hhmmss = hhmmss();
             String fileName = String.format("recording-%s.avi", hhmmss);
             String path;
-            if (sandboxDirectory == null) {
-                // Record video to the working directory.
-                path = Heart.fixPath(fileName);
-            } else { // Record video to the sandbox.
+            if (hasSandbox()) { // Record video to the sandbox.
                 path = filePath(fileName);
+            } else { // Record video to the working directory.
+                path = Heart.fixPath(fileName);
             }
             File file = new File(path);
 
