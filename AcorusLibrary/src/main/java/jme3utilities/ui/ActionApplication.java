@@ -281,6 +281,19 @@ abstract public class ActionApplication
     }
 
     /**
+     * Test whether a sandbox has been designated.
+     *
+     * @return true if designated, otherwise false
+     */
+    public static boolean hasSandbox() {
+        if (sandboxDirectory == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * Generate a six-digit timestamp.
      *
      * @return the timestamp value
