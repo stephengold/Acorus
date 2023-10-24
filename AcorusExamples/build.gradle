@@ -28,7 +28,7 @@ dependencies {
     runtimeOnly 'org.jmonkeyengine:jme3-plugins:' + jme3Version
 
     //implementation 'com.github.stephengold:Acorus:' + acorusVersion // for published library
-    implementation project(':AcorusLibrary') // for latest library build
+    implementation project(':AcorusLibrary') // for latest sourcecode
 }
 
 // cleanup tasks:
