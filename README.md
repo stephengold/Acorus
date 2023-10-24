@@ -12,7 +12,7 @@ Complete source code (in Java) is provided under
 [a 3-clause BSD license][license].
 
 Acorus is oriented toward keyboard-driven demo/test applications.
-Examples may be found in the [Heart], [Minie], and [Wes] projects.
+Examples may be found in the [Heart], [Minie], [MonkeyWrench], and [Wes] projects.
 
 
 <a name="toc"></a>
@@ -58,7 +58,7 @@ The Acorus library also includes:
 + a display-settings editor (`DsEditInputMode` and `DsEditOverlay`)
 + a class to simplify the management of asset locators (for asset editors)
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="add"></a>
@@ -91,7 +91,7 @@ Newer Maven artifacts (since v0.9.7) are available from
 Old Maven artifacts (v0.9.2 through v0.9.6) are available from
 [MavenCentral](https://central.sonatype.com/artifact/com.github.stephengold/jme3-utilities-ui/0.9.6/versions).
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="conventions"></a>
@@ -102,7 +102,7 @@ Package names begin with `jme3utilities.ui`
 
 The source code and pre-built libraries are compatible with JDK 8.
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="examples"></a>
@@ -186,7 +186,7 @@ Prior to January 2022, Acorus was a sub-project of
 Since January 2022, Acorus has been a separate project, hosted at
 [GitHub][acorus].
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="acks"></a>
@@ -194,8 +194,8 @@ Since January 2022, Acorus has been a separate project, hosted at
 ## Acknowledgments
 
 Like most projects, Acorus builds on the work of many who
-have gone before.  I therefore acknowledge the creators of (and contributors to)
-the following software:
+have gone before.  I therefore acknowledge
+the creators of (and contributors to) the following software:
 
 + the [Ant] and [Gradle] build tools
 + the [Antora] static website generator
@@ -208,7 +208,7 @@ the following software:
 + the [Java] compiler, standard doclet, and runtime environment
 + [jMonkeyEngine][jme] and the jME3 Software Development Kit
 + the [Linux Mint][mint] operating system
-+ LWJGL, the Lightweight Java Game Library
++ [LWJGL], the Lightweight Java Game Library
 + the [Markdown] document-conversion tool
 + the [Meld] visual merge tool
 + Microsoft Windows
@@ -225,7 +225,7 @@ I'm also grateful to my dear Holly, for keeping me sane.
 If I've misattributed anything or left anyone out, please let me know, so I can
 correct the situation: sgold@sonic.net
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 [acorus]: https://stephengold.github.io/Acorus "Acorus Project"
@@ -242,12 +242,13 @@ correct the situation: sgold@sonic.net
 [heart]: https://github.com/stephengold/Heart "Heart Project"
 [idea]: https://www.jetbrains.com/idea/ "IntelliJ IDEA"
 [imgur]: https://imgur.com/ "Imgur"
-[java]: https://java.com "Java"
+[java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
 [jfrog]: https://www.jfrog.com "JFrog"
 [jme]: https://jmonkeyengine.org "jMonkeyEngine Project"
 [latest]: https://github.com/stephengold/Acorus/releases/tag/latest "latest release"
 [license]: https://github.com/stephengold/Acorus/blob/master/LICENSE "Acorus license"
 [log]: https://github.com/stephengold/Acorus/blob/master/AcorusLibrary/release-notes.md "release log"
+[lwjgl]: https://www.lwjgl.org "Lightweight Java Game Library"
 [markdown]: https://daringfireball.net/projects/markdown "Markdown Project"
 [maven]: https://maven.apache.org "Maven Project"
 [meld]: https://meldmerge.org "Meld merge tool"
