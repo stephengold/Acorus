@@ -8,6 +8,68 @@ plugins {
     id 'application' // to build a Java application
 }
 
+// tasks to run specific apps:
+
+tasks.register('AppChooser', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.AppChooser'
+}
+tasks.register('HelloAcorus', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloAcorus'
+}
+tasks.register('HelloBind', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloBind'
+}
+tasks.register('HelloCoas', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloCoas'
+}
+tasks.register('HelloCombo', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloCombo'
+}
+tasks.register('HelloRecorder', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloRecorder'
+}
+tasks.register('HelloSandbox', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloSandbox'
+}
+tasks.register('HelloSignals', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloSignals'
+}
+tasks.register('HelloSimpleApplication', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloSimpleApplication'
+}
+tasks.register('HelloToggleHelp', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.HelloToggleHelp'
+}
+tasks.register('TestAcorusDemo', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestAcorusDemo'
+}
+tasks.register('TestCursors', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestCursors'
+}
+tasks.register('TestDsEdit', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestDsEdit'
+}
+tasks.register('TestDsEdit-deleteSettings', JavaExec) {
+    args '--deleteOnly'
+    mainClass = 'jme3utilities.ui.test.TestDsEdit'
+}
+tasks.register('TestDsEdit-resetSettings', JavaExec) {
+    args '--resetOnly'
+    mainClass = 'jme3utilities.ui.test.TestDsEdit'
+}
+tasks.register('TestHeadless', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestHeadless'
+}
+tasks.register('TestHotkeys', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestHotkeys'
+}
+tasks.register('TestToggleFly', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestToggleFly'
+}
+tasks.register('TestTwoModes', JavaExec) {
+    mainClass = 'jme3utilities.ui.test.TestTwoModes'
+}
+
 if (!hasProperty('mainClass')) {
     ext.mainClass = 'jme3utilities.ui.test.AppChooser'
 }
@@ -49,70 +111,4 @@ tasks.register('cleanSandbox', Delete) { // Acorus sandbox
 }
 tasks.register('cleanSOs', Delete) { // extracted Linux and Android native libraries
     delete fileTree(dir: '.', include: '*.so')
-}
-
-// tasks to run specific apps:
-
-tasks.register('AppChooser', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.AppChooser'
-}
-
-tasks.register('HelloAcorus', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloAcorus'
-}
-tasks.register('HelloBind', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloBind'
-}
-tasks.register('HelloCoas', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloCoas'
-}
-tasks.register('HelloCombo', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloCombo'
-}
-tasks.register('HelloRecorder', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloRecorder'
-}
-tasks.register('HelloSandbox', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloSandbox'
-}
-tasks.register('HelloSignals', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloSignals'
-}
-tasks.register('HelloSimpleApplication', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloSimpleApplication'
-}
-tasks.register('HelloToggleHelp', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.HelloToggleHelp'
-}
-
-tasks.register('TestAcorusDemo', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestAcorusDemo'
-}
-tasks.register('TestCursors', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestCursors'
-}
-
-tasks.register('TestDsEdit', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestDsEdit'
-}
-tasks.register('TestDsEdit-deleteSettings', JavaExec) {
-    args '--deleteOnly'
-    mainClass = 'jme3utilities.ui.test.TestDsEdit'
-}
-tasks.register('TestDsEdit-resetSettings', JavaExec) {
-    args '--resetOnly'
-    mainClass = 'jme3utilities.ui.test.TestDsEdit'
-}
-
-tasks.register('TestHeadless', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestHeadless'
-}
-tasks.register('TestHotkeys', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestHotkeys'
-}
-tasks.register('TestToggleFly', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestToggleFly'
-}
-tasks.register('TestTwoModes', JavaExec) {
-    mainClass = 'jme3utilities.ui.test.TestTwoModes'
 }
