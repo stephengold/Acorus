@@ -5,10 +5,10 @@
 
 It contains 2 sub-projects:
 
-1. AcorusLibrary: the Acorus runtime library
+1. AcorusLibrary: the Acorus [JVM] runtime library
 2. AcorusExamples: demos, examples, and non-automated test software
 
-Complete source code (in Java) is provided under
+Complete source code (in [Java]) is provided under
 [a 3-clause BSD license][license].
 
 Acorus is oriented toward keyboard-driven demo/test applications.
@@ -204,6 +204,7 @@ the creators of (and contributors to) the following software:
 + the [Firefox] and [Google Chrome][chrome] web browsers
 + the [Git] and Subversion revision-control systems
 + the [GitKraken] client
++ the [Gradle] build tool
 + the [IntelliJ IDEA][idea] and [NetBeans] integrated development environments
 + the [Java] compiler, standard doclet, and runtime environment
 + [jMonkeyEngine][jme] and the jME3 Software Development Kit
@@ -212,6 +213,7 @@ the creators of (and contributors to) the following software:
 + the [Markdown] document-conversion tool
 + the [Meld] visual merge tool
 + Microsoft Windows
++ the [NetBeans] integrated development environment
 + the PMD source-code analyzer
 + the RealWorld Cursor Editor
 + the [WinMerge] differencing and merging tool
@@ -245,6 +247,7 @@ correct the situation: sgold@sonic.net
 [java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
 [jfrog]: https://www.jfrog.com "JFrog"
 [jme]: https://jmonkeyengine.org "jMonkeyEngine Project"
+[jvm]: https://en.wikipedia.org/wiki/Java_virtual_machine "Java virtual machine"
 [latest]: https://github.com/stephengold/Acorus/releases/tag/latest "latest release"
 [license]: https://github.com/stephengold/Acorus/blob/master/LICENSE "Acorus license"
 [log]: https://github.com/stephengold/Acorus/blob/master/AcorusLibrary/release-notes.md "release log"
