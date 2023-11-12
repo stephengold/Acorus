@@ -8,7 +8,7 @@ plugins {
     id 'application' // to build a Java application
 }
 
-// tasks to run specific apps:
+// Register tasks to run specific applications:
 
 tasks.register('AppChooser', JavaExec) {
     mainClass = 'jme3utilities.ui.test.AppChooser'
@@ -93,7 +93,7 @@ dependencies {
     implementation project(':AcorusLibrary') // for latest sourcecode
 }
 
-// cleanup tasks:
+// Register cleanup tasks:
 
 clean.dependsOn('cleanDLLs', 'cleanDyLibs', 'cleanLogs', 'cleanSandbox', 'cleanSOs')
 
