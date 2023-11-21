@@ -5,7 +5,7 @@
 //   of the root project.
 
 plugins {
-    id 'application' // to build a Java application
+    id 'application' // to build Java applications
 }
 
 // Register tasks to run specific applications:
@@ -90,7 +90,7 @@ dependencies {
     runtimeOnly 'org.jmonkeyengine:jme3-plugins:' + jme3Version
 
     //implementation 'com.github.stephengold:Acorus:' + acorusVersion // for published library
-    implementation project(':AcorusLibrary') // for latest sourcecode
+    implementation project(':AcorusLibrary') // for local library build
 }
 
 // Register cleanup tasks:
