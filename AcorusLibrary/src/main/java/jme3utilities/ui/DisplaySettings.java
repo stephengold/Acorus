@@ -28,6 +28,7 @@
  */
 package jme3utilities.ui;
 
+import com.jme3.app.Application;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeSystem;
 import java.awt.DisplayMode;
@@ -60,7 +61,7 @@ public class DisplaySettings {
     /**
      * application instance (not null)
      */
-    final private ActionApplication application;
+    final private Application application;
     /**
      * proposed settings, which can be applied (to the application context) or
      * saved (written to persistent storage)
@@ -113,7 +114,7 @@ public class DisplaySettings {
     // constructors
 
     /**
-     * Instantiate settings for the specified ActionApplication.
+     * Instantiate settings for the specified Application.
      *
      * @param app the current application instance (not null, alias created)
      * @param appName the name of the application (not null)
@@ -121,7 +122,7 @@ public class DisplaySettings {
      * created)
      */
     public DisplaySettings(
-            ActionApplication app, String appName, RectSizeLimits sizeLimits) {
+            Application app, String appName, RectSizeLimits sizeLimits) {
         Validate.nonNull(app, "application");
         Validate.nonNull(appName, "application name");
         Validate.nonNull(sizeLimits, "size limits");
@@ -835,8 +836,8 @@ public class DisplaySettings {
      *
      * @return the pre-existing instance (not null)
      */
-    protected ActionApplication getApplication() {
-        ActionApplication result = application;
+    protected Application getApplication() {
+        Application result = application;
         assert result != null;
         return result;
     }
