@@ -86,10 +86,10 @@ Old releases (through v0.9.6) can be downloaded from
 [the Jme3-utilities Project](https://github.com/stephengold/jme3-utilities/releases).
 
 Newer Maven artifacts (since v0.9.7) are available from
-[MavenCentral](https://central.sonatype.com/artifact/com.github.stephengold/Acorus/1.1.0/versions).
+[MavenCentral](https://central.sonatype.com/artifact/com.github.stephengold/Acorus/1.1.1/versions).
 
 Old Maven artifacts (v0.9.2 through v0.9.6) are available from
-[MavenCentral](https://central.sonatype.com/artifact/com.github.stephengold/jme3-utilities-ui/0.9.6/versions).
+[MavenCentral jme3-utilities-ui](https://central.sonatype.com/artifact/com.github.stephengold/jme3-utilities-ui/0.9.6/versions).
 
 [Jump to the table of contents](#toc)
 
@@ -217,6 +217,9 @@ the creators of (and contributors to) the following software:
 + the PMD source-code analyzer
 + the RealWorld Cursor Editor
 + the [WinMerge] differencing and merging tool
+
+I am grateful to Juan Cruz Fandino for
+[his pull request](https://github.com/stephengold/Acorus/pull/1).
 
 I am grateful to [GitHub], [Sonatype], [JFrog], and [Imgur]
 for providing free hosting for this project

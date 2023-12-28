@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 1.1.1 released on TBD
+## Version 1.1.1 released on 27 December 2023
 
 + Changed `DisplaySettings` so it doesn't require an `ActionApplication`.
 + Based on version 8.8.0 of the Heart Library.
