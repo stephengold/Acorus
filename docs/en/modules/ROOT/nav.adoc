@@ -27,10 +27,17 @@
 ** https://central.sonatype.com/search?q=Acorus&namespace=com.github.stephengold[Maven Central search]
 ** https://jitpack.io/#stephengold/Acorus[JitPack (unofficial)]
 * Projects using Acorus
+** https://github.com/stephengold/FuzeCreek[FuzeCreek]
 ** https://github.com/stephengold/Garrett[Garrett]
 ** https://github.com/stephengold/Heart[Heart]
+** https://stephengold.github.io/jme3-maze[Jme3-maze]
+** https://stephengold.github.io/jme3-utilities[Jme3-utilities]
+** https://stephengold.github.io/jme-vehicles[More Advanced Vehicles]
+** https://stephengold.github.io/Maud[Maud]
 ** https://stephengold.github.io/Minie[Minie]
+** https://stephengold.github.io/MonkeyWrench[MonkeyWrench]
 ** https://github.com/stephengold/RyzomDemos[RyzomDemos]
+** https://github.com/stephengold/SkyControl[SkyControl]
 ** https://github.com/stephengold/Wes[Wes]
 * Other related projects
 ** https://github.com/stephengold/Heart[Heart]
