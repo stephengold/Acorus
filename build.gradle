@@ -5,11 +5,16 @@ plugins {
 }
 
 ext {
+    //acorusSnapshot = '-SNAPSHOT' // for development builds
+    acorusSnapshot = '' // for release builds
+
+    jmeTarget = '' // distinguish non-JME libraries built for specific JME releases
+
     // module coordinates of external dependencies:
-    heartCoordinates = 'com.github.stephengold:Heart:8.8.0'
+    heartCoordinates = 'com.github.stephengold:Heart:8.8.0' + jmeTarget
 
     // current versions of libraries:
-    acorusVersion = '1.1.1-SNAPSHOT'
+    acorusVersion = '1.1.1' + jmeTarget + acorusSnapshot
     jme3Version = '3.6.1-stable'
 }
 

@@ -1,5 +1,10 @@
 # release log for the Acorus library and related examples
 
+## Version 1.1.1 released on TBD
+
++ Changed `DisplaySettings` so it doesn't require an `ActionApplication`.
++ Based on version 8.8.0 of the Heart Library.
+
 ## Version 1.1.0 released on 27 September 2023
 
 + Bugfix:  `Locators.configurationRegisterDefault()` fails if no sandbox
@@ -17,7 +22,8 @@
 
 ## Version 1.0.0 released on 22 March 2023
 
-+ Bugfix:  setters throw NPEs if invoked on an uninitialized `Overlay`
++ Bugfix:  setters throw `NullPointerException` if invoked on an
+  uninitialized `Overlay`
 + Bugfix:  `Overlay` setters accept out-of-range indices
 + Added options to center or right-align content to the `Overlay` class.
 + Publicized the `hhmmss()` method in the `ActionApplication` class.
