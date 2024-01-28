@@ -21,6 +21,7 @@ jobs:
           node-version: 20.11.0
       - run: npm ci
       - run: npx antora docs/ci-playbook.yml
+      - run: ./gradlew copyJavadocToSite --console=plain --no-daemon --stacktrace
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
