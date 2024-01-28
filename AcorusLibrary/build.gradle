@@ -166,5 +166,5 @@ tasks.register('copyJavadocToSite') {
 tasks.register('copyMasterJavadocToSite', Copy) {
     dependsOn 'javadoc'
     from "${buildDir}/docs/javadoc"
-    into 'build/site/javadoc/master'
+    into '../build/site/javadoc/master'
 }
