@@ -36,6 +36,13 @@ tasks.register('AppChooser') {
     description 'Runs the examples.'
 }
 
+// Register cleanup tasks:
+
+clean.dependsOn('cleanNodeModules')
+tasks.register('cleanNodeModules', Delete) {
+    delete 'node_modules'
+}
+
 // Register publishing tasks:
 
 tasks.register('install') {
