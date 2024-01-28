@@ -157,3 +157,14 @@ tasks.withType(Sign).configureEach {
     onlyIf { rootProject.hasProperty('signing.keyId') }
 }
 signMavenPublication.dependsOn('module')
+
+// Register javadoc-to-(web)site tasks, triggered by push-master.yml:
+
+tasks.register('copyJavadocToSite') {
+    dependsOn 'copyMasterJavadocToSite'
+}
+tasks.register('copyMasterJavadocToSite', Copy) {
+    dependsOn 'javadoc'
+    from "${buildDir}/docs/javadoc"
+    into 'build/site/javadoc/master'
+}
