@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2023, Stephen Gold
+ Copyright (c) 2020-2024 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -35,6 +35,7 @@ import java.awt.DisplayMode;
 import java.util.Collection;
 import java.util.TreeSet;
 import java.util.logging.Logger;
+import jme3utilities.DsUtils;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.RectSizeLimits;

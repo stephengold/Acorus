@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2023, Stephen Gold
+ Copyright (c) 2017-2024 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -38,6 +38,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+import jme3utilities.DsUtils;
 import jme3utilities.Validate;
 import jme3utilities.math.RectSizeLimits;
 

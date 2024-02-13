@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2023, Stephen Gold
+ Copyright (c) 2020-2024 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -37,6 +37,7 @@ import com.jme3.texture.image.ColorSpace;
 import java.awt.DisplayMode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jme3utilities.DsUtils;
 import jme3utilities.Heart;
 import jme3utilities.MyString;
 import jme3utilities.debug.Dumper;
@@ -44,7 +45,6 @@ import jme3utilities.math.RectSizeLimits;
 import jme3utilities.ui.AcorusDemo;
 import jme3utilities.ui.DisplaySettings;
 import jme3utilities.ui.DsEditOverlay;
-import jme3utilities.ui.DsUtils;
 import jme3utilities.ui.InputMode;
 import jme3utilities.ui.ShowDialog;
 import jme3utilities.ui.UiVersion;
