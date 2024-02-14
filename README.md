@@ -1,7 +1,8 @@
 <img height="150" src="https://i.imgur.com/RN3bz0h.png" alt="Acorus screenshot">
 
-[The Acorus Project][acorus] provides a simple user-interface library for
-[the jMonkeyEngine (JME) game engine][jme].
+[The Acorus Project][acorus] provides
+a simple user-interface library
+for [the jMonkeyEngine (JME) game engine][jme].
 
 It contains 2 sub-projects:
 
@@ -170,7 +171,7 @@ To run a specific app:
 
 [Using Acorus in a headless context](https://stephengold.github.io/Acorus/acorus-en/English/headless.html)
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="history"></a>
