@@ -115,11 +115,11 @@ Since they aren't distributed in binary form,
 you must build the project from source in order to run them.
 
 To run them using the included AppChooser:
-+ using Bash or PowerShell or Zsh: `./gradlew --no-daemon AppChooser`
++ using Bash or Fish or PowerShell or Zsh: `./gradlew --no-daemon AppChooser`
 + using Windows Command Prompt: `.\gradlew --no-daemon AppChooser`
 
 To run a specific app:
-+ using Bash or PowerShell or Zsh: `./gradlew --no-daemon ` *appName*
++ using Bash or Fish or PowerShell or Zsh: `./gradlew --no-daemon ` *appName*
 + using Windows Command Prompt: `.\gradlew --no-daemon ` *appName*
 
 ### HelloAcorus

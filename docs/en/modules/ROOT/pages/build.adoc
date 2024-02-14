@@ -26,6 +26,7 @@ Here's the recommended procedure:
   or "/usr/lib/jvm/java-8-openjdk-amd64/" or
   "/Library/Java/JavaVirtualMachines/liberica-jdk-17-full.jdk/Contents/Home" .)
 .. using Bash or Zsh: `export JAVA_HOME="` *path to installation* `"`
+.. using Fish: `set -g JAVA_HOME "` *path to installation* `"`
 .. using Windows Command Prompt: `set JAVA_HOME="` *path to installation* `"`
 .. using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
 . Download and extract the {Project} source code from GitHub:
@@ -40,7 +41,7 @@ Here's the recommended procedure:
 ... extract the contents of the saved ZIP file
 ... `cd` to the extracted directory
 . Run the Gradle wrapper to build the entire project:
-.. using Bash or PowerShell or Zsh: `./gradlew build`
+.. using Bash or Fish or PowerShell or Zsh: `./gradlew build`
 .. using Windows Command Prompt: `.\gradlew build`
 
 After a successful build,
@@ -50,14 +51,14 @@ artifacts will be found in the "AcorusLibrary/build/libs" directory.
 
 You can install the built artifacts to your local Maven repository:
 
-* using Bash or PowerShell or Zsh: `./gradlew install`
+* using Bash or Fish or PowerShell or Zsh: `./gradlew install`
 * using Windows Command Prompt: `.\gradlew install`
 
 === Cleanup
 
 After a build, you can restore the project to a pristine state:
 
-* using Bash or PowerShell or Zsh: `./gradlew clean`
+* using Bash or Fish or PowerShell or Zsh: `./gradlew clean`
 * using Windows Command Prompt: `.\gradlew clean`
 
 
