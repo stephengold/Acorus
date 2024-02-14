@@ -13,9 +13,9 @@ ext {
     // module coordinates of external dependencies:
     heartCoordinates = 'com.github.stephengold:Heart:9.0.0' + jmeTarget
 
-    //acorusSnapshot = '-SNAPSHOT' // for development builds
-    acorusSnapshot = '' // for release builds
-    acorusVersion = '2.0.0' + jmeTarget
+    acorusSnapshot = '-SNAPSHOT' // for development builds
+    //acorusSnapshot = '' // for release builds
+    acorusVersion = '2.0.1' + jmeTarget
 }
 
 subprojects {

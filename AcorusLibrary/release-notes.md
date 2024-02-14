@@ -1,6 +1,6 @@
 # release log for the Acorus library and related examples
 
-## Version 2.0.0 released on TBD
+## Version 2.0.0 released on 13 February 2024
 
 + Moved `DsUtils` to the Heart Library. (API change)
 + Based on version 9.0.0 of the Heart Library.
