@@ -116,7 +116,7 @@ Since they aren't distributed in binary form,
 you must build the project from source in order to run them.
 
 To run them using the included AppChooser:
-+ using Bash or Fish or PowerShell or Zsh: `./gradlew --no-daemon AppChooser`
++ using Bash or [Fish] or PowerShell or Zsh: `./gradlew --no-daemon AppChooser`
 + using Windows Command Prompt: `.\gradlew --no-daemon AppChooser`
 
 To run a specific app:
@@ -241,6 +241,7 @@ correct the situation: sgold@sonic.net
 [chrome]: https://www.google.com/chrome "Chrome"
 [findbugs]: http://findbugs.sourceforge.net "FindBugs Project"
 [firefox]: https://www.mozilla.org/en-US/firefox "Firefox"
+[fish]: https://fishshell.com/ "Fish command-line shell"
 [git]: https://git-scm.com "Git"
 [github]: https://github.com "GitHub"
 [gitkraken]: https://www.gitkraken.com "GitKraken client"
