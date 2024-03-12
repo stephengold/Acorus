@@ -189,4 +189,14 @@ methods are also provided to select among `float` and `int` values.
 
 == A library of materials
 
-TODO discuss in detail
+JMonkeyEngine has a built-in mechanism to assign names to materials.
+Acorus goes one step further,
+implementing a material library that makes it easy to access materials by name.
+
+To add a material to the library, invoke the `registerMaterial()` method.
+
+To access a material by name, invoke the `findMaterial()` method.
+
+During startup, Acorus invokes the `generateMaterials()` method
+to initialize the library.
+Applications may override this method, if desired.
