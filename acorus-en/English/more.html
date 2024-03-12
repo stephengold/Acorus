@@ -502,7 +502,20 @@ methods are also provided to select among <code>float</code> and <code>int</code
 <h2 id="_a_library_of_materials"><a class="anchor" href="#_a_library_of_materials"></a>A library of materials</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO discuss in detail</p>
+<p>JMonkeyEngine has a built-in mechanism to assign names to materials.
+Acorus goes one step further,
+implementing a material library that makes it easy to access materials by name.</p>
+</div>
+<div class="paragraph">
+<p>To add a material to the library, invoke the <code>registerMaterial()</code> method.</p>
+</div>
+<div class="paragraph">
+<p>To access a material by name, invoke the <code>findMaterial()</code> method.</p>
+</div>
+<div class="paragraph">
+<p>During startup, Acorus invokes the <code>generateMaterials()</code> method
+to initialize the library.
+Applications may override this method, if desired.</p>
 </div>
 </div>
 </div>
