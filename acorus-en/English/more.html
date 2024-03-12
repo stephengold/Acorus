@@ -279,17 +279,17 @@ that demonstrates more built-in features of <code>AcorusDemo</code>:</p>
 <p>add world axes to a scene and toggle their visibility</p>
 </li>
 <li>
-<p>pause animations without disabling camera motion</p>
+<p>pause animations and physics without disabling camera motion</p>
 </li>
 <li>
 <p>scale a model to a specified height</p>
 </li>
 <li>
-<p>position a model so it rests on the X-Z plane,
+<p>translate a 3-D model so it rests on the X-Z plane,
 with its center on the Y axis</p>
 </li>
 <li>
-<p>select among <code>String</code> values, as in a menu</p>
+<p>select among possible values, as in a menu</p>
 </li>
 <li>
 <p>store materials in a "library" and retrieve them by name</p>
@@ -419,15 +419,82 @@ public void moreDefaultBindings() {
 <h2 id="_scaling_and_centering_a_3_d_model"><a class="anchor" href="#_scaling_and_centering_a_3_d_model"></a>Scaling and centering a 3-D model</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO discuss in detail</p>
+<p><code>AcorusDemo</code> provides a static <code>setCgmHeight()</code> method
+that scales a 3-D model to a specified height.
+The model&#8217;s height is calculated
+from the minimal axis-aligned bounding box (AABB) containing its mesh vertices.</p>
+</div>
+<div class="paragraph">
+<p><code>AcorusDemo</code> also provides a static <code>centerCgm()</code> method
+that translates a 3-D model
+so the center of its base rectangle lies at the world origin.
+The base rectangle is calculated
+from the minimal AABB containing its mesh vertices.</p>
+</div>
+<div class="paragraph">
+<p>Used together, these methods facilitate display of 3-D models
+without needing to know their coordinates and/or dimensions in advance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">setCgmHeight(model, 2f); // Make the model 2 world units tall.
+centerCgm(model);        // Position it above the origin.</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interactively_selecting_among_values"><a class="anchor" href="#_interactively_selecting_among_values"></a>Interactively selecting among values</h2>
+<h2 id="_selecting_among_values"><a class="anchor" href="#_selecting_among_values"></a>Selecting among values</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO discuss in detail</p>
+<p>In lieu of mouse-driven menu widgets,
+<code>AcorusDemo</code> provides a framework for empowering users
+to interactively select a value from an array of possible values.</p>
+</div>
+<div class="paragraph">
+<p>The selected value can be displayed in an <code>Overlay</code>
+that&#8217;s updated for every frame:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Override
+public void simpleUpdate(float tpf) {
+    super.simpleUpdate(tpf);
+    statusOverlay.setText(0, selectedValue);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and hotkeys can be bound to actions that cycle through the possible values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public void moreDefaultBindings() {
+    InputMode dim = getDefaultInputMode();
+    dim.bind("next value", KeyInput.KEY_NUMPAD6);
+    dim.bind("previous value", KeyInput.KEY_NUMPAD4);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Override
+public void onAction(String actionString, boolean ongoing, float tpf) {
+    if (ongoing) {
+        switch (actionString) {
+            case "next value":
+                // Select the next value in the array.
+                selectedValue = advanceString(valueArray, selectedValue, +1);
+                composer.setCurrentAction(clipName);
+                return;
+            case "previous value":
+                // Select the previous name in the array.
+                selectedValue = advanceString(valueArray, selectedValue, -1);
+                composer.setCurrentAction(clipName);
+                return;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Analogous with <code>advanceString()</code>,
+methods are also provided to select among <code>float</code> and <code>int</code> values.</p>
 </div>
 </div>
 </div>
