@@ -264,6 +264,8 @@
   <div class="content">
 <article class="doc">
 <h1 class="page">Additional features of AcorusDemo</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://github.com/stephengold/Acorus/blob/master/AcorusExamples/src/main/java/jme3utilities/ui/test/TestAcorusDemo.java">TestAcorusDemo</a> is a test application
 that demonstrates more built-in features of <code>AcorusDemo</code>:</p>
@@ -274,7 +276,7 @@ that demonstrates more built-in features of <code>AcorusDemo</code>:</p>
 <p>display text on a solid background using an <em>overlay</em></p>
 </li>
 <li>
-<p>add world axes to a scene and toggle their visibility with "toggle pause"</p>
+<p>add world axes to a scene and toggle their visibility</p>
 </li>
 <li>
 <p>pause animations without disabling camera motion</p>
@@ -294,8 +296,148 @@ with its center on the Y axis</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_display_text_on_a_solid_background"><a class="anchor" href="#_display_text_on_a_solid_background"></a>Display text on a solid background</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>TODO discuss each feature in detail</p>
+<p>An overlay is a rounded rectangle with a solid background color,
+used to display multiple lines of text.</p>
+</div>
+<div class="paragraph">
+<p>The concrete <code>Overlay</code> class is a subtype of <code>BaseAppState</code>
+and inherits its life-cycle hooks:</p>
+</div>
+<div class="paragraph">
+<p>+ <code>stateAttached(AppStateManager)</code>
++ <code>update(float)</code>
++ <code>render(RenderManager)</code>
++ <code>postRender()</code>
++ <code>stateDetached(AppStateManager)</code></p>
+</div>
+<div class="paragraph">
+<p>Unlike most appstates, overlays are initially disabled.
+So at a minimum, you need to instantiate the overlay,
+attach it to your application, and enable it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Overlay overlay = new Overlay(idString, widthPixels, numStatusLines);
+stateManager.attach(overlay);
+overlay.setEnabled(true);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Be default, overlays are set in from the upper-left corner of the GUI viewport.
+However, you can alter the location policy
+using <code>overlay.setLocationPolicy(newPolicy)</code>.</p>
+</div>
+<div class="paragraph">
+<p>If the policy is anything other than <code>LowerLeft</code>
+and the viewport is resizable,
+you should ensure the overlay&#8217;s location gets updated on every resize:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Override
+public void onViewPortResize(int newWidth, int newHeight) {
+    super.onViewPortResize(newWidth, newHeight);
+    overlay.onViewPortResize(newWidth, newHeight);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, overlay text is white and left-aligned on a black background.
+However, you can alter these properties:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">overlay.setColor(lineIndex, textColor);
+overlay.setAlignmentAll(globalAlignment);
+overlay.setAlignment(lineIndex, alignment2);
+overlay.setBackgroundColor(newColor);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_world_axes"><a class="anchor" href="#_world_axes"></a>World axes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The world axes are 3 arrows (red for +X, green for +Y, and blue for +Z)
+whose tails spring from the world origin (0,0,0).</p>
+</div>
+<div class="paragraph">
+<p>By default, the axes are invisible.
+However, it&#8217;s often helpful to visualize these axes&#8201;&#8212;&#8201;during a demo, for instance, or while debugging.</p>
+</div>
+<div class="paragraph">
+<p><code>AcorusDemo</code> lays the groundwork so that an application can easily bind a hotkey
+that empowers the user to toggle visibility of the axes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Override
+public void moreDefaultBindings() {
+    InputMode dim = getDefaultInputMode();
+    dim.bind(asToggleWorldAxes, KeyInput.KEY_SPACE);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pausing_animations"><a class="anchor" href="#_pausing_animations"></a>Pausing animations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>During a demo (or while debugging) one often wants
+to pause the action for close examination.
+<code>SimpleApplication</code> provides a <code>setSpeed()</code> interface
+to alter the global speed of the application.
+However, setting the speed to zero
+not only pauses animations, cinematics, and physics;
+it also freezes camera motion.</p>
+</div>
+<div class="paragraph">
+<p><code>AcorusDemo</code> lays the groundwork so that an application can easily bind a hotkey
+that empowers the user to pause animations (and cinematics and physics)
+without affecting the built-in <code>FlyByCamera</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Override
+public void moreDefaultBindings() {
+    InputMode dim = getDefaultInputMode();
+    dim.bind(asTogglePause, KeyInput.KEY_PAUSE);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scaling_and_centering_a_3_d_model"><a class="anchor" href="#_scaling_and_centering_a_3_d_model"></a>Scaling and centering a 3-D model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO discuss in detail</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interactively_selecting_among_values"><a class="anchor" href="#_interactively_selecting_among_values"></a>Interactively selecting among values</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO discuss in detail</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_library_of_materials"><a class="anchor" href="#_a_library_of_materials"></a>A library of materials</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO discuss in detail</p>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="toggle.html">Toggle the help node</a></span>
