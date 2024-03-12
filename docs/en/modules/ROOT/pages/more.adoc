@@ -7,11 +7,11 @@ that demonstrates more built-in features of `AcorusDemo`:
 
 * display text on a solid background using an _overlay_
 * add world axes to a scene and toggle their visibility
-* pause animations without disabling camera motion
+* pause animations and physics without disabling camera motion
 * scale a model to a specified height
-* position a model so it rests on the X-Z plane,
+* translate a 3-D model so it rests on the X-Z plane,
   with its center on the Y axis
-* select among `String` values, as in a menu
+* select among possible values, as in a menu
 * store materials in a "library" and retrieve them by name
 
 
