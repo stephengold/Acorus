@@ -15,4 +15,116 @@ that demonstrates more built-in features of `AcorusDemo`:
 * store materials in a "library" and retrieve them by name
 
 
-TODO discuss each feature in detail
+== Display text on a solid background
+
+An overlay is a rounded rectangle with a solid background color,
+used to display multiple lines of text.
+
+The concrete `Overlay` class is a subtype of `BaseAppState`
+and inherits its life-cycle hooks:
+
++ `stateAttached(AppStateManager)`
++ `update(float)`
++ `render(RenderManager)`
++ `postRender()`
++ `stateDetached(AppStateManager)`
+
+Unlike most appstates, overlays are initially disabled.
+So at a minimum, you need to instantiate the overlay,
+attach it to your application, and enable it:
+
+[source,java]
+----
+Overlay overlay = new Overlay(idString, widthPixels, numStatusLines);
+stateManager.attach(overlay);
+overlay.setEnabled(true);
+----
+
+Be default, overlays are set in from the upper-left corner of the GUI viewport.
+However, you can alter the location policy
+using `overlay.setLocationPolicy(newPolicy)`.
+
+If the policy is anything other than `LowerLeft`
+and the viewport is resizable,
+you should ensure the overlay's location gets updated on every resize:
+
+[source,java]
+----
+@Override
+public void onViewPortResize(int newWidth, int newHeight) {
+    super.onViewPortResize(newWidth, newHeight);
+    overlay.onViewPortResize(newWidth, newHeight);
+}
+----
+
+By default, overlay text is white and left-aligned on a black background.
+However, you can alter these properties:
+
+[source,java]
+----
+overlay.setColor(lineIndex, textColor);
+overlay.setAlignmentAll(globalAlignment);
+overlay.setAlignment(lineIndex, alignment2);
+overlay.setBackgroundColor(newColor);
+----
+
+
+== World axes
+
+The world axes are 3 arrows (red for +X, green for +Y, and blue for +Z)
+whose tails spring from the world origin (0,0,0).
+
+By default, the axes are invisible.
+However, it's often helpful to visualize these axes
+-- during a demo, for instance, or while debugging.
+
+`AcorusDemo` lays the groundwork so that an application can easily bind a hotkey
+that empowers the user to toggle visibility of the axes:
+
+[source,java]
+----
+@Override
+public void moreDefaultBindings() {
+    InputMode dim = getDefaultInputMode();
+    dim.bind(asToggleWorldAxes, KeyInput.KEY_SPACE);
+}
+----
+
+
+== Pausing animations
+
+During a demo (or while debugging) one often wants
+to pause the action for close examination.
+`SimpleApplication` provides a `setSpeed()` interface
+to alter the global speed of the application.
+However, setting the speed to zero
+not only pauses animations, cinematics, and physics;
+it also freezes camera motion.
+
+`AcorusDemo` lays the groundwork so that an application can easily bind a hotkey
+that empowers the user to pause animations (and cinematics and physics)
+without affecting the built-in `FlyByCamera`:
+
+[source,java]
+----
+@Override
+public void moreDefaultBindings() {
+    InputMode dim = getDefaultInputMode();
+    dim.bind(asTogglePause, KeyInput.KEY_PAUSE);
+}
+----
+
+
+== Scaling and centering a 3-D model
+
+TODO discuss in detail
+
+
+== Interactively selecting among values
+
+TODO discuss in detail
+
+
+== A library of materials
+
+TODO discuss in detail
