@@ -55,7 +55,7 @@ Please don't use this software in safety-critical applications.
 
 For self-help, make use of
 xref:add.adoc[the tutorial pages],
-the javadoc, and
+https://stephengold.github.io/Acorus/javadoc/master[the javadoc], and
 https://github.com/stephengold/Acorus[the source code].
 
 The JMonkeyEngine Forum/Hub is a good place to ask technical questions.
