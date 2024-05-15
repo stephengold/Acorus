@@ -4,7 +4,7 @@
 a simple user-interface library
 for [the jMonkeyEngine (JME) game engine][jme].
 
-It contains 2 sub-projects:
+It contains 2 subprojects:
 
 1. AcorusLibrary: the Acorus [JVM] runtime library
 2. AcorusExamples: demos, examples, and non-automated test software
@@ -111,7 +111,7 @@ The source code and pre-built libraries are compatible with JDK 8.
 ## An overview of the example applications
 
 Applications have been created to illustrate key concepts of Acorus.
-They are found in the AcorusExamples sub-project.
+They are found in the AcorusExamples subproject.
 Since they aren't distributed in binary form,
 you must build the project from source in order to run them.
 
@@ -181,7 +181,7 @@ To run a specific app:
 The evolution of this project is chronicled in
 [its release log][log].
 
-Prior to January 2022, Acorus was a sub-project of
+Prior to January 2022, Acorus was a subproject of
 [the Jme3-utilities Project][utilities] named "jme3-utilities-ui".
 
 Since January 2022, Acorus has been a separate project, hosted at
