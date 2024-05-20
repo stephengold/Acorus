@@ -8,11 +8,54 @@ plugins {
     id 'application' // to build JVM applications
 }
 
+if (!hasProperty('mainClass')) {
+    ext.mainClass = 'jme3utilities.ui.test.AppChooser'
+}
+jar.manifest.attributes('Main-Class': 'jme3utilities.ui.test.AppChooser')
+
+dependencies {
+    implementation(libs.commons.exec)
+    implementation(libs.heart)
+    runtimeOnly(libs.jme3.awt.dialogs)
+    implementation(libs.jme3.desktop)
+    implementation(libs.jme3.lwjgl3)
+    runtimeOnly(libs.jme3.testdata) // for Jaime
+
+    // AcorusExamples doesn't use jme3-jogg nor jme3-plugins
+    //  -- they are included solely to avoid warnings from AssetConfig.
+    runtimeOnly(libs.jme3.jogg)
+    runtimeOnly(libs.jme3.plugins)
+
+    //implementation 'com.github.stephengold:Acorus:' + acorusVersion // for published library
+    implementation project(':AcorusLibrary') // for local library build
+}
+
+// Register cleanup tasks:
+
+clean.dependsOn('cleanDLLs', 'cleanDyLibs', 'cleanLogs', 'cleanSandbox', 'cleanSOs')
+
+tasks.register('cleanDLLs', Delete) { // extracted Windows native libraries
+    delete fileTree(dir: '.', include: '*.dll')
+}
+tasks.register('cleanDyLibs', Delete) { // extracted macOS native libraries
+    delete fileTree(dir: '.', include: '*.dylib')
+}
+tasks.register('cleanLogs', Delete) { // JVM crash logs
+    delete fileTree(dir: '.', include: 'hs_err_pid*.log')
+}
+tasks.register('cleanSandbox', Delete) { // Acorus sandbox
+    delete 'Written Assets'
+}
+tasks.register('cleanSOs', Delete) { // extracted Linux and Android native libraries
+    delete fileTree(dir: '.', include: '*.so')
+}
+
 // Register tasks to run specific applications:
 
 tasks.register('AppChooser', JavaExec) {
     mainClass = 'jme3utilities.ui.test.AppChooser'
 }
+
 tasks.register('HelloAcorus', JavaExec) {
     mainClass = 'jme3utilities.ui.test.HelloAcorus'
 }
@@ -68,46 +111,4 @@ tasks.register('TestToggleFly', JavaExec) {
 }
 tasks.register('TestTwoModes', JavaExec) {
     mainClass = 'jme3utilities.ui.test.TestTwoModes'
-}
-
-if (!hasProperty('mainClass')) {
-    ext.mainClass = 'jme3utilities.ui.test.AppChooser'
-}
-jar.manifest.attributes('Main-Class': 'jme3utilities.ui.test.AppChooser')
-
-dependencies {
-    implementation(libs.commons.exec)
-    implementation(libs.heart)
-    runtimeOnly(libs.jme3.awt.dialogs)
-    implementation(libs.jme3.desktop)
-    implementation(libs.jme3.lwjgl3)
-    runtimeOnly(libs.jme3.testdata) // for Jaime
-
-    // AcorusExamples doesn't use jme3-jogg nor jme3-plugins
-    //  -- they are included solely to avoid warnings from AssetConfig.
-    runtimeOnly(libs.jme3.jogg)
-    runtimeOnly(libs.jme3.plugins)
-
-    //implementation 'com.github.stephengold:Acorus:' + acorusVersion // for published library
-    implementation project(':AcorusLibrary') // for local library build
-}
-
-// Register cleanup tasks:
-
-clean.dependsOn('cleanDLLs', 'cleanDyLibs', 'cleanLogs', 'cleanSandbox', 'cleanSOs')
-
-tasks.register('cleanDLLs', Delete) { // extracted Windows native libraries
-    delete fileTree(dir: '.', include: '*.dll')
-}
-tasks.register('cleanDyLibs', Delete) { // extracted macOS native libraries
-    delete fileTree(dir: '.', include: '*.dylib')
-}
-tasks.register('cleanLogs', Delete) { // JVM crash logs
-    delete fileTree(dir: '.', include: 'hs_err_pid*.log')
-}
-tasks.register('cleanSandbox', Delete) { // Acorus sandbox
-    delete 'Written Assets'
-}
-tasks.register('cleanSOs', Delete) { // extracted Linux and Android native libraries
-    delete fileTree(dir: '.', include: '*.so')
 }
