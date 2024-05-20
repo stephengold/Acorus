@@ -1,7 +1,6 @@
 *.dll
 *.dylib
 *.so
-/AcorusExamples/Written Assets/
 /AcorusExamples/screenshot*.png
 /node_modules/
 
@@ -12,6 +11,9 @@
 /build/
 /AcorusLibrary/build/
 /AcorusExamples/build/
+
+# Ignore the Acorus sandbox:
+/AcorusExamples/Written Assets/
 
 # Ignore IDE-specific directories:
 /.idea/
