@@ -14,7 +14,7 @@ ext {
     group = 'com.github.stephengold'
     artifact = 'Acorus'
     version = acorusVersion
-    baseName = "${artifact}-${version}${acorusSnapshot}" // for artifacts
+    baseName = "${artifact}-${version}" // for artifacts
     websiteUrl = 'https://github.com/stephengold/Acorus'
 }
 
@@ -112,7 +112,7 @@ publishing {
                 }
                 url = project.ext.websiteUrl
             }
-            version project.ext.version + rootProject.ext.acorusSnapshot
+            version project.ext.version
         }
     }
     // Staging to OSSRH relies on the existence of 2 properties
