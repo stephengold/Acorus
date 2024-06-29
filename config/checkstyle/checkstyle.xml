@@ -374,7 +374,7 @@
             <property name="checkFirstSentence" value="false"/>
         </module>
         <module name="JavadocVariable">
-            <property name="scope" value="package"/>
+            <property name="scope" value="private"/>
         </module>
         <module name="SingleLineJavadoc"/>
 
