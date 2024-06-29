@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2023, Stephen Gold
+ Copyright (c) 2020-2024 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -235,6 +235,11 @@ final class TestCursors extends AcorusDemo {
         statusOverlay.setEnabled(true);
     }
 
+    /**
+     * Alter the currently active input mode.
+     *
+     * @param modeName the short name of the desired input mode (not null)
+     */
     private static void setMode(String modeName) {
         InputMode oldMode = InputMode.getActiveMode();
         InputMode newMode = InputMode.findMode(modeName);
