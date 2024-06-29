@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold
+ Copyright (c) 2022-2024 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -75,41 +75,82 @@ class AcorusProcessor implements SceneProcessor {
     // *************************************************************************
     // SceneProcessor methods
 
+    /**
+     * Invoked when the processor is removed from a RenderManager.
+     */
     @Override
     public void cleanup() {
         // do nothing
     }
 
+    /**
+     * Initialize the processor.
+     *
+     * @param rm the RenderManager to which the processor was added
+     * @param unused2 the ViewPort to which the processor is assigned
+     */
     @Override
     public void initialize(RenderManager rm, ViewPort unused2) {
         // do nothing
     }
 
+    /**
+     * Test whether the processor has been initialized.
+     *
+     * @return true if initialized, otherwise false
+     */
     @Override
     public boolean isInitialized() {
         return true;
     }
 
+    /**
+     * Invoked after a frame has been rendered and the queue flushed.
+     *
+     * @param unused the buffer to which the scene was rendered
+     */
     @Override
     public void postFrame(FrameBuffer unused) {
         // do nothing
     }
 
+    /**
+     * Invoked after the scene graph has been queued, but before it is flushed.
+     *
+     * @param unused the queue to which the scene was rendered
+     */
     @Override
     public void postQueue(RenderQueue unused) {
         // do nothing
     }
 
+    /**
+     * Invoked before a frame
+     *
+     * @param tpf the time per frame (in seconds, &ge;0)
+     */
     @Override
     public void preFrame(float tpf) {
         // do nothing
     }
 
+    /**
+     * Invoked when the resolution of the ViewPort has changed.
+     *
+     * @param unused the affected ViewPort
+     * @param newWidth the new width (in pixels)
+     * @param newHeight the new height (in pixels)
+     */
     @Override
     public void reshape(ViewPort unused, int newWidth, int newHeight) {
         demoApp.onViewPortResize(newWidth, newHeight);
     }
 
+    /**
+     * Alters the processor's profiler instance.
+     *
+     * @param unused the desired profiler instance
+     */
     @Override
     public void setProfiler(AppProfiler unused) {
         // do nothing
