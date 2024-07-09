@@ -31,7 +31,7 @@ resolve the remaining dependencies.
 
 === Gradle-built projects
 
-Add to the project's "build.gradle" file:
+Add to the project's "build.gradle" or "build.gradle.kts" file:
 
 [source,groovy]
 ----
@@ -39,7 +39,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation 'com.github.stephengold:Acorus:2.0.0'
+    implementation("com.github.stephengold:Acorus:2.0.0")
 }
 ----
 
