@@ -21,12 +21,12 @@ configurations.configureEach {
 
 tasks.register('AppChooser') {
     dependsOn ':AcorusExamples:AppChooser'
-    description 'Runs the example apps.'
+    description = 'Runs the example apps.'
 }
 
 tasks.register('checkstyle') {
     dependsOn ':AcorusExamples:checkstyleMain', ':AcorusLibrary:checkstyleMain'
-    description 'Checks the style of all Java sourcecode.'
+    description = 'Checks the style of all Java sourcecode.'
 }
 
 // Register cleanup tasks:
@@ -40,9 +40,9 @@ tasks.register('cleanNodeModules', Delete) {
 
 tasks.register('install') {
     dependsOn ':AcorusLibrary:install'
-    description 'Installs Maven artifacts to the local repository.'
+    description = 'Installs Maven artifacts to the local repository.'
 }
 tasks.register('release') {
     dependsOn ':AcorusLibrary:release'
-    description 'Stages Maven artifacts to Sonatype OSSRH.'
+    description = 'Stages Maven artifacts to Sonatype OSSRH.'
 }
