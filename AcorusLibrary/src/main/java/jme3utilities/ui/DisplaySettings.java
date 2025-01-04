@@ -159,6 +159,9 @@ public class DisplaySettings {
 
         //System.out.println(clone);
         application.setSettings(clone);
+        //System.out.println("restart() threadId="
+        //        + Thread.currentThread().getId());
+        //System.out.flush();
         application.restart();
         this.areApplied = true;
     }

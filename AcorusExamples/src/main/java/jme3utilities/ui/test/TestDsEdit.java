@@ -331,6 +331,9 @@ class TestDsEdit extends AcorusDemo {
              */
             application.setShowSettings(false);
 
+            //System.out.println("start() threadId="
+            //        + Thread.currentThread().getId());
+            //System.out.flush();
             application.start();
         }
     }
