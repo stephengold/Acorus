@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2024 Stephen Gold
+ Copyright (c) 2020-2025 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,9 @@ import com.jme3.app.StatsAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.AppSettings;
+import com.jme3.system.JmeSystem;
 import com.jme3.system.JmeVersion;
+import com.jme3.system.Platform;
 import com.jme3.texture.image.ColorSpace;
 import java.awt.DisplayMode;
 import java.util.logging.Level;
@@ -291,6 +293,16 @@ class TestDsEdit extends AcorusDemo {
                     appSettings.setSamples(1);
                 }
                 appSettings.setResizable(true);
+
+                Platform platform = JmeSystem.getPlatform();
+                if (platform.getOs() == Platform.Os.Linux) {
+                    /*
+                     * On some Linuxes, jme3-lwjgl3 works only
+                     * with OpenGL compatibility profile.
+                     */
+                    appSettings.setRenderer(AppSettings.LWJGL_OPENGL2);
+                }
+
                 appSettings.setTitle(title);
             }
         };

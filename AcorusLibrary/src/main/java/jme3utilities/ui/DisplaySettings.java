@@ -31,6 +31,7 @@ package jme3utilities.ui;
 import com.jme3.app.Application;
 import com.jme3.system.AppSettings;
 import com.jme3.system.JmeSystem;
+import com.jme3.system.Platform;
 import java.awt.DisplayMode;
 import java.util.Map;
 import java.util.TreeMap;
@@ -222,6 +223,21 @@ public class DisplaySettings {
      * @return message text (not null)
      */
     public String feedbackApplicable() {
+        boolean v3 = DsUtils.hasLwjglVersion3();
+        if (v3) {
+            Platform platform = JmeSystem.getPlatform();
+            if (platform.getOs() == Platform.Os.Linux) {
+                /*
+                 * On some Linuxes, jme3-lwjgl3 works only
+                 * with OpenGL compatibility profile.
+                 */
+                String newProfileName = proposedSettings.getRenderer();
+                if (!newProfileName.equals(AppSettings.LWJGL_OPENGL2)) {
+                    return "Can't exit compatibility profile!";
+                }
+            }
+        }
+
         return "";
     }
 
