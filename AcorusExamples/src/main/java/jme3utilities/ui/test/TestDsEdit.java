@@ -308,6 +308,8 @@ class TestDsEdit extends AcorusDemo {
                         // Always start in OpenGL 3.2 core profile on macOS.
                         appSettings.setRenderer(AppSettings.LWJGL_OPENGL32);
                         break;
+
+                    default:
                 }
 
                 appSettings.setTitle(title);
