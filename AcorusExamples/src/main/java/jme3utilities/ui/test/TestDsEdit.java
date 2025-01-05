@@ -294,13 +294,20 @@ class TestDsEdit extends AcorusDemo {
                 }
                 appSettings.setResizable(true);
 
-                Platform platform = JmeSystem.getPlatform();
-                if (platform.getOs() == Platform.Os.Linux) {
-                    /*
-                     * On some Linuxes, jme3-lwjgl3 works only
-                     * with OpenGL compatibility profile.
-                     */
-                    appSettings.setRenderer(AppSettings.LWJGL_OPENGL2);
+                Platform.Os osEnum = JmeSystem.getPlatform().getOs();
+                switch (osEnum) {
+                    case Linux:
+                        /*
+                         * On some Linuxes, jme3-lwjgl3 works only
+                         * with OpenGL compatibility profile.
+                         */
+                        appSettings.setRenderer(AppSettings.LWJGL_OPENGL2);
+                        break;
+
+                    case MacOS:
+                        // Always start in OpenGL 3.2 core profile on macOS.
+                        appSettings.setRenderer(AppSettings.LWJGL_OPENGL32);
+                        break;
                 }
 
                 appSettings.setTitle(title);
