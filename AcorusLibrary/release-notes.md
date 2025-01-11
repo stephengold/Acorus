@@ -1,5 +1,10 @@
 # release log for the Acorus library and related examples
 
+## Version 2.0.1 released on 11 January 2025
+
++ Worked around a blanking-after-restart issue on LWJGLv3/Linux.
++ Based on jMonkeyEngine v3.7.0-stable and version 9.2.0 of the Heart Library.
+
 ## Version 2.0.0 released on 13 February 2024
 
 + Moved `DsUtils` to the Heart Library. (API change)
