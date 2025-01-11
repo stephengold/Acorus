@@ -6,8 +6,8 @@ plugins {
 
 ext {
     jmeTarget = '' // distinguish non-JME libraries built for specific JME releases
-    acorusSnapshot = '-SNAPSHOT' // for development builds
-    //acorusSnapshot = '' // for release builds
+    //acorusSnapshot = '-SNAPSHOT' // for development builds
+    acorusSnapshot = '' // for release builds
     acorusVersion = '2.0.1' + jmeTarget + acorusSnapshot
 }
 

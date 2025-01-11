@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2024 Stephen Gold
+ Copyright (c) 2017-2025 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -61,6 +61,6 @@ final public class UiVersion {
      * @return the branch name and revision string (not null, not empty)
      */
     public static String versionShort() {
-        return "master 2.0.1-SNAPSHOT";
+        return "master 2.0.1";
     }
 }
