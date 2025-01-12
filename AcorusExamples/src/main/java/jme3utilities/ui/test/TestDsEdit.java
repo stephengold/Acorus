@@ -287,6 +287,7 @@ class TestDsEdit extends AcorusDemo {
                 application, applicationName, sizeLimits) {
             @Override
             protected void applyOverrides(AppSettings appSettings) {
+                super.applyOverrides(appSettings);
                 setShowDialog(showDialog);
                 appSettings.setAudioRenderer(null);
                 if (appSettings.getSamples() < 1) {
