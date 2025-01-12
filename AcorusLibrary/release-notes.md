@@ -1,5 +1,9 @@
 # release log for the Acorus library and related examples
 
+## Version 2.0.2 released on TBD
+
++ Overrode the initial renderer on Linux and macOS.
+
 ## Version 2.0.1 released on 11 January 2025
 
 + Worked around a blanking-after-restart issue on LWJGLv3/Linux.
