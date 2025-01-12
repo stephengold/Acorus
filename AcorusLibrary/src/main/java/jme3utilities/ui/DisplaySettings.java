@@ -848,6 +848,33 @@ public class DisplaySettings {
         int minWidth = sizeLimits.minWidth;
         settings.setMinWidth(minWidth);
 
+        Platform.Os osEnum = JmeSystem.getPlatform().getOs();
+        switch (osEnum) {
+            case Linux:
+                /*
+                 * On some Linuxes, jme3-lwjgl3 works only
+                 * with OpenGL compatibility profile.
+                 */
+                settings.setRenderer(AppSettings.LWJGL_OPENGL2);
+                break;
+
+            case MacOS:
+                // Start with OpenGL 3.2 (or higher) core profile on macOS.
+                String renderer = settings.getRenderer();
+                switch (renderer) {
+                    case AppSettings.LWJGL_OPENGL2:
+                    case AppSettings.LWJGL_OPENGL30:
+                    case AppSettings.LWJGL_OPENGL31:
+                        settings.setRenderer(AppSettings.LWJGL_OPENGL32);
+                        break;
+
+                    default:
+                }
+                break;
+
+            default:
+        }
+
         settings.setResizable(false);
         settings.setTitle(applicationName);
     }

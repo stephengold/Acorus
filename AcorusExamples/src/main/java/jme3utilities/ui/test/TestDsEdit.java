@@ -32,9 +32,7 @@ import com.jme3.app.StatsAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.AppSettings;
-import com.jme3.system.JmeSystem;
 import com.jme3.system.JmeVersion;
-import com.jme3.system.Platform;
 import com.jme3.texture.image.ColorSpace;
 import java.awt.DisplayMode;
 import java.util.logging.Level;
@@ -294,25 +292,6 @@ class TestDsEdit extends AcorusDemo {
                     appSettings.setSamples(1);
                 }
                 appSettings.setResizable(true);
-
-                Platform.Os osEnum = JmeSystem.getPlatform().getOs();
-                switch (osEnum) {
-                    case Linux:
-                        /*
-                         * On some Linuxes, jme3-lwjgl3 works only
-                         * with OpenGL compatibility profile.
-                         */
-                        appSettings.setRenderer(AppSettings.LWJGL_OPENGL2);
-                        break;
-
-                    case MacOS:
-                        // Always start in OpenGL 3.2 core profile on macOS.
-                        appSettings.setRenderer(AppSettings.LWJGL_OPENGL32);
-                        break;
-
-                    default:
-                }
-
                 appSettings.setTitle(title);
             }
         };
