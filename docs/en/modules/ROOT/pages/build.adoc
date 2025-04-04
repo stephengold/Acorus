@@ -70,6 +70,8 @@ After a build, you can restore the project to a pristine state:
 . Edit "docs/playbook.yml" and replace "/home/sgold/NetBeansProjects/Acorus"
   with an absolute path to your checkout directory (3 places).
 . https://docs.antora.org/antora/latest/install-and-run-quickstart/#install-nodejs[Install Node.js]
+. Install Antora:
+.. `npm i -D -E @antora/cli@3.1`
 . Run Antora:
 .. `npx antora docs/playbook.yml`
 
