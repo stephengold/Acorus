@@ -1,6 +1,11 @@
 {
   "devDependencies": {
-    "@antora/site-generator": "3.1.10",
-    "antora": "3.1.10"
+    "@antora/cli": "3.1.10",
+    "@antora/site-generator": "3.1.10"
+  },
+  "overrides": {
+    "asciidoctor-opal-runtime": {
+      "glob": "~10.4"
+    }
   }
 }
