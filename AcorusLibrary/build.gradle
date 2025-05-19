@@ -1,4 +1,4 @@
-// Gradle script to build the AcorusLibrary subproject of Acorus
+// Gradle script to build and publish the AcorusLibrary subproject of Acorus
 
 // Note: "common.gradle" in the root project contains additional initialization
 //   for this project. This initialization is applied in the "build.gradle"
