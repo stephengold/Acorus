@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2024 Stephen Gold
+ Copyright (c) 2020-2025 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -261,8 +261,6 @@ public class DsEditOverlay extends Overlay {
     @Override
     public void update(float tpf) {
         super.update(tpf);
-        Application application = getApplication();
-        JmeContext context = application.getContext();
 
         String message = "";
         boolean areValid = proposedSettings.areValid();
@@ -289,6 +287,8 @@ public class DsEditOverlay extends Overlay {
         if (isCentered || isFullscreen || !DsUtils.hasLwjglVersion3()) {
             message = "Location:  centered";
         } else {
+            Application application = getApplication();
+            JmeContext context = application.getContext();
             int x = context.getWindowXPosition();
             int y = context.getWindowYPosition();
             proposedSettings.setStartLocation(x, y);
