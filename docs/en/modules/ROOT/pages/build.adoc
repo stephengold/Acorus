@@ -1,6 +1,5 @@
 = How to build Acorus from source
 :Project: Acorus
-:page-pagination:
 
 {Project} is free, open-source software.
 
