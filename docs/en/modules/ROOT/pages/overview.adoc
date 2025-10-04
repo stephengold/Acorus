@@ -38,7 +38,7 @@ and the software used to build, test, and run them.
 == Caveats
 
 In order to use the latest {Project} release,
-you'll need version 3.6.1 (or later) JMonkeyEngine libraries.
+you'll need version 3.7.0 (or later) JMonkeyEngine libraries.
 
 Like JMonkeyEngine, {Project} and its documentation
 assume a certain level of proficiency with
