@@ -2,9 +2,10 @@
 <!DOCTYPE module PUBLIC
     "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
     "https://checkstyle.org/dtds/configuration_1_3.dtd">
-<!-- Checkstyle configuration for the Acorus project. -->
+<!-- Checkstyle configuration for the Acorus project -->
 
 <module name="Checker">
+    <property name="basedir" value="/mnt/virginia/home/sgold/NetBeansProjects/Acorus/"/>
     <property name="charset" value="UTF-8"/>
     <property name="fileExtensions" value="java, properties, xml"/>
     <property name="severity" value="error"/>
