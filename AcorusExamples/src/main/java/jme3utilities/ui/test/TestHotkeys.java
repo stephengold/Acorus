@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2023, Stephen Gold
+ Copyright (c) 2020-2026 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -95,7 +95,7 @@ final class TestHotkeys extends ActionApplication {
     public static void main(String[] arguments) {
         AppChooser.setGlfwLibraryName();
 
-        String title = applicationName + " " + MyString.join(arguments);
+        final String title = applicationName + " " + MyString.join(arguments);
         TestHotkeys application = new TestHotkeys();
         Heart.parseAppArgs(application, arguments);
 

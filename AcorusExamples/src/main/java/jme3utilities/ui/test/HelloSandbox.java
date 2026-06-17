@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2018-2023, Stephen Gold
+ Copyright (c) 2018-2026 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -76,7 +76,7 @@ final class HelloSandbox extends AcorusDemo {
     public static void main(String[] arguments) {
         AppChooser.setGlfwLibraryName();
 
-        String title = applicationName + " " + MyString.join(arguments);
+        final String title = applicationName + " " + MyString.join(arguments);
         HelloSandbox application = new HelloSandbox();
         Heart.parseAppArgs(application, arguments);
 
