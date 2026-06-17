@@ -147,19 +147,19 @@ final class HelloBind extends AcorusDemo {
 
         Material greenMaterial
                 = MyAsset.createUnshadedMaterial(assetManager, ColorRGBA.Green);
-        this.greenSquare = new Geometry("red square", squareMesh);
+        greenSquare = new Geometry("red square", squareMesh);
         greenSquare.setMaterial(greenMaterial);
         greenSquare.move(x2, y1, z);
 
         Material redMaterial
                 = MyAsset.createUnshadedMaterial(assetManager, ColorRGBA.Red);
-        this.redSquare = new Geometry("red square", squareMesh);
+        redSquare = new Geometry("red square", squareMesh);
         redSquare.setMaterial(redMaterial);
         redSquare.move(x1, y2, z);
 
         Material whiteMaterial
                 = MyAsset.createUnshadedMaterial(assetManager, ColorRGBA.White);
-        this.whiteSquare = new Geometry("white square", squareMesh);
+        whiteSquare = new Geometry("white square", squareMesh);
         whiteSquare.setMaterial(whiteMaterial);
         whiteSquare.move(x2, y2, z);
     }
