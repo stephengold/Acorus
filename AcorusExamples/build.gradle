@@ -26,7 +26,7 @@ dependencies {
     runtimeOnly(libs.jme3.jogg)
     runtimeOnly(libs.jme3.plugins)
 
-    //implementation 'com.github.stephengold:Acorus:' + acorusVersion // for published library
+    //implementation 'com.github.stephengold:Acorus:' + providers.gradleProperty('acorusVersion').get() // for published library
     implementation project(':AcorusLibrary') // for local library build
 }
 

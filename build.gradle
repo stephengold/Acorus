@@ -4,13 +4,6 @@ plugins {
     id 'base' // to add a "clean" task to the root project
 }
 
-ext {
-    jmeTarget = '' // distinguish non-JME libraries built for specific JME releases
-    acorusSnapshot = '-SNAPSHOT' // for development builds
-    //acorusSnapshot = '' // for release builds
-    acorusVersion = '2.0.3' + jmeTarget + acorusSnapshot
-}
-
 subprojects {
     apply from: rootProject.file('common.gradle')
 }
