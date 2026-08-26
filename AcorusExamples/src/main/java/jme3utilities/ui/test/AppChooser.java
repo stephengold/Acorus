@@ -311,10 +311,11 @@ final class AppChooser extends AcorusDemo {
      * Execute the selected app.
      */
     private static void executeChosenApp() {
-        CommandLine commandLine = new CommandLine(script);
-
         Class<?> mainClass = mainClasses[chosenAppIndex];
         String mainClassName = mainClass.getName();
+        logger.warning("Execute " + mainClassName);
+
+        CommandLine commandLine = new CommandLine(script);
         commandLine.addArgument(mainClassName);
 
         DefaultExecutor.Builder builder = new DefaultExecutor.Builder();
