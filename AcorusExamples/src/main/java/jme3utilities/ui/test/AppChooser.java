@@ -158,13 +158,14 @@ final class AppChooser extends AcorusDemo {
     public static void main(String[] arguments) {
         setGlfwLibraryName();
 
-        String title = applicationName + " " + MyString.join(arguments);
+        final String title = applicationName + " " + MyString.join(arguments);
         AppChooser application = new AppChooser();
         Heart.parseAppArgs(application, arguments);
 
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
+        settings.setRenderer(AppSettings.LWJGL_OPENGL32); // default=ANGLE_GLES3
         settings.setResizable(true);
         settings.setSamples(4); // anti-aliasing
         settings.setTitle(title); // Customize the window's title bar.
