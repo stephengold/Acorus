@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold
+ Copyright (c) 2022-2026 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -36,6 +36,8 @@ import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -48,6 +50,8 @@ import jme3utilities.ui.LocationPolicy;
 import jme3utilities.ui.Overlay;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.ExecuteStreamHandler;
+import org.apache.commons.exec.PumpStreamHandler;
 
 /**
  * Choose an Acorus example application from a list, then execute it.
@@ -313,7 +317,13 @@ final class AppChooser extends AcorusDemo {
         String mainClassName = mainClass.getName();
         commandLine.addArgument(mainClassName);
 
-        DefaultExecutor executor = new DefaultExecutor();
+        DefaultExecutor.Builder builder = new DefaultExecutor.Builder();
+        ExecuteStreamHandler handler = new PumpStreamHandler();
+        Path workingDirectoryPath = Paths.get(".");
+        DefaultExecutor executor = builder
+                .setExecuteStreamHandler(handler)
+                .setWorkingDirectory(workingDirectoryPath)
+                .get();
         try {
             executor.execute(commandLine, env);
             // ignore the return code
