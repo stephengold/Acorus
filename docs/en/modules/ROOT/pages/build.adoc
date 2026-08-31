@@ -71,7 +71,7 @@ After a build, you can restore the project to a pristine state:
   with an absolute path to your checkout directory (3 places).
 . https://docs.antora.org/antora/latest/install-and-run-quickstart/#install-nodejs[Install Node.js]
 . Install Antora:
-.. `npm i -D -E @antora/cli@3.1`
+.. `npm i -D -E @antora/cli@3.2`
 . Run Antora:
 .. `npx antora docs/playbook.yml`
 
