@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2023, Stephen Gold
+ Copyright (c) 2020-2026 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -110,7 +110,7 @@ class EditMode extends InputMode {
      */
     @Override
     public void onAction(String actionString, boolean ongoing, float tpf) {
-        logger.log(Level.INFO, "Got action {0} ongoing={1}", new Object[]{
+        logger.log(Level.INFO, "Got action {0} ongoing={1}", new Object[] {
             MyString.quote(actionString), ongoing
         });
 

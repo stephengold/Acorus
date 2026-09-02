@@ -118,7 +118,7 @@ final class TestCursors extends AcorusDemo {
          * DefaultInputMode uses the "default" cursor style.
          * Create input modes for the other 3 built-in cursor styles.
          */
-        for (final String name : new String[]{"dialog", "green", "menu"}) {
+        for (final String name : new String[] {"dialog", "green", "menu"}) {
             InputMode mode = new InputMode(name) {
                 @Override
                 protected void defaultBindings() {

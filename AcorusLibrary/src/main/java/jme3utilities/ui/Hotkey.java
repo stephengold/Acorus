@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2013-2022, Stephen Gold
+ Copyright (c) 2013-2026 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -457,7 +457,7 @@ final public class Hotkey {
                     if (logger.isLoggable(Level.INFO)) {
                         logger.log(Level.INFO,
                                 "localizing hotkey name for key{0}: {1} -> {2}",
-                                new Object[]{keyCode, usQ, localQ});
+                                new Object[] {keyCode, usQ, localQ});
                     }
                 }
             }

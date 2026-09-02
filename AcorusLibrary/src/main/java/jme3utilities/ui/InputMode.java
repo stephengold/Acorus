@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2013-2022, Stephen Gold
+ Copyright (c) 2013-2026 Stephen Gold
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -699,7 +699,7 @@ abstract public class InputMode
     @Override
     public void setEnabled(boolean newState) {
         if (logger.isLoggable(Level.FINE)) {
-            logger.log(Level.FINE, "mode={0} newState={1}", new Object[]{
+            logger.log(Level.FINE, "mode={0} newState={1}", new Object[] {
                 shortName, newState
             });
         }
@@ -818,7 +818,7 @@ abstract public class InputMode
             Hotkey hotkey = Hotkey.findUs(usHotkeyName);
             if (hotkey == null) {
                 logger.log(Level.WARNING, "Skipped unknown hotkey {0} in {1}",
-                        new Object[]{
+                        new Object[] {
                             MyString.quote(usHotkeyName),
                             MyString.quote(assetPath)
                         });
