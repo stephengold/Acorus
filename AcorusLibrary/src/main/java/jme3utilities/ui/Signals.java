@@ -40,9 +40,7 @@ import jme3utilities.Validate;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class Signals
-        extends SignalTracker
-        implements ActionListener {
+public class Signals extends SignalTracker implements ActionListener {
     // *************************************************************************
     // constants and loggers
 
