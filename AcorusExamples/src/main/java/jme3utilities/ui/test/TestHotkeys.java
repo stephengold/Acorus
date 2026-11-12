@@ -102,6 +102,7 @@ final class TestHotkeys extends ActionApplication {
         boolean loadDefaults = true;
         AppSettings settings = new AppSettings(loadDefaults);
         settings.setAudioRenderer(null);
+        settings.setRenderer(AppSettings.LWJGL_OPENGL32); // default=ANGLE_GLES3
         settings.setUseJoysticks(true);
         settings.setTitle(title); // Customize the window's title bar.
         application.setSettings(settings);
