@@ -173,6 +173,9 @@ class TestDsEdit extends AcorusDemo {
                 mode.getWidth(), mode.getHeight(),
                 mode.getBitDepth(), mode.getRefreshRate());
 
+        boolean v2 = DsUtils.hasLwjglVersion2();
+        System.out.printf("LWJGL v2 is %s.%n", v2);
+
         boolean v3 = DsUtils.hasLwjglVersion3();
         System.out.printf("LWJGL v3 is %s.%n", v3);
 
